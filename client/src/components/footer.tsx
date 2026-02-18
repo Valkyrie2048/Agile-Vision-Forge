@@ -1,0 +1,86 @@
+import { Link } from "wouter";
+import { Zap } from "lucide-react";
+import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
+
+export default function Footer() {
+  return (
+    <footer className="border-t bg-card" data-testid="footer">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center">
+                <Zap className="w-4 h-4 text-primary-foreground" />
+              </div>
+              <span className="text-lg font-bold tracking-tight">
+                Agile Vision
+              </span>
+            </div>
+            <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
+              We build intelligent products powered by AI and Agentic AI.
+              From concept to launch, we help startups and SMBs ship faster
+              with cutting-edge technology.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-sm mb-4">Navigate</h4>
+            <div className="flex flex-col gap-2">
+              <Link href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-home">
+                Home
+              </Link>
+              <Link href="/wizard" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-wizard">
+                Project Wizard
+              </Link>
+              <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-contact">
+                Contact
+              </Link>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-sm mb-4">Connect</h4>
+            <div className="flex gap-3">
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                data-testid="link-social-github"
+                aria-label="GitHub"
+              >
+                <SiGithub className="w-5 h-5" />
+              </a>
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                data-testid="link-social-linkedin"
+                aria-label="LinkedIn"
+              >
+                <SiLinkedin className="w-5 h-5" />
+              </a>
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                data-testid="link-social-x"
+                aria-label="X"
+              >
+                <SiX className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="glow-line mt-10 mb-6" />
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-muted-foreground" data-testid="text-copyright">
+            &copy;2026 Agile Vision Technology Inc. All rights reserved.
+          </p>
+          <div className="flex items-center gap-4">
+            <span className="text-xs text-muted-foreground">Privacy Policy</span>
+            <span className="text-xs text-muted-foreground">Terms of Service</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
