@@ -20,16 +20,16 @@ export function ParticleField() {
 
   const createParticles = useCallback((width: number, height: number) => {
     const area = width * height;
-    const count = Math.min(Math.max(Math.floor(area / 25000), 20), 80);
+    const count = Math.min(Math.max(Math.floor(area / 12000), 40), 150);
     const particles: Particle[] = [];
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.4 + 0.1,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        radius: Math.random() * 2.5 + 0.8,
+        opacity: Math.random() * 0.5 + 0.2,
         pulseSpeed: Math.random() * 0.01 + 0.005,
         pulsePhase: Math.random() * Math.PI * 2,
       });
@@ -91,19 +91,19 @@ export function ParticleField() {
         const dx = mouse.x - p.x;
         const dy = mouse.y - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 150 && dist > 0) {
-          const force = (150 - dist) / 150 * 0.02;
+        if (dist < 200 && dist > 0) {
+          const force = (200 - dist) / 200 * 0.04;
           p.vx -= (dx / dist) * force;
           p.vy -= (dy / dist) * force;
         }
 
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (speed > 0.5) {
+        if (speed > 0.8) {
           p.vx *= 0.98;
           p.vy *= 0.98;
         }
 
-        const pulse = Math.sin(time * p.pulseSpeed + p.pulsePhase) * 0.15 + 0.85;
+        const pulse = Math.sin(time * p.pulseSpeed + p.pulsePhase) * 0.3 + 0.7;
         const alpha = p.opacity * pulse;
 
         ctx.beginPath();
@@ -112,19 +112,19 @@ export function ParticleField() {
         ctx.fill();
       }
 
-      const linkDist = 120;
+      const linkDist = 160;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < linkDist) {
-            const alpha = (1 - d / linkDist) * 0.08;
+            const alpha = (1 - d / linkDist) * 0.18;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.strokeStyle = `hsla(250, 85%, 65%, ${alpha})`;
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
