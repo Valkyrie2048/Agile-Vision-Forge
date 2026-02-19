@@ -3,7 +3,7 @@ import { usePageTitle } from "@/hooks/use-page-title";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { motion, useInView, useMotionValue, useTransform, useScroll, useSpring, animate } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform, useScroll, useSpring, animate, AnimatePresence } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import {
   ArrowRight,
@@ -319,7 +319,7 @@ function HeroSection() {
 
 function CapabilitiesSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [activeOverlay, setActiveOverlay] = useState<number | null>(null);
+  const [activeModal, setActiveModal] = useState<number | null>(null);
 
   const capabilities: {
     image: string;
@@ -409,6 +409,17 @@ function CapabilitiesSection() {
     },
   ];
 
+  useEffect(() => {
+    if (activeModal !== null) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [activeModal]);
+
+  const activeCap = activeModal !== null ? capabilities[activeModal] : null;
+
   return (
     <section ref={sectionRef} id="capabilities" className="py-24 bg-card" data-testid="section-capabilities">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -430,90 +441,132 @@ function CapabilitiesSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {capabilities.map((cap, i) => {
-            const isActive = activeOverlay === i;
-            const IconComp = cap.icon;
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+          {capabilities.map((cap, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <Card
+                className="group relative hover-elevate cursor-pointer overflow-visible"
+                data-testid={`card-capability-${i}`}
+                onClick={() => setActiveModal(i)}
               >
-                <Card
-                  className="group relative hover-elevate cursor-pointer overflow-visible"
-                  data-testid={`card-capability-${i}`}
-                  onClick={() => setActiveOverlay(isActive ? null : i)}
-                >
-                  <div className="relative overflow-hidden rounded-t-md aspect-[16/10]">
-                    <motion.img
-                      src={cap.image}
-                      alt={cap.title}
-                      className="w-full h-full object-cover"
-                      animate={{ scale: isActive ? 1.12 : 1 }}
-                      whileHover={{ scale: isActive ? 1.12 : 1.08 }}
-                      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-
-                    <motion.div
-                      className="absolute inset-0 rounded-t-md flex flex-col justify-end p-5 overflow-y-auto"
-                      initial={false}
-                      animate={{
-                        opacity: isActive ? 1 : 0,
-                        pointerEvents: isActive ? "auto" as const : "none" as const,
-                      }}
-                      transition={{ duration: 0.3 }}
-                      style={{ background: "linear-gradient(to top, hsla(250,30%,8%,0.97) 0%, hsla(250,30%,8%,0.92) 50%, hsla(250,30%,12%,0.85) 100%)" }}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <div className="flex items-center gap-2.5 mb-3">
-                        <div className="w-8 h-8 rounded-md flex items-center justify-center" style={{ background: "hsl(250 85% 60%)" }}>
-                          <IconComp className="w-4 h-4 text-white" />
-                        </div>
-                        <h4 className="font-semibold text-white text-base">{cap.title}</h4>
-                      </div>
-                      <p className="text-sm text-white/75 leading-relaxed mb-3.5">{cap.detailedDescription}</p>
-                      <div className="space-y-1.5">
-                        {cap.highlights.map((h, hi) => (
-                          <motion.div
-                            key={hi}
-                            className="flex items-start gap-2"
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                            transition={{ duration: 0.3, delay: isActive ? 0.15 + hi * 0.06 : 0 }}
-                          >
-                            <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: "hsl(250 85% 60%)" }} />
-                            <span className="text-xs text-white/65 leading-snug">{h}</span>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </motion.div>
-
-                    <motion.button
-                      className="absolute top-2.5 right-2.5 w-7 h-7 rounded-md flex items-center justify-center bg-white/10 backdrop-blur-sm z-10"
-                      initial={false}
-                      animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.8 }}
-                      transition={{ duration: 0.2 }}
-                      style={{ pointerEvents: isActive ? "auto" : "none" }}
-                      onClick={(e) => { e.stopPropagation(); setActiveOverlay(null); }}
-                      data-testid={`button-close-overlay-${i}`}
-                    >
-                      <X className="w-3.5 h-3.5 text-white" />
-                    </motion.button>
-                  </div>
-
-                  <div className="relative p-5 pt-0 -mt-6 z-10">
-                    <h3 className="font-semibold text-lg mb-1.5">{cap.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{cap.description}</p>
-                  </div>
-                </Card>
-              </motion.div>
-            );
-          })}
+                <div className="relative overflow-hidden rounded-t-md aspect-[16/10]">
+                  <motion.img
+                    src={cap.image}
+                    alt={cap.title}
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.08 }}
+                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+                </div>
+                <div className="relative p-5 pt-0 -mt-6 z-10">
+                  <h3 className="font-semibold text-lg mb-1.5">{cap.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{cap.description}</p>
+                </div>
+              </Card>
+            </motion.div>
+          ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {activeModal !== null && activeCap && (
+          <motion.div
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            data-testid="modal-capability-overlay"
+          >
+            <motion.div
+              className="absolute inset-0 backdrop-blur-md"
+              style={{ background: "rgba(0,0,0,0.75)" }}
+              onClick={() => setActiveModal(null)}
+              data-testid="modal-backdrop"
+            />
+
+            <motion.div
+              className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-md"
+              style={{ background: "linear-gradient(to bottom, hsl(250 20% 12%), hsl(250 15% 8%))" }}
+              initial={{ opacity: 0, scale: 0.92, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 30 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              data-testid="modal-content"
+            >
+              <div className="relative w-full aspect-[16/9] overflow-hidden rounded-t-md">
+                <img
+                  src={activeCap.image}
+                  alt={activeCap.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(250 20% 12%) 0%, hsla(250,20%,12%,0.4) 40%, hsla(250,85%,60%,0.1) 100%)" }} />
+
+                <button
+                  className="absolute top-4 right-4 w-9 h-9 rounded-md flex items-center justify-center bg-black/40 backdrop-blur-sm border border-white/10 transition-colors"
+                  onClick={() => setActiveModal(null)}
+                  data-testid="button-close-modal"
+                >
+                  <X className="w-4 h-4 text-white" />
+                </button>
+
+                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-md flex items-center justify-center" style={{ background: "hsl(250 85% 60%)" }}>
+                      <activeCap.icon className="w-5 h-5 text-white" />
+                    </div>
+                    <Badge className="no-default-hover-elevate no-default-active-elevate text-xs" style={{ background: "hsla(250,85%,60%,0.2)", color: "hsl(250 85% 75%)", border: "1px solid hsla(250,85%,60%,0.3)" }}>
+                      Capability
+                    </Badge>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">{activeCap.title}</h3>
+                </div>
+              </div>
+
+              <div className="p-6 sm:p-8 space-y-6">
+                <p className="text-white/70 leading-relaxed">{activeCap.detailedDescription}</p>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-white/90 uppercase tracking-wider mb-4">Key Capabilities</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {activeCap.highlights.map((h, hi) => (
+                      <motion.div
+                        key={hi}
+                        className="flex items-start gap-3 rounded-md p-3"
+                        style={{ background: "hsla(250,30%,20%,0.4)", border: "1px solid hsla(250,30%,40%,0.2)" }}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.35, delay: 0.15 + hi * 0.07 }}
+                      >
+                        <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "hsl(250 85% 65%)" }} />
+                        <span className="text-sm text-white/65 leading-snug">{h}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  <Link href="/get-started">
+                    <Button size="lg" data-testid="button-modal-get-started" style={{ background: "hsl(250 85% 60%)" }}>
+                      Start a Project
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
+                  <Button size="lg" variant="outline" className="border-white/15 text-white/80" onClick={() => setActiveModal(null)} data-testid="button-modal-close-bottom">
+                    Close
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
