@@ -450,15 +450,20 @@ function CapabilitiesSection() {
               transition={{ duration: 0.6, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               <Card
-                className="group relative hover-elevate cursor-pointer overflow-visible card-shimmer"
+                className="group relative hover-elevate cursor-pointer overflow-visible"
                 data-testid={`card-capability-${i}`}
                 onClick={() => setActiveModal(i)}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-                  e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-                }}
               >
+                <div className="absolute inset-0 rounded-md overflow-hidden pointer-events-none z-[2]">
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ boxShadow: "inset 0 0 0 1px hsla(250,85%,65%,0.4)" }}
+                  />
+                  <div
+                    className="absolute -inset-full opacity-0 group-hover:opacity-100 group-hover:animate-[shimmer-sweep_2s_linear_infinite]"
+                    style={{ background: "linear-gradient(90deg, transparent 0%, transparent 40%, hsla(250,85%,70%,0.15) 45%, hsla(280,80%,70%,0.2) 50%, hsla(250,85%,70%,0.15) 55%, transparent 60%, transparent 100%)" }}
+                  />
+                </div>
                 <div className="relative overflow-hidden rounded-t-md aspect-[16/10]">
                   <motion.img
                     src={cap.image}
@@ -468,6 +473,7 @@ function CapabilitiesSection() {
                     transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: "radial-gradient(circle at 50% 50%, hsla(250,85%,60%,0.08), transparent 70%)" }} />
                 </div>
                 <div className="relative p-5 pt-0 -mt-6 z-10">
                   <h3 className="font-semibold text-lg mb-1.5">{cap.title}</h3>
