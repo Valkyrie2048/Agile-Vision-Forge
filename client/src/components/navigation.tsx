@@ -2,8 +2,13 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
-import { Sun, Moon, Menu, X, Zap } from "lucide-react";
+import { Sun, Moon, Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "Contact", href: "/contact" },
+];
 
 export default function Navigation() {
   const [location] = useLocation();
@@ -21,16 +26,11 @@ export default function Navigation() {
     setMobileOpen(false);
   }, [location]);
 
-  const navItems = [
-    { label: "Home", href: "/" },
-    { label: "Contact", href: "/contact" },
-  ];
-
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b"
+          ? "bg-background/70 backdrop-blur-2xl border-b shadow-sm"
           : "bg-transparent"
       }`}
       data-testid="navigation"
@@ -38,31 +38,38 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4 h-16">
           <Link href="/" data-testid="link-home">
-            <div className="flex items-center gap-2 cursor-pointer">
-              <div className="w-8 h-8 rounded-md bg-primary flex items-center justify-center">
-                <Zap className="w-4 h-4 text-primary-foreground" />
-              </div>
-              <span className="text-lg font-bold tracking-tight">
-                Agile Vision
-              </span>
-            </div>
+            <span className="cursor-pointer select-none flex items-baseline gap-0.5">
+              <span className="text-lg font-bold tracking-tight">Agile</span>
+              <span className="text-lg font-serif font-bold tracking-tight bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, hsl(250 85% 60%), hsl(280 80% 60%))" }}>Vision</span>
+            </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <Button
-                  variant={location === item.href ? "secondary" : "ghost"}
-                  size="sm"
-                  data-testid={`link-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                  {item.label}
-                </Button>
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center gap-0.5">
+            {navItems.map((item) => {
+              const isActive = location === item.href;
+              return (
+                <Link key={item.href} href={item.href}>
+                  <button
+                    className={`relative px-4 py-2 text-sm font-medium rounded-md transition-colors cursor-pointer ${
+                      isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                    }`}
+                    data-testid={`link-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                  >
+                    {item.label}
+                    {isActive && (
+                      <motion.div
+                        layoutId="nav-indicator"
+                        className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-primary"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                </Link>
+              );
+            })}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <Button
               size="icon"
               variant="ghost"
@@ -79,6 +86,7 @@ export default function Navigation() {
             <Link href="/get-started" className="hidden md:block">
               <Button size="sm" data-testid="button-start-project">
                 Get Started
+                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
               </Button>
             </Link>
 
@@ -122,6 +130,7 @@ export default function Navigation() {
               <Link href="/get-started">
                 <Button className="w-full mt-2" data-testid="button-mobile-start-project">
                   Get Started
+                  <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                 </Button>
               </Link>
             </div>
