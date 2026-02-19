@@ -147,7 +147,7 @@ export function ParticleField() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 1 }}
+      style={{ zIndex: 5 }}
       data-testid="particle-field"
     />
   );

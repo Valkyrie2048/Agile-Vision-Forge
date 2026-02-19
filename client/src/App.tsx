@@ -29,7 +29,7 @@ function App() {
       <TooltipProvider>
         <ThemeProvider>
           <ParticleField />
-          <div className="min-h-screen flex flex-col relative z-[2]">
+          <div className="min-h-screen flex flex-col relative z-[2]" style={{ pointerEvents: "auto" }}>
             <Navigation />
             <main className="flex-1">
               <Router />
