@@ -190,6 +190,9 @@ export default function GetStarted() {
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Interact with live demos of the products we create. Type, click, and explore -- these are working prototypes of what we build.
           </p>
+          <p className="text-primary font-medium mt-3 text-base" data-testid="text-live-prototype">
+            This is a live prototype. Try it here...
+          </p>
         </motion.div>
 
         <motion.div

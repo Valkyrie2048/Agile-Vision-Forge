@@ -174,7 +174,7 @@ function InteractiveChatbot() {
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
           placeholder="Type a message..."
           disabled={isTyping || !replyDone}
-          className="flex-1 bg-muted rounded-full px-4 py-2.5 text-sm outline-none placeholder:text-muted-foreground/60 disabled:opacity-50"
+          className="flex-1 bg-white dark:bg-white text-black dark:text-black rounded-full px-4 py-2.5 text-sm outline-none placeholder:text-black/40 dark:placeholder:text-black/40 disabled:opacity-50"
           data-testid="input-chat"
         />
         <Button
@@ -803,7 +803,7 @@ function InteractiveAgenticAI() {
           onKeyDown={(e) => e.key === "Enter" && startMission()}
           placeholder="Describe a goal for your AI team..."
           disabled={isRunning}
-          className="flex-1 bg-muted rounded-full px-4 py-2.5 text-sm outline-none placeholder:text-muted-foreground/60 disabled:opacity-50"
+          className="flex-1 bg-white dark:bg-white text-black dark:text-black rounded-full px-4 py-2.5 text-sm outline-none placeholder:text-black/40 dark:placeholder:text-black/40 disabled:opacity-50"
           data-testid="input-agent-goal"
         />
         <Button
