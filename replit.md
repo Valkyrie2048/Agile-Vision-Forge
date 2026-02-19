@@ -10,21 +10,28 @@ Modern, VC-backed technology studio website for Agile Vision, specializing in AI
 - **Font**: Inter (sans), Playfair Display (serif), JetBrains Mono (mono)
 
 ## Pages
-- `/` - Home page with cinematic hero, bento grid capabilities with embedded demos, animated metrics, process timeline, tech partner marquee, testimonials, final CTA
-- `/get-started` - Streamlined single-page project inquiry form with live demo preview (replaced old multi-step wizard)
+- `/` - Home page with cinematic hero, bento grid capabilities, filter-based demo previews, process timeline, tech partner marquee, testimonials, final CTA
+- `/get-started` - Product Playground (4 interactive demos) + project inquiry form
 - `/contact` - Contact form with "Let's Talk" headline, trust signals, decorative gradients
 
 ## Key Features
 - Cinematic hero with animated gradient mesh and floating orbs
-- Bento grid layout showcasing capabilities with embedded interactive demos (ChatbotDemo, WebAppDemo, AutomationDemo)
-- Animated counter metrics (97% satisfaction, 50+ products, 3x ROI, $12M+ revenue)
+- Bento grid layout showcasing capabilities with images
+- Product Playground: 4 interactive demos (AI Chatbot, Workflow Builder, Smart Dashboard, Agentic AI) with real input/interaction
+- Filter-based demo previews on home page (9 project types)
 - Infinite-scroll tech partner marquee
 - Testimonials with gradient-bordered cards
-- Single-page project inquiry form (no wizard friction)
+- Project inquiry form with project type selection
 - Contact form with trust signals
 - Dark/light theme toggle
 - Responsive design with mobile navigation
 - Animated transitions via Framer Motion
+
+## Interactive Demos (client/src/components/interactive-demos.tsx)
+- **AI Chatbot**: Type messages, get simulated streaming responses with typing indicator and suggested prompts
+- **Workflow Builder**: Add/remove automation steps, run pipeline with real-time status animation
+- **Smart Dashboard**: Toggle date ranges (7d/30d/90d/1y) and filters (all/organic/paid), animated charts and metrics
+- **Agentic AI**: Type a goal, watch 3 AI agents collaborate with thinking/working/done states and typed summary
 
 ## Database Tables
 - `contact_submissions` - Contact form entries

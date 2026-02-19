@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Smartphone,
   Globe,
@@ -41,65 +41,20 @@ import {
   BrainCircuit,
   ShoppingCart,
   GraduationCap,
-  ArrowRight,
+  ArrowDown,
 } from "lucide-react";
-import { DemoPreview } from "@/components/demo-previews";
+import { ProductPlayground } from "@/components/interactive-demos";
 
 const projectTypes = [
-  {
-    id: "mobile",
-    label: "Mobile App",
-    description: "iOS & Android with AI",
-    icon: Smartphone,
-  },
-  {
-    id: "webapp",
-    label: "Web Application",
-    description: "SaaS, dashboards & portals",
-    icon: Globe,
-  },
-  {
-    id: "chatbot",
-    label: "AI Chatbot",
-    description: "Conversational AI assistants",
-    icon: MessageSquare,
-  },
-  {
-    id: "automation",
-    label: "Automation",
-    description: "Intelligent workflow agents",
-    icon: Cog,
-  },
-  {
-    id: "dataapp",
-    label: "Data & Analytics",
-    description: "ML pipelines & insights",
-    icon: BarChart3,
-  },
-  {
-    id: "agentic",
-    label: "Agentic AI",
-    description: "Autonomous AI systems",
-    icon: BrainCircuit,
-  },
-  {
-    id: "ecommerce",
-    label: "E-Commerce",
-    description: "AI-powered storefronts",
-    icon: ShoppingCart,
-  },
-  {
-    id: "game",
-    label: "Games",
-    description: "Interactive AI-driven games",
-    icon: Gamepad2,
-  },
-  {
-    id: "edtech",
-    label: "EdTech",
-    description: "AI learning platforms",
-    icon: GraduationCap,
-  },
+  { id: "mobile", label: "Mobile App", description: "iOS & Android with AI", icon: Smartphone },
+  { id: "webapp", label: "Web Application", description: "SaaS, dashboards & portals", icon: Globe },
+  { id: "chatbot", label: "AI Chatbot", description: "Conversational AI assistants", icon: MessageSquare },
+  { id: "automation", label: "Automation", description: "Intelligent workflow agents", icon: Cog },
+  { id: "dataapp", label: "Data & Analytics", description: "ML pipelines & insights", icon: BarChart3 },
+  { id: "agentic", label: "Agentic AI", description: "Autonomous AI systems", icon: BrainCircuit },
+  { id: "ecommerce", label: "E-Commerce", description: "AI-powered storefronts", icon: ShoppingCart },
+  { id: "game", label: "Games", description: "Interactive AI-driven games", icon: Gamepad2 },
+  { id: "edtech", label: "EdTech", description: "AI learning platforms", icon: GraduationCap },
 ];
 
 const budgetRanges = [
@@ -131,7 +86,6 @@ type ProjectFormValues = z.infer<typeof projectFormSchema>;
 export default function GetStarted() {
   usePageTitle("Get Started");
   const [submitted, setSubmitted] = useState(false);
-  const [showForm, setShowForm] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<ProjectFormValues>({
@@ -197,7 +151,6 @@ export default function GetStarted() {
                 variant="outline"
                 onClick={() => {
                   setSubmitted(false);
-                  setShowForm(false);
                   form.reset();
                   mutation.reset();
                 }}
@@ -219,287 +172,273 @@ export default function GetStarted() {
 
   return (
     <div className="min-h-screen pt-24 pb-16">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-24" data-testid="section-playground">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
           <Badge variant="secondary" className="mb-4">
             <Sparkles className="w-3 h-3 mr-1" />
-            Get Started
+            Product Playground
           </Badge>
-          <h1
-            className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4"
-          >
-            Tell Us About Your Vision
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            Try Before You Build
           </h1>
           <p className="text-muted-foreground max-w-xl mx-auto text-lg">
-            Select what you'd like to build and we'll craft a tailored proposal.
+            Interact with live demos of the products we create. Type, click, and explore.
           </p>
         </motion.div>
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <h2 className="text-lg font-semibold mb-1 text-center">What are you building?</h2>
-              <p className="text-sm text-muted-foreground mb-5 text-center">
-                Select the type of product that best fits your vision
-              </p>
-              <div className="grid grid-cols-3 gap-3">
-                {projectTypes.map((type) => (
-                  <Card
-                    key={type.id}
-                    className={`p-3 sm:p-4 cursor-pointer transition-all hover-elevate ${
-                      selectedType === type.id
-                        ? "ring-2 ring-primary bg-primary/5"
-                        : ""
-                    }`}
-                    onClick={() => form.setValue("projectType", type.id, { shouldValidate: true })}
-                    data-testid={`card-type-${type.id}`}
-                  >
-                    <div className="flex flex-col items-center text-center gap-1.5 sm:gap-2">
-                      <div
-                        className={`w-9 h-9 sm:w-10 sm:h-10 rounded-md flex items-center justify-center shrink-0 ${
-                          selectedType === type.id
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-primary/10"
-                        }`}
-                      >
-                        <type.icon
-                          className={`w-4 h-4 sm:w-5 sm:h-5 ${
-                            selectedType === type.id ? "" : "text-primary"
-                          }`}
-                        />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-xs sm:text-sm">{type.label}</h3>
-                        <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 hidden sm:block">
-                          {type.description}
-                        </p>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-              {form.formState.errors.projectType && (
-                <p className="text-sm text-destructive mt-2 text-center">
-                  {form.formState.errors.projectType.message}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+        >
+          <ProductPlayground />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="text-center mt-12"
+        >
+          <p className="text-sm text-muted-foreground mb-3">Like what you see?</p>
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={() => document.getElementById("inquiry-form")?.scrollIntoView({ behavior: "smooth" })}
+            data-testid="button-scroll-to-form"
+          >
+            Start Your Project
+            <ArrowDown className="w-4 h-4 ml-2" />
+          </Button>
+        </motion.div>
+      </section>
+
+      <div className="relative">
+        <div className="absolute inset-0 -z-10" style={{ background: "linear-gradient(180deg, transparent 0%, hsl(250 85% 60% / 0.03) 30%, hsl(250 85% 60% / 0.05) 50%, hsl(250 85% 60% / 0.03) 70%, transparent 100%)" }} />
+
+        <section id="inquiry-form" className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16" data-testid="section-inquiry-form">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <Badge variant="secondary" className="mb-4">
+              <Send className="w-3 h-3 mr-1" />
+              Project Inquiry
+            </Badge>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Tell Us About Your Vision
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Select what you'd like to build and share your requirements. We'll craft a tailored proposal within 24 hours.
+            </p>
+          </motion.div>
+
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                <h3 className="text-lg font-semibold mb-1 text-center">What are you building?</h3>
+                <p className="text-sm text-muted-foreground mb-5 text-center">
+                  Select the type of product that best fits your vision
                 </p>
-              )}
-            </motion.div>
-
-            <AnimatePresence mode="wait">
-              {selectedType && (
-                <motion.div
-                  key="preview"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="flex items-center gap-2 mb-3 justify-center">
-                    <Sparkles className="w-4 h-4 text-primary" />
-                    <h3 className="text-sm font-semibold">Live Preview</h3>
-                  </div>
-                  <DemoPreview projectType={selectedType} />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <AnimatePresence mode="wait">
-              {selectedType && !showForm && (
-                <motion.div
-                  key="cta"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-center"
-                >
-                  <Button
-                    type="button"
-                    size="lg"
-                    onClick={() => setShowForm(true)}
-                    data-testid="button-lets-build"
-                  >
-                    Let's build this!
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <AnimatePresence mode="wait">
-              {showForm && (
-                <motion.div
-                  key="form-fields"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.4 }}
-                  className="space-y-8"
-                >
-                  <div>
-                    <h2 className="text-lg font-semibold mb-4 text-center">Your Details</h2>
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="name"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Your Name</FormLabel>
-                              <FormControl>
-                                <Input
-                                  placeholder="Full name"
-                                  {...field}
-                                  data-testid="input-project-name"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="email"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Email</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="email"
-                                  placeholder="your@email.com"
-                                  {...field}
-                                  data-testid="input-project-email"
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                      <FormField
-                        control={form.control}
-                        name="company"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Company (optional)</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Your company name"
-                                {...field}
-                                data-testid="input-project-company"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <h2 className="text-lg font-semibold mb-4 text-center">Project Scope</h2>
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <FormField
-                          control={form.control}
-                          name="budget"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Budget Range</FormLabel>
-                              <Select onValueChange={field.onChange} value={field.value}>
-                                <FormControl>
-                                  <SelectTrigger data-testid="select-budget">
-                                    <SelectValue placeholder="Select budget" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {budgetRanges.map((b) => (
-                                    <SelectItem key={b.value} value={b.value}>
-                                      {b.label}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="timeline"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Timeline</FormLabel>
-                              <Select onValueChange={field.onChange} value={field.value}>
-                                <FormControl>
-                                  <SelectTrigger data-testid="select-timeline">
-                                    <SelectValue placeholder="Select timeline" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {timelines.map((t) => (
-                                    <SelectItem key={t.value} value={t.value}>
-                                      {t.label}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                      <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Project Description</FormLabel>
-                            <FormControl>
-                              <Textarea
-                                placeholder="Describe your project goals, target audience, and any specific requirements..."
-                                className="min-h-[120px] resize-none"
-                                {...field}
-                                data-testid="input-project-description"
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="text-center">
-                    <Button
-                      type="submit"
-                      size="lg"
-                      disabled={mutation.isPending}
-                      data-testid="button-submit-project"
+                <div className="grid grid-cols-3 gap-3">
+                  {projectTypes.map((type) => (
+                    <Card
+                      key={type.id}
+                      className={`p-3 sm:p-4 cursor-pointer transition-all hover-elevate ${
+                        selectedType === type.id
+                          ? "ring-2 ring-primary bg-primary/5"
+                          : ""
+                      }`}
+                      onClick={() => form.setValue("projectType", type.id, { shouldValidate: true })}
+                      data-testid={`card-type-${type.id}`}
                     >
-                      {mutation.isPending ? (
-                        "Submitting..."
-                      ) : (
-                        <>
-                          Submit Your Project
-                          <Send className="w-4 h-4 ml-2" />
-                        </>
+                      <div className="flex flex-col items-center text-center gap-1.5 sm:gap-2">
+                        <div
+                          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-md flex items-center justify-center shrink-0 ${
+                            selectedType === type.id
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-primary/10"
+                          }`}
+                        >
+                          <type.icon
+                            className={`w-4 h-4 sm:w-5 sm:h-5 ${
+                              selectedType === type.id ? "" : "text-primary"
+                            }`}
+                          />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-xs sm:text-sm">{type.label}</h3>
+                          <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 hidden sm:block">
+                            {type.description}
+                          </p>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+                {form.formState.errors.projectType && (
+                  <p className="text-sm text-destructive mt-2 text-center">
+                    {form.formState.errors.projectType.message}
+                  </p>
+                )}
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 }}
+                className="space-y-8"
+              >
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 text-center">Your Details</h3>
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Your Name</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Full name" {...field} data-testid="input-project-name" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                              <Input type="email" placeholder="your@email.com" {...field} data-testid="input-project-email" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <FormField
+                      control={form.control}
+                      name="company"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Company (optional)</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Your company name" {...field} data-testid="input-project-company" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
                       )}
-                    </Button>
+                    />
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </form>
-        </Form>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold mb-4 text-center">Project Scope</h3>
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="budget"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Budget Range</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger data-testid="select-budget">
+                                  <SelectValue placeholder="Select budget" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {budgetRanges.map((b) => (
+                                  <SelectItem key={b.value} value={b.value}>{b.label}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="timeline"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Timeline</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger data-testid="select-timeline">
+                                  <SelectValue placeholder="Select timeline" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {timelines.map((t) => (
+                                  <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <FormField
+                      control={form.control}
+                      name="description"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Project Description</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="Describe your project goals, target audience, and any specific requirements..."
+                              className="min-h-[120px] resize-none"
+                              {...field}
+                              data-testid="input-project-description"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={mutation.isPending}
+                    data-testid="button-submit-project"
+                  >
+                    {mutation.isPending ? (
+                      "Submitting..."
+                    ) : (
+                      <>
+                        Submit Your Project
+                        <Send className="w-4 h-4 ml-2" />
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </motion.div>
+            </form>
+          </Form>
+        </section>
       </div>
     </div>
   );
