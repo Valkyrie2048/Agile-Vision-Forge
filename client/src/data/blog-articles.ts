@@ -7,6 +7,10 @@ export type BlogArticle = {
   readTime: string;
   imagePath: string;
   content: string;
+  author: {
+    name: string;
+    linkedIn: string;
+  };
 };
 
 export const blogCategories = [
@@ -28,6 +32,7 @@ export const blogArticles: BlogArticle[] = [
     date: "February 15, 2026",
     readTime: "7 min read",
     imagePath: "/images/blog/agentic-ai.png",
+    author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `There is a moment in every technology cycle where something shifts from being impressive to being indispensable. For artificial intelligence, I believe we have reached that inflection point. It is called agentic AI.
 
 For the past couple of years, most businesses have experimented with AI in fairly predictable ways: chatbots that answer FAQs, tools that generate marketing copy, maybe a recommendation engine here and there. Useful? Absolutely. Transformative? Not quite.
@@ -78,6 +83,7 @@ The answer, increasingly, is almost everything.`,
     date: "February 10, 2026",
     readTime: "9 min read",
     imagePath: "/images/blog/design-systems.png",
+    author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `I have seen too many design systems start with enthusiasm and end with abandonment. A team gets excited, builds a beautiful component library, writes documentation, and then slowly watches it fall out of sync with the actual product. Six months later, designers are back to creating one-off components and developers are copying CSS from random files.
 
 The problem is almost never the quality of the design. It is the architecture underneath.
@@ -134,6 +140,7 @@ The goal is not a perfect component library. The goal is a shared language betwe
     date: "February 5, 2026",
     readTime: "10 min read",
     imagePath: "/images/blog/ai-integration.png",
+    author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `There is a gap between AI demos and AI in production that does not get talked about enough. I have seen teams build impressive proof-of-concept features in a weekend, then spend three months trying to make them reliable enough to ship. The technology works. The integration is where things break down.
 
 After leading AI integration across a wide range of products, I want to share the patterns that consistently work and the antipatterns that consistently waste time.
@@ -202,6 +209,7 @@ If you cannot answer these questions confidently, you are not ready to ship.`,
     date: "January 28, 2026",
     readTime: "8 min read",
     imagePath: "/images/blog/automation-roi.png",
+    author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `I am going to be honest about something: most automation ROI projections I see are fantasy. They multiply the number of hours saved by the average hourly wage and declare victory. That is not how businesses actually work, and it is not how you should be thinking about automation investments.
 
 Let me share what I have actually observed: the real costs, the real savings, and the metrics that tell you if your automation investment is working.
@@ -256,6 +264,7 @@ Similarly, if a process happens fewer than 50 times per month, the ROI timeline 
     date: "January 20, 2026",
     readTime: "6 min read",
     imagePath: "/images/blog/spatial-computing.png",
+    author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `The consumer conversation around spatial computing tends to focus on gaming and entertainment. Will people watch movies in VR? Will AR glasses replace phones? Those are interesting questions, but they are not where the real transformation is happening.
 
 In the enterprise space, spatial computing is already delivering measurable value, and the adoption curve is steeper than most people realize.
@@ -311,6 +320,7 @@ For businesses evaluating spatial computing: start with a high-value, well-defin
     date: "January 14, 2026",
     readTime: "8 min read",
     imagePath: "/images/blog/ai-design.png",
+    author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `Here is a pattern I have observed across dozens of product launches: the AI works great in demos, but users do not trust it in practice. Engagement starts high, drops steadily, and eventually people revert to manual workflows because they "just want to make sure it is right."
 
 This is not a technology problem. It is a design problem. The way you present AI capabilities to users fundamentally shapes whether they trust the system enough to rely on it.
@@ -371,6 +381,7 @@ These principles are not revolutionary individually. But applied consistently ac
     date: "January 7, 2026",
     readTime: "7 min read",
     imagePath: "/images/blog/future-work.png",
+    author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `Every few months, a new headline declares that AI is about to replace some large percentage of jobs. And every few months, the reality on the ground tells a more nuanced story.
 
 I spend my days building AI products for real businesses with real employees, and here is what I am actually seeing: the companies getting the most value from AI are not eliminating positions. They are fundamentally changing what those positions can accomplish.
@@ -421,6 +432,7 @@ The future of work is not a story about machines replacing humans. It is a story
     date: "December 29, 2025",
     readTime: "6 min read",
     imagePath: "/images/blog/edge-computing.png",
+    author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `We have spent the last decade moving everything to the cloud. Now, some of the most exciting AI applications are moving back out of it, to the edge, where data is generated and decisions need to happen in milliseconds, not seconds.
 
 This is not a rejection of cloud computing. It is an evolution. And it is opening up applications that simply were not possible before.

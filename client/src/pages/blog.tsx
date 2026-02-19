@@ -112,9 +112,12 @@ export default function Blog() {
                     <p className="text-muted-foreground leading-relaxed mb-6 line-clamp-3">
                       {featured.excerpt}
                     </p>
-                    <div className="flex items-center gap-2 text-sm font-semibold text-primary">
-                      Read article
-                      <ArrowRight className="w-4 h-4" />
+                    <div className="flex items-center justify-between flex-wrap gap-3">
+                      <span className="text-xs text-muted-foreground">By {featured.author.name}</span>
+                      <span className="flex items-center gap-2 text-sm font-semibold text-primary">
+                        Read article
+                        <ArrowRight className="w-4 h-4" />
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -165,9 +168,12 @@ export default function Blog() {
                       <p className="text-sm text-muted-foreground leading-relaxed flex-1 line-clamp-3">
                         {article.excerpt}
                       </p>
-                      <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-primary">
-                        Read article
-                        <ArrowRight className="w-3.5 h-3.5" />
+                      <div className="mt-5 flex items-center justify-between flex-wrap gap-2">
+                        <span className="text-xs text-muted-foreground">By {article.author.name}</span>
+                        <span className="flex items-center gap-1.5 text-sm font-semibold text-primary">
+                          Read article
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
                       </div>
                     </div>
                   </Card>

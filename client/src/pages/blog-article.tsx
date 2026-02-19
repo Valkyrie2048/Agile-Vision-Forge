@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useRoute, Link } from "wouter";
 import { motion } from "framer-motion";
 import { blogArticles } from "@/data/blog-articles";
-import { Clock, ArrowLeft, ArrowRight, ChevronUp } from "lucide-react";
+import { Clock, ArrowLeft, ArrowRight, ChevronUp, User } from "lucide-react";
+import { SiLinkedin } from "react-icons/si";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -275,6 +276,24 @@ export default function BlogArticle() {
               >
                 {article.title}
               </h1>
+
+              <div className="flex items-center gap-3 mt-5">
+                <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                  <User className="w-4 h-4 text-white" />
+                </div>
+                <div className="flex flex-col">
+                  <a
+                    href={article.author.linkedIn}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-sm font-medium text-white"
+                    data-testid="link-author-linkedin"
+                  >
+                    {article.author.name}
+                    <SiLinkedin className="w-3.5 h-3.5 text-white/70" />
+                  </a>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
