@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRoute, Link } from "wouter";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { blogArticles } from "@/data/blog-articles";
-import { Clock, ArrowLeft, ArrowRight, ChevronUp, User, Calendar, Linkedin } from "lucide-react";
+import { Clock, ArrowLeft, ArrowRight, ChevronUp, User, Calendar, Share2 } from "lucide-react";
 import { SiLinkedin } from "react-icons/si";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -83,14 +83,13 @@ function renderMarkdown(content: string) {
   const result: JSX.Element[] = [];
   let listItems: { text: string; index: number }[] = [];
   let isFirstParagraph = true;
-
   const flushList = () => {
     if (listItems.length > 0) {
       result.push(
-        <ul key={`ul-${listItems[0].index}`} className="space-y-2.5 my-6 ml-1">
+        <ul key={`ul-${listItems[0].index}`} className="space-y-3 my-7 ml-1">
           {listItems.map((item) => (
             <li key={item.index} className="flex gap-3 text-[1.0625rem] leading-[1.8] text-muted-foreground">
-              <span className="mt-[0.65em] w-1.5 h-1.5 rounded-full bg-primary/60 flex-shrink-0" />
+              <span className="mt-[0.6em] w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "hsl(250 85% 60%)" }} />
               <span>{processInline(item.text, item.index)}</span>
             </li>
           ))}
@@ -114,9 +113,12 @@ function renderMarkdown(content: string) {
       const id = block.text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
       if (block.level === 2) {
         result.push(
-          <h2 key={i} id={id} className="text-[1.625rem] font-bold mt-14 mb-5 scroll-mt-24 text-foreground tracking-tight">
-            {block.text}
-          </h2>
+          <div key={`divider-${i}`} className="flex items-center gap-4 mt-16 mb-6">
+            <h2 id={id} className="text-[1.625rem] font-bold scroll-mt-24 text-foreground tracking-tight">
+              {block.text}
+            </h2>
+            <div className="flex-1 h-px bg-border" />
+          </div>
         );
       } else {
         result.push(
@@ -130,13 +132,18 @@ function renderMarkdown(content: string) {
 
     if (block.type === "blockquote") {
       result.push(
-        <figure key={i} className="relative my-12">
-          <div className="absolute -left-4 top-0 bottom-0 w-1 rounded-full" style={{ background: "linear-gradient(to bottom, hsl(250 85% 60%), hsl(280 80% 60%))" }} />
-          <blockquote className="pl-8 pr-4">
-            <p className="text-xl font-serif leading-relaxed text-foreground italic tracking-tight">
-              &ldquo;{block.text}&rdquo;
-            </p>
-          </blockquote>
+        <figure key={i} className="relative my-14 mx-0">
+          <div className="relative py-8 px-8 sm:px-10 rounded-md" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.06) 0%, hsla(280,80%,60%,0.04) 100%)" }}>
+            <div className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full" style={{ background: "linear-gradient(to bottom, hsl(250 85% 60%), hsl(280 80% 60%))" }} />
+            <svg className="absolute top-4 right-6 w-10 h-10 opacity-[0.07]" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.731-9.57 8.983-10.609l.998 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.986z" />
+            </svg>
+            <blockquote>
+              <p className="text-lg sm:text-xl font-serif leading-relaxed text-foreground/90 italic">
+                &ldquo;{block.text}&rdquo;
+              </p>
+            </blockquote>
+          </div>
         </figure>
       );
       continue;
@@ -147,8 +154,11 @@ function renderMarkdown(content: string) {
       const firstChar = block.text.charAt(0);
       const restOfText = block.text.slice(1);
       result.push(
-        <p key={i} className="text-[1.0625rem] leading-[1.85] text-muted-foreground mb-6">
-          <span className="float-left text-[3.5rem] font-serif font-bold leading-[0.85] mr-3 mt-1.5 text-foreground">
+        <p key={i} className="text-[1.0625rem] leading-[1.9] text-muted-foreground mb-7">
+          <span
+            className="float-left text-[3.75rem] font-serif font-bold leading-[0.8] mr-3 mt-2 text-foreground"
+            style={{ textShadow: "2px 2px 0px hsla(250,85%,60%,0.15)" }}
+          >
             {firstChar}
           </span>
           {processInline(restOfText, i)}
@@ -158,7 +168,7 @@ function renderMarkdown(content: string) {
     }
 
     result.push(
-      <p key={i} className="text-[1.0625rem] leading-[1.85] text-muted-foreground mb-6">
+      <p key={i} className="text-[1.0625rem] leading-[1.9] text-muted-foreground mb-7">
         {processInline(block.text, i)}
       </p>
     );
@@ -189,7 +199,9 @@ export default function BlogArticle() {
   const [progress, setProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [activeTocId, setActiveTocId] = useState("");
-  const articleRef = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
+  const heroImageY = useTransform(scrollY, [0, 600], [0, 150]);
+  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -201,13 +213,13 @@ export default function BlogArticle() {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
       setProgress(pct);
-      setShowBackToTop(scrollTop > 400);
+      setShowBackToTop(scrollTop > 500);
 
       const headingEls = document.querySelectorAll("article h2[id], article h3[id]");
       let current = "";
       headingEls.forEach((el) => {
         const rect = el.getBoundingClientRect();
-        if (rect.top <= 120) {
+        if (rect.top <= 140) {
           current = el.id;
         }
       });
@@ -248,44 +260,54 @@ export default function BlogArticle() {
     .filter((a) => a.slug !== article.slug && a.category === article.category)
     .slice(0, 3);
 
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({ title: article.title, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+    }
+  };
+
   return (
-    <div className="min-h-screen" ref={articleRef}>
-      <div
-        className="fixed top-0 left-0 right-0 h-[3px] z-[60]"
-        data-testid="reading-progress-track"
-      >
+    <div className="min-h-screen">
+      <div className="fixed top-0 left-0 right-0 h-[3px] z-[60]" data-testid="reading-progress-track">
         <motion.div
           className="h-full origin-left"
           style={{
             width: `${progress}%`,
-            background: "linear-gradient(90deg, hsl(250 85% 60%), hsl(280 80% 60%))",
+            background: "linear-gradient(90deg, hsl(250 85% 60%), hsl(280 80% 60%), hsl(250 85% 60%))",
+            backgroundSize: "200% 100%",
           }}
           data-testid="reading-progress-bar"
         />
       </div>
 
-      <div className="relative w-full h-[55vh] sm:h-[60vh] lg:h-[65vh] overflow-hidden">
-        <img
-          src={article.imagePath}
-          alt={article.title}
-          className="w-full h-full object-cover"
-          style={{ filter: "saturate(1.15) contrast(1.05)" }}
-        />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.25) 100%)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.12) 0%, transparent 50%, hsla(280,80%,60%,0.08) 100%)" }} />
+      <div className="relative w-full h-[60vh] sm:h-[65vh] lg:h-[75vh] overflow-hidden">
+        <motion.div className="absolute inset-0" style={{ y: heroImageY }}>
+          <img
+            src={article.imagePath}
+            alt={article.title}
+            className="w-full h-[120%] object-cover"
+            style={{ filter: "saturate(1.2) contrast(1.08) brightness(0.95)" }}
+          />
+        </motion.div>
 
-        <div className="absolute inset-0 flex items-end">
-          <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-10 lg:pb-14">
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.35) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.15) 0%, transparent 40%, hsla(280,80%,60%,0.1) 100%)" }} />
+        <div className="absolute inset-0 mix-blend-overlay opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }} />
+
+        <motion.div className="absolute inset-0 flex items-end" style={{ opacity: heroOpacity }}>
+          <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-12 lg:pb-16">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               <Link href="/blog">
                 <Button
                   variant="outline"
                   size="sm"
-                  className="mb-6 backdrop-blur-md bg-white/10 border-white/20 text-white"
+                  className="mb-7 backdrop-blur-md bg-white/10 border-white/20 text-white"
                   data-testid="link-back-to-blog"
                 >
                   <ArrowLeft className="w-3.5 h-3.5 mr-1.5" />
@@ -293,184 +315,240 @@ export default function BlogArticle() {
                 </Button>
               </Link>
 
-              <div className="flex flex-wrap items-center gap-3 mb-4">
-                <Badge className="no-default-hover-elevate no-default-active-elevate bg-primary text-primary-foreground text-xs" data-testid="badge-article-category">
+              <div className="flex flex-wrap items-center gap-3 mb-5">
+                <Badge className="no-default-hover-elevate no-default-active-elevate text-xs" style={{ background: "hsl(250 85% 60%)", color: "white" }} data-testid="badge-article-category">
                   {article.category}
                 </Badge>
-                <span className="flex items-center gap-1.5 text-sm text-white/70">
+                <span className="flex items-center gap-1.5 text-sm text-white/60">
                   <Calendar className="w-3.5 h-3.5" />
                   {article.date}
                 </span>
-                <span className="flex items-center gap-1.5 text-sm text-white/70">
+                <span className="flex items-center gap-1.5 text-sm text-white/60">
                   <Clock className="w-3.5 h-3.5" />
                   {article.readTime}
                 </span>
               </div>
 
               <h1
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15] text-white max-w-3xl"
+                className="text-3xl sm:text-4xl lg:text-[3.25rem] font-bold tracking-tight leading-[1.1] text-white max-w-3xl"
                 data-testid="text-article-title"
               >
                 {article.title}
               </h1>
 
-              <div className="flex items-center gap-3 mt-6">
-                <div className="w-10 h-10 rounded-full bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20">
-                  <User className="w-4.5 h-4.5 text-white" />
-                </div>
-                <div>
-                  <a
-                    href={article.author.linkedIn}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-sm font-medium text-white"
-                    data-testid="link-author-linkedin"
-                  >
-                    {article.author.name}
-                    <SiLinkedin className="w-3.5 h-3.5 text-white/60" />
-                  </a>
-                  <span className="text-xs text-white/50">Founder, Agile Vision</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
+              <p className="text-base sm:text-lg text-white/50 mt-4 max-w-2xl leading-relaxed line-clamp-2">
+                {article.excerpt}
+              </p>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-24">
-        <div className={`flex gap-16 ${showToc ? "lg:flex-row" : ""} flex-col`}>
-          <article className="flex-1 max-w-[680px] mx-auto lg:mx-0">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              data-testid="article-content"
-            >
-              {renderMarkdown(article.content)}
-            </motion.div>
-
-            <div className="mt-16 pt-10 border-t border-border">
-              <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <User className="w-6 h-6 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Written by</p>
-                  <p className="text-lg font-semibold" data-testid="text-author-name">{article.author.name}</p>
-                  <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
-                    Founder of Agile Vision Technology. Building intelligent products and AI-powered solutions for businesses ready to move faster.
-                  </p>
-                  <a
-                    href={article.author.linkedIn}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-primary font-medium mt-3"
-                    data-testid="link-author-linkedin-bottom"
-                  >
-                    <SiLinkedin className="w-4 h-4" />
-                    Connect on LinkedIn
-                  </a>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          {showToc && (
-            <aside className="hidden lg:block w-56 flex-shrink-0">
-              <div className="sticky top-24 z-[999]">
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-5">
-                  In this article
-                </p>
-                <nav className="space-y-0.5 border-l border-border" data-testid="table-of-contents">
-                  {headings.map((h) => (
+              <div className="flex items-center justify-between mt-8">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-full flex items-center justify-center border border-white/20" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.3), hsla(280,80%,60%,0.2))" }}>
+                    <User className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
                     <a
-                      key={h.id}
-                      href={`#${h.id}`}
-                      className={`block py-2 pl-4 text-sm transition-colors leading-snug -ml-px border-l-2 ${
-                        activeTocId === h.id
-                          ? "border-primary text-foreground font-medium"
-                          : "border-transparent text-muted-foreground"
-                      }`}
-                      data-testid={`toc-link-${h.id}`}
+                      href={article.author.linkedIn}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-sm font-medium text-white"
+                      data-testid="link-author-linkedin"
                     >
-                      {h.text}
+                      {article.author.name}
+                      <SiLinkedin className="w-3 h-3 text-white/50" />
                     </a>
-                  ))}
-                </nav>
+                    <span className="text-xs text-white/40">Founder, Agile Vision</span>
+                  </div>
+                </div>
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="backdrop-blur-md bg-white/5 border-white/15 text-white/70"
+                  onClick={handleShare}
+                  data-testid="button-share-article"
+                >
+                  <Share2 className="w-4 h-4" />
+                </Button>
               </div>
-            </aside>
-          )}
-        </div>
-
-        {relatedArticles.length > 0 && (
-          <div className="mt-20 pt-10 border-t border-border">
-            <h3 className="text-xl font-bold mb-8">More in {article.category}</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {relatedArticles.map((related) => (
-                <Link key={related.slug} href={`/blog/${related.slug}`}>
-                  <Card
-                    className="cursor-pointer hover-elevate overflow-visible h-full"
-                    data-testid={`card-related-${related.slug}`}
-                  >
-                    <div className="relative overflow-hidden rounded-t-md">
-                      <img
-                        src={related.imagePath}
-                        alt={related.title}
-                        className="w-full h-40 object-cover"
-                        style={{ filter: "saturate(1.1)" }}
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
-                    </div>
-                    <div className="p-5">
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-                        <span>{related.readTime}</span>
-                      </div>
-                      <h4 className="text-sm font-semibold leading-snug line-clamp-2">{related.title}</h4>
-                    </div>
-                  </Card>
-                </Link>
-              ))}
-            </div>
+            </motion.div>
           </div>
-        )}
+        </motion.div>
+      </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch gap-4 justify-between mt-14 max-w-[680px]">
-          {prevArticle ? (
-            <Link href={`/blog/${prevArticle.slug}`} className="flex-1">
-              <Card
-                className="w-full text-left p-5 cursor-pointer hover-elevate h-full"
-                data-testid="link-prev-article"
+      <div className="relative">
+        <div className="absolute top-0 left-0 right-0 h-32 pointer-events-none" style={{ background: "linear-gradient(to bottom, hsla(250,85%,60%,0.03), transparent)" }} />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-28">
+          <div className={`flex gap-14 ${showToc ? "lg:flex-row" : ""} flex-col`}>
+            <article className="flex-1 max-w-[700px] mx-auto lg:mx-0">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.25 }}
+                data-testid="article-content"
               >
-                <span className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
-                  <ArrowLeft className="w-3 h-3" /> Previous article
-                </span>
-                <span className="text-sm font-medium line-clamp-2">{prevArticle.title}</span>
-              </Card>
-            </Link>
-          ) : (
-            <div className="flex-1" />
+                {renderMarkdown(article.content)}
+              </motion.div>
+
+              <div className="mt-20">
+                <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent, hsl(250 85% 60% / 0.3), hsl(280 80% 60% / 0.2), transparent)" }} />
+                <div className="pt-10">
+                  <div className="flex items-start gap-5">
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.15), hsla(280,80%,60%,0.1))" }}>
+                      <User className="w-7 h-7" style={{ color: "hsl(250 85% 60%)" }} />
+                    </div>
+                    <div className="flex-1 pt-1">
+                      <p className="text-[11px] uppercase tracking-[0.15em] text-muted-foreground mb-1.5 font-medium">Written by</p>
+                      <p className="text-xl font-bold tracking-tight" data-testid="text-author-name">{article.author.name}</p>
+                      <p className="text-sm text-muted-foreground mt-2 leading-relaxed max-w-md">
+                        Founder of Agile Vision Technology. Building intelligent products and AI-powered solutions for businesses ready to move faster.
+                      </p>
+                      <a
+                        href={article.author.linkedIn}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-medium mt-4"
+                        style={{ color: "hsl(250 85% 60%)" }}
+                        data-testid="link-author-linkedin-bottom"
+                      >
+                        <SiLinkedin className="w-4 h-4" />
+                        Connect on LinkedIn
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            {showToc && (
+              <aside className="hidden lg:block w-56 flex-shrink-0">
+                <div className="sticky top-28 z-[999]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground mb-6">
+                    In this article
+                  </p>
+                  <nav className="space-y-0.5" data-testid="table-of-contents">
+                    {headings.map((h) => (
+                      <a
+                        key={h.id}
+                        href={`#${h.id}`}
+                        className={`block py-2 pl-4 text-[13px] transition-all duration-200 leading-snug border-l-2 ${
+                          activeTocId === h.id
+                            ? "border-[hsl(250_85%_60%)] text-foreground font-medium"
+                            : "border-border text-muted-foreground"
+                        }`}
+                        data-testid={`toc-link-${h.id}`}
+                      >
+                        {h.text}
+                      </a>
+                    ))}
+                  </nav>
+
+                  <div className="mt-8 pt-6 border-t border-border">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full justify-center gap-2"
+                      onClick={handleShare}
+                      data-testid="button-share-sidebar"
+                    >
+                      <Share2 className="w-3.5 h-3.5" />
+                      Share article
+                    </Button>
+                  </div>
+                </div>
+              </aside>
+            )}
+          </div>
+
+          {relatedArticles.length > 0 && (
+            <div className="mt-24">
+              <div className="h-px w-full mb-12" style={{ background: "linear-gradient(90deg, transparent, hsl(250 85% 60% / 0.2), transparent)" }} />
+              <div className="flex items-center gap-4 mb-10">
+                <h3 className="text-xl font-bold whitespace-nowrap">More in {article.category}</h3>
+                <div className="flex-1 h-px bg-border" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {relatedArticles.map((related, idx) => (
+                  <motion.div
+                    key={related.slug}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                  >
+                    <Link href={`/blog/${related.slug}`}>
+                      <Card
+                        className="cursor-pointer hover-elevate overflow-visible h-full group"
+                        data-testid={`card-related-${related.slug}`}
+                      >
+                        <div className="relative overflow-hidden rounded-t-md">
+                          <img
+                            src={related.imagePath}
+                            alt={related.title}
+                            className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-105"
+                            style={{ filter: "saturate(1.15) contrast(1.05)" }}
+                            loading="lazy"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        </div>
+                        <div className="p-5">
+                          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2.5">
+                            <Clock className="w-3 h-3" />
+                            <span>{related.readTime}</span>
+                          </div>
+                          <h4 className="text-sm font-semibold leading-snug line-clamp-2">{related.title}</h4>
+                        </div>
+                      </Card>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           )}
-          {nextArticle ? (
-            <Link href={`/blog/${nextArticle.slug}`} className="flex-1">
-              <Card
-                className="w-full text-right p-5 cursor-pointer hover-elevate h-full"
-                data-testid="link-next-article"
-              >
-                <span className="flex items-center justify-end gap-1.5 text-xs text-muted-foreground mb-2">
-                  Next article <ArrowRight className="w-3 h-3" />
-                </span>
-                <span className="text-sm font-medium line-clamp-2">{nextArticle.title}</span>
-              </Card>
-            </Link>
-          ) : (
-            <div className="flex-1" />
-          )}
+
+          <div className="flex flex-col sm:flex-row items-stretch gap-4 justify-between mt-16 max-w-[700px]">
+            {prevArticle ? (
+              <Link href={`/blog/${prevArticle.slug}`} className="flex-1">
+                <Card
+                  className="w-full text-left p-5 cursor-pointer hover-elevate h-full group"
+                  data-testid="link-prev-article"
+                >
+                  <span className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
+                    <ArrowLeft className="w-3 h-3 transition-transform duration-200 group-hover:-translate-x-0.5" /> Previous
+                  </span>
+                  <span className="text-sm font-medium line-clamp-2">{prevArticle.title}</span>
+                </Card>
+              </Link>
+            ) : (
+              <div className="flex-1" />
+            )}
+            {nextArticle ? (
+              <Link href={`/blog/${nextArticle.slug}`} className="flex-1">
+                <Card
+                  className="w-full text-right p-5 cursor-pointer hover-elevate h-full group"
+                  data-testid="link-next-article"
+                >
+                  <span className="flex items-center justify-end gap-1.5 text-xs text-muted-foreground mb-2">
+                    Next <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </span>
+                  <span className="text-sm font-medium line-clamp-2">{nextArticle.title}</span>
+                </Card>
+              </Link>
+            ) : (
+              <div className="flex-1" />
+            )}
+          </div>
         </div>
       </div>
 
-      <div
-        className={`fixed bottom-8 right-8 z-50 transition-all duration-300 ${showBackToTop ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+      <motion.div
+        className="fixed bottom-8 right-8 z-50"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{
+          opacity: showBackToTop ? 1 : 0,
+          scale: showBackToTop ? 1 : 0.8,
+          pointerEvents: showBackToTop ? "auto" as const : "none" as const,
+        }}
+        transition={{ duration: 0.2 }}
         data-testid="button-back-to-top-wrapper"
       >
         <Button
@@ -482,7 +560,7 @@ export default function BlogArticle() {
         >
           <ChevronUp className="w-4 h-4" />
         </Button>
-      </div>
+      </motion.div>
     </div>
   );
 }

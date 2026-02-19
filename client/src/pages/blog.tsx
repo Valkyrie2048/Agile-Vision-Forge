@@ -31,10 +31,10 @@ export default function Blog() {
           className="mb-14"
         >
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-primary" />
+            <div className="w-10 h-10 rounded-md flex items-center justify-center" style={{ background: "hsla(250,85%,60%,0.1)" }}>
+              <BookOpen className="w-5 h-5" style={{ color: "hsl(250 85% 60%)" }} />
             </div>
-            <span className="text-sm font-medium tracking-wider uppercase text-primary" data-testid="text-blog-label">
+            <span className="text-sm font-medium tracking-wider uppercase" style={{ color: "hsl(250 85% 60%)" }} data-testid="text-blog-label">
               Blog
             </span>
           </div>
@@ -74,7 +74,7 @@ export default function Blog() {
           >
             <Link href={`/blog/${featured.slug}`}>
               <Card
-                className="cursor-pointer overflow-visible hover-elevate"
+                className="cursor-pointer overflow-visible hover-elevate group"
                 data-testid={`card-featured-${featured.slug}`}
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
@@ -82,13 +82,14 @@ export default function Blog() {
                     <img
                       src={featured.imagePath}
                       alt={featured.title}
-                      className="w-full h-64 lg:h-80 object-cover"
-                      style={{ filter: "saturate(1.15) contrast(1.05)" }}
+                      className="w-full h-64 lg:h-80 object-cover transition-transform duration-700 group-hover:scale-105"
+                      style={{ filter: "saturate(1.2) contrast(1.08)" }}
                       loading="eager"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.08) 0%, transparent 60%)" }} />
                     <div className="absolute top-4 left-4">
-                      <Badge className="no-default-hover-elevate no-default-active-elevate backdrop-blur-md bg-primary text-primary-foreground text-xs">
+                      <Badge className="no-default-hover-elevate no-default-active-elevate backdrop-blur-md text-xs" style={{ background: "hsl(250 85% 60%)", color: "white" }}>
                         Featured
                       </Badge>
                     </div>
@@ -105,7 +106,7 @@ export default function Blog() {
                       </span>
                     </div>
                     <h2
-                      className="text-2xl lg:text-3xl font-bold leading-tight mb-4"
+                      className="text-2xl lg:text-3xl font-bold leading-tight mb-4 tracking-tight"
                       data-testid="text-featured-title"
                     >
                       {featured.title}
@@ -115,9 +116,9 @@ export default function Blog() {
                     </p>
                     <div className="flex items-center justify-between flex-wrap gap-3">
                       <span className="text-xs text-muted-foreground">By {featured.author.name}</span>
-                      <span className="flex items-center gap-2 text-sm font-semibold text-primary">
+                      <span className="flex items-center gap-2 text-sm font-semibold" style={{ color: "hsl(250 85% 60%)" }}>
                         Read article
-                        <ArrowRight className="w-4 h-4" />
+                        <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                       </span>
                     </div>
                   </div>
@@ -138,18 +139,19 @@ export default function Blog() {
               >
                 <Link href={`/blog/${article.slug}`}>
                   <Card
-                    className="cursor-pointer overflow-visible h-full flex flex-col hover-elevate"
+                    className="cursor-pointer overflow-visible h-full flex flex-col hover-elevate group"
                     data-testid={`card-article-${article.slug}`}
                   >
                     <div className="relative overflow-hidden rounded-t-md">
                       <img
                         src={article.imagePath}
                         alt={article.title}
-                        className="w-full h-52 object-cover"
-                        style={{ filter: "saturate(1.1)" }}
+                        className="w-full h-52 object-cover transition-transform duration-700 group-hover:scale-105"
+                        style={{ filter: "saturate(1.15) contrast(1.05)" }}
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                      <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.06) 0%, transparent 50%)" }} />
                       <div className="absolute top-3 left-3">
                         <Badge variant="secondary" className="text-xs no-default-hover-elevate no-default-active-elevate backdrop-blur-md bg-background/80">
                           {article.category}
@@ -164,7 +166,7 @@ export default function Blog() {
                           {article.readTime}
                         </span>
                       </div>
-                      <h2 className="text-lg font-semibold leading-snug mb-3">
+                      <h2 className="text-lg font-semibold leading-snug mb-3 tracking-tight">
                         {article.title}
                       </h2>
                       <p className="text-sm text-muted-foreground leading-relaxed flex-1 line-clamp-3">
@@ -172,9 +174,9 @@ export default function Blog() {
                       </p>
                       <div className="mt-5 flex items-center justify-between flex-wrap gap-2">
                         <span className="text-xs text-muted-foreground">By {article.author.name}</span>
-                        <span className="flex items-center gap-1.5 text-sm font-semibold text-primary">
-                          Read article
-                          <ArrowRight className="w-3.5 h-3.5" />
+                        <span className="flex items-center gap-1.5 text-sm font-semibold" style={{ color: "hsl(250 85% 60%)" }}>
+                          Read
+                          <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
                         </span>
                       </div>
                     </div>
