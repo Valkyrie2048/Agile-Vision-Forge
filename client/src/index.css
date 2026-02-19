@@ -240,4 +240,64 @@
     background: linear-gradient(90deg, transparent, hsl(250 85% 60% / 0.5), transparent);
     height: 1px;
   }
+
+  @keyframes shimmer-border {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .card-shimmer {
+    position: relative;
+  }
+
+  .card-shimmer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 35%,
+      hsl(250 85% 65% / 0.6) 45%,
+      hsl(280 80% 65% / 0.5) 50%,
+      hsl(250 85% 65% / 0.6) 55%,
+      transparent 65%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .card-shimmer:hover::before {
+    opacity: 1;
+    animation: shimmer-border 2s linear infinite;
+  }
+
+  .card-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      hsl(250 85% 60% / 0.06),
+      transparent 40%
+    );
+  }
+
+  .card-shimmer:hover::after {
+    opacity: 1;
+  }
 }

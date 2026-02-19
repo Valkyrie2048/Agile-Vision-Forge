@@ -450,9 +450,14 @@ function CapabilitiesSection() {
               transition={{ duration: 0.6, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               <Card
-                className="group relative hover-elevate cursor-pointer overflow-visible"
+                className="group relative hover-elevate cursor-pointer overflow-visible card-shimmer"
                 data-testid={`card-capability-${i}`}
                 onClick={() => setActiveModal(i)}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                  e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+                }}
               >
                 <div className="relative overflow-hidden rounded-t-md aspect-[16/10]">
                   <motion.img
