@@ -4,7 +4,7 @@ import {
   Search, Bell, Heart, Share2, Home, User, ShoppingCart, Settings,
   Play, TrendingUp, ArrowUpRight,
   ArrowDownRight, Filter, Download, RefreshCw, Brain, Send,
-  Plus, Star, Mail,
+  Plus, Star, Mail, Zap, BookOpen, GraduationCap, Package, Tag,
 } from "lucide-react";
 
 function PhoneFrame({ children }: { children: React.ReactNode }) {
@@ -523,6 +523,218 @@ export function ChatbotDemo() {
   );
 }
 
+function AgenticAIDemo() {
+  const agents = [
+    { name: "Research Agent", task: "Analyzing market data...", status: "active" as const },
+    { name: "Writer Agent", task: "Drafting report summary", status: "waiting" as const },
+    { name: "Review Agent", task: "Pending review", status: "idle" as const },
+  ];
+
+  return (
+    <BrowserFrame>
+      <div className="p-4 space-y-3">
+        <div className="flex items-center gap-2 mb-1">
+          <Brain className="w-4 h-4 text-primary" />
+          <span className="text-sm font-semibold">Agent Orchestrator</span>
+        </div>
+
+        <div className="rounded-md bg-card border p-3">
+          <div className="text-xs font-medium mb-2 text-muted-foreground">Active Pipeline</div>
+          <div className="space-y-2">
+            {agents.map((agent, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 + i * 0.3 }}
+                className="flex items-center gap-2"
+              >
+                <div className={`w-2 h-2 rounded-full ${
+                  agent.status === "active" ? "bg-chart-3" :
+                  agent.status === "waiting" ? "bg-chart-5" : "bg-muted-foreground/30"
+                }`} />
+                {agent.status === "active" && (
+                  <motion.div
+                    className="w-2 h-2 rounded-full bg-chart-3 absolute"
+                    animate={{ scale: [1, 1.8, 1], opacity: [1, 0, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                )}
+                <div className="flex-1 rounded-md bg-muted/50 px-2.5 py-1.5">
+                  <div className="text-xs font-medium">{agent.name}</div>
+                  <div className="text-[10px] text-muted-foreground">{agent.task}</div>
+                </div>
+                <Zap className={`w-3 h-3 ${agent.status === "active" ? "text-chart-3" : "text-muted-foreground/30"}`} />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="rounded-md bg-card border p-3"
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <TrendingUp className="w-4 h-4 text-primary" />
+            <span className="text-xs font-medium">Agent Metrics</span>
+          </div>
+          <div className="grid grid-cols-3 gap-2 text-center">
+            <div>
+              <div className="text-lg font-bold">3</div>
+              <span className="text-xs text-muted-foreground">Agents</span>
+            </div>
+            <div>
+              <div className="text-lg font-bold">12</div>
+              <span className="text-xs text-muted-foreground">Tasks done</span>
+            </div>
+            <div>
+              <div className="text-lg font-bold">2.4s</div>
+              <span className="text-xs text-muted-foreground">Avg latency</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </BrowserFrame>
+  );
+}
+
+function ECommerceDemo() {
+  const products = [
+    { name: "Wireless Pro Headphones", price: "$299", rating: 4.8, tag: "Best Seller" },
+    { name: "Smart Fitness Watch", price: "$199", rating: 4.6, tag: "New" },
+  ];
+
+  return (
+    <BrowserFrame>
+      <div className="p-4 space-y-3">
+        <div className="flex items-center justify-between gap-2 mb-1">
+          <span className="text-sm font-semibold">AI Store</span>
+          <div className="flex items-center gap-2">
+            <Search className="w-3.5 h-3.5 text-muted-foreground" />
+            <div className="relative">
+              <ShoppingCart className="w-3.5 h-3.5 text-muted-foreground" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-primary text-[8px] text-primary-foreground flex items-center justify-center">2</div>
+            </div>
+          </div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="rounded-md bg-primary/10 border border-primary/20 p-2.5 flex items-center gap-2"
+        >
+          <Zap className="w-3.5 h-3.5 text-primary shrink-0" />
+          <span className="text-xs text-primary">AI recommends: Items matching your browsing history</span>
+        </motion.div>
+
+        <div className="space-y-2.5">
+          {products.map((product, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 + i * 0.3 }}
+              className="rounded-md bg-card border p-3"
+            >
+              <div className="flex items-start gap-3">
+                <div className="w-14 h-14 rounded-md bg-muted flex items-center justify-center shrink-0">
+                  <Package className="w-6 h-6 text-muted-foreground" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
+                    <span className="text-xs font-semibold">{product.name}</span>
+                    <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary">{product.tag}</span>
+                  </div>
+                  <div className="flex items-center gap-1 mb-1">
+                    <Star className="w-3 h-3 text-chart-5 fill-chart-5" />
+                    <span className="text-[10px] text-muted-foreground">{product.rating}</span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-sm font-bold">{product.price}</span>
+                    <div className="text-[10px] px-2 py-1 rounded-md bg-primary text-primary-foreground">Add to Cart</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </BrowserFrame>
+  );
+}
+
+function EdTechDemo() {
+  const modules = [
+    { title: "Intro to Machine Learning", progress: 85, lessons: 12 },
+    { title: "Neural Networks Deep Dive", progress: 42, lessons: 8 },
+    { title: "NLP Fundamentals", progress: 0, lessons: 10 },
+  ];
+
+  return (
+    <BrowserFrame>
+      <div className="p-4 space-y-3">
+        <div className="flex items-center gap-2 mb-1">
+          <GraduationCap className="w-4 h-4 text-primary" />
+          <span className="text-sm font-semibold">AI Learning Platform</span>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="rounded-md bg-card border p-3"
+        >
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <span className="text-xs font-medium">Your Progress</span>
+            <span className="text-xs text-primary font-semibold">Level 7</span>
+          </div>
+          <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "68%" }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="h-full bg-primary rounded-full"
+            />
+          </div>
+          <div className="text-[10px] text-muted-foreground mt-1">680 / 1000 XP to Level 8</div>
+        </motion.div>
+
+        <div className="space-y-2">
+          {modules.map((mod, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 + i * 0.25 }}
+              className="rounded-md bg-card border p-2.5"
+            >
+              <div className="flex items-center gap-2 mb-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-primary shrink-0" />
+                <span className="text-xs font-medium flex-1">{mod.title}</span>
+                <span className="text-[10px] text-muted-foreground">{mod.lessons} lessons</span>
+              </div>
+              <div className="w-full h-1.5 bg-muted rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${mod.progress}%` }}
+                  transition={{ duration: 0.8, delay: 0.6 + i * 0.2 }}
+                  className={`h-full rounded-full ${mod.progress > 0 ? "bg-chart-3" : ""}`}
+                />
+              </div>
+              <div className="text-[10px] text-muted-foreground mt-1">
+                {mod.progress > 0 ? `${mod.progress}% complete` : "Not started"}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </BrowserFrame>
+  );
+}
+
 const DEMO_MAP: Record<string, () => JSX.Element> = {
   mobile: MobileAppDemo,
   webapp: WebAppDemo,
@@ -530,6 +742,9 @@ const DEMO_MAP: Record<string, () => JSX.Element> = {
   game: GameDemo,
   automation: AutomationDemo,
   chatbot: ChatbotDemo,
+  agentic: AgenticAIDemo,
+  ecommerce: ECommerceDemo,
+  edtech: EdTechDemo,
 };
 
 export function DemoPreview({ projectType }: { projectType: string }) {
