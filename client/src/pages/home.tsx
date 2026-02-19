@@ -249,7 +249,7 @@ function HeroSection() {
           <TextReveal delay={0.2}>We Build the</TextReveal>
           <br />
           <span className="gradient-text">
-            <TextReveal delay={0.35}>Future With AI</TextReveal>
+            <TextReveal delay={0.35}>Future with AI</TextReveal>
           </span>
         </h1>
 
