@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
   { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -46,7 +47,7 @@ export default function Navigation() {
 
           <div className="hidden md:flex items-center gap-0.5">
             {navItems.map((item) => {
-              const isActive = location === item.href;
+              const isActive = item.href === "/" ? location === "/" : location.startsWith(item.href);
               return (
                 <Link key={item.href} href={item.href}>
                   <button
@@ -116,17 +117,20 @@ export default function Navigation() {
             className="md:hidden bg-background/95 backdrop-blur-xl border-b overflow-hidden"
           >
             <div className="px-4 py-4 flex flex-col gap-1">
-              {navItems.map((item) => (
+              {navItems.map((item) => {
+                const isMobileActive = item.href === "/" ? location === "/" : location.startsWith(item.href);
+                return (
                 <Link key={item.href} href={item.href}>
                   <Button
-                    variant={location === item.href ? "secondary" : "ghost"}
+                    variant={isMobileActive ? "secondary" : "ghost"}
                     className="w-full justify-start"
                     data-testid={`link-mobile-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                   >
                     {item.label}
                   </Button>
                 </Link>
-              ))}
+              );
+              })}
               <Link href="/get-started">
                 <Button className="w-full mt-2" data-testid="button-mobile-start-project">
                   Get Started

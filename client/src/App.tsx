@@ -11,6 +11,8 @@ import Footer from "@/components/footer";
 import Home from "@/pages/home";
 import GetStarted from "@/pages/get-started";
 import Contact from "@/pages/contact";
+import Blog from "@/pages/blog";
+import BlogArticle from "@/pages/blog-article";
 import NotFound from "@/pages/not-found";
 
 function ScrollToTop() {
@@ -27,6 +29,8 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/get-started" component={GetStarted} />
       <Route path="/contact" component={Contact} />
+      <Route path="/blog" component={Blog} />
+      <Route path="/blog/:slug" component={BlogArticle} />
       <Route component={NotFound} />
     </Switch>
   );

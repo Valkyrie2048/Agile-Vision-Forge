@@ -13,6 +13,14 @@ Modern, VC-backed technology studio website for Agile Vision, specializing in AI
 - `/` - Home page with cinematic hero, bento grid capabilities, filter-based demo previews, process timeline, tech partner marquee, testimonials, final CTA
 - `/get-started` - Product Playground (4 interactive demos) + project inquiry form
 - `/contact` - Contact form with "Let's Talk" headline, trust signals, decorative gradients
+- `/blog` - Blog listing page with category filtering (7 categories) and article cards
+- `/blog/:slug` - Individual article page with markdown rendering, prev/next navigation
+
+## Blog (client/src/data/blog-articles.ts)
+- 8 expert articles covering AI, Design, Development, Automation, Emerging Tech, Future Trends
+- Categories: All, AI & Machine Learning, Design, Development, Automation, Emerging Tech, Future Trends
+- Stock images in client/public/images/blog/
+- Written in first person, personal but professional tone as the founder
 
 ## Key Features
 - Cinematic hero with animated gradient mesh and floating orbs
