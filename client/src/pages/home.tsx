@@ -23,6 +23,9 @@ import {
   ShoppingCart,
   Gamepad2,
   GraduationCap,
+  X,
+  CheckCircle2,
+  type LucideIcon,
 } from "lucide-react";
 import { DemoPreview } from "@/components/demo-previews";
 import capAgenticAi from "../assets/images/cap-agentic-ai.png";
@@ -316,36 +319,93 @@ function HeroSection() {
 
 function CapabilitiesSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const capabilities = [
+  const [activeOverlay, setActiveOverlay] = useState<number | null>(null);
+
+  const capabilities: {
+    image: string;
+    title: string;
+    description: string;
+    detailedDescription: string;
+    highlights: string[];
+    icon: LucideIcon;
+  }[] = [
     {
       image: capAgenticAi,
       title: "Agentic AI Systems",
       description: "Autonomous AI agents that reason, plan, and execute complex workflows with human-like decision making.",
+      detailedDescription: "We design multi-agent architectures where specialized AI agents collaborate to tackle complex business problems. Our agentic systems handle everything from research and analysis to decision-making and execution, operating autonomously while keeping humans in the loop for critical checkpoints.",
+      highlights: [
+        "Multi-agent orchestration and collaboration",
+        "Tool use, web browsing, and API integration",
+        "Memory systems for long-running tasks",
+        "Human-in-the-loop safety controls",
+      ],
+      icon: BrainCircuit,
     },
     {
       image: capWebapps,
       title: "Web Applications",
       description: "Modern, scalable web platforms with intelligent features, real-time dashboards, and SaaS products.",
+      detailedDescription: "From MVP to enterprise-scale, we build performant web applications using modern frameworks and cloud-native architecture. Every platform we ship includes AI-powered features that give your users superpowers, whether that is intelligent search, personalized recommendations, or automated workflows.",
+      highlights: [
+        "React, Next.js, and modern TypeScript stacks",
+        "Real-time collaboration and live dashboards",
+        "AI-powered search, filtering, and recommendations",
+        "Scalable cloud infrastructure and CI/CD pipelines",
+      ],
+      icon: Globe,
     },
     {
       image: capAnalytics,
       title: "Data & Analytics",
       description: "Transform raw data into actionable insights with AI-powered analytics and predictive modeling.",
+      detailedDescription: "We build intelligent data platforms that go beyond traditional BI. Our analytics solutions use machine learning to surface patterns, predict trends, and generate recommendations automatically. From data pipelines to executive dashboards, we make your data work harder.",
+      highlights: [
+        "Predictive modeling and forecasting",
+        "Automated anomaly detection and alerting",
+        "Interactive dashboards with natural language queries",
+        "ETL pipelines and data warehouse architecture",
+      ],
+      icon: BarChart3,
     },
     {
       image: capChatbots,
       title: "AI Chatbots",
       description: "Conversational AI that understands context and delivers human-like responses at scale.",
+      detailedDescription: "Our chatbots go far beyond scripted flows. Built on large language models and fine-tuned for your domain, they understand nuance, maintain context across conversations, and integrate deeply with your business systems to resolve issues, answer questions, and drive conversions.",
+      highlights: [
+        "LLM-powered with domain-specific fine-tuning",
+        "Multi-channel deployment (web, SMS, WhatsApp, Slack)",
+        "CRM and helpdesk integrations",
+        "Conversation analytics and continuous improvement",
+      ],
+      icon: MessageSquare,
     },
     {
       image: capMobile,
       title: "Mobile Apps",
       description: "Native and cross-platform mobile apps with embedded AI capabilities. Concept to App Store in weeks.",
+      detailedDescription: "We ship beautiful, high-performance mobile apps with AI baked in from day one. Whether it is on-device ML for instant results or cloud-connected intelligence for complex tasks, our apps feel fast, intuitive, and genuinely smart. We handle everything from UX design to App Store submission.",
+      highlights: [
+        "React Native and Swift/Kotlin development",
+        "On-device ML for offline AI capabilities",
+        "Push notifications and real-time sync",
+        "App Store optimization and launch strategy",
+      ],
+      icon: Smartphone,
     },
     {
       image: capAutomation,
       title: "Process Automation",
       description: "Intelligent automation that connects systems, optimizes workflows, and reduces operational costs.",
+      detailedDescription: "We identify repetitive, time-consuming processes in your business and replace them with intelligent automation. Our solutions combine RPA, AI decision-making, and system integrations to create end-to-end automated workflows that save time, reduce errors, and free your team for higher-value work.",
+      highlights: [
+        "End-to-end workflow automation design",
+        "AI-powered document processing and extraction",
+        "System integration via APIs and webhooks",
+        "Monitoring dashboards and error recovery",
+      ],
+      icon: Cog,
     },
   ];
 
@@ -370,35 +430,88 @@ function CapabilitiesSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {capabilities.map((cap, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
-              <Card
-                className="group relative hover-elevate cursor-default overflow-visible"
-                data-testid={`card-capability-${i}`}
+          {capabilities.map((cap, i) => {
+            const isActive = activeOverlay === i;
+            const IconComp = cap.icon;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
-                <div className="relative overflow-hidden rounded-t-md aspect-[16/10]">
-                  <motion.img
-                    src={cap.image}
-                    alt={cap.title}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.08 }}
-                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                </div>
-                <div className="relative p-5 pt-0 -mt-6 z-10">
-                  <h3 className="font-semibold text-lg mb-1.5">{cap.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{cap.description}</p>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+                <Card
+                  className="group relative hover-elevate cursor-pointer overflow-visible"
+                  data-testid={`card-capability-${i}`}
+                  onClick={() => setActiveOverlay(isActive ? null : i)}
+                >
+                  <div className="relative overflow-hidden rounded-t-md aspect-[16/10]">
+                    <motion.img
+                      src={cap.image}
+                      alt={cap.title}
+                      className="w-full h-full object-cover"
+                      animate={{ scale: isActive ? 1.12 : 1 }}
+                      whileHover={{ scale: isActive ? 1.12 : 1.08 }}
+                      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+
+                    <motion.div
+                      className="absolute inset-0 rounded-t-md flex flex-col justify-end p-5 overflow-y-auto"
+                      initial={false}
+                      animate={{
+                        opacity: isActive ? 1 : 0,
+                        pointerEvents: isActive ? "auto" as const : "none" as const,
+                      }}
+                      transition={{ duration: 0.3 }}
+                      style={{ background: "linear-gradient(to top, hsla(250,30%,8%,0.97) 0%, hsla(250,30%,8%,0.92) 50%, hsla(250,30%,12%,0.85) 100%)" }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="flex items-center gap-2.5 mb-3">
+                        <div className="w-8 h-8 rounded-md flex items-center justify-center" style={{ background: "hsl(250 85% 60%)" }}>
+                          <IconComp className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-white text-base">{cap.title}</h4>
+                      </div>
+                      <p className="text-sm text-white/75 leading-relaxed mb-3.5">{cap.detailedDescription}</p>
+                      <div className="space-y-1.5">
+                        {cap.highlights.map((h, hi) => (
+                          <motion.div
+                            key={hi}
+                            className="flex items-start gap-2"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                            transition={{ duration: 0.3, delay: isActive ? 0.15 + hi * 0.06 : 0 }}
+                          >
+                            <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: "hsl(250 85% 60%)" }} />
+                            <span className="text-xs text-white/65 leading-snug">{h}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+
+                    <motion.button
+                      className="absolute top-2.5 right-2.5 w-7 h-7 rounded-md flex items-center justify-center bg-white/10 backdrop-blur-sm z-10"
+                      initial={false}
+                      animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.8 }}
+                      transition={{ duration: 0.2 }}
+                      style={{ pointerEvents: isActive ? "auto" : "none" }}
+                      onClick={(e) => { e.stopPropagation(); setActiveOverlay(null); }}
+                      data-testid={`button-close-overlay-${i}`}
+                    >
+                      <X className="w-3.5 h-3.5 text-white" />
+                    </motion.button>
+                  </div>
+
+                  <div className="relative p-5 pt-0 -mt-6 z-10">
+                    <h3 className="font-semibold text-lg mb-1.5">{cap.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{cap.description}</p>
+                  </div>
+                </Card>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
