@@ -187,37 +187,6 @@ function HeroSection() {
   );
 }
 
-function CapabilityCard({ image, title, description, index, tall }: {
-  image: string; title: string; description: string; index: number; tall?: boolean;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
-    >
-      <Card
-        className="group relative h-full hover-elevate cursor-default overflow-visible"
-        data-testid={`card-capability-${index}`}
-      >
-        <div className={`relative overflow-hidden rounded-t-md ${tall ? "h-72 sm:h-80" : "h-48 sm:h-56"}`}>
-          <img
-            src={image}
-            alt={title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
-        </div>
-        <div className="relative p-5 pt-0 -mt-8 z-10">
-          <h3 className="font-semibold text-lg mb-1.5">{title}</h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
-        </div>
-      </Card>
-    </motion.div>
-  );
-}
-
 function CapabilitiesSection() {
   const capabilities = [
     {
@@ -226,26 +195,24 @@ function CapabilitiesSection() {
       description: "Autonomous AI agents that reason, plan, and execute complex workflows with human-like decision making.",
     },
     {
-      image: capChatbots,
-      title: "AI Chatbots",
-      description: "Conversational AI that understands context and delivers human-like responses at scale.",
-      tall: true,
-    },
-    {
       image: capWebapps,
       title: "Web Applications",
       description: "Modern, scalable web platforms with intelligent features, real-time dashboards, and SaaS products.",
     },
     {
-      image: capMobile,
-      title: "Mobile Apps",
-      description: "Native and cross-platform mobile apps with embedded AI capabilities. Concept to App Store in weeks.",
-      tall: true,
-    },
-    {
       image: capAnalytics,
       title: "Data & Analytics",
       description: "Transform raw data into actionable insights with AI-powered analytics and predictive modeling.",
+    },
+    {
+      image: capChatbots,
+      title: "AI Chatbots",
+      description: "Conversational AI that understands context and delivers human-like responses at scale.",
+    },
+    {
+      image: capMobile,
+      title: "Mobile Apps",
+      description: "Native and cross-platform mobile apps with embedded AI capabilities. Concept to App Store in weeks.",
     },
     {
       image: capAutomation,
@@ -271,18 +238,33 @@ function CapabilitiesSection() {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          <div className="flex flex-col gap-5">
-            <CapabilityCard {...capabilities[0]} index={0} />
-            <CapabilityCard {...capabilities[1]} index={1} />
-          </div>
-          <div className="flex flex-col gap-5">
-            <CapabilityCard {...capabilities[2]} index={2} />
-            <CapabilityCard {...capabilities[3]} index={3} />
-          </div>
-          <div className="sm:col-span-2 lg:col-span-1 flex flex-col gap-5">
-            <CapabilityCard {...capabilities[4]} index={4} />
-            <CapabilityCard {...capabilities[5]} index={5} />
-          </div>
+          {capabilities.map((cap, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+            >
+              <Card
+                className="group relative hover-elevate cursor-default overflow-visible"
+                data-testid={`card-capability-${i}`}
+              >
+                <div className="relative overflow-hidden rounded-t-md aspect-[16/10]">
+                  <img
+                    src={cap.image}
+                    alt={cap.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+                </div>
+                <div className="relative p-5 pt-0 -mt-6 z-10">
+                  <h3 className="font-semibold text-lg mb-1.5">{cap.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{cap.description}</p>
+                </div>
+              </Card>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
