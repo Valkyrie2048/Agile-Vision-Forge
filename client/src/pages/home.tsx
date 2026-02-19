@@ -3,7 +3,7 @@ import { usePageTitle } from "@/hooks/use-page-title";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform, useScroll, useSpring, animate } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import {
   ArrowRight,
@@ -32,12 +32,77 @@ import capMobile from "../assets/images/cap-mobile.png";
 import capAnalytics from "../assets/images/cap-analytics.png";
 import capAutomation from "../assets/images/cap-automation.png";
 
-const fadeUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.6 },
-};
+function TextReveal({ children, className, delay = 0 }: { children: string; className?: string; delay?: number }) {
+  const words = children.split(" ");
+  return (
+    <span className={className}>
+      {words.map((word, i) => (
+        <span key={i} className="inline-block overflow-hidden">
+          <motion.span
+            className="inline-block"
+            initial={{ y: "100%" }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.5,
+              delay: delay + i * 0.04,
+              ease: [0.33, 1, 0.68, 1],
+            }}
+          >
+            {word}
+          </motion.span>
+          {i < words.length - 1 && "\u00A0"}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+function BlurReveal({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, filter: "blur(12px)", y: 20 }}
+      whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function MagneticButton({ children, className }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const handleMouse = (e: React.MouseEvent) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    x.set((e.clientX - centerX) * 0.15);
+    y.set((e.clientY - centerY) * 0.15);
+  };
+
+  const reset = () => {
+    animate(x, 0, { type: "spring", stiffness: 300, damping: 20 });
+    animate(y, 0, { type: "spring", stiffness: 300, damping: 20 });
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ x, y }}
+      onMouseMove={handleMouse}
+      onMouseLeave={reset}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 function AnimatedCounter({ value, suffix = "", prefix = "", duration = 2 }: { value: number; suffix?: string; prefix?: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -70,9 +135,33 @@ function AnimatedCounter({ value, suffix = "", prefix = "", duration = 2 }: { va
   );
 }
 
-function HeroSection() {
+function ScrollProgressBar() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <motion.div
+      className="fixed top-0 left-0 right-0 h-[3px] z-[100] origin-left"
+      style={{
+        scaleX,
+        background: "linear-gradient(90deg, hsl(250 85% 60%), hsl(280 80% 55%))",
+      }}
+    />
+  );
+}
+
+function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.95]);
+
+  return (
+    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <style>{`
         @keyframes float1 {
           0%, 100% { transform: translate(0, 0) scale(1); }
@@ -97,12 +186,28 @@ function HeroSection() {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
+        @keyframes grain {
+          0%, 100% { transform: translate(0, 0); }
+          10% { transform: translate(-5%, -10%); }
+          30% { transform: translate(3%, -15%); }
+          50% { transform: translate(12%, 9%); }
+          70% { transform: translate(9%, 4%); }
+          90% { transform: translate(-1%, 7%); }
+        }
       `}</style>
 
       <div
         className="absolute inset-0"
         style={{
           background: "linear-gradient(135deg, hsl(250 85% 15%) 0%, hsl(260 60% 10%) 30%, hsl(270 50% 8%) 60%, hsl(240 40% 6%) 100%)",
+        }}
+      />
+
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          animation: "grain 8s steps(10) infinite",
         }}
       />
 
@@ -124,61 +229,59 @@ function HeroSection() {
       />
 
       <div className="absolute inset-0 bg-black/40 pointer-events-none" />
-
       <div className="absolute inset-0 grid-pattern opacity-10 pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center z-10">
-        <motion.div {...fadeUp}>
+      <motion.div
+        style={{ y: heroY, opacity: heroOpacity, scale: heroScale }}
+        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center z-10"
+      >
+        <BlurReveal delay={0.1}>
           <Badge variant="secondary" className="mb-8 bg-white/10 border-white/20 text-white/90" data-testid="badge-hero">
             <Sparkles className="w-3 h-3 mr-1" />
             AI-Native Technology Studio
           </Badge>
-        </motion.div>
+        </BlurReveal>
 
-        <motion.h1
-          {...fadeUp}
-          transition={{ duration: 0.8, delay: 0.1 }}
+        <h1
           className="font-serif text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.1] mb-6 text-white"
           data-testid="text-hero-title"
         >
-          We Engineer
+          <TextReveal delay={0.2}>We Engineer</TextReveal>
           <br />
-          <span className="gradient-text">Intelligence</span>
-        </motion.h1>
+          <span className="gradient-text">
+            <TextReveal delay={0.35}>Intelligence</TextReveal>
+          </span>
+        </h1>
 
-        <motion.p
-          {...fadeUp}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed"
-          data-testid="text-hero-subtitle"
-        >
-          Agile Vision is a technology studio that designs and builds AI-powered
-          products, agentic systems, and intelligent software for ambitious companies.
-        </motion.p>
+        <BlurReveal delay={0.5}>
+          <p
+            className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed"
+            data-testid="text-hero-subtitle"
+          >
+            Agile Vision is a technology studio that designs and builds AI-powered
+            products, agentic systems, and intelligent software for ambitious companies.
+          </p>
+        </BlurReveal>
 
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <Link href="/get-started">
-            <Button size="lg" data-testid="button-hero-get-started">
-              Get Started
-              <ArrowRight className="w-4 h-4 ml-1" />
-            </Button>
-          </Link>
-          <a href="#capabilities">
-            <Button size="lg" variant="outline" className="bg-white/5 backdrop-blur-sm border-white/20 text-white" data-testid="button-hero-see-work">
-              See Our Work
-            </Button>
-          </a>
-        </motion.div>
+        <BlurReveal delay={0.7} className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <MagneticButton>
+            <Link href="/get-started">
+              <Button size="lg" data-testid="button-hero-get-started">
+                Get Started
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
+            </Link>
+          </MagneticButton>
+          <MagneticButton>
+            <a href="#capabilities">
+              <Button size="lg" variant="outline" className="bg-white/5 backdrop-blur-sm border-white/20 text-white" data-testid="button-hero-see-work">
+                See Our Work
+              </Button>
+            </a>
+          </MagneticButton>
+        </BlurReveal>
 
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto"
-        >
+        <BlurReveal delay={0.9} className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
           {[
             { value: 50, suffix: "+", label: "Products Shipped" },
             { value: 3, suffix: "x", label: "Avg. ROI" },
@@ -191,13 +294,28 @@ function HeroSection() {
               <div className="text-sm text-white/50">{stat.label}</div>
             </div>
           ))}
-        </motion.div>
-      </div>
+        </BlurReveal>
+      </motion.div>
+
+      <motion.div
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+      >
+        <div className="w-6 h-10 rounded-full border-2 border-white/30 flex justify-center pt-2">
+          <motion.div
+            animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="w-1 h-1 rounded-full bg-white/60"
+          />
+        </div>
+      </motion.div>
     </section>
   );
 }
 
 function CapabilitiesSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const capabilities = [
     {
       image: capAgenticAi,
@@ -232,39 +350,45 @@ function CapabilitiesSection() {
   ];
 
   return (
-    <section id="capabilities" className="py-24 bg-card" data-testid="section-capabilities">
+    <section ref={sectionRef} id="capabilities" className="py-24 bg-card" data-testid="section-capabilities">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div {...fadeUp} className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
-            <Sparkles className="w-3 h-3 mr-1" />
-            What We Build
-          </Badge>
+        <div className="text-center mb-16">
+          <BlurReveal>
+            <Badge variant="secondary" className="mb-4">
+              <Sparkles className="w-3 h-3 mr-1" />
+              What We Build
+            </Badge>
+          </BlurReveal>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            End-to-End <span className="gradient-text">AI Product</span> Development
+            <TextReveal>End-to-End AI Product Development</TextReveal>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            From intelligent chatbots to autonomous agents, we build the full spectrum of AI-powered products.
-          </p>
-        </motion.div>
+          <BlurReveal delay={0.2}>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              From intelligent chatbots to autonomous agents, we build the full spectrum of AI-powered products.
+            </p>
+          </BlurReveal>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {capabilities.map((cap, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               <Card
                 className="group relative hover-elevate cursor-default overflow-visible"
                 data-testid={`card-capability-${i}`}
               >
                 <div className="relative overflow-hidden rounded-t-md aspect-[16/10]">
-                  <img
+                  <motion.img
                     src={cap.image}
                     alt={cap.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.08 }}
+                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
                 </div>
@@ -299,26 +423,24 @@ function GetStartedPreview() {
   return (
     <section className="py-24" data-testid="section-get-started-preview">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div {...fadeUp} className="text-center mb-12">
-          <Badge variant="secondary" className="mb-4">
-            <Sparkles className="w-3 h-3 mr-1" />
-            Start Your Project
-          </Badge>
+        <div className="text-center mb-12">
+          <BlurReveal>
+            <Badge variant="secondary" className="mb-4">
+              <Sparkles className="w-3 h-3 mr-1" />
+              Start Your Project
+            </Badge>
+          </BlurReveal>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            What Will You <span className="gradient-text">Build</span>?
+            <TextReveal>What Will You Build?</TextReveal>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Choose a project type and see what we can create for you.
-          </p>
-        </motion.div>
+          <BlurReveal delay={0.2}>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Choose a project type and see what we can create for you.
+            </p>
+          </BlurReveal>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-wrap justify-center gap-2 mb-8"
-        >
+        <BlurReveal delay={0.3} className="flex flex-wrap justify-center gap-2 mb-8">
           {projectTypes.map((type) => (
             <Button
               key={type.id}
@@ -331,32 +453,22 @@ function GetStartedPreview() {
               {type.label}
             </Button>
           ))}
-        </motion.div>
+        </BlurReveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="max-w-xl mx-auto"
-        >
+        <BlurReveal delay={0.4} className="max-w-xl mx-auto">
           <DemoPreview projectType={selected} />
-        </motion.div>
+        </BlurReveal>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="text-center mt-10"
-        >
-          <Link href="/get-started">
-            <Button size="lg" data-testid="button-preview-get-started">
-              Get Started
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </Link>
-        </motion.div>
+        <BlurReveal delay={0.5} className="text-center mt-10">
+          <MagneticButton className="inline-block">
+            <Link href="/get-started">
+              <Button size="lg" data-testid="button-preview-get-started">
+                Get Started
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </MagneticButton>
+        </BlurReveal>
       </div>
     </section>
   );
@@ -381,23 +493,25 @@ function MetricsSection() {
       <div className="absolute inset-0 grid-pattern opacity-5 pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div {...fadeUp} className="text-center mb-16">
+        <div className="text-center mb-16">
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
-            Results That <span className="gradient-text">Speak</span>
+            <TextReveal>Results That Speak</TextReveal>
           </h2>
-          <p className="text-white/50 max-w-xl mx-auto">
-            Our track record of delivering measurable impact for every client.
-          </p>
-        </motion.div>
+          <BlurReveal delay={0.2}>
+            <p className="text-white/50 max-w-xl mx-auto">
+              Our track record of delivering measurable impact for every client.
+            </p>
+          </BlurReveal>
+        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {metrics.map((metric, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.6, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="text-center"
               data-testid={`metric-${i}`}
             >
@@ -424,18 +538,22 @@ function ProcessSection() {
   return (
     <section className="py-24 bg-card" data-testid="section-process">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div {...fadeUp} className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
-            <Zap className="w-3 h-3 mr-1" />
-            Our Process
-          </Badge>
+        <div className="text-center mb-16">
+          <BlurReveal>
+            <Badge variant="secondary" className="mb-4">
+              <Zap className="w-3 h-3 mr-1" />
+              Our Process
+            </Badge>
+          </BlurReveal>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            From Idea to <span className="gradient-text">Launch</span> in Weeks
+            <TextReveal>From Idea to Launch in Weeks</TextReveal>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Our streamlined process ensures rapid delivery without compromising quality.
-          </p>
-        </motion.div>
+          <BlurReveal delay={0.2}>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Our streamlined process ensures rapid delivery without compromising quality.
+            </p>
+          </BlurReveal>
+        </div>
 
         <div className="relative">
           <div className="hidden lg:block absolute top-1/2 left-0 right-0 -translate-y-1/2 h-px">
@@ -443,7 +561,7 @@ function ProcessSection() {
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.5, delay: 0.3 }}
+              transition={{ duration: 1.5, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="h-full origin-left"
               style={{ background: "linear-gradient(90deg, transparent, hsl(250 85% 60% / 0.5), transparent)" }}
             />
@@ -453,15 +571,20 @@ function ProcessSection() {
             {steps.map((step, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
+                transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="text-center relative"
               >
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 relative z-10">
+                <motion.div
+                  whileInView={{ scale: [0.5, 1.1, 1] }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 + i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 relative z-10"
+                >
                   <step.icon className="w-7 h-7 text-primary" />
-                </div>
+                </motion.div>
                 <div className="text-sm font-mono text-primary mb-2">{step.num}</div>
                 <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
@@ -486,10 +609,10 @@ function TechPartnersSection() {
   return (
     <section className="py-20 overflow-hidden" data-testid="section-tech">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-        <motion.div {...fadeUp} className="text-center">
+        <BlurReveal className="text-center">
           <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-2">Technology Partners</h3>
           <p className="text-muted-foreground text-sm">Built on best-in-class frameworks and infrastructure</p>
-        </motion.div>
+        </BlurReveal>
       </div>
 
       <div className="relative">
@@ -541,24 +664,26 @@ function TestimonialsSection() {
   return (
     <section className="py-24 bg-card" data-testid="section-testimonials">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div {...fadeUp} className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
-            <Quote className="w-3 h-3 mr-1" />
-            Testimonials
-          </Badge>
+        <div className="text-center mb-16">
+          <BlurReveal>
+            <Badge variant="secondary" className="mb-4">
+              <Quote className="w-3 h-3 mr-1" />
+              Testimonials
+            </Badge>
+          </BlurReveal>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            What Our <span className="gradient-text">Clients</span> Say
+            <TextReveal>What Our Clients Say</TextReveal>
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((testimonial, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.6, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
               <div
                 className="rounded-md p-px h-full"
@@ -610,26 +735,34 @@ function FinalCTASection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white mb-6" data-testid="text-final-cta-title">
-            Let's Build Something{" "}
-            <span className="gradient-text">Extraordinary</span>
+            <TextReveal>Let's Build Something</TextReveal>{" "}
+            <span className="gradient-text">
+              <TextReveal delay={0.3}>Extraordinary</TextReveal>
+            </span>
           </h2>
-          <p className="text-lg text-white/60 max-w-xl mx-auto mb-10">
-            Ready to turn your vision into an intelligent product? Let's talk about what we can create together.
-          </p>
+          <BlurReveal delay={0.4}>
+            <p className="text-lg text-white/60 max-w-xl mx-auto mb-10">
+              Ready to turn your vision into an intelligent product? Let's talk about what we can create together.
+            </p>
+          </BlurReveal>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/get-started">
-              <Button size="lg" data-testid="button-final-start-project">
-                Start a Project
-                <ArrowRight className="w-4 h-4 ml-1" />
-              </Button>
-            </Link>
-            <Link href="/contact">
-              <Button size="lg" variant="outline" className="bg-white/5 backdrop-blur-sm border-white/20 text-white" data-testid="button-final-contact">
-                Contact Us
-              </Button>
-            </Link>
-          </div>
+          <BlurReveal delay={0.6} className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <MagneticButton>
+              <Link href="/get-started">
+                <Button size="lg" data-testid="button-final-start-project">
+                  Start a Project
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </Button>
+              </Link>
+            </MagneticButton>
+            <MagneticButton>
+              <Link href="/contact">
+                <Button size="lg" variant="outline" className="bg-white/5 backdrop-blur-sm border-white/20 text-white" data-testid="button-final-contact">
+                  Contact Us
+                </Button>
+              </Link>
+            </MagneticButton>
+          </BlurReveal>
         </motion.div>
       </div>
     </section>
@@ -640,6 +773,7 @@ export default function Home() {
   usePageTitle("");
   return (
     <div>
+      <ScrollProgressBar />
       <HeroSection />
       <CapabilitiesSection />
       <GetStartedPreview />
