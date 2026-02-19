@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRoute, Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { blogArticles } from "@/data/blog-articles";
-import { Clock, ArrowLeft, ArrowRight, ChevronUp, User, Calendar, Share2 } from "lucide-react";
+import { Clock, ArrowLeft, ArrowRight, ChevronUp, User, Calendar, Share2, Sparkles, Target, Users, Zap } from "lucide-react";
 import { SiLinkedin } from "react-icons/si";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -389,7 +389,67 @@ export default function BlogArticle() {
                 {renderMarkdown(article.content)}
               </motion.div>
 
-              <div className="mt-20">
+              <motion.div
+                className="mt-16"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                data-testid="ai-analysis-section"
+              >
+                <div className="relative rounded-md overflow-hidden" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.06) 0%, hsla(280,80%,60%,0.04) 50%, hsla(250,85%,60%,0.06) 100%)" }}>
+                  <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a78bfa' fill-opacity='1'%3E%3Ccircle cx='1' cy='1' r='1'/%3E%3C/g%3E%3C/svg%3E\")" }} />
+                  <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, hsl(250 85% 60%), hsl(280 80% 60%), hsl(250 85% 60%))" }} />
+
+                  <div className="relative p-7 sm:p-9">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-9 h-9 rounded-md flex items-center justify-center" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.2), hsla(280,80%,60%,0.15))" }}>
+                        <Sparkles className="w-4.5 h-4.5" style={{ color: "hsl(250 85% 60%)" }} />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-bold tracking-tight" data-testid="text-ai-analysis-title">Agile Vision AI Analysis</h3>
+                        <p className="text-[11px] text-muted-foreground tracking-wide uppercase">Intelligent Article Synopsis</p>
+                      </div>
+                    </div>
+
+                    <p className="text-[15px] leading-relaxed text-muted-foreground mb-7" data-testid="text-ai-analysis-summary">
+                      {article.aiAnalysis.summary}
+                    </p>
+
+                    <div className="mb-7">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Target className="w-4 h-4" style={{ color: "hsl(250 85% 60%)" }} />
+                        <span className="text-sm font-semibold">Key Takeaways</span>
+                      </div>
+                      <div className="space-y-2.5">
+                        {article.aiAnalysis.keyTakeaways.map((takeaway, idx) => (
+                          <div key={idx} className="flex gap-3 text-sm leading-relaxed text-muted-foreground" data-testid={`text-takeaway-${idx}`}>
+                            <span className="mt-[0.35em] w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "hsl(250 85% 60%)" }} />
+                            <span>{takeaway}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-4 pt-4 border-t border-border/50">
+                      <div className="flex items-center gap-2">
+                        <Zap className="w-3.5 h-3.5" style={{ color: "hsl(250 85% 60%)" }} />
+                        <span className="text-xs text-muted-foreground">Impact:</span>
+                        <Badge className="no-default-hover-elevate no-default-active-elevate text-[11px]" style={{ background: article.aiAnalysis.impactScore === "Transformative" ? "hsla(250,85%,60%,0.15)" : article.aiAnalysis.impactScore === "High" ? "hsla(160,70%,40%,0.15)" : "hsla(200,70%,50%,0.15)", color: article.aiAnalysis.impactScore === "Transformative" ? "hsl(250 85% 60%)" : article.aiAnalysis.impactScore === "High" ? "hsl(160 70% 40%)" : "hsl(200 70% 50%)" }} data-testid="badge-impact-score">
+                          {article.aiAnalysis.impactScore}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Users className="w-3.5 h-3.5" style={{ color: "hsl(250 85% 60%)" }} />
+                        <span className="text-xs text-muted-foreground">Best for:</span>
+                        <span className="text-xs font-medium" data-testid="text-relevance">{article.aiAnalysis.relevance}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <div className="mt-14">
                 <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent, hsl(250 85% 60% / 0.3), hsl(280 80% 60% / 0.2), transparent)" }} />
                 <div className="pt-10">
                   <div className="flex items-start gap-5">

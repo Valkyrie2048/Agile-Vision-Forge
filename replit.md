@@ -53,6 +53,7 @@ Modern, VC-backed technology studio website for Agile Vision, specializing in AI
 - Target email: m.graham@live.ca (configured server-side, not exposed in frontend)
 
 ## Recent Changes
+- 2026-02-19: Added "Agile Vision AI Analysis" section at end of each blog article with summary, key takeaways, impact score badge, and audience relevance; data stored in aiAnalysis field on BlogArticle type
 - 2026-02-19: Blog redesign - magazine-style listing with featured hero, article page with full-width hero image, reading progress bar, TOC sidebar, pull quotes, related articles; 8 articles rewritten (no em dashes), AI-generated creative images
 - 2026-02-19: Complete redesign - replaced basic layout with award-worthy design; replaced multi-step wizard with streamlined form; added bento grid, animated metrics, testimonials, tech marquee
 - 2026-02-18: Initial build - full website with all pages and backend

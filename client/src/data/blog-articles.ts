@@ -7,6 +7,12 @@ export type BlogArticle = {
   readTime: string;
   imagePath: string;
   content: string;
+  aiAnalysis: {
+    summary: string;
+    keyTakeaways: string[];
+    impactScore: string;
+    relevance: string;
+  };
   author: {
     name: string;
     linkedIn: string;
@@ -32,6 +38,17 @@ export const blogArticles: BlogArticle[] = [
     date: "February 15, 2026",
     readTime: "7 min read",
     imagePath: "/images/blog/agentic-ai.png",
+    aiAnalysis: {
+      summary: "This article explores the paradigm shift from reactive AI tools to autonomous agentic systems capable of multi-step reasoning and action. It presents a compelling case for early SMB adoption, supported by real-world deployment examples demonstrating significant operational efficiency gains.",
+      keyTakeaways: [
+        "Agentic AI plans, reasons, and executes multi-step workflows autonomously",
+        "SMBs gain disproportionate leverage from agentic automation due to resource constraints",
+        "Start with the most painful manual workflow as your first automation candidate",
+        "Real deployments show 80-95% time reduction on targeted operational processes",
+      ],
+      impactScore: "Transformative",
+      relevance: "Business Leaders, Operations Teams, SMB Founders",
+    },
     author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `There is a moment in every technology cycle where something shifts from being impressive to being indispensable. For artificial intelligence, I believe we have reached that inflection point. It is called agentic AI.
 
@@ -83,6 +100,17 @@ The answer, increasingly, is almost everything.`,
     date: "February 10, 2026",
     readTime: "9 min read",
     imagePath: "/images/blog/design-systems.png",
+    aiAnalysis: {
+      summary: "A practical framework for building design systems that survive contact with reality. The three-layer model (tokens, primitives, patterns) provides a scalable architecture that decouples visual vocabulary from component logic, enabling sustainable growth across teams and products.",
+      keyTakeaways: [
+        "Use semantic token naming over descriptive naming for long-term maintainability",
+        "Layer 2 components should favor fewer props with more explicit variants",
+        "Design system adoption requires ownership, measurement, and less friction than going custom",
+        "Consistent naming conventions save exponential time as teams scale",
+      ],
+      impactScore: "High",
+      relevance: "Product Designers, Frontend Engineers, Design System Teams",
+    },
     author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `I have seen too many design systems start with enthusiasm and end with abandonment. A team gets excited, builds a beautiful component library, writes documentation, and then slowly watches it fall out of sync with the actual product. Six months later, designers are back to creating one-off components and developers are copying CSS from random files.
 
@@ -140,6 +168,17 @@ The goal is not a perfect component library. The goal is a shared language betwe
     date: "February 5, 2026",
     readTime: "10 min read",
     imagePath: "/images/blog/ai-integration.png",
+    aiAnalysis: {
+      summary: "A field-tested guide to production AI architecture covering five essential patterns: centralized gateway routing, progressive enhancement over hard dependency, structured outputs, human-in-the-loop confirmation, and cost-aware design. Each pattern addresses a common failure mode observed across dozens of real-world deployments.",
+      keyTakeaways: [
+        "Route all AI calls through a centralized gateway for caching, rate limiting, and provider flexibility",
+        "Build features to work without AI, then enhance with intelligence when available",
+        "Always use structured outputs (JSON schemas, function calling) over free-text parsing",
+        "Cost optimization at architecture level can reduce monthly AI spend by 10x",
+      ],
+      impactScore: "High",
+      relevance: "Software Engineers, CTOs, Technical Architects",
+    },
     author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `There is a gap between AI demos and AI in production that does not get talked about enough. I have seen teams build impressive proof-of-concept features in a weekend, then spend three months trying to make them reliable enough to ship. The technology works. The integration is where things break down.
 
@@ -209,6 +248,17 @@ If you cannot answer these questions confidently, you are not ready to ship.`,
     date: "January 28, 2026",
     readTime: "8 min read",
     imagePath: "/images/blog/automation-roi.png",
+    aiAnalysis: {
+      summary: "A data-driven breakdown of automation economics that moves beyond simplistic 'hours saved' calculations. The article introduces a three-bucket cost model (build, integration, maintenance) and four metrics framework that provides realistic ROI assessment for intelligent automation investments.",
+      keyTakeaways: [
+        "Budget 30-40% of build cost for integration and 10-15% annually for maintenance",
+        "Error reduction and capacity reallocation often deliver more value than direct labor savings",
+        "Track process cycle time, exception rate, cost per transaction, and employee satisfaction",
+        "Avoid automating processes that occur fewer than 50 times per month or are not yet well-defined",
+      ],
+      impactScore: "High",
+      relevance: "CFOs, Operations Managers, Process Improvement Teams",
+    },
     author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `I am going to be honest about something: most automation ROI projections I see are fantasy. They multiply the number of hours saved by the average hourly wage and declare victory. That is not how businesses actually work, and it is not how you should be thinking about automation investments.
 
@@ -264,6 +314,17 @@ Similarly, if a process happens fewer than 50 times per month, the ROI timeline 
     date: "January 20, 2026",
     readTime: "6 min read",
     imagePath: "/images/blog/spatial-computing.png",
+    aiAnalysis: {
+      summary: "An evidence-based assessment of spatial computing's enterprise readiness, documenting real deployments in collaborative design review, workforce training, and data visualization. The article identifies three converging technology factors that have moved spatial computing from experimental to production-viable for enterprise use cases.",
+      keyTakeaways: [
+        "Enterprise spatial computing is delivering measurable ROI in design, training, and analytics",
+        "Hardware comfort, mature dev tools, and IT security readiness have converged simultaneously",
+        "Design review cycles reduced 60-80% and training programs shortened 35-50% in real deployments",
+        "Start with a single high-value use case where 3D understanding provides clear advantage",
+      ],
+      impactScore: "Emerging",
+      relevance: "Innovation Leaders, Enterprise IT, Product Development Teams",
+    },
     author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `The consumer conversation around spatial computing tends to focus on gaming and entertainment. Will people watch movies in VR? Will AR glasses replace phones? Those are interesting questions, but they are not where the real transformation is happening.
 
@@ -320,6 +381,17 @@ For businesses evaluating spatial computing: start with a high-value, well-defin
     date: "January 14, 2026",
     readTime: "8 min read",
     imagePath: "/images/blog/ai-design.png",
+    aiAnalysis: {
+      summary: "A practitioner's guide to designing AI-powered products that earn and maintain user trust. The seven principles form a cohesive framework addressing transparency, confidence calibration, override mechanics, progressive disclosure, graceful degradation, mental model respect, and performance perception.",
+      keyTakeaways: [
+        "Transparency and confidence levels transform black-box AI into a collaborative partner",
+        "Override paths must require fewer clicks than the AI saved the user",
+        "Progressive disclosure of capabilities builds stronger long-term adoption than feature overload",
+        "Thoughtful loading states transform perceived wait times from frustration to anticipation",
+      ],
+      impactScore: "High",
+      relevance: "UX Designers, Product Managers, AI Product Teams",
+    },
     author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `Here is a pattern I have observed across dozens of product launches: the AI works great in demos, but users do not trust it in practice. Engagement starts high, drops steadily, and eventually people revert to manual workflows because they "just want to make sure it is right."
 
@@ -381,6 +453,17 @@ These principles are not revolutionary individually. But applied consistently ac
     date: "January 7, 2026",
     readTime: "7 min read",
     imagePath: "/images/blog/future-work.png",
+    aiAnalysis: {
+      summary: "A reframing of the AI workforce narrative from replacement to augmentation. Three detailed case studies demonstrate how customer success, content, and operations teams achieved 3x capability expansion without headcount changes, while identifying the four human skills that increase in value alongside AI adoption.",
+      keyTakeaways: [
+        "Augmented teams expand capability 3x while maintaining or improving quality",
+        "Judgment, communication, creativity, and adaptability become more valuable with AI support",
+        "Content teams with AI produce 3x volume with higher quality by focusing on expertise and voice",
+        "Companies investing in augmentation now will lead their industries within five years",
+      ],
+      impactScore: "Transformative",
+      relevance: "CEOs, HR Leaders, Team Managers, Workforce Strategists",
+    },
     author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `Every few months, a new headline declares that AI is about to replace some large percentage of jobs. And every few months, the reality on the ground tells a more nuanced story.
 
@@ -432,6 +515,17 @@ The future of work is not a story about machines replacing humans. It is a story
     date: "December 29, 2025",
     readTime: "6 min read",
     imagePath: "/images/blog/edge-computing.png",
+    aiAnalysis: {
+      summary: "A technical exploration of the edge AI paradigm shift driven by latency, privacy, and bandwidth constraints. The article maps real-world deployments in manufacturing inspection, predictive maintenance, and personalized retail, while highlighting the distinct development challenges of model optimization, update strategy, and field testing.",
+      keyTakeaways: [
+        "Edge AI eliminates cloud latency for time-critical applications requiring sub-10ms decisions",
+        "Local processing addresses privacy regulations and reduces bandwidth by orders of magnitude",
+        "Model optimization techniques (quantization, pruning, distillation) are essential edge AI skills",
+        "One client reduced unplanned equipment downtime by 67% with edge-deployed predictive maintenance",
+      ],
+      impactScore: "Emerging",
+      relevance: "IoT Engineers, Manufacturing Leaders, Privacy-Conscious Organizations",
+    },
     author: { name: "Mathew Graham", linkedIn: "https://www.linkedin.com/in/mathewgraham14" },
     content: `We have spent the last decade moving everything to the cloud. Now, some of the most exciting AI applications are moving back out of it, to the edge, where data is generated and decisions need to happen in milliseconds, not seconds.
 
