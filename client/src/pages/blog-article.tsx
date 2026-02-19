@@ -541,12 +541,13 @@ export default function BlogArticle() {
             src={article.imagePath}
             alt={article.title}
             className="w-full h-[120%] object-cover"
-            style={{ filter: "saturate(1.2) contrast(1.08) brightness(0.95)" }}
+            style={{ filter: "saturate(1.35) contrast(1.15) brightness(0.88)" }}
           />
         </motion.div>
 
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.35) 100%)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.15) 0%, transparent 40%, hsla(280,80%,60%,0.1) 100%)" }} />
+        <div className="absolute inset-0 mix-blend-color" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.2) 0%, hsla(280,70%,50%,0.12) 40%, hsla(220,80%,55%,0.15) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 35%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.3) 100%)" }} />
+        <div className="absolute inset-0 mix-blend-overlay" style={{ background: "linear-gradient(to bottom right, hsla(250,90%,70%,0.15), transparent 50%, hsla(280,80%,60%,0.12))" }} />
         <div className="absolute inset-0 mix-blend-overlay opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }} />
 
         <motion.div className="absolute inset-0 flex items-end" style={{ opacity: heroOpacity }}>
@@ -740,10 +741,11 @@ export default function BlogArticle() {
                             src={related.imagePath}
                             alt={related.title}
                             className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-105"
-                            style={{ filter: "saturate(1.15) contrast(1.05)" }}
+                            style={{ filter: "saturate(1.3) contrast(1.12) brightness(0.92)" }}
                             loading="lazy"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.1) 100%)" }} />
+                          <div className="absolute inset-0 mix-blend-color" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.25) 0%, hsla(280,70%,50%,0.15) 50%, hsla(220,80%,55%,0.2) 100%)" }} />
                         </div>
                         <div className="p-5">
                           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2.5">
