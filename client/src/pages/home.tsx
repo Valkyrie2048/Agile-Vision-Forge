@@ -14,7 +14,17 @@ import {
   Lightbulb,
   Code2,
   Zap,
+  Smartphone,
+  Globe,
+  MessageSquare,
+  Cog,
+  BarChart3,
+  BrainCircuit,
+  ShoppingCart,
+  Gamepad2,
+  GraduationCap,
 } from "lucide-react";
+import { DemoPreview } from "@/components/demo-previews";
 import capAgenticAi from "../assets/images/cap-agentic-ai.png";
 import capChatbots from "../assets/images/cap-chatbots.png";
 import capWebapps from "../assets/images/cap-webapps.png";
@@ -266,6 +276,87 @@ function CapabilitiesSection() {
             </motion.div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+const projectTypes = [
+  { id: "mobile", label: "Mobile App", icon: Smartphone },
+  { id: "webapp", label: "Web App", icon: Globe },
+  { id: "chatbot", label: "AI Chatbot", icon: MessageSquare },
+  { id: "automation", label: "Automation", icon: Cog },
+  { id: "dataapp", label: "Analytics", icon: BarChart3 },
+  { id: "agentic", label: "Agentic AI", icon: BrainCircuit },
+  { id: "ecommerce", label: "E-Commerce", icon: ShoppingCart },
+  { id: "game", label: "Games", icon: Gamepad2 },
+  { id: "edtech", label: "EdTech", icon: GraduationCap },
+];
+
+function GetStartedPreview() {
+  const [selected, setSelected] = useState("chatbot");
+
+  return (
+    <section className="py-24" data-testid="section-get-started-preview">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div {...fadeUp} className="text-center mb-12">
+          <Badge variant="secondary" className="mb-4">
+            <Sparkles className="w-3 h-3 mr-1" />
+            Start Your Project
+          </Badge>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            What Will You <span className="gradient-text">Build</span>?
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            Choose a project type and see what we can create for you.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-wrap justify-center gap-2 mb-8"
+        >
+          {projectTypes.map((type) => (
+            <Button
+              key={type.id}
+              variant={selected === type.id ? "default" : "outline"}
+              size="sm"
+              onClick={() => setSelected(type.id)}
+              data-testid={`preview-type-${type.id}`}
+            >
+              <type.icon className="w-3.5 h-3.5 mr-1.5" />
+              {type.label}
+            </Button>
+          ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="max-w-xl mx-auto"
+        >
+          <DemoPreview projectType={selected} />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="text-center mt-10"
+        >
+          <Link href="/get-started">
+            <Button size="lg" data-testid="button-preview-get-started">
+              Get Started
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
@@ -551,6 +642,7 @@ export default function Home() {
     <div>
       <HeroSection />
       <CapabilitiesSection />
+      <GetStartedPreview />
       <MetricsSection />
       <ProcessSection />
       <TechPartnersSection />
