@@ -83,12 +83,11 @@ export default function Blog() {
                       src={featured.imagePath}
                       alt={featured.title}
                       className="w-full h-64 lg:h-80 object-cover transition-transform duration-700 group-hover:scale-105"
-                      style={{ filter: "saturate(1.3) contrast(1.12) brightness(0.92)" }}
+                      style={{ filter: "saturate(1.4) contrast(1.15) brightness(0.85) hue-rotate(-10deg)" }}
                       loading="eager"
                     />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.15) 100%)" }} />
-                    <div className="absolute inset-0 mix-blend-color" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.25) 0%, hsla(280,70%,50%,0.15) 50%, hsla(220,80%,55%,0.2) 100%)" }} />
-                    <div className="absolute inset-0 mix-blend-overlay" style={{ background: "linear-gradient(to bottom right, hsla(250,90%,70%,0.12), transparent 60%, hsla(280,80%,60%,0.1))" }} />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.35) 0%, hsla(280,75%,45%,0.25) 40%, hsla(220,80%,50%,0.3) 100%)" }} />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%, rgba(10,0,30,0.2) 100%)" }} />
                     <div className="absolute top-4 left-4">
                       <Badge className="no-default-hover-elevate no-default-active-elevate backdrop-blur-md text-xs" style={{ background: "hsl(250 85% 60%)", color: "white" }}>
                         Featured
@@ -148,12 +147,11 @@ export default function Blog() {
                         src={article.imagePath}
                         alt={article.title}
                         className="w-full h-52 object-cover transition-transform duration-700 group-hover:scale-105"
-                        style={{ filter: "saturate(1.3) contrast(1.12) brightness(0.92)" }}
+                        style={{ filter: "saturate(1.4) contrast(1.15) brightness(0.85) hue-rotate(-10deg)" }}
                         loading="lazy"
                       />
-                      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.12) 100%)" }} />
-                      <div className="absolute inset-0 mix-blend-color" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.25) 0%, hsla(280,70%,50%,0.15) 50%, hsla(220,80%,55%,0.2) 100%)" }} />
-                      <div className="absolute inset-0 mix-blend-overlay" style={{ background: "linear-gradient(to bottom right, hsla(250,90%,70%,0.12), transparent 60%, hsla(280,80%,60%,0.1))" }} />
+                      <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.35) 0%, hsla(280,75%,45%,0.25) 40%, hsla(220,80%,50%,0.3) 100%)" }} />
+                      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%, rgba(10,0,30,0.18) 100%)" }} />
                       <div className="absolute top-3 left-3">
                         <Badge variant="secondary" className="text-xs no-default-hover-elevate no-default-active-elevate backdrop-blur-md bg-background/80">
                           {article.category}
