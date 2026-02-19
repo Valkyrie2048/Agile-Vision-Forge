@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRoute, Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { blogArticles } from "@/data/blog-articles";
+import { blogArticles, type BlogArticle as BlogArticleType } from "@/data/blog-articles";
 import { Clock, ArrowLeft, ArrowRight, ChevronUp, User, Calendar, Share2, Sparkles, Target, Users, Zap } from "lucide-react";
 import { SiLinkedin } from "react-icons/si";
 import { Badge } from "@/components/ui/badge";
@@ -190,6 +190,259 @@ function extractHeadings(content: string) {
     }
   }
   return headings;
+}
+
+function AiAnalysisSection({ analysis }: { analysis: BlogArticleType["aiAnalysis"] }) {
+  const [state, setState] = useState<"idle" | "analyzing" | "done">("idle");
+  const [typedSummary, setTypedSummary] = useState("");
+  const [visibleTakeaways, setVisibleTakeaways] = useState(0);
+  const [showFooter, setShowFooter] = useState(false);
+  const [analyzeStep, setAnalyzeStep] = useState(0);
+  const timersRef = useRef<number[]>([]);
+
+  const analyzeSteps = [
+    "Reading article content...",
+    "Extracting key themes...",
+    "Identifying actionable insights...",
+    "Assessing industry impact...",
+    "Generating synopsis...",
+  ];
+
+  const clearAllTimers = useCallback(() => {
+    timersRef.current.forEach((id) => clearInterval(id));
+    timersRef.current = [];
+  }, []);
+
+  useEffect(() => {
+    return () => clearAllTimers();
+  }, [clearAllTimers]);
+
+  const handleGenerate = () => {
+    clearAllTimers();
+    setState("analyzing");
+    setTypedSummary("");
+    setVisibleTakeaways(0);
+    setShowFooter(false);
+    setAnalyzeStep(0);
+
+    let stepIndex = 0;
+    const stepInterval = window.setInterval(() => {
+      stepIndex++;
+      if (stepIndex < analyzeSteps.length) {
+        setAnalyzeStep(stepIndex);
+      } else {
+        clearInterval(stepInterval);
+        setState("done");
+
+        let charIndex = 0;
+        const typingInterval = window.setInterval(() => {
+          charIndex++;
+          if (charIndex <= analysis.summary.length) {
+            setTypedSummary(analysis.summary.slice(0, charIndex));
+          } else {
+            clearInterval(typingInterval);
+
+            let takeawayIdx = 0;
+            const takeawayInterval = window.setInterval(() => {
+              takeawayIdx++;
+              setVisibleTakeaways(takeawayIdx);
+              if (takeawayIdx >= analysis.keyTakeaways.length) {
+                clearInterval(takeawayInterval);
+                const footerTimer = window.setTimeout(() => setShowFooter(true), 300);
+                timersRef.current.push(footerTimer as unknown as number);
+              }
+            }, 400);
+            timersRef.current.push(takeawayInterval);
+          }
+        }, 12);
+        timersRef.current.push(typingInterval);
+      }
+    }, 600);
+    timersRef.current.push(stepInterval);
+  };
+
+  if (state === "idle") {
+    return (
+      <div className="mt-16" data-testid="ai-analysis-section">
+        <div className="relative rounded-md overflow-hidden border border-border/50" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.04) 0%, hsla(280,80%,60%,0.02) 50%, hsla(250,85%,60%,0.04) 100%)" }}>
+          <div className="relative p-7 sm:p-9 text-center">
+            <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.15), hsla(280,80%,60%,0.1))" }}>
+              <Sparkles className="w-6 h-6" style={{ color: "hsl(250 85% 60%)" }} />
+            </div>
+            <h3 className="text-lg font-bold tracking-tight mb-2" data-testid="text-ai-analysis-title">
+              Agile Vision AI Analysis
+            </h3>
+            <p className="text-sm text-muted-foreground mb-6 max-w-md mx-auto">
+              Get an intelligent synopsis of this article with key takeaways, impact assessment, and audience relevance.
+            </p>
+            <Button
+              onClick={handleGenerate}
+              className="gap-2"
+              style={{ background: "linear-gradient(135deg, hsl(250 85% 60%), hsl(270 80% 55%))", borderColor: "hsl(250 85% 55%)" }}
+              data-testid="button-generate-analysis"
+            >
+              <Sparkles className="w-4 h-4" />
+              Generate Analysis
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (state === "analyzing") {
+    return (
+      <div className="mt-16" data-testid="ai-analysis-section">
+        <div className="relative rounded-md overflow-hidden" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.06) 0%, hsla(280,80%,60%,0.04) 50%, hsla(250,85%,60%,0.06) 100%)" }}>
+          <div className="absolute top-0 left-0 right-0 h-[2px] overflow-hidden">
+            <motion.div
+              className="h-full w-1/3"
+              style={{ background: "linear-gradient(90deg, transparent, hsl(250 85% 60%), hsl(280 80% 60%), transparent)" }}
+              animate={{ x: ["-100%", "400%"] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
+          <div className="relative p-7 sm:p-9">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-9 h-9 rounded-md flex items-center justify-center" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.2), hsla(280,80%,60%,0.15))" }}>
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                >
+                  <Sparkles className="w-4.5 h-4.5" style={{ color: "hsl(250 85% 60%)" }} />
+                </motion.div>
+              </div>
+              <div>
+                <h3 className="text-base font-bold tracking-tight">Agile Vision AI Analysis</h3>
+                <p className="text-[11px] text-muted-foreground tracking-wide uppercase">Analyzing article...</p>
+              </div>
+            </div>
+            <div className="space-y-3">
+              {analyzeSteps.map((step, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: idx <= analyzeStep ? 1 : 0.2, x: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex items-center gap-3 text-sm"
+                >
+                  {idx < analyzeStep ? (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ background: "hsla(250,85%,60%,0.15)" }}
+                    >
+                      <svg className="w-3 h-3" style={{ color: "hsl(250 85% 60%)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </motion.div>
+                  ) : idx === analyzeStep ? (
+                    <motion.div
+                      animate={{ opacity: [0.4, 1, 0.4] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                      className="w-5 h-5 rounded-full flex-shrink-0"
+                      style={{ background: "hsla(250,85%,60%,0.2)" }}
+                    />
+                  ) : (
+                    <div className="w-5 h-5 rounded-full flex-shrink-0 bg-muted/30" />
+                  )}
+                  <span className={idx <= analyzeStep ? "text-foreground" : "text-muted-foreground/40"}>
+                    {step}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <motion.div
+      className="mt-16"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4 }}
+      data-testid="ai-analysis-section"
+    >
+      <div className="relative rounded-md overflow-hidden" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.06) 0%, hsla(280,80%,60%,0.04) 50%, hsla(250,85%,60%,0.06) 100%)" }}>
+        <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a78bfa' fill-opacity='1'%3E%3Ccircle cx='1' cy='1' r='1'/%3E%3C/g%3E%3C/svg%3E\")" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, hsl(250 85% 60%), hsl(280 80% 60%), hsl(250 85% 60%))" }} />
+
+        <div className="relative p-7 sm:p-9">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-9 h-9 rounded-md flex items-center justify-center" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.2), hsla(280,80%,60%,0.15))" }}>
+              <Sparkles className="w-4.5 h-4.5" style={{ color: "hsl(250 85% 60%)" }} />
+            </div>
+            <div>
+              <h3 className="text-base font-bold tracking-tight" data-testid="text-ai-analysis-heading">Agile Vision AI Analysis</h3>
+              <p className="text-[11px] text-muted-foreground tracking-wide uppercase">Intelligent Article Synopsis</p>
+            </div>
+          </div>
+
+          <p className="text-[15px] leading-relaxed text-muted-foreground mb-7" data-testid="text-ai-analysis-summary">
+            {typedSummary}
+            {typedSummary.length < analysis.summary.length && (
+              <motion.span
+                className="inline-block w-[2px] h-4 ml-0.5 align-text-bottom"
+                style={{ background: "hsl(250 85% 60%)" }}
+                animate={{ opacity: [1, 0] }}
+                transition={{ duration: 0.5, repeat: Infinity }}
+              />
+            )}
+          </p>
+
+          {visibleTakeaways > 0 && (
+            <div className="mb-7">
+              <div className="flex items-center gap-2 mb-4">
+                <Target className="w-4 h-4" style={{ color: "hsl(250 85% 60%)" }} />
+                <span className="text-sm font-semibold">Key Takeaways</span>
+              </div>
+              <div className="space-y-2.5">
+                {analysis.keyTakeaways.slice(0, visibleTakeaways).map((takeaway, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex gap-3 text-sm leading-relaxed text-muted-foreground"
+                    data-testid={`text-takeaway-${idx}`}
+                  >
+                    <span className="mt-[0.35em] w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "hsl(250 85% 60%)" }} />
+                    <span>{takeaway}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {showFooter && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="flex flex-wrap gap-4 pt-4 border-t border-border/50"
+            >
+              <div className="flex items-center gap-2">
+                <Zap className="w-3.5 h-3.5" style={{ color: "hsl(250 85% 60%)" }} />
+                <span className="text-xs text-muted-foreground">Impact:</span>
+                <Badge className="no-default-hover-elevate no-default-active-elevate text-[11px]" style={{ background: analysis.impactScore === "Transformative" ? "hsla(250,85%,60%,0.15)" : analysis.impactScore === "High" ? "hsla(160,70%,40%,0.15)" : "hsla(200,70%,50%,0.15)", color: analysis.impactScore === "Transformative" ? "hsl(250 85% 60%)" : analysis.impactScore === "High" ? "hsl(160 70% 40%)" : "hsl(200 70% 50%)" }} data-testid="badge-impact-score">
+                  {analysis.impactScore}
+                </Badge>
+              </div>
+              <div className="flex items-center gap-2">
+                <Users className="w-3.5 h-3.5" style={{ color: "hsl(250 85% 60%)" }} />
+                <span className="text-xs text-muted-foreground">Best for:</span>
+                <span className="text-xs font-medium" data-testid="text-relevance">{analysis.relevance}</span>
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
 }
 
 export default function BlogArticle() {
@@ -389,65 +642,7 @@ export default function BlogArticle() {
                 {renderMarkdown(article.content)}
               </motion.div>
 
-              <motion.div
-                className="mt-16"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                data-testid="ai-analysis-section"
-              >
-                <div className="relative rounded-md overflow-hidden" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.06) 0%, hsla(280,80%,60%,0.04) 50%, hsla(250,85%,60%,0.06) 100%)" }}>
-                  <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a78bfa' fill-opacity='1'%3E%3Ccircle cx='1' cy='1' r='1'/%3E%3C/g%3E%3C/svg%3E\")" }} />
-                  <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, hsl(250 85% 60%), hsl(280 80% 60%), hsl(250 85% 60%))" }} />
-
-                  <div className="relative p-7 sm:p-9">
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-9 h-9 rounded-md flex items-center justify-center" style={{ background: "linear-gradient(135deg, hsla(250,85%,60%,0.2), hsla(280,80%,60%,0.15))" }}>
-                        <Sparkles className="w-4.5 h-4.5" style={{ color: "hsl(250 85% 60%)" }} />
-                      </div>
-                      <div>
-                        <h3 className="text-base font-bold tracking-tight" data-testid="text-ai-analysis-title">Agile Vision AI Analysis</h3>
-                        <p className="text-[11px] text-muted-foreground tracking-wide uppercase">Intelligent Article Synopsis</p>
-                      </div>
-                    </div>
-
-                    <p className="text-[15px] leading-relaxed text-muted-foreground mb-7" data-testid="text-ai-analysis-summary">
-                      {article.aiAnalysis.summary}
-                    </p>
-
-                    <div className="mb-7">
-                      <div className="flex items-center gap-2 mb-4">
-                        <Target className="w-4 h-4" style={{ color: "hsl(250 85% 60%)" }} />
-                        <span className="text-sm font-semibold">Key Takeaways</span>
-                      </div>
-                      <div className="space-y-2.5">
-                        {article.aiAnalysis.keyTakeaways.map((takeaway, idx) => (
-                          <div key={idx} className="flex gap-3 text-sm leading-relaxed text-muted-foreground" data-testid={`text-takeaway-${idx}`}>
-                            <span className="mt-[0.35em] w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "hsl(250 85% 60%)" }} />
-                            <span>{takeaway}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-4 pt-4 border-t border-border/50">
-                      <div className="flex items-center gap-2">
-                        <Zap className="w-3.5 h-3.5" style={{ color: "hsl(250 85% 60%)" }} />
-                        <span className="text-xs text-muted-foreground">Impact:</span>
-                        <Badge className="no-default-hover-elevate no-default-active-elevate text-[11px]" style={{ background: article.aiAnalysis.impactScore === "Transformative" ? "hsla(250,85%,60%,0.15)" : article.aiAnalysis.impactScore === "High" ? "hsla(160,70%,40%,0.15)" : "hsla(200,70%,50%,0.15)", color: article.aiAnalysis.impactScore === "Transformative" ? "hsl(250 85% 60%)" : article.aiAnalysis.impactScore === "High" ? "hsl(160 70% 40%)" : "hsl(200 70% 50%)" }} data-testid="badge-impact-score">
-                          {article.aiAnalysis.impactScore}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Users className="w-3.5 h-3.5" style={{ color: "hsl(250 85% 60%)" }} />
-                        <span className="text-xs text-muted-foreground">Best for:</span>
-                        <span className="text-xs font-medium" data-testid="text-relevance">{article.aiAnalysis.relevance}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+              <AiAnalysisSection analysis={article.aiAnalysis} />
 
               <div className="mt-14">
                 <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent, hsl(250 85% 60% / 0.3), hsl(280 80% 60% / 0.2), transparent)" }} />
