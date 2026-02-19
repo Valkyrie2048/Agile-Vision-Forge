@@ -285,7 +285,7 @@ function HeroSection() {
           {[
             { value: 50, suffix: "+", label: "Products Shipped" },
             { value: 3, suffix: "x", label: "Avg. ROI" },
-            { value: 97, suffix: "%", label: "Client Satisfaction" },
+            { value: 24, suffix: "hr", label: "Avg. Turnaround" },
           ].map((stat, i) => (
             <div key={i} className="text-center" data-testid={`stat-hero-${i}`}>
               <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
@@ -476,10 +476,10 @@ function GetStartedPreview() {
 
 function MetricsSection() {
   const metrics = [
-    { value: 97, suffix: "%", label: "Client Satisfaction" },
     { value: 50, suffix: "+", label: "Products Shipped" },
     { value: 3, suffix: "x", label: "Average ROI" },
     { value: 12, prefix: "$", suffix: "M+", label: "Revenue Generated for Clients" },
+    { value: 24, suffix: "hr", label: "Avg. Turnaround" },
   ];
 
   return (
