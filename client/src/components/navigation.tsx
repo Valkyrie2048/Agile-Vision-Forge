@@ -23,7 +23,6 @@ export default function Navigation() {
 
   const navItems = [
     { label: "Home", href: "/" },
-    { label: "Project Wizard", href: "/wizard" },
     { label: "Contact", href: "/contact" },
   ];
 
@@ -77,9 +76,9 @@ export default function Navigation() {
               )}
             </Button>
 
-            <Link href="/wizard" className="hidden md:block">
+            <Link href="/get-started" className="hidden md:block">
               <Button size="sm" data-testid="button-start-project">
-                Start a Project
+                Get Started
               </Button>
             </Link>
 
@@ -120,9 +119,9 @@ export default function Navigation() {
                   </Button>
                 </Link>
               ))}
-              <Link href="/wizard">
+              <Link href="/get-started">
                 <Button className="w-full mt-2" data-testid="button-mobile-start-project">
-                  Start a Project
+                  Get Started
                 </Button>
               </Link>
             </div>

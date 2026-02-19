@@ -416,9 +416,7 @@ export function AutomationDemo() {
                   )}
                 </div>
               </div>
-              {i < steps.length - 1 && (
-                <ChevronRight className="w-3 h-3 text-muted-foreground/40 absolute ml-3 mt-10 hidden" />
-              )}
+              
             </motion.div>
           ))}
         </div>

@@ -17,9 +17,9 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
-              We build intelligent products powered by AI and Agentic AI.
-              From concept to launch, we help startups and SMBs ship faster
-              with cutting-edge technology.
+              We engineer intelligence. From agentic AI systems to production-ready
+              products, we help businesses harness AI to move faster
+              and deliver more.
             </p>
           </div>
 
@@ -29,8 +29,8 @@ export default function Footer() {
               <Link href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-home">
                 Home
               </Link>
-              <Link href="/wizard" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-wizard">
-                Project Wizard
+              <Link href="/get-started" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-get-started">
+                Get Started
               </Link>
               <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-contact">
                 Contact

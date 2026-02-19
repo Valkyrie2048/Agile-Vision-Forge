@@ -3,22 +3,23 @@ import { usePageTitle } from "@/hooks/use-page-title";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
+import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { WebAppDemo, ChatbotDemo, AutomationDemo } from "@/components/demo-previews";
 import {
-  Bot,
-  Cpu,
-  Globe,
-  Smartphone,
-  ArrowRight,
-  Sparkles,
-  Blocks,
   BrainCircuit,
   MessageSquare,
+  Globe,
+  Smartphone,
   BarChart3,
-  Shield,
+  Blocks,
+  ArrowRight,
+  Sparkles,
+  Quote,
   Rocket,
-  CheckCircle2,
-  Users,
+  Search,
+  Lightbulb,
+  Code2,
   Zap,
 } from "lucide-react";
 
@@ -29,27 +30,97 @@ const fadeUp = {
   transition: { duration: 0.6 },
 };
 
-const stagger = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-};
+function AnimatedCounter({ value, suffix = "", prefix = "", duration = 2 }: { value: number; suffix?: string; prefix?: string; duration?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const motionValue = useMotionValue(0);
+  const rounded = useTransform(motionValue, (latest) => {
+    if (value >= 100) return Math.round(latest);
+    return Math.round(latest * 10) / 10;
+  });
+
+  useEffect(() => {
+    if (isInView) {
+      animate(motionValue, value, { duration });
+    }
+  }, [isInView, motionValue, value, duration]);
+
+  const [display, setDisplay] = useState("0");
+
+  useEffect(() => {
+    const unsubscribe = rounded.on("change", (v) => {
+      setDisplay(String(v));
+    });
+    return unsubscribe;
+  }, [rounded]);
+
+  return (
+    <span ref={ref}>
+      {prefix}{display}{suffix}
+    </span>
+  );
+}
 
 function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      <div className="absolute inset-0 grid-pattern opacity-40" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <style>{`
+        @keyframes float1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        @keyframes float2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(-40px, 30px) scale(1.15); }
+          66% { transform: translate(25px, -40px) scale(0.85); }
+        }
+        @keyframes float3 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(50px, 30px) scale(1.2); }
+        }
+        @keyframes float4 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          25% { transform: translate(-30px, -20px) scale(0.95); }
+          75% { transform: translate(20px, 40px) scale(1.05); }
+        }
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-20 dark:opacity-10 pointer-events-none"
+        className="absolute inset-0"
         style={{
-          background:
-            "radial-gradient(circle, hsl(250 85% 60% / 0.4) 0%, transparent 70%)",
+          background: "linear-gradient(135deg, hsl(250 85% 15%) 0%, hsl(260 60% 10%) 30%, hsl(270 50% 8%) 60%, hsl(240 40% 6%) 100%)",
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+      <div
+        className="absolute top-[10%] left-[15%] w-[400px] h-[400px] rounded-full opacity-40 blur-[100px] pointer-events-none"
+        style={{ background: "hsl(250 85% 60%)", animation: "float1 20s ease-in-out infinite" }}
+      />
+      <div
+        className="absolute top-[60%] right-[10%] w-[350px] h-[350px] rounded-full opacity-30 blur-[100px] pointer-events-none"
+        style={{ background: "hsl(280 80% 55%)", animation: "float2 25s ease-in-out infinite" }}
+      />
+      <div
+        className="absolute bottom-[20%] left-[40%] w-[300px] h-[300px] rounded-full opacity-25 blur-[120px] pointer-events-none"
+        style={{ background: "hsl(220 90% 55%)", animation: "float3 18s ease-in-out infinite" }}
+      />
+      <div
+        className="absolute top-[30%] right-[35%] w-[200px] h-[200px] rounded-full opacity-20 blur-[80px] pointer-events-none"
+        style={{ background: "hsl(300 70% 50%)", animation: "float4 22s ease-in-out infinite" }}
+      />
+
+      <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+
+      <div className="absolute inset-0 grid-pattern opacity-10 pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center z-10">
         <motion.div {...fadeUp}>
-          <Badge variant="secondary" className="mb-6" data-testid="badge-hero">
+          <Badge variant="secondary" className="mb-8 bg-white/10 border-white/20 text-white/90" data-testid="badge-hero">
             <Sparkles className="w-3 h-3 mr-1" />
             AI-Native Technology Studio
           </Badge>
@@ -57,56 +128,58 @@ function HeroSection() {
 
         <motion.h1
           {...fadeUp}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-6"
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="font-serif text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.1] mb-6 text-white"
           data-testid="text-hero-title"
         >
-          We Build the Future
+          We Engineer
           <br />
-          <span className="gradient-text">With Intelligent Software</span>
+          <span className="gradient-text">Intelligence</span>
         </motion.h1>
 
         <motion.p
           {...fadeUp}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed"
           data-testid="text-hero-subtitle"
         >
-          Agile Vision is a technology studio specializing in AI-powered products,
-          agentic systems, and intelligent chatbots for startups and SMBs.
+          Agile Vision is a technology studio that designs and builds AI-powered
+          products, agentic systems, and intelligent software for ambitious companies.
         </motion.p>
 
         <motion.div
           {...fadeUp}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Link href="/wizard">
-            <Button size="lg" data-testid="button-hero-wizard">
-              Start Your Project
+          <Link href="/get-started">
+            <Button size="lg" data-testid="button-hero-get-started">
+              Get Started
               <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </Link>
-          <Link href="/contact">
-            <Button size="lg" variant="outline" data-testid="button-hero-contact">
-              Get in Touch
+          <a href="#capabilities">
+            <Button size="lg" variant="outline" className="bg-white/5 backdrop-blur-sm border-white/20 text-white" data-testid="button-hero-see-work">
+              See Our Work
             </Button>
-          </Link>
+          </a>
         </motion.div>
 
         <motion.div
           {...fadeUp}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-16 flex items-center justify-center gap-8 flex-wrap text-sm text-muted-foreground"
+          className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto"
         >
           {[
-            { icon: CheckCircle2, text: "50+ Products Shipped" },
-            { icon: Users, text: "Trusted by Leading SMBs" },
-            { icon: Zap, text: "2x Faster Delivery" },
-          ].map((item, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <item.icon className="w-4 h-4 text-primary" />
-              <span>{item.text}</span>
+            { value: 50, suffix: "+", label: "Products Shipped" },
+            { value: 3, suffix: "x", label: "Avg. ROI" },
+            { value: 8, prefix: "< ", suffix: " Week", label: "Launch Time" },
+          ].map((stat, i) => (
+            <div key={i} className="text-center" data-testid={`stat-hero-${i}`}>
+              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} />
+              </div>
+              <div className="text-sm text-white/50">{stat.label}</div>
             </div>
           ))}
         </motion.div>
@@ -115,82 +188,155 @@ function HeroSection() {
   );
 }
 
-function ServicesSection() {
-  const services = [
+function CapabilitiesSection() {
+  const capabilities = [
     {
       icon: BrainCircuit,
       title: "Agentic AI Systems",
-      description:
-        "Autonomous AI agents that reason, plan, and execute complex workflows. Build systems that think and act independently.",
+      description: "Autonomous AI agents that reason, plan, and execute complex workflows with human-like decision making.",
+      span: "md:col-span-1 md:row-span-1",
     },
     {
       icon: MessageSquare,
-      title: "AI Chatbots & Assistants",
-      description:
-        "Conversational AI that understands context, learns from interactions, and delivers human-like responses at scale.",
-    },
-    {
-      icon: Smartphone,
-      title: "Mobile Applications",
-      description:
-        "Native and cross-platform mobile apps with embedded AI capabilities. From concept to App Store in weeks.",
+      title: "AI Chatbots",
+      description: "Conversational AI that understands context and delivers human-like responses at scale.",
+      span: "md:col-span-1 md:row-span-2",
+      demo: "chatbot",
     },
     {
       icon: Globe,
       title: "Web Applications",
-      description:
-        "Modern, scalable web platforms with intelligent features. Real-time dashboards, SaaS products, and data-driven tools.",
+      description: "Modern, scalable web platforms with intelligent features, real-time dashboards, and SaaS products.",
+      span: "md:col-span-2 md:row-span-1",
+      demo: "webapp",
+    },
+    {
+      icon: Smartphone,
+      title: "Mobile Apps",
+      description: "Native and cross-platform mobile applications with embedded AI capabilities. Concept to App Store in weeks.",
+      span: "md:col-span-1 md:row-span-1",
     },
     {
       icon: BarChart3,
       title: "Data & Analytics",
-      description:
-        "Transform raw data into actionable insights with AI-powered analytics, visualization, and predictive modeling.",
+      description: "Transform raw data into actionable insights with AI-powered analytics and predictive modeling.",
+      span: "md:col-span-1 md:row-span-1",
     },
     {
       icon: Blocks,
       title: "Process Automation",
-      description:
-        "Eliminate repetitive tasks with intelligent automation. Connect systems, optimize workflows, and reduce operational costs.",
+      description: "Intelligent automation that connects systems, optimizes workflows, and reduces operational costs.",
+      span: "md:col-span-2 md:row-span-1",
+      demo: "automation",
     },
   ];
 
   return (
-    <section className="py-24 relative" data-testid="section-services">
+    <section id="capabilities" className="py-24 bg-card" data-testid="section-capabilities">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div {...fadeUp} className="text-center mb-16">
           <Badge variant="secondary" className="mb-4">
-            <Cpu className="w-3 h-3 mr-1" />
+            <Sparkles className="w-3 h-3 mr-1" />
             What We Build
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            End-to-End AI Product Development
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            End-to-End <span className="gradient-text">AI Product</span> Development
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            From intelligent chatbots to autonomous agents, we build the full
-            spectrum of AI-powered products.
+            From intelligent chatbots to autonomous agents, we build the full spectrum of AI-powered products.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {services.map((service, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-auto">
+          {capabilities.map((cap, i) => (
             <motion.div
               key={i}
-              {...stagger}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className={cap.span}
             >
               <Card
-                className="p-6 h-full hover-elevate cursor-default"
-                data-testid={`card-service-${i}`}
+                className="p-6 h-full hover-elevate cursor-default overflow-visible"
+                data-testid={`card-capability-${i}`}
               >
-                <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center mb-4">
-                  <service.icon className="w-5 h-5 text-primary" />
+                <div className="flex items-start gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center shrink-0">
+                    <cap.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">{cap.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mt-1">{cap.description}</p>
+                  </div>
                 </div>
-                <h3 className="font-semibold text-lg mb-2">{service.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {service.description}
-                </p>
+                {cap.demo === "chatbot" && (
+                  <div className="mt-2 scale-[0.85] origin-top-left -mb-16">
+                    <ChatbotDemo />
+                  </div>
+                )}
+                {cap.demo === "webapp" && (
+                  <div className="mt-2 scale-[0.85] origin-top-left -mb-10">
+                    <WebAppDemo />
+                  </div>
+                )}
+                {cap.demo === "automation" && (
+                  <div className="mt-2 scale-[0.85] origin-top-left -mb-10">
+                    <AutomationDemo />
+                  </div>
+                )}
               </Card>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MetricsSection() {
+  const metrics = [
+    { value: 97, suffix: "%", label: "Client Satisfaction" },
+    { value: 50, suffix: "+", label: "Products Shipped" },
+    { value: 3, suffix: "x", label: "Average ROI" },
+    { value: 12, prefix: "$", suffix: "M+", label: "Revenue Generated for Clients" },
+  ];
+
+  return (
+    <section className="py-24 relative overflow-hidden" data-testid="section-metrics">
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(135deg, hsl(250 85% 12%) 0%, hsl(260 50% 8%) 50%, hsl(240 40% 6%) 100%)",
+        }}
+      />
+      <div className="absolute inset-0 grid-pattern opacity-5 pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div {...fadeUp} className="text-center mb-16">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+            Results That <span className="gradient-text">Speak</span>
+          </h2>
+          <p className="text-white/50 max-w-xl mx-auto">
+            Our track record of delivering measurable impact for every client.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {metrics.map((metric, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="text-center"
+              data-testid={`metric-${i}`}
+            >
+              <div className="text-4xl sm:text-5xl font-bold text-white mb-2">
+                <AnimatedCounter value={metric.value} suffix={metric.suffix} prefix={metric.prefix || ""} />
+              </div>
+              <div className="text-sm text-white/50">{metric.label}</div>
             </motion.div>
           ))}
         </div>
@@ -201,26 +347,10 @@ function ServicesSection() {
 
 function ProcessSection() {
   const steps = [
-    {
-      num: "01",
-      title: "Discovery",
-      description: "We learn your business, goals, and users to define the right solution.",
-    },
-    {
-      num: "02",
-      title: "Design & Prototype",
-      description: "Interactive prototypes and architecture validated before a single line of code.",
-    },
-    {
-      num: "03",
-      title: "Build & Iterate",
-      description: "Agile sprints with continuous delivery. You see progress every week.",
-    },
-    {
-      num: "04",
-      title: "Launch & Scale",
-      description: "Production deployment with monitoring, support, and growth optimization.",
-    },
+    { num: "01", title: "Discovery", description: "Deep-dive into your business, users, and goals to define the right solution.", icon: Search },
+    { num: "02", title: "Design", description: "Interactive prototypes and architecture validated before writing code.", icon: Lightbulb },
+    { num: "03", title: "Build", description: "Agile sprints with continuous delivery. You see progress every week.", icon: Code2 },
+    { num: "04", title: "Launch", description: "Production deployment with monitoring, support, and growth optimization.", icon: Rocket },
   ];
 
   return (
@@ -228,32 +358,159 @@ function ProcessSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div {...fadeUp} className="text-center mb-16">
           <Badge variant="secondary" className="mb-4">
-            <Rocket className="w-3 h-3 mr-1" />
+            <Zap className="w-3 h-3 mr-1" />
             Our Process
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            From Idea to Launch in Weeks
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            From Idea to <span className="gradient-text">Launch</span> in Weeks
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             Our streamlined process ensures rapid delivery without compromising quality.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {steps.map((step, i) => (
+        <div className="relative">
+          <div className="hidden lg:block absolute top-1/2 left-0 right-0 -translate-y-1/2 h-px">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.5, delay: 0.3 }}
+              className="h-full origin-left"
+              style={{ background: "linear-gradient(90deg, transparent, hsl(250 85% 60% / 0.5), transparent)" }}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {steps.map((step, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.15 }}
+                className="text-center relative"
+              >
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 relative z-10">
+                  <step.icon className="w-7 h-7 text-primary" />
+                </div>
+                <div className="text-sm font-mono text-primary mb-2">{step.num}</div>
+                <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TechPartnersSection() {
+  const technologies = [
+    "OpenAI", "Anthropic", "LangChain", "React", "Python", "AWS",
+    "Node.js", "TensorFlow", "PostgreSQL", "Docker", "Next.js", "Vercel",
+    "TypeScript", "FastAPI", "Redis", "Kubernetes",
+  ];
+
+  const doubled = [...technologies, ...technologies];
+
+  return (
+    <section className="py-20 overflow-hidden" data-testid="section-tech">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <motion.div {...fadeUp} className="text-center">
+          <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-2">Technology Partners</h3>
+          <p className="text-muted-foreground text-sm">Built on best-in-class frameworks and infrastructure</p>
+        </motion.div>
+      </div>
+
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+        <div
+          className="flex gap-4 w-max"
+          style={{ animation: "marquee 30s linear infinite" }}
+        >
+          {doubled.map((tech, i) => (
+            <Badge
+              key={i}
+              variant="outline"
+              className="text-sm py-2 px-5 shrink-0 no-default-hover-elevate no-default-active-elevate"
+              data-testid={`badge-tech-${i}`}
+            >
+              {tech}
+            </Badge>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TestimonialsSection() {
+  const testimonials = [
+    {
+      quote: "Agile Vision transformed our customer support with an AI chatbot that reduced ticket volume by 60%. Their team understood our needs from day one and delivered beyond expectations.",
+      name: "Sarah Chen",
+      title: "VP of Engineering",
+      company: "NovaTech Solutions",
+    },
+    {
+      quote: "We went from concept to a fully deployed AI analytics platform in just 6 weeks. The quality of their work and speed of execution is unlike anything I've seen in 15 years of building products.",
+      name: "Marcus Williams",
+      title: "CTO",
+      company: "DataStream Analytics",
+    },
+    {
+      quote: "Their agentic AI system automated our entire document processing pipeline. We saved over 200 hours per month and the ROI paid for the project in the first quarter alone.",
+      name: "Elena Rodriguez",
+      title: "Head of Operations",
+      company: "Meridian Financial",
+    },
+  ];
+
+  return (
+    <section className="py-24 bg-card" data-testid="section-testimonials">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div {...fadeUp} className="text-center mb-16">
+          <Badge variant="secondary" className="mb-4">
+            <Quote className="w-3 h-3 mr-1" />
+            Testimonials
+          </Badge>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            What Our <span className="gradient-text">Clients</span> Say
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {testimonials.map((testimonial, i) => (
             <motion.div
               key={i}
-              {...stagger}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
-              className="text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <div className="text-4xl font-bold gradient-text mb-3">
-                {step.num}
+              <div
+                className="rounded-md p-px h-full"
+                style={{
+                  background: "linear-gradient(135deg, hsl(250 85% 60% / 0.3), hsl(280 80% 60% / 0.1), hsl(250 85% 60% / 0.05))",
+                }}
+              >
+                <div className="rounded-md bg-card p-6 h-full flex flex-col">
+                  <Quote className="w-8 h-8 text-primary/30 mb-4 shrink-0" />
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
+                    "{testimonial.quote}"
+                  </p>
+                  <div>
+                    <div className="font-semibold text-sm">{testimonial.name}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {testimonial.title}, {testimonial.company}
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {step.description}
-              </p>
             </motion.div>
           ))}
         </div>
@@ -262,81 +519,46 @@ function ProcessSection() {
   );
 }
 
-function TechStackSection() {
-  const technologies = [
-    "OpenAI", "LangChain", "Claude", "React", "Next.js", "Node.js",
-    "Python", "TensorFlow", "PostgreSQL", "AWS", "Vercel", "Docker",
-  ];
-
+function FinalCTASection() {
   return (
-    <section className="py-24" data-testid="section-tech">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div {...fadeUp} className="text-center mb-12">
-          <Badge variant="secondary" className="mb-4">
-            <Shield className="w-3 h-3 mr-1" />
-            Technology
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            Built on Best-in-Class Technology
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            We leverage the latest AI frameworks and cloud infrastructure to build reliable, scalable products.
-          </p>
-        </motion.div>
+    <section className="py-24 relative overflow-hidden" data-testid="section-cta">
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(135deg, hsl(250 85% 15%) 0%, hsl(270 60% 12%) 50%, hsl(240 50% 8%) 100%)",
+        }}
+      />
 
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-30 blur-[120px] pointer-events-none"
+        style={{ background: "hsl(250 85% 50%)" }}
+      />
+
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
         <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap items-center justify-center gap-3"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
         >
-          {technologies.map((tech, i) => (
-            <Badge
-              key={i}
-              variant="outline"
-              className="text-sm py-2 px-4"
-              data-testid={`badge-tech-${i}`}
-            >
-              {tech}
-            </Badge>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function CTASection() {
-  return (
-    <section className="py-24 bg-card" data-testid="section-cta">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          {...fadeUp}
-          className="relative rounded-md overflow-visible p-8 sm:p-12 text-center"
-          style={{
-            background:
-              "linear-gradient(135deg, hsl(250 85% 60% / 0.15) 0%, hsl(280 80% 60% / 0.1) 50%, hsl(320 80% 60% / 0.05) 100%)",
-          }}
-        >
-          <div className="absolute inset-0 rounded-md border border-primary/20 pointer-events-none" />
-
-          <Bot className="w-12 h-12 text-primary mx-auto mb-6" />
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            Ready to Build Something Incredible?
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white mb-6" data-testid="text-final-cta-title">
+            Let's Build Something{" "}
+            <span className="gradient-text">Extraordinary</span>
           </h2>
-          <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-            Use our interactive wizard to scope your project and get a
-            personalized demo of what we can build for you.
+          <p className="text-lg text-white/60 max-w-xl mx-auto mb-10">
+            Ready to turn your vision into an intelligent product? Let's talk about what we can create together.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link href="/wizard">
-              <Button size="lg" data-testid="button-cta-wizard">
-                Launch Project Wizard
-                <Sparkles className="w-4 h-4 ml-1" />
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/get-started">
+              <Button size="lg" data-testid="button-final-start-project">
+                Start a Project
+                <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
             <Link href="/contact">
-              <Button size="lg" variant="outline" data-testid="button-cta-contact">
-                Talk to Our Team
+              <Button size="lg" variant="outline" className="bg-white/5 backdrop-blur-sm border-white/20 text-white" data-testid="button-final-contact">
+                Contact Us
               </Button>
             </Link>
           </div>
@@ -351,10 +573,12 @@ export default function Home() {
   return (
     <div>
       <HeroSection />
-      <ServicesSection />
+      <CapabilitiesSection />
+      <MetricsSection />
       <ProcessSection />
-      <TechStackSection />
-      <CTASection />
+      <TechPartnersSection />
+      <TestimonialsSection />
+      <FinalCTASection />
     </div>
   );
 }

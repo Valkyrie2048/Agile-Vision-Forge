@@ -7,7 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import Home from "@/pages/home";
-import Wizard from "@/pages/wizard";
+import GetStarted from "@/pages/get-started";
 import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
 
@@ -15,7 +15,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/wizard" component={Wizard} />
+      <Route path="/get-started" component={GetStarted} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
