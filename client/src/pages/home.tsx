@@ -289,7 +289,7 @@ function HeroSection() {
           ].map((stat, i) => (
             <div key={i} className="text-center" data-testid={`stat-hero-${i}`}>
               <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
-                <AnimatedCounter value={stat.value} suffix={stat.suffix} prefix={stat.prefix || ""} />
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} prefix={(stat as any).prefix || ""} />
               </div>
               <div className="text-sm text-white/50">{stat.label}</div>
             </div>
@@ -474,58 +474,6 @@ function GetStartedPreview() {
   );
 }
 
-function MetricsSection() {
-  const metrics = [
-    { value: 50, suffix: "+", label: "Products Shipped" },
-    { value: 3, suffix: "x", label: "Average ROI" },
-    { value: 12, prefix: "$", suffix: "M+", label: "Revenue Generated for Clients" },
-    { value: 24, suffix: "hr", label: "Avg. Turnaround" },
-  ];
-
-  return (
-    <section className="py-24 relative overflow-hidden" data-testid="section-metrics">
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "linear-gradient(135deg, hsl(250 85% 12%) 0%, hsl(260 50% 8%) 50%, hsl(240 40% 6%) 100%)",
-        }}
-      />
-      <div className="absolute inset-0 grid-pattern opacity-5 pointer-events-none" />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
-            <TextReveal>Results That Speak</TextReveal>
-          </h2>
-          <BlurReveal delay={0.2}>
-            <p className="text-white/50 max-w-xl mx-auto">
-              Our track record of delivering measurable impact for every client.
-            </p>
-          </BlurReveal>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {metrics.map((metric, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="text-center"
-              data-testid={`metric-${i}`}
-            >
-              <div className="text-4xl sm:text-5xl font-bold text-white mb-2">
-                <AnimatedCounter value={metric.value} suffix={metric.suffix} prefix={metric.prefix || ""} />
-              </div>
-              <div className="text-sm text-white/50">{metric.label}</div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function ProcessSection() {
   const steps = [
@@ -777,7 +725,6 @@ export default function Home() {
       <HeroSection />
       <CapabilitiesSection />
       <GetStartedPreview />
-      <MetricsSection />
       <ProcessSection />
       <TechPartnersSection />
       <TestimonialsSection />
