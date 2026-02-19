@@ -13,14 +13,16 @@ Modern, VC-backed technology studio website for Agile Vision, specializing in AI
 - `/` - Home page with cinematic hero, bento grid capabilities, filter-based demo previews, process timeline, tech partner marquee, testimonials, final CTA
 - `/get-started` - Product Playground (4 interactive demos) + project inquiry form
 - `/contact` - Contact form with "Let's Talk" headline, trust signals, decorative gradients
-- `/blog` - Blog listing page with category filtering (7 categories) and article cards
-- `/blog/:slug` - Individual article page with markdown rendering, prev/next navigation
+- `/blog` - Magazine-style blog listing with featured hero card, category filtering (7 categories), 3-column grid
+- `/blog/:slug` - Full-width hero article page with reading progress bar, table of contents sidebar, pull quotes, related articles, back-to-top button
 
 ## Blog (client/src/data/blog-articles.ts)
 - 8 expert articles covering AI, Design, Development, Automation, Emerging Tech, Future Trends
 - Categories: All, AI & Machine Learning, Design, Development, Automation, Emerging Tech, Future Trends
-- Stock images in client/public/images/blog/
+- AI-generated images in client/public/images/blog/ (.png format)
 - Written in first person, personal but professional tone as the founder
+- Pull quotes supported via > "quote" markdown syntax
+- No em dashes in any content
 
 ## Key Features
 - Cinematic hero with animated gradient mesh and floating orbs
@@ -51,6 +53,7 @@ Modern, VC-backed technology studio website for Agile Vision, specializing in AI
 - Target email: m.graham@live.ca (configured server-side, not exposed in frontend)
 
 ## Recent Changes
+- 2026-02-19: Blog redesign - magazine-style listing with featured hero, article page with full-width hero image, reading progress bar, TOC sidebar, pull quotes, related articles; 8 articles rewritten (no em dashes), AI-generated creative images
 - 2026-02-19: Complete redesign - replaced basic layout with award-worthy design; replaced multi-step wizard with streamlined form; added bento grid, animated metrics, testimonials, tech marquee
 - 2026-02-18: Initial build - full website with all pages and backend
 
