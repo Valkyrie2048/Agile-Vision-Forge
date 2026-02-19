@@ -83,6 +83,7 @@ export default function Blog() {
                       src={featured.imagePath}
                       alt={featured.title}
                       className="w-full h-64 lg:h-80 object-cover"
+                      style={{ filter: "saturate(1.15) contrast(1.05)" }}
                       loading="eager"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -145,6 +146,7 @@ export default function Blog() {
                         src={article.imagePath}
                         alt={article.title}
                         className="w-full h-52 object-cover"
+                        style={{ filter: "saturate(1.1)" }}
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />

@@ -36,21 +36,32 @@ function Router() {
   );
 }
 
+function AppContent() {
+  const [location] = useLocation();
+  const isBlogPage = location === "/blog" || location.startsWith("/blog/");
+
+  return (
+    <>
+      <ScrollToTop />
+      {!isBlogPage && <ParticleField />}
+      <div className="min-h-screen flex flex-col relative z-[2]" style={{ pointerEvents: "auto" }}>
+        <Navigation />
+        <main className="flex-1">
+          <Router />
+        </main>
+        <Footer />
+      </div>
+      <Toaster />
+    </>
+  );
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <ThemeProvider>
-          <ScrollToTop />
-          <ParticleField />
-          <div className="min-h-screen flex flex-col relative z-[2]" style={{ pointerEvents: "auto" }}>
-            <Navigation />
-            <main className="flex-1">
-              <Router />
-            </main>
-            <Footer />
-          </div>
-          <Toaster />
+          <AppContent />
         </ThemeProvider>
       </TooltipProvider>
     </QueryClientProvider>
