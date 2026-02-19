@@ -172,11 +172,13 @@ export default function GetStarted() {
 
   return (
     <div className="min-h-screen pt-24 pb-16">
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-24" data-testid="section-playground">
+      <section className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-24" data-testid="section-playground">
+        <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-20 blur-[120px] pointer-events-none" style={{ background: "radial-gradient(circle, hsl(250 85% 60% / 0.5), transparent)" }} />
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-10"
+          className="text-center mb-12 relative"
         >
           <Badge variant="secondary" className="mb-4">
             <Sparkles className="w-3 h-3 mr-1" />
@@ -185,28 +187,29 @@ export default function GetStarted() {
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
             Try Before You Build
           </h1>
-          <p className="text-muted-foreground max-w-xl mx-auto text-lg">
-            Interact with live demos of the products we create. Type, click, and explore.
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            Interact with live demos of the products we create. Type, click, and explore -- these are working prototypes of what we build.
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
+          transition={{ delay: 0.15, duration: 0.5 }}
+          className="relative"
         >
+          <div className="absolute -inset-1 rounded-2xl opacity-30 blur-md pointer-events-none" style={{ background: "linear-gradient(135deg, hsl(250 85% 60% / 0.3), hsl(280 80% 60% / 0.2), hsl(200 80% 50% / 0.15))" }} />
           <ProductPlayground />
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-center mt-12"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="text-center mt-14"
         >
-          <p className="text-sm text-muted-foreground mb-3">Like what you see?</p>
+          <p className="text-sm text-muted-foreground mb-3">Ready to bring your idea to life?</p>
           <Button
-            variant="outline"
             size="lg"
             onClick={() => document.getElementById("inquiry-form")?.scrollIntoView({ behavior: "smooth" })}
             data-testid="button-scroll-to-form"
