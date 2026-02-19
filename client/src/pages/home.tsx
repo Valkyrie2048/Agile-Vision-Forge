@@ -455,7 +455,7 @@ function GetStartedPreview() {
           ))}
         </BlurReveal>
 
-        <BlurReveal delay={0.4} className="max-w-xl mx-auto">
+        <BlurReveal delay={0.4} className="w-full">
           <DemoPreview projectType={selected} />
         </BlurReveal>
 
