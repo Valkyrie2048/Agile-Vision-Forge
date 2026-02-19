@@ -172,7 +172,7 @@ function HeroSection() {
           {[
             { value: 50, suffix: "+", label: "Products Shipped" },
             { value: 3, suffix: "x", label: "Avg. ROI" },
-            { value: 8, prefix: "< ", suffix: " Week", label: "Launch Time" },
+            { value: 97, suffix: "%", label: "Client Satisfaction" },
           ].map((stat, i) => (
             <div key={i} className="text-center" data-testid={`stat-hero-${i}`}>
               <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
