@@ -449,15 +449,15 @@ function CapabilitiesSection() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              <div className="group/shimmer relative">
+              <div className="relative">
                 <div className="absolute -inset-[1px] rounded-md overflow-hidden pointer-events-none z-[2]">
                   <div
-                    className="absolute inset-0 opacity-0 group-hover/shimmer:opacity-100 transition-opacity duration-500 rounded-md"
-                    style={{ boxShadow: "inset 0 0 0 1.5px hsla(250,85%,65%,0.5), 0 0 15px -3px hsla(250,85%,60%,0.25)" }}
+                    className="absolute inset-0 rounded-md"
+                    style={{ boxShadow: "inset 0 0 0 1px hsla(250,85%,65%,0.15)" }}
                   />
                   <div
-                    className="absolute inset-0 opacity-0 group-hover/shimmer:opacity-100 shimmer-sweep-anim transition-opacity duration-300"
-                    style={{ background: "linear-gradient(105deg, transparent 0%, transparent 35%, hsla(250,85%,70%,0.12) 42%, hsla(280,80%,70%,0.18) 50%, hsla(250,85%,70%,0.12) 58%, transparent 65%, transparent 100%)" }}
+                    className="absolute inset-0 shimmer-sweep-anim"
+                    style={{ animationDelay: `${i * 0.6}s`, background: "linear-gradient(105deg, transparent 0%, transparent 35%, hsla(250,85%,70%,0.1) 42%, hsla(280,80%,70%,0.18) 50%, hsla(250,85%,70%,0.1) 58%, transparent 65%, transparent 100%)" }}
                   />
                 </div>
                 <Card
@@ -474,7 +474,6 @@ function CapabilitiesSection() {
                       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                    <div className="absolute inset-0 opacity-0 group-hover/shimmer:opacity-100 transition-opacity duration-500" style={{ background: "radial-gradient(circle at 50% 50%, hsla(250,85%,60%,0.1), transparent 70%)" }} />
                   </div>
                   <div className="relative p-5 pt-0 -mt-6 z-10">
                     <h3 className="font-semibold text-lg mb-1.5">{cap.title}</h3>
