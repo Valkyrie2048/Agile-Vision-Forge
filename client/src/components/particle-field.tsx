@@ -17,6 +17,7 @@ export function ParticleField() {
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: -1000, y: -1000 });
   const dimensionsRef = useRef({ w: 0, h: 0 });
+  const isDarkRef = useRef(true);
 
   const createParticles = useCallback((width: number, height: number) => {
     const area = width * height;
@@ -42,6 +43,14 @@ export function ParticleField() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
+
+    const checkTheme = () => {
+      isDarkRef.current = document.documentElement.classList.contains("dark");
+    };
+
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    checkTheme();
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -78,6 +87,11 @@ export function ParticleField() {
 
       const particles = particlesRef.current;
       const mouse = mouseRef.current;
+      const dark = isDarkRef.current;
+
+      const dotL = dark ? 70 : 50;
+      const linkL = dark ? 65 : 45;
+      const linkAlphaMultiplier = dark ? 0.18 : 0.12;
 
       for (const p of particles) {
         p.x += p.vx;
@@ -108,7 +122,7 @@ export function ParticleField() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(250, 85%, 70%, ${alpha})`;
+        ctx.fillStyle = `hsla(250, 85%, ${dotL}%, ${alpha})`;
         ctx.fill();
       }
 
@@ -119,11 +133,11 @@ export function ParticleField() {
           const dy = particles[i].y - particles[j].y;
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < linkDist) {
-            const alpha = (1 - d / linkDist) * 0.18;
+            const alpha = (1 - d / linkDist) * linkAlphaMultiplier;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `hsla(250, 85%, 65%, ${alpha})`;
+            ctx.strokeStyle = `hsla(250, 85%, ${linkL}%, ${alpha})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -137,6 +151,7 @@ export function ParticleField() {
 
     return () => {
       cancelAnimationFrame(animationRef.current);
+      observer.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouse);
       window.removeEventListener("mouseleave", handleMouseLeave);

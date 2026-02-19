@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
-import { Sun, Moon, Menu, X, ArrowRight } from "lucide-react";
+import { Sun, Moon, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
@@ -27,6 +27,9 @@ export default function Navigation() {
     setMobileOpen(false);
   }, [location]);
 
+  const isHome = location === "/";
+  const overHero = isHome && !scrolled;
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -40,8 +43,8 @@ export default function Navigation() {
         <div className="flex items-center justify-between gap-4 h-16">
           <Link href="/" data-testid="link-home">
             <span className="cursor-pointer select-none flex items-baseline gap-0.5">
-              <span className="text-lg font-bold tracking-tight">Agile</span>
-              <span className="text-lg font-serif font-bold tracking-tight bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(135deg, hsl(250 85% 60%), hsl(280 80% 60%))" }}>Vision</span>
+              <span className={`text-lg font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Agile</span>
+              <span className={`text-lg font-serif font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Vision</span>
             </span>
           </Link>
 
@@ -52,7 +55,9 @@ export default function Navigation() {
                 <Link key={item.href} href={item.href}>
                   <button
                     className={`relative px-4 py-2 text-sm font-medium rounded-md transition-colors cursor-pointer ${
-                      isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                      overHero
+                        ? isActive ? "text-white" : "text-white/60 hover:text-white"
+                        : isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                     }`}
                     data-testid={`link-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                   >
@@ -60,7 +65,7 @@ export default function Navigation() {
                     {isActive && (
                       <motion.div
                         layoutId="nav-indicator"
-                        className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-primary"
+                        className={`absolute bottom-0 left-3 right-3 h-0.5 rounded-full ${overHero ? "bg-white" : "bg-primary"}`}
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                       />
                     )}
@@ -75,6 +80,7 @@ export default function Navigation() {
               size="icon"
               variant="ghost"
               onClick={toggleTheme}
+              className={overHero ? "text-white hover:text-white" : ""}
               data-testid="button-theme-toggle"
             >
               {theme === "dark" ? (
@@ -84,17 +90,10 @@ export default function Navigation() {
               )}
             </Button>
 
-            <Link href="/get-started" className="hidden md:block">
-              <Button size="sm" data-testid="button-start-project">
-                Get Started
-                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-              </Button>
-            </Link>
-
             <Button
               size="icon"
               variant="ghost"
-              className="md:hidden"
+              className={`md:hidden ${overHero ? "text-white hover:text-white" : ""}`}
               onClick={() => setMobileOpen(!mobileOpen)}
               data-testid="button-mobile-menu"
             >
@@ -131,12 +130,6 @@ export default function Navigation() {
                 </Link>
               );
               })}
-              <Link href="/get-started">
-                <Button className="w-full mt-2" data-testid="button-mobile-start-project">
-                  Get Started
-                  <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-                </Button>
-              </Link>
             </div>
           </motion.div>
         )}

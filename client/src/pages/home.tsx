@@ -246,10 +246,10 @@ function HeroSection() {
           className="font-serif text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.1] mb-6 text-white"
           data-testid="text-hero-title"
         >
-          <TextReveal delay={0.2}>We Engineer</TextReveal>
+          <TextReveal delay={0.2}>We Build the</TextReveal>
           <br />
           <span className="gradient-text">
-            <TextReveal delay={0.35}>Intelligence</TextReveal>
+            <TextReveal delay={0.35}>Future of AI</TextReveal>
           </span>
         </h1>
 
