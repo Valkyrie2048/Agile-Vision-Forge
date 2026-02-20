@@ -1,15 +1,13 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { Link } from "wouter";
 import { usePageTitle } from "@/hooks/use-page-title";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
 import {
   ArrowRight,
-  ArrowLeft,
   Sparkles,
   BrainCircuit,
   MessageSquare,
@@ -27,7 +25,6 @@ import {
   Layers,
   RefreshCw,
   Play,
-  ChevronRight,
   Bot,
   Workflow,
   LineChart,
@@ -35,6 +32,8 @@ import {
   Headphones,
   FileText,
   Search,
+  Activity,
+  Cpu,
   type LucideIcon,
 } from "lucide-react";
 
@@ -259,47 +258,183 @@ const scenarios: Scenario[] = [
   },
 ];
 
-function AnimatedCounter({ value, suffix = "", prefix = "", duration = 1.5 }: { value: number; suffix?: string; prefix?: string; duration?: number }) {
-  const motionVal = useMotionValue(0);
-  const rounded = useTransform(motionVal, (v) => `${prefix}${Math.round(v).toLocaleString()}${suffix}`);
-  const [display, setDisplay] = useState(`${prefix}0${suffix}`);
-
-  useEffect(() => {
-    const controls = animate(motionVal, value, { duration, ease: "easeOut" });
-    const unsub = rounded.on("change", (v) => setDisplay(v));
-    return () => { controls.stop(); unsub(); };
-  }, [value]);
-
-  return <span>{display}</span>;
-}
-
 function PulsingDot({ color = "red", delay = 0 }: { color?: string; delay?: number }) {
-  const colors: Record<string, string> = {
-    red: "bg-red-500",
-    green: "bg-emerald-500",
-    yellow: "bg-amber-500",
-    purple: "bg-purple-500",
-  };
+  const cls: Record<string, string> = { red: "bg-red-500", green: "bg-emerald-500", purple: "bg-purple-500" };
   return (
     <span className="relative flex h-2.5 w-2.5">
-      <motion.span
-        className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${colors[color] || colors.red}`}
-        animate={{ scale: [1, 1.8, 1], opacity: [0.75, 0, 0.75] }}
-        transition={{ duration: 1.5, repeat: Infinity, delay }}
-      />
-      <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${colors[color] || colors.red}`} />
+      <motion.span className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${cls[color] || cls.red}`} animate={{ scale: [1, 2, 1], opacity: [0.75, 0, 0.75] }} transition={{ duration: 1.5, repeat: Infinity, delay }} />
+      <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${cls[color] || cls.red}`} />
     </span>
   );
 }
 
-function ScanLine() {
+function TypewriterText({ text, speed = 20, onComplete }: { text: string; speed?: number; onComplete?: () => void }) {
+  const [displayed, setDisplayed] = useState("");
+  const indexRef = useRef(0);
+  useEffect(() => {
+    indexRef.current = 0;
+    setDisplayed("");
+    const timer = setInterval(() => {
+      indexRef.current++;
+      setDisplayed(text.slice(0, indexRef.current));
+      if (indexRef.current >= text.length) {
+        clearInterval(timer);
+        onComplete?.();
+      }
+    }, speed);
+    return () => clearInterval(timer);
+  }, [text, speed]);
+  return <span>{displayed}<motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.5, repeat: Infinity }} className="text-primary">|</motion.span></span>;
+}
+
+function GlowOrb({ size, x, y, color, delay }: { size: number; x: string; y: string; color: string; delay: number }) {
   return (
     <motion.div
-      className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-60 z-10"
-      initial={{ top: 0 }}
-      animate={{ top: "100%" }}
-      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+      className="absolute rounded-full pointer-events-none"
+      style={{ width: size, height: size, left: x, top: y, background: color, filter: `blur(${size * 0.6}px)` }}
+      animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+      transition={{ duration: 4 + delay, repeat: Infinity, ease: "easeInOut", delay }}
     />
+  );
+}
+
+function GridBackground() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 grid-pattern opacity-30" />
+      <motion.div
+        className="absolute inset-0"
+        style={{ background: "radial-gradient(ellipse at 50% 0%, hsla(250,85%,60%,0.08) 0%, transparent 70%)" }}
+        animate={{ opacity: [0.5, 1, 0.5] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
+    </div>
+  );
+}
+
+function RadarSweep() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+      <motion.div
+        className="w-[600px] h-[600px] rounded-full"
+        style={{ background: "conic-gradient(from 0deg, transparent 0%, transparent 85%, hsla(250,85%,60%,0.15) 90%, hsla(250,85%,60%,0.3) 95%, transparent 100%)" }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+      />
+    </div>
+  );
+}
+
+function TerminalLine({ text, delay, type = "info" }: { text: string; delay: number; type?: "info" | "warn" | "success" | "error" }) {
+  const colors = { info: "text-blue-400", warn: "text-amber-400", success: "text-emerald-400", error: "text-red-400" };
+  const prefixes = { info: "[SCAN]", warn: "[WARN]", success: "[OK]", error: "[ERR]" };
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -10 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay, duration: 0.3 }}
+      className="font-mono text-[11px] leading-relaxed flex gap-2"
+    >
+      <span className={colors[type]}>{prefixes[type]}</span>
+      <span className="text-muted-foreground">{text}</span>
+    </motion.div>
+  );
+}
+
+function CircularProgress({ progress, size = 120, strokeWidth = 6, children }: { progress: number; size?: number; strokeWidth?: number; children?: React.ReactNode }) {
+  const radius = (size - strokeWidth) / 2;
+  const circumference = radius * 2 * Math.PI;
+  const offset = circumference - (progress / 100) * circumference;
+  return (
+    <div className="relative inline-flex items-center justify-center">
+      <svg width={size} height={size} className="-rotate-90">
+        <circle cx={size / 2} cy={size / 2} r={radius} stroke="currentColor" strokeWidth={strokeWidth} fill="none" className="text-muted/30" />
+        <motion.circle
+          cx={size / 2} cy={size / 2} r={radius}
+          stroke="url(#progressGradient)" strokeWidth={strokeWidth} fill="none"
+          strokeLinecap="round"
+          strokeDasharray={circumference}
+          animate={{ strokeDashoffset: offset }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        />
+        <defs>
+          <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="hsl(250, 85%, 60%)" />
+            <stop offset="100%" stopColor="hsl(280, 80%, 65%)" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function NodeGraph({ steps, activeStep }: { steps: { label: string; bottleneck: boolean }[]; activeStep: number }) {
+  return (
+    <div className="flex items-center justify-between gap-1 py-4 overflow-x-auto px-2">
+      {steps.map((step, i) => {
+        const revealed = i < activeStep;
+        const current = i === activeStep - 1;
+        return (
+          <div key={i} className="flex items-center gap-1 flex-shrink-0">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: revealed ? 1 : 0.5, opacity: revealed ? 1 : 0.2 }}
+              transition={{ duration: 0.4, type: "spring" }}
+              className={`relative w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold border-2 transition-colors ${
+                step.bottleneck && revealed ? "border-red-500 bg-red-500/10 text-red-500" :
+                current ? "border-primary bg-primary/10 text-primary" :
+                revealed ? "border-emerald-500 bg-emerald-500/10 text-emerald-500" :
+                "border-muted bg-muted/50 text-muted-foreground"
+              }`}
+            >
+              {revealed ? (step.bottleneck ? <AlertTriangle className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> : <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />) : i + 1}
+              {current && (
+                <motion.div className="absolute inset-0 rounded-full border-2 border-primary" animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }} transition={{ duration: 1.5, repeat: Infinity }} />
+              )}
+            </motion.div>
+            {i < steps.length - 1 && (
+              <motion.div
+                className={`w-4 sm:w-8 h-0.5 rounded-full ${revealed ? (step.bottleneck ? "bg-red-500/40" : "bg-emerald-500/40") : "bg-muted"}`}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: revealed ? 1 : 0.3 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+              />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ImpactGauge({ label, change, icon: Icon, delay }: { label: string; change: string; icon: LucideIcon; delay: number }) {
+  const isPositive = change.includes("+") || change.includes("Instant") || change.includes("Growing");
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5, rotateY: 90 }}
+      animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+      transition={{ delay, duration: 0.6, type: "spring", stiffness: 120 }}
+      className="text-center"
+    >
+      <motion.div
+        className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl mx-auto mb-3 flex items-center justify-center relative overflow-hidden ${isPositive ? "bg-emerald-500/10" : "bg-emerald-500/10"}`}
+        whileHover={{ scale: 1.05, rotate: 2 }}
+      >
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent"
+          animate={{ opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 2, repeat: Infinity, delay }}
+        />
+        <div className="relative">
+          <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500 mb-1" />
+          <div className="text-sm sm:text-lg font-bold text-emerald-500">{change}</div>
+        </div>
+      </motion.div>
+      <div className="text-xs text-muted-foreground font-medium">{label}</div>
+    </motion.div>
   );
 }
 
@@ -312,11 +447,14 @@ export default function Simulator() {
   const [scanStep, setScanStep] = useState(0);
   const [transformStep, setTransformStep] = useState(0);
   const [showImprovements, setShowImprovements] = useState(false);
+  const [terminalLines, setTerminalLines] = useState<{ text: string; type: "info" | "warn" | "success" | "error" }[]>([]);
   const scanTimerRef = useRef<number | null>(null);
   const transformTimerRef = useRef<number | null>(null);
   const transformTimeoutRef = useRef<number | null>(null);
   const improvementTimeoutRef = useRef<number | null>(null);
+  const terminalTimerRef = useRef<number | null>(null);
   const topRef = useRef<HTMLDivElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
 
   const scrollToTop = useCallback(() => {
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -327,14 +465,41 @@ export default function Simulator() {
     setPhase("scanning");
     setScanProgress(0);
     setScanStep(0);
+    setTerminalLines([]);
     scrollToTop();
+
+    const termLines = [
+      { text: `Initializing environment scan for ${scenario.industry}...`, type: "info" as const },
+      { text: `Connecting to workflow analysis engine...`, type: "info" as const },
+      { text: `Mapping ${scenario.workflowSteps.length} workflow stages...`, type: "info" as const },
+      ...scenario.workflowSteps.map((s, i) => ({
+        text: `Stage ${i + 1}: ${s.label} (${s.duration})${s.bottleneck ? " -- BOTTLENECK DETECTED" : " -- OK"}`,
+        type: (s.bottleneck ? "warn" : "success") as "info" | "warn" | "success" | "error",
+      })),
+      { text: `Identified ${scenario.painPoints.length} critical pain points`, type: "error" as const },
+      { text: `Analyzing ${scenario.currentMetrics.length} performance metrics...`, type: "info" as const },
+      { text: `Environment scan complete. Preparing AI recommendations...`, type: "success" as const },
+    ];
+    let tIdx = 0;
+    terminalTimerRef.current = window.setInterval(() => {
+      if (tIdx < termLines.length) {
+        const line = termLines[tIdx];
+        tIdx++;
+        if (line) {
+          setTerminalLines(prev => [...prev, line]);
+          if (terminalRef.current) terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+        }
+      } else {
+        if (terminalTimerRef.current) { clearInterval(terminalTimerRef.current); terminalTimerRef.current = null; }
+      }
+    }, 350);
 
     let progress = 0;
     let step = 0;
     const stepInterval = 100 / scenario.workflowSteps.length;
 
     scanTimerRef.current = window.setInterval(() => {
-      progress += 0.8;
+      progress += 0.6;
       if (progress >= (step + 1) * stepInterval && step < scenario.workflowSteps.length) {
         step++;
         setScanStep(step);
@@ -351,14 +516,14 @@ export default function Simulator() {
           transformTimerRef.current = window.setInterval(() => {
             tStep++;
             setTransformStep(tStep);
-            if (tStep >= (scenario.aiSolutions.length + 1)) {
+            if (tStep >= scenario.aiSolutions.length + 1) {
               if (transformTimerRef.current) clearInterval(transformTimerRef.current);
-              improvementTimeoutRef.current = window.setTimeout(() => setShowImprovements(true), 600);
+              improvementTimeoutRef.current = window.setTimeout(() => setShowImprovements(true), 800);
             }
-          }, 1200);
-        }, 800);
+          }, 1500);
+        }, 1000);
       }
-    }, 40);
+    }, 50);
   }, [scrollToTop]);
 
   const goToReport = useCallback(() => {
@@ -367,10 +532,8 @@ export default function Simulator() {
   }, [scrollToTop]);
 
   const clearAllTimers = useCallback(() => {
-    if (scanTimerRef.current) { clearInterval(scanTimerRef.current); scanTimerRef.current = null; }
-    if (transformTimerRef.current) { clearInterval(transformTimerRef.current); transformTimerRef.current = null; }
-    if (transformTimeoutRef.current) { clearTimeout(transformTimeoutRef.current); transformTimeoutRef.current = null; }
-    if (improvementTimeoutRef.current) { clearTimeout(improvementTimeoutRef.current); improvementTimeoutRef.current = null; }
+    [scanTimerRef, transformTimerRef, terminalTimerRef].forEach(r => { if (r.current) { clearInterval(r.current); r.current = null; } });
+    [transformTimeoutRef, improvementTimeoutRef].forEach(r => { if (r.current) { clearTimeout(r.current); r.current = null; } });
   }, []);
 
   const reset = useCallback(() => {
@@ -382,109 +545,168 @@ export default function Simulator() {
     setScanStep(0);
     setTransformStep(0);
     setShowImprovements(false);
+    setTerminalLines([]);
     scrollToTop();
   }, [scrollToTop, clearAllTimers]);
 
-  useEffect(() => {
-    return () => { clearAllTimers(); };
-  }, [clearAllTimers]);
+  useEffect(() => () => clearAllTimers(), [clearAllTimers]);
 
-  const phaseLabels = ["Problem Discovery", "Environment Scan", "AI Transformation", "Impact Report"];
+  const phaseLabels = ["Discovery", "Environment Scan", "AI Transformation", "Impact Report"];
   const phaseKeys: typeof phase[] = ["discovery", "scanning", "transformation", "report"];
   const currentPhaseIndex = phaseKeys.indexOf(phase);
 
+  const matchScenario = useCallback((text: string): Scenario => {
+    const lower = text.toLowerCase();
+    const keywordMap: [string[], string][] = [
+      [["support", "ticket", "customer service", "helpdesk", "chat", "response time"], "customer-support"],
+      [["data", "entry", "spreadsheet", "manual", "extract", "processing", "csv", "report"], "data-processing"],
+      [["lead", "sales", "crm", "prospect", "follow-up", "conversion", "pipeline"], "lead-management"],
+      [["inventory", "stock", "supply", "warehouse", "shipping", "order", "forecast"], "inventory-ops"],
+      [["content", "blog", "marketing", "social media", "writing", "seo", "copy"], "content-creation"],
+      [["quality", "defect", "inspection", "manufacturing", "qa", "testing", "compliance"], "quality-assurance"],
+    ];
+    let best = scenarios[0];
+    let bestScore = 0;
+    for (const [keywords, id] of keywordMap) {
+      const score = keywords.filter(k => lower.includes(k)).length;
+      if (score > bestScore) { bestScore = score; best = scenarios.find(s => s.id === id) || scenarios[0]; }
+    }
+    return best;
+  }, []);
+
   return (
-    <div ref={topRef} className="min-h-screen">
-      <section className="relative pt-28 pb-12 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-        <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-purple-500/5 rounded-full blur-[100px]" />
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <Badge variant="outline" className="mb-4 border-primary/30 text-primary" data-testid="badge-simulator">
-              <Sparkles className="w-3 h-3 mr-1" /> AI Problem Solving Simulator
-            </Badge>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4" data-testid="text-simulator-title">
+    <div ref={topRef} className="min-h-screen relative">
+      <section className="relative pt-28 pb-16 overflow-hidden">
+        <GridBackground />
+        <GlowOrb size={400} x="10%" y="10%" color="hsla(250,85%,60%,0.06)" delay={0} />
+        <GlowOrb size={300} x="70%" y="20%" color="hsla(280,80%,60%,0.05)" delay={2} />
+        <GlowOrb size={250} x="50%" y="60%" color="hsla(250,85%,60%,0.04)" delay={1} />
+
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center z-10">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}>
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-sm font-medium mb-6"
+              animate={{ borderColor: ["hsla(250,85%,60%,0.2)", "hsla(250,85%,60%,0.5)", "hsla(250,85%,60%,0.2)"] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              data-testid="badge-simulator"
+            >
+              <motion.div animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }}>
+                <Cpu className="w-4 h-4" />
+              </motion.div>
+              AI Problem Solving Simulator
+            </motion.div>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-5 leading-[1.1]" data-testid="text-simulator-title">
               See How AI Transforms{" "}
-              <span className="bg-gradient-to-r from-primary via-purple-400 to-primary bg-clip-text text-transparent">
-                Your Business
+              <span className="relative">
+                <span className="gradient-text">Your Business</span>
+                <motion.span
+                  className="absolute -bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-primary via-purple-400 to-primary rounded-full"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.5, duration: 0.8 }}
+                />
               </span>
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto" data-testid="text-simulator-subtitle">
-              Describe your challenge and watch as we model your environment, identify bottlenecks, and simulate how AI can dramatically improve your operations.
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed" data-testid="text-simulator-subtitle">
+              Select a challenge, watch us scan your environment in real-time, and witness the transformative power of AI on your operations.
             </p>
           </motion.div>
 
-          <div className="flex items-center justify-center gap-0 mt-10 mb-2" data-testid="progress-phases">
+          <motion.div
+            className="flex items-center justify-center mt-12 mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            data-testid="progress-phases"
+          >
             {phaseLabels.map((label, i) => (
               <div key={label} className="flex items-center">
-                <div className="flex flex-col items-center gap-1.5">
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-500 ${
+                <div className="flex flex-col items-center gap-2">
+                  <motion.div
+                    className={`w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold transition-all duration-500 relative ${
                       i <= currentPhaseIndex
-                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-                        : "bg-muted text-muted-foreground"
+                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
+                        : "bg-muted/80 text-muted-foreground"
                     }`}
+                    animate={i === currentPhaseIndex ? { boxShadow: ["0 0 0 0 hsla(250,85%,60%,0)", "0 0 0 8px hsla(250,85%,60%,0.15)", "0 0 0 0 hsla(250,85%,60%,0)"] } : {}}
+                    transition={{ duration: 2, repeat: Infinity }}
                   >
                     {i < currentPhaseIndex ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
-                  </div>
-                  <span className={`text-[10px] sm:text-xs font-medium transition-colors ${i <= currentPhaseIndex ? "text-primary" : "text-muted-foreground"}`}>
+                  </motion.div>
+                  <span className={`text-[10px] sm:text-xs font-medium transition-colors whitespace-nowrap ${i <= currentPhaseIndex ? "text-primary" : "text-muted-foreground/60"}`}>
                     {label}
                   </span>
                 </div>
                 {i < phaseLabels.length - 1 && (
-                  <div className={`w-8 sm:w-16 lg:w-24 h-0.5 mx-1 sm:mx-2 rounded-full transition-colors duration-500 -mt-5 ${i < currentPhaseIndex ? "bg-primary" : "bg-muted"}`} />
+                  <div className="relative w-8 sm:w-16 lg:w-24 h-1 mx-1 sm:mx-3 -mt-6 rounded-full overflow-hidden bg-muted/50">
+                    <motion.div
+                      className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-purple-400 rounded-full"
+                      initial={{ width: "0%" }}
+                      animate={{ width: i < currentPhaseIndex ? "100%" : "0%" }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                    />
+                  </div>
                 )}
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-24">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-24 relative z-10">
         <AnimatePresence mode="wait">
           {phase === "discovery" && (
-            <motion.div
-              key="discovery"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold mb-2" data-testid="text-discovery-heading">What challenge is holding your business back?</h2>
-                <p className="text-muted-foreground">Select a common scenario below, or describe your unique situation.</p>
+            <motion.div key="discovery" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.5 }}>
+              <div className="text-center mb-10">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-3" data-testid="text-discovery-heading">
+                  What challenge is holding your business back?
+                </h2>
+                <p className="text-muted-foreground max-w-lg mx-auto">Choose a scenario to begin your AI transformation simulation.</p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-                {scenarios.map((scenario) => (
-                  <motion.div key={scenario.id} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+                {scenarios.map((scenario, idx) => (
+                  <motion.div
+                    key={scenario.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.08, duration: 0.4 }}
+                    whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                  >
                     <Card
-                      className={`relative p-5 cursor-pointer transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 ${
-                        selectedScenario?.id === scenario.id ? "border-primary shadow-lg shadow-primary/10 bg-primary/5" : ""
+                      className={`relative p-5 cursor-pointer transition-all duration-300 h-full group overflow-hidden ${
+                        selectedScenario?.id === scenario.id
+                          ? "border-primary shadow-xl shadow-primary/15 bg-primary/5 ring-1 ring-primary/20"
+                          : "hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
                       }`}
                       onClick={() => setSelectedScenario(scenario)}
                       data-testid={`card-scenario-${scenario.id}`}
                     >
-                      <div className="flex items-start gap-3">
-                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
-                          selectedScenario?.id === scenario.id ? "bg-primary text-primary-foreground" : "bg-primary/10 text-primary"
-                        }`}>
-                          <scenario.icon className="w-5 h-5" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="relative">
+                        <div className="flex items-start gap-3.5 mb-3">
+                          <motion.div
+                            className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                              selectedScenario?.id === scenario.id ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" : "bg-primary/10 text-primary group-hover:bg-primary/15"
+                            }`}
+                            animate={selectedScenario?.id === scenario.id ? { scale: [1, 1.05, 1] } : {}}
+                            transition={{ duration: 2, repeat: Infinity }}
+                          >
+                            <scenario.icon className="w-5 h-5" />
+                          </motion.div>
+                          <div className="min-w-0">
+                            <h3 className="font-semibold text-sm mb-0.5">{scenario.title}</h3>
+                            <Badge variant="secondary" className="text-[10px] font-normal">{scenario.industry}</Badge>
+                          </div>
                         </div>
-                        <div className="min-w-0">
-                          <h3 className="font-semibold text-sm mb-1">{scenario.title}</h3>
-                          <p className="text-xs text-muted-foreground leading-relaxed">{scenario.description}</p>
-                          <Badge variant="secondary" className="mt-2 text-[10px]">{scenario.industry}</Badge>
-                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{scenario.description}</p>
                       </div>
                       {selectedScenario?.id === scenario.id && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="absolute top-2 right-2"
-                        >
-                          <CheckCircle2 className="w-5 h-5 text-primary" />
+                        <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} className="absolute top-3 right-3">
+                          <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+                            <CheckCircle2 className="w-4 h-4 text-primary-foreground" />
+                          </div>
                         </motion.div>
                       )}
                     </Card>
@@ -492,11 +714,11 @@ export default function Simulator() {
                 ))}
               </div>
 
-              <div className="max-w-xl mx-auto">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="max-w-xl mx-auto mb-10">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-purple-500/10 to-primary/10 rounded-lg blur-xl" />
-                  <Card className="relative p-6">
-                    <h3 className="font-semibold mb-3 flex items-center gap-2">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-purple-500/20 to-primary/20 rounded-xl blur-xl opacity-50" />
+                  <Card className="relative p-6 bg-card/80 backdrop-blur-sm">
+                    <h3 className="font-semibold mb-3 flex items-center gap-2 text-sm">
                       <BrainCircuit className="w-4 h-4 text-primary" />
                       Or describe your unique challenge
                     </h3>
@@ -504,251 +726,250 @@ export default function Simulator() {
                       placeholder="e.g., Our sales team spends 3 hours daily updating CRM records manually, and we're losing deals because follow-ups fall through the cracks..."
                       value={customProblem}
                       onChange={(e) => setCustomProblem(e.target.value)}
-                      className="min-h-[100px] resize-none mb-4"
+                      className="min-h-[80px] resize-none mb-3 bg-background/50"
                       data-testid="input-custom-problem"
                     />
-                    <p className="text-xs text-muted-foreground mb-4">
-                      For the demo, selecting a scenario above gives the richest simulation experience. Custom problems will be matched to the closest scenario.
-                    </p>
+                    <p className="text-[11px] text-muted-foreground/70">Custom problems are intelligently matched to our closest scenario for the demo experience.</p>
                   </Card>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex justify-center mt-8">
-                <Button
-                  size="lg"
-                  disabled={!selectedScenario && !customProblem.trim()}
-                  onClick={() => {
-                    if (selectedScenario) {
-                      startScan(selectedScenario);
-                    } else if (customProblem.trim()) {
-                      const lower = customProblem.toLowerCase();
-                      const keywordMap: [string[], string][] = [
-                        [["support", "ticket", "customer service", "helpdesk", "chat", "response time"], "customer-support"],
-                        [["data", "entry", "spreadsheet", "manual", "extract", "processing", "csv", "report"], "data-processing"],
-                        [["lead", "sales", "crm", "prospect", "follow-up", "conversion", "pipeline"], "lead-management"],
-                        [["inventory", "stock", "supply", "warehouse", "shipping", "order", "forecast"], "inventory-ops"],
-                        [["content", "blog", "marketing", "social media", "writing", "seo", "copy"], "content-creation"],
-                        [["quality", "defect", "inspection", "manufacturing", "qa", "testing", "compliance"], "quality-assurance"],
-                      ];
-                      let bestMatch = scenarios[0];
-                      let bestScore = 0;
-                      for (const [keywords, id] of keywordMap) {
-                        const score = keywords.filter(k => lower.includes(k)).length;
-                        if (score > bestScore) {
-                          bestScore = score;
-                          bestMatch = scenarios.find(s => s.id === id) || scenarios[0];
-                        }
-                      }
-                      startScan(bestMatch);
-                    }
-                  }}
-                  className="gap-2 px-8"
-                  data-testid="button-start-simulation"
-                >
-                  <Play className="w-4 h-4" />
-                  Launch Simulation
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </div>
+              <motion.div className="flex justify-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                  <Button
+                    size="lg"
+                    disabled={!selectedScenario && !customProblem.trim()}
+                    onClick={() => {
+                      const scenario = selectedScenario || matchScenario(customProblem);
+                      startScan(scenario);
+                    }}
+                    className="gap-3 px-10 py-6 text-base shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
+                    data-testid="button-start-simulation"
+                  >
+                    <Play className="w-5 h-5" />
+                    Launch Simulation
+                    <ArrowRight className="w-5 h-5" />
+                  </Button>
+                </motion.div>
+              </motion.div>
             </motion.div>
           )}
 
           {phase === "scanning" && selectedScenario && (
-            <motion.div
-              key="scanning"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-            >
+            <motion.div key="scanning" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.5 }}>
               <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold mb-2" data-testid="text-scanning-heading">
-                  Analyzing Your Environment
+                <motion.div className="inline-flex items-center gap-2 text-primary mb-3" animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                  <Activity className="w-5 h-5" />
+                  <span className="text-sm font-medium uppercase tracking-wider">Live Analysis</span>
+                </motion.div>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-2" data-testid="text-scanning-heading">
+                  Scanning Your Environment
                 </h2>
-                <p className="text-muted-foreground">Mapping your current workflow and identifying bottlenecks...</p>
+                <p className="text-muted-foreground">{selectedScenario.title} - {selectedScenario.industry}</p>
               </div>
 
-              <div className="mb-8">
-                <div className="flex items-center justify-between text-sm mb-2">
-                  <span className="text-muted-foreground flex items-center gap-2">
-                    <PulsingDot color="purple" />
-                    Scanning in progress...
-                  </span>
-                  <span className="font-mono text-primary font-semibold">{Math.round(scanProgress)}%</span>
-                </div>
-                <div className="h-2 bg-muted rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-primary via-purple-400 to-primary rounded-full"
-                    style={{ width: `${scanProgress}%` }}
-                    transition={{ duration: 0.1 }}
-                  />
-                </div>
-              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div className="lg:col-span-2 space-y-6">
+                  <Card className="p-5 relative overflow-hidden">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-semibold text-sm flex items-center gap-2">
+                        <Workflow className="w-4 h-4 text-primary" />
+                        Workflow Mapping
+                      </h3>
+                      <span className="font-mono text-xs text-primary font-semibold">{Math.round(scanProgress)}%</span>
+                    </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                {selectedScenario.currentMetrics.map((metric, i) => (
-                  <motion.div
-                    key={metric.label}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: scanProgress > (i + 1) * 15 ? 1 : 0.3, scale: scanProgress > (i + 1) * 15 ? 1 : 0.95 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <Card className="p-4 text-center relative overflow-hidden">
-                      {scanProgress <= (i + 1) * 15 && <ScanLine />}
-                      <metric.icon className="w-5 h-5 mx-auto mb-2 text-primary" />
-                      <div className="text-lg font-bold">{metric.value}</div>
-                      <div className="text-[11px] text-muted-foreground">{metric.label}</div>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
+                    <div className="h-1.5 bg-muted rounded-full overflow-hidden mb-4">
+                      <motion.div className="h-full rounded-full relative" style={{ width: `${scanProgress}%`, background: "linear-gradient(90deg, hsl(250,85%,60%), hsl(280,80%,65%), hsl(250,85%,60%))", backgroundSize: "200% 100%" }} animate={{ backgroundPosition: ["0% 0%", "100% 0%", "0% 0%"] }} transition={{ duration: 2, repeat: Infinity }} />
+                    </div>
 
-              <Card className="p-6 relative overflow-hidden" data-testid="card-workflow-scan">
-                <h3 className="font-semibold mb-4 flex items-center gap-2">
-                  <Workflow className="w-4 h-4 text-primary" />
-                  Current Workflow Analysis
-                </h3>
-                <div className="space-y-3">
-                  {selectedScenario.workflowSteps.map((step, i) => {
-                    const isRevealed = i < scanStep;
-                    const isActive = i === scanStep - 1;
-                    return (
-                      <motion.div
-                        key={step.label}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: isRevealed ? 1 : 0.2, x: isRevealed ? 0 : -10 }}
-                        transition={{ duration: 0.4 }}
-                        className={`flex items-start gap-3 p-3 rounded-lg transition-colors ${
-                          isActive ? "bg-primary/5 border border-primary/20" : isRevealed ? "bg-muted/50" : ""
-                        }`}
-                      >
-                        <div className="flex items-center gap-2 flex-shrink-0 mt-0.5">
-                          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold ${
-                            step.bottleneck && isRevealed ? "bg-red-500/10 text-red-500 ring-1 ring-red-500/30" : isRevealed ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
-                          }`}>
-                            {i + 1}
+                    <NodeGraph steps={selectedScenario.workflowSteps.map(s => ({ label: s.label, bottleneck: s.bottleneck }))} activeStep={scanStep} />
+
+                    <div className="space-y-2 mt-4">
+                      {selectedScenario.workflowSteps.map((step, i) => {
+                        const revealed = i < scanStep;
+                        const current = i === scanStep - 1;
+                        if (!revealed) return null;
+                        return (
+                          <motion.div
+                            key={step.label}
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            transition={{ duration: 0.4 }}
+                            className={`p-3 rounded-lg border transition-all ${
+                              step.bottleneck ? "border-red-500/20 bg-red-500/5" :
+                              current ? "border-primary/20 bg-primary/5" : "border-transparent bg-muted/30"
+                            }`}
+                          >
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-medium text-xs">{step.label}</span>
+                              <Badge variant={step.bottleneck ? "destructive" : "secondary"} className="text-[9px] px-1.5 py-0">{step.duration}</Badge>
+                              {step.bottleneck && (
+                                <span className="flex items-center gap-1 text-[9px] text-red-500 font-medium">
+                                  <AlertTriangle className="w-2.5 h-2.5" /> Bottleneck
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-[11px] text-muted-foreground">{step.description}</p>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                  </Card>
+
+                  <AnimatePresence>
+                    {scanProgress > 50 && (
+                      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+                        <Card className="p-5 border-red-500/15 bg-gradient-to-br from-red-500/5 to-transparent">
+                          <h4 className="font-semibold text-sm flex items-center gap-2 mb-3">
+                            <AlertTriangle className="w-4 h-4 text-red-500" />
+                            Critical Pain Points Identified
+                          </h4>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            {selectedScenario.painPoints.map((point, i) => (
+                              <motion.div key={i} initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.15 }} className="flex items-start gap-2">
+                                <PulsingDot color="red" delay={i * 0.3} />
+                                <span className="text-xs text-muted-foreground leading-relaxed">{point}</span>
+                              </motion.div>
+                            ))}
                           </div>
-                          {step.bottleneck && isRevealed && <PulsingDot color="red" delay={i * 0.3} />}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-0.5">
-                            <span className="font-medium text-sm">{step.label}</span>
-                            <Badge variant={step.bottleneck ? "destructive" : "secondary"} className="text-[9px] px-1.5 py-0">
-                              {step.duration}
-                            </Badge>
-                            {step.bottleneck && isRevealed && (
-                              <Badge variant="outline" className="text-[9px] px-1.5 py-0 border-red-500/30 text-red-500">
-                                <AlertTriangle className="w-2.5 h-2.5 mr-0.5" /> Bottleneck
-                              </Badge>
-                            )}
-                          </div>
-                          {isRevealed && (
-                            <motion.p
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              className="text-xs text-muted-foreground"
-                            >
-                              {step.description}
-                            </motion.p>
-                          )}
-                        </div>
+                        </Card>
                       </motion.div>
-                    );
-                  })}
+                    )}
+                  </AnimatePresence>
                 </div>
-              </Card>
 
-              {scanProgress > 60 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-6"
-                >
-                  <Card className="p-5 border-red-500/20 bg-red-500/5">
-                    <h4 className="font-semibold text-sm flex items-center gap-2 mb-3">
-                      <AlertTriangle className="w-4 h-4 text-red-500" />
-                      Pain Points Detected
-                    </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {selectedScenario.painPoints.map((point, i) => (
+                <div className="space-y-4">
+                  <Card className="p-5 relative overflow-hidden" data-testid="card-scan-metrics">
+                    <RadarSweep />
+                    <h3 className="font-semibold text-sm mb-4 flex items-center gap-2 relative z-10">
+                      <BarChart3 className="w-4 h-4 text-primary" />
+                      Current Metrics
+                    </h3>
+                    <div className="space-y-3 relative z-10">
+                      {selectedScenario.currentMetrics.map((metric, i) => (
                         <motion.div
-                          key={i}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.2 }}
-                          className="flex items-start gap-2 text-sm"
+                          key={metric.label}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: scanProgress > (i + 1) * 15 ? 1 : 0.15, x: scanProgress > (i + 1) * 15 ? 0 : 10 }}
+                          transition={{ duration: 0.5 }}
+                          className="flex items-center gap-3 p-2.5 rounded-lg bg-background/50"
                         >
-                          <PulsingDot color="red" delay={i * 0.4} />
-                          <span className="text-muted-foreground text-xs">{point}</span>
+                          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <metric.icon className="w-4 h-4 text-primary" />
+                          </div>
+                          <div className="min-w-0">
+                            <div className="text-sm font-bold">{metric.value}</div>
+                            <div className="text-[10px] text-muted-foreground">{metric.label}</div>
+                          </div>
                         </motion.div>
                       ))}
                     </div>
                   </Card>
-                </motion.div>
-              )}
+
+                  <Card className="p-4 bg-zinc-950 dark:bg-zinc-950 border-zinc-800 overflow-hidden" data-testid="card-terminal">
+                    <div className="flex items-center gap-1.5 mb-3">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                      <span className="text-[10px] text-zinc-500 ml-2 font-mono">scan_output.log</span>
+                    </div>
+                    <div ref={terminalRef} className="h-48 overflow-y-auto space-y-1 scrollbar-thin">
+                      {terminalLines.map((line, i) => line ? (
+                        <TerminalLine key={i} text={line.text} type={line.type} delay={0} />
+                      ) : null)}
+                      {scanProgress < 100 && (
+                        <motion.div className="flex items-center gap-1 mt-1" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity }}>
+                          <span className="text-primary font-mono text-[11px]">$</span>
+                          <span className="w-2 h-3 bg-primary/60 animate-pulse" />
+                        </motion.div>
+                      )}
+                    </div>
+                  </Card>
+                </div>
+              </div>
             </motion.div>
           )}
 
           {phase === "transformation" && selectedScenario && (
-            <motion.div
-              key="transformation"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold mb-2" data-testid="text-transformation-heading">
-                  Applying AI Solutions
+            <motion.div key="transformation" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.5 }}>
+              <div className="text-center mb-10">
+                <motion.div className="inline-flex items-center gap-2 text-emerald-500 mb-3" animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                  <Zap className="w-5 h-5" />
+                  <span className="text-sm font-medium uppercase tracking-wider">Deploying Solutions</span>
+                </motion.div>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-2" data-testid="text-transformation-heading">
+                  AI Transformation In Progress
                 </h2>
-                <p className="text-muted-foreground">Watch as intelligent automation transforms your workflow...</p>
+                <p className="text-muted-foreground">Deploying intelligent automation to eliminate bottlenecks...</p>
               </div>
 
-              <div className="space-y-4 mb-10">
+              <div className="max-w-3xl mx-auto space-y-5 mb-12">
                 {selectedScenario.aiSolutions.map((solution, i) => {
-                  const isActive = transformStep > i;
-                  const isCurrent = transformStep === i + 1;
+                  const deployed = transformStep > i + 1;
+                  const deploying = transformStep === i + 1;
+                  const waiting = transformStep <= i;
                   return (
                     <motion.div
                       key={solution.title}
-                      initial={{ opacity: 0, x: -30 }}
-                      animate={{
-                        opacity: isActive ? 1 : 0.3,
-                        x: isActive ? 0 : -15,
-                      }}
-                      transition={{ duration: 0.6, delay: i * 0.1 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: waiting ? 0.25 : 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: i * 0.1 }}
                     >
-                      <Card className={`p-5 transition-all duration-500 ${isCurrent ? "border-primary shadow-lg shadow-primary/10 bg-primary/5" : isActive ? "border-emerald-500/30 bg-emerald-500/5" : ""}`}>
-                        <div className="flex items-start gap-4">
-                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-500 ${
-                            isActive ? "bg-emerald-500 text-white" : isCurrent ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                      <Card className={`p-6 transition-all duration-700 relative overflow-hidden ${
+                        deploying ? "border-primary/50 shadow-2xl shadow-primary/15" :
+                        deployed ? "border-emerald-500/30" : ""
+                      }`}>
+                        {deploying && (
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent"
+                            animate={{ x: ["-100%", "200%"] }}
+                            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                          />
+                        )}
+                        <div className="relative flex items-start gap-5">
+                          <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-700 ${
+                            deployed ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/25" :
+                            deploying ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" :
+                            "bg-muted text-muted-foreground"
                           }`}>
-                            {isActive && !isCurrent ? (
-                              <CheckCircle2 className="w-6 h-6" />
-                            ) : isCurrent ? (
+                            {deployed ? (
+                              <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 200 }}>
+                                <CheckCircle2 className="w-7 h-7" />
+                              </motion.div>
+                            ) : deploying ? (
                               <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }}>
-                                <Cog className="w-6 h-6" />
+                                <Cog className="w-7 h-7" />
                               </motion.div>
                             ) : (
-                              <solution.icon className="w-6 h-6" />
+                              <solution.icon className="w-7 h-7" />
                             )}
                           </div>
                           <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-semibold">{solution.title}</h3>
-                              {isCurrent && (
-                                <Badge className="bg-primary/10 text-primary text-[10px]">
-                                  <PulsingDot color="purple" /> <span className="ml-1">Deploying...</span>
-                                </Badge>
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <h3 className="font-semibold text-base">{solution.title}</h3>
+                              {deploying && (
+                                <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}>
+                                  <Badge className="bg-primary/10 text-primary text-[10px] gap-1">
+                                    <motion.div className="w-1.5 h-1.5 rounded-full bg-primary" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 1, repeat: Infinity }} />
+                                    Deploying
+                                  </Badge>
+                                </motion.div>
                               )}
-                              {isActive && !isCurrent && (
-                                <Badge className="bg-emerald-500/10 text-emerald-500 text-[10px]">
-                                  <CheckCircle2 className="w-3 h-3 mr-0.5" /> Active
-                                </Badge>
+                              {deployed && (
+                                <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}>
+                                  <Badge className="bg-emerald-500/10 text-emerald-500 text-[10px] gap-1">
+                                    <CheckCircle2 className="w-3 h-3" /> Live
+                                  </Badge>
+                                </motion.div>
                               )}
                             </div>
-                            <p className="text-sm text-muted-foreground">{solution.description}</p>
+                            <p className="text-sm text-muted-foreground leading-relaxed">{solution.description}</p>
+                            {deploying && (
+                              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3 h-1 bg-muted rounded-full overflow-hidden">
+                                <motion.div className="h-full bg-primary rounded-full" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 1.5, ease: "easeInOut" }} />
+                              </motion.div>
+                            )}
                           </div>
                         </div>
                       </Card>
@@ -759,55 +980,56 @@ export default function Simulator() {
 
               <AnimatePresence>
                 {showImprovements && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <div className="text-center mb-6">
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+                    <div className="text-center mb-8">
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                        transition={{ type: "spring", stiffness: 150, damping: 12 }}
+                        className="relative inline-block mb-4"
                       >
-                        <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-3">
-                          <Zap className="w-8 h-8 text-emerald-500" />
+                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-2xl shadow-emerald-500/30">
+                          <Zap className="w-10 h-10 text-white" />
                         </div>
+                        <motion.div
+                          className="absolute -inset-3 rounded-3xl border-2 border-emerald-500/30"
+                          animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        />
                       </motion.div>
-                      <h3 className="text-xl font-bold" data-testid="text-improvements-heading">Transformation Complete</h3>
-                      <p className="text-muted-foreground text-sm mt-1">Here's how your metrics improve with AI</p>
+                      <h3 className="text-2xl font-bold" data-testid="text-improvements-heading">Transformation Complete</h3>
+                      <p className="text-muted-foreground mt-1">All AI solutions deployed successfully. Here are your projected improvements.</p>
                     </div>
 
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div className="flex flex-wrap justify-center gap-6 sm:gap-8 mb-10">
                       {selectedScenario.improvements.map((imp, i) => (
-                        <motion.div
-                          key={imp.label}
-                          initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{ delay: i * 0.15, duration: 0.5 }}
-                        >
-                          <Card className="p-4 text-center border-emerald-500/20 bg-gradient-to-b from-emerald-500/5 to-transparent">
-                            <imp.icon className="w-5 h-5 mx-auto mb-2 text-emerald-500" />
-                            <div className="text-[11px] text-muted-foreground mb-1">{imp.label}</div>
-                            <div className="flex items-center justify-center gap-1.5 mb-2">
-                              <span className="text-xs line-through text-muted-foreground">{imp.before}</span>
+                        <ImpactGauge key={imp.label} label={imp.label} change={imp.change} icon={imp.icon} delay={i * 0.2} />
+                      ))}
+                    </div>
+
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                      {selectedScenario.improvements.map((imp, i) => (
+                        <motion.div key={imp.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 + i * 0.1 }}>
+                          <Card className="p-4 text-center border-emerald-500/10">
+                            <div className="text-[11px] text-muted-foreground mb-2">{imp.label}</div>
+                            <div className="flex items-center justify-center gap-2">
+                              <span className="text-xs line-through text-muted-foreground/60">{imp.before}</span>
                               <ArrowRight className="w-3 h-3 text-emerald-500" />
-                              <span className="text-sm font-bold text-emerald-500">{imp.after}</span>
+                              <span className="text-base font-bold text-emerald-500">{imp.after}</span>
                             </div>
-                            <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold">
-                              {imp.change}
-                            </Badge>
                           </Card>
                         </motion.div>
                       ))}
                     </div>
 
-                    <div className="flex justify-center">
-                      <Button size="lg" onClick={goToReport} className="gap-2 px-8" data-testid="button-view-report">
-                        View Full Impact Report
-                        <ArrowRight className="w-4 h-4" />
-                      </Button>
-                    </div>
+                    <motion.div className="flex justify-center" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}>
+                      <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                        <Button size="lg" onClick={goToReport} className="gap-3 px-10 py-6 text-base shadow-lg shadow-primary/20" data-testid="button-view-report">
+                          View Full Impact Report
+                          <ArrowRight className="w-5 h-5" />
+                        </Button>
+                      </motion.div>
+                    </motion.div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -815,124 +1037,131 @@ export default function Simulator() {
           )}
 
           {phase === "report" && selectedScenario && (
-            <motion.div
-              key="report"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="text-center mb-10">
+            <motion.div key="report" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.6 }}>
+              <div className="text-center mb-12">
                 <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                  className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center mx-auto mb-4 shadow-xl shadow-primary/20"
+                  initial={{ scale: 0, rotate: -90 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: "spring", stiffness: 150, damping: 12 }}
+                  className="relative inline-block mb-5"
                 >
-                  <BarChart3 className="w-10 h-10 text-white" />
+                  <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-primary via-purple-500 to-primary flex items-center justify-center shadow-2xl shadow-primary/30">
+                    <BarChart3 className="w-12 h-12 text-white" />
+                  </div>
+                  <motion.div
+                    className="absolute -inset-2 rounded-[20px] border-2 border-primary/20"
+                    animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0, 0.3] }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  />
                 </motion.div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2" data-testid="text-report-heading">
-                  AI Impact Report
-                </h2>
-                <p className="text-muted-foreground">
-                  {selectedScenario.title} — {selectedScenario.industry}
-                </p>
+                <h2 className="text-3xl sm:text-4xl font-bold mb-3" data-testid="text-report-heading">AI Impact Report</h2>
+                <div className="flex items-center justify-center gap-3 text-muted-foreground">
+                  <Badge variant="outline" className="font-normal">{selectedScenario.title}</Badge>
+                  <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
+                  <Badge variant="outline" className="font-normal">{selectedScenario.industry}</Badge>
+                </div>
               </div>
 
-              <Card className="p-6 sm:p-8 mb-8 border-primary/20 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5">
-                <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                  <BrainCircuit className="w-5 h-5 text-primary" />
-                  Executive Summary
-                </h3>
-                <p className="text-muted-foreground leading-relaxed" data-testid="text-report-summary">
-                  {selectedScenario.summary}
-                </p>
-              </Card>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                <Card className="p-6 sm:p-8 mb-8 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5" />
+                  <div className="relative">
+                    <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
+                      <BrainCircuit className="w-5 h-5 text-primary" />
+                      Executive Summary
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed text-[15px]" data-testid="text-report-summary">
+                      <TypewriterText text={selectedScenario.summary} speed={15} />
+                    </p>
+                  </div>
+                </Card>
+              </motion.div>
 
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 {selectedScenario.improvements.map((imp, i) => (
-                  <motion.div
-                    key={imp.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                  >
-                    <Card className="p-5 text-center">
-                      <imp.icon className="w-6 h-6 mx-auto mb-2 text-primary" />
-                      <div className="text-xs text-muted-foreground mb-2">{imp.label}</div>
-                      <div className="space-y-1">
-                        <div className="text-xs text-muted-foreground">
-                          Before: <span className="font-medium text-foreground">{imp.before}</span>
+                  <motion.div key={imp.label} initial={{ opacity: 0, y: 30, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.4 + i * 0.12, type: "spring", stiffness: 120 }}>
+                    <Card className="p-5 text-center relative overflow-hidden group hover:border-emerald-500/30 transition-colors">
+                      <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="relative">
+                        <imp.icon className="w-7 h-7 mx-auto mb-3 text-primary" />
+                        <div className="text-xs text-muted-foreground mb-3 font-medium">{imp.label}</div>
+                        <div className="space-y-1.5 mb-3">
+                          <div className="text-xs text-muted-foreground/60">
+                            Before: <span className="font-medium text-foreground/70">{imp.before}</span>
+                          </div>
+                          <div className="text-emerald-500">
+                            After: <span className="text-xl font-bold">{imp.after}</span>
+                          </div>
                         </div>
-                        <div className="text-xs text-emerald-500 font-bold">
-                          After: <span className="text-lg">{imp.after}</span>
-                        </div>
-                      </div>
-                      <div className="mt-3">
-                        <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold">
-                          {imp.change}
-                        </Badge>
+                        <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs">{imp.change}</Badge>
                       </div>
                     </Card>
                   </motion.div>
                 ))}
               </div>
 
-              <Card className="p-6 mb-8">
-                <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
-                  <Zap className="w-5 h-5 text-primary" />
-                  Recommended AI Solutions
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {selectedScenario.aiSolutions.map((solution, i) => (
-                    <motion.div
-                      key={solution.title}
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 + i * 0.1 }}
-                    >
-                      <div className="p-4 rounded-lg bg-muted/50 h-full">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                          <solution.icon className="w-5 h-5 text-primary" />
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
+                <Card className="p-6 sm:p-8 mb-8">
+                  <h3 className="font-semibold text-lg mb-5 flex items-center gap-2">
+                    <Zap className="w-5 h-5 text-primary" />
+                    Recommended AI Solutions
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {selectedScenario.aiSolutions.map((solution, i) => (
+                      <motion.div key={solution.title} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 + i * 0.15 }} whileHover={{ y: -3 }}>
+                        <div className="p-5 rounded-xl bg-muted/50 h-full border border-transparent hover:border-primary/20 transition-colors">
+                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/15 to-purple-500/10 flex items-center justify-center mb-4">
+                            <solution.icon className="w-6 h-6 text-primary" />
+                          </div>
+                          <h4 className="font-semibold text-sm mb-2">{solution.title}</h4>
+                          <p className="text-xs text-muted-foreground leading-relaxed">{solution.description}</p>
                         </div>
-                        <h4 className="font-semibold text-sm mb-1">{solution.title}</h4>
-                        <p className="text-xs text-muted-foreground leading-relaxed">{solution.description}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </Card>
-
-              <Card className="p-6 sm:p-8 border-primary/20 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-purple-500/5 to-primary/5" />
-                <div className="relative text-center">
-                  <h3 className="text-xl font-bold mb-2">Ready to Transform Your Business?</h3>
-                  <p className="text-muted-foreground text-sm mb-6 max-w-lg mx-auto">
-                    This simulation is just the beginning. Let our team build a custom AI solution tailored to your exact needs and environment.
-                  </p>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <Link href="/get-started">
-                      <Button size="lg" className="gap-2 px-8" data-testid="button-get-started">
-                        <Sparkles className="w-4 h-4" />
-                        Start Your Project
-                      </Button>
-                    </Link>
-                    <Link href="/contact">
-                      <Button size="lg" variant="outline" className="gap-2 px-8" data-testid="button-contact">
-                        Talk to Our Team
-                        <ArrowRight className="w-4 h-4" />
-                      </Button>
-                    </Link>
+                      </motion.div>
+                    ))}
                   </div>
-                </div>
-              </Card>
+                </Card>
+              </motion.div>
 
-              <div className="flex justify-center mt-8">
-                <Button variant="ghost" onClick={reset} className="gap-2 text-muted-foreground" data-testid="button-try-another">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}>
+                <Card className="p-8 sm:p-10 relative overflow-hidden">
+                  <div className="absolute inset-0">
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/8 via-purple-500/5 to-primary/8" />
+                    <GlowOrb size={200} x="5%" y="20%" color="hsla(250,85%,60%,0.06)" delay={0} />
+                    <GlowOrb size={150} x="80%" y="30%" color="hsla(280,80%,60%,0.05)" delay={1.5} />
+                  </div>
+                  <div className="relative text-center">
+                    <h3 className="text-2xl font-bold mb-3">Ready to Transform Your Business?</h3>
+                    <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
+                      This simulation is just the beginning. Let our team build a custom AI solution tailored to your exact needs and environment.
+                    </p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                      <Link href="/get-started">
+                        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                          <Button size="lg" className="gap-2 px-8 py-6 text-base shadow-lg shadow-primary/20" data-testid="button-get-started">
+                            <Sparkles className="w-5 h-5" />
+                            Start Your Project
+                          </Button>
+                        </motion.div>
+                      </Link>
+                      <Link href="/contact">
+                        <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                          <Button size="lg" variant="outline" className="gap-2 px-8 py-6 text-base" data-testid="button-contact">
+                            Talk to Our Team
+                            <ArrowRight className="w-5 h-5" />
+                          </Button>
+                        </motion.div>
+                      </Link>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+
+              <motion.div className="flex justify-center mt-10" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
+                <Button variant="ghost" onClick={reset} className="gap-2 text-muted-foreground hover:text-foreground" data-testid="button-try-another">
                   <RefreshCw className="w-4 h-4" />
                   Try Another Scenario
                 </Button>
-              </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
