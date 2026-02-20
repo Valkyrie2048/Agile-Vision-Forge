@@ -15,6 +15,7 @@ Modern, VC-backed technology studio website for Agile Vision, specializing in AI
 - `/contact` - Contact form with "Let's Talk" headline, trust signals, decorative gradients
 - `/blog` - Magazine-style blog listing with featured hero card, category filtering (7 categories), 3-column grid
 - `/blog/:slug` - Full-width hero article page with reading progress bar, table of contents sidebar, pull quotes, related articles, back-to-top button
+- `/simulator` - AI Problem Solving Simulator with 4-phase guided experience (Discovery, Environment Scan, AI Transformation, Impact Report)
 
 ## Blog (client/src/data/blog-articles.ts)
 - 8 expert articles covering AI, Design, Development, Automation, Emerging Tech, Future Trends
@@ -52,7 +53,19 @@ Modern, VC-backed technology studio website for Agile Vision, specializing in AI
 - Submissions are always stored in database
 - Target email: m.graham@live.ca (configured server-side, not exposed in frontend)
 
+## AI Problem Solving Simulator (client/src/pages/simulator.tsx)
+- 4-phase immersive experience: Problem Discovery, Environment Scan, AI Transformation, Impact Report
+- 6 pre-built business scenarios: Customer Support, Data Processing, Lead Management, Inventory/Supply Chain, Content Production, Quality Control
+- Each scenario includes: pain points, current metrics, workflow steps with bottleneck detection, AI solutions, before/after improvement metrics, executive summary
+- Animated scanning phase with progress bar, metric card reveals, workflow step-by-step analysis with bottleneck indicators
+- Transformation phase deploys AI solutions one-by-one with spinning cog animations, then shows improvement metrics with staggered reveals
+- Impact Report with executive summary, improvement grid, solution recommendations, and CTAs to Get Started or Contact
+- Custom problem input option (maps to closest scenario in demo)
+- Phase progress indicator at top tracks user position through the simulation
+- Demo version uses pre-built scenario templates; future full client version will use real AI analysis
+
 ## Recent Changes
+- 2026-02-20: Added AI Problem Solving Simulator (/simulator) with 6 business scenarios, 4-phase guided experience (Discovery, Scan, Transform, Report), animated workflow analysis, and impact reporting
 - 2026-02-19: Made AI Analysis section interactive: hidden by default with "Generate Analysis" button; clicking triggers animated analyzing steps, typed summary reveal, staggered takeaway appearance, and fade-in impact/relevance footer
 - 2026-02-19: Added "Agile Vision AI Analysis" section at end of each blog article with summary, key takeaways, impact score badge, and audience relevance; data stored in aiAnalysis field on BlogArticle type
 - 2026-02-19: Blog redesign - magazine-style listing with featured hero, article page with full-width hero image, reading progress bar, TOC sidebar, pull quotes, related articles; 8 articles rewritten (no em dashes), AI-generated creative images

@@ -13,6 +13,7 @@ import GetStarted from "@/pages/get-started";
 import Contact from "@/pages/contact";
 import Blog from "@/pages/blog";
 import BlogArticle from "@/pages/blog-article";
+import Simulator from "@/pages/simulator";
 import NotFound from "@/pages/not-found";
 
 function ScrollToTop() {
@@ -31,6 +32,7 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogArticle} />
+      <Route path="/simulator" component={Simulator} />
       <Route component={NotFound} />
     </Switch>
   );
