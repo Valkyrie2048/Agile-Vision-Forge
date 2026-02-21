@@ -469,7 +469,7 @@ export default function Simulator() {
     scrollToTop();
 
     const termLines = [
-      { text: `Initializing environment scan for ${scenario.industry}...`, type: "info" as const },
+      { text: `Initializing scenario analysis for ${scenario.industry}...`, type: "info" as const },
       { text: `Connecting to workflow analysis engine...`, type: "info" as const },
       { text: `Mapping ${scenario.workflowSteps.length} workflow stages...`, type: "info" as const },
       ...scenario.workflowSteps.map((s, i) => ({
@@ -478,7 +478,7 @@ export default function Simulator() {
       })),
       { text: `Identified ${scenario.painPoints.length} critical pain points`, type: "error" as const },
       { text: `Analyzing ${scenario.currentMetrics.length} performance metrics...`, type: "info" as const },
-      { text: `Environment scan complete. Preparing AI recommendations...`, type: "success" as const },
+      { text: `Scenario analysis complete. Preparing AI recommendations...`, type: "success" as const },
     ];
     let tIdx = 0;
     terminalTimerRef.current = window.setInterval(() => {
@@ -551,7 +551,7 @@ export default function Simulator() {
 
   useEffect(() => () => clearAllTimers(), [clearAllTimers]);
 
-  const phaseLabels = ["Discovery", "Environment Scan", "AI Transformation", "Impact Report"];
+  const phaseLabels = ["Discovery", "Scenario Analysis", "AI Transformation", "Impact Report"];
   const phaseKeys: typeof phase[] = ["discovery", "scanning", "transformation", "report"];
   const currentPhaseIndex = phaseKeys.indexOf(phase);
 
@@ -763,7 +763,7 @@ export default function Simulator() {
                   <span className="text-sm font-medium uppercase tracking-wider">Live Analysis</span>
                 </motion.div>
                 <h2 className="text-2xl sm:text-3xl font-bold mb-2" data-testid="text-scanning-heading">
-                  Scanning Your Environment
+                  Analyzing Your Scenario
                 </h2>
                 <p className="text-muted-foreground">{selectedScenario.title} - {selectedScenario.industry}</p>
               </div>
