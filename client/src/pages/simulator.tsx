@@ -452,9 +452,9 @@ export default function Simulator() {
       setTransformStep(tStep);
       if (tStep >= scenario.aiSolutions.length + 1) {
         if (transformTimerRef.current) { clearInterval(transformTimerRef.current); transformTimerRef.current = null; }
-        improvementTimeoutRef.current = window.setTimeout(() => setShowImprovements(true), 600);
+        improvementTimeoutRef.current = window.setTimeout(() => setShowImprovements(true), 1000);
       }
-    }, 1200);
+    }, 2200);
   }, [scrollToTop]);
 
   const startScan = useCallback((scenario: Scenario) => {
@@ -465,17 +465,23 @@ export default function Simulator() {
     setTerminalLines([]);
     scrollToTop();
 
+    const bottleneckCount = scenario.workflowSteps.filter(s => s.bottleneck).length;
     const termLines = [
       { text: `Initializing scenario analysis for ${scenario.industry}...`, type: "info" as const },
-      { text: `Connecting to workflow analysis engine...`, type: "info" as const },
+      { text: `Loading workflow analysis engine v3.2...`, type: "info" as const },
+      { text: `Connecting to benchmark database (${scenario.industry})...`, type: "info" as const },
       { text: `Mapping ${scenario.workflowSteps.length} workflow stages...`, type: "info" as const },
       ...scenario.workflowSteps.map((s, i) => ({
         text: `Stage ${i + 1}: ${s.label} (${s.duration})${s.bottleneck ? " -- BOTTLENECK DETECTED" : " -- OK"}`,
         type: (s.bottleneck ? "warn" : "success") as "info" | "warn" | "success" | "error",
       })),
+      { text: `Found ${bottleneckCount} bottleneck${bottleneckCount > 1 ? "s" : ""} in workflow pipeline`, type: "error" as const },
       { text: `Identified ${scenario.painPoints.length} critical pain points`, type: "error" as const },
       { text: `Analyzing ${scenario.currentMetrics.length} performance metrics...`, type: "info" as const },
-      { text: `Scenario analysis complete. Preparing AI recommendations...`, type: "success" as const },
+      { text: `Cross-referencing industry benchmarks...`, type: "info" as const },
+      { text: `Calculating potential ROI improvements...`, type: "info" as const },
+      { text: `Generating ${scenario.aiSolutions.length} AI solution recommendations...`, type: "success" as const },
+      { text: `Scenario analysis complete. Ready for transformation.`, type: "success" as const },
     ];
     let tIdx = 0;
     terminalTimerRef.current = window.setInterval(() => {
@@ -489,14 +495,14 @@ export default function Simulator() {
       } else {
         if (terminalTimerRef.current) { clearInterval(terminalTimerRef.current); terminalTimerRef.current = null; }
       }
-    }, 280);
+    }, 450);
 
     let progress = 0;
     let step = 0;
     const stepInterval = 100 / scenario.workflowSteps.length;
 
     scanTimerRef.current = window.setInterval(() => {
-      progress += 0.9;
+      progress += 0.5;
       if (progress >= (step + 1) * stepInterval && step < scenario.workflowSteps.length) {
         step++;
         setScanStep(step);
@@ -506,7 +512,7 @@ export default function Simulator() {
         if (scanTimerRef.current) { clearInterval(scanTimerRef.current); scanTimerRef.current = null; }
         transformTimeoutRef.current = window.setTimeout(() => {
           startTransformation(scenario);
-        }, 600);
+        }, 1200);
       }
     }, 50);
   }, [scrollToTop, startTransformation]);
@@ -681,91 +687,128 @@ export default function Simulator() {
                 <p className="text-muted-foreground max-w-lg mx-auto">Choose the challenge closest to your situation. We'll do the rest.</p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-                {scenarios.map((scenario, idx) => (
-                  <motion.div
-                    key={scenario.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.06, duration: 0.4 }}
-                    whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                  >
-                    <Card
-                      className={`relative p-5 cursor-pointer transition-all duration-300 h-full group overflow-hidden ${
-                        selectedScenario?.id === scenario.id
-                          ? "border-primary shadow-xl shadow-primary/15 bg-primary/5 ring-1 ring-primary/20"
-                          : "hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
-                      }`}
-                      onClick={() => setSelectedScenario(scenario)}
-                      data-testid={`card-scenario-${scenario.id}`}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                {scenarios.map((scenario, idx) => {
+                  const isSelected = selectedScenario?.id === scenario.id;
+                  return (
+                    <motion.div
+                      key={scenario.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.06, duration: 0.4 }}
+                      whileHover={{ y: -4, transition: { duration: 0.2 } }}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      <div className="relative">
-                        <div className="flex items-start gap-3.5 mb-3">
-                          <motion.div
-                            className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                              selectedScenario?.id === scenario.id ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" : "bg-primary/10 text-primary group-hover:bg-primary/15"
-                            }`}
-                          >
-                            <scenario.icon className="w-5 h-5" />
+                      <Card
+                        className={`relative p-5 cursor-pointer transition-all duration-300 h-full group overflow-hidden ${
+                          isSelected
+                            ? "border-primary shadow-xl shadow-primary/15 bg-primary/5 ring-1 ring-primary/20"
+                            : "hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+                        }`}
+                        onClick={() => {
+                          if (isSelected) {
+                            setSelectedScenario(null);
+                          } else {
+                            setSelectedScenario(scenario);
+                            setCustomProblem("");
+                          }
+                        }}
+                        data-testid={`card-scenario-${scenario.id}`}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="relative">
+                          <div className="flex items-start gap-3.5 mb-3">
+                            <motion.div
+                              className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                                isSelected ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" : "bg-primary/10 text-primary group-hover:bg-primary/15"
+                              }`}
+                            >
+                              <scenario.icon className="w-5 h-5" />
+                            </motion.div>
+                            <div className="min-w-0">
+                              <h3 className="font-semibold text-sm mb-0.5">{scenario.title}</h3>
+                              <Badge variant="secondary" className="text-[10px] font-normal">{scenario.industry}</Badge>
+                            </div>
+                          </div>
+                          <p className="text-xs text-muted-foreground leading-relaxed">{scenario.description}</p>
+                          <div className="mt-3 pt-3 border-t border-border/50 flex items-center justify-between">
+                            <span className="text-[10px] text-muted-foreground/60">Est. savings</span>
+                            <span className="text-xs font-bold text-emerald-500">{scenario.annualSavings}/yr</span>
+                          </div>
+                        </div>
+                        {isSelected && (
+                          <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} className="absolute top-3 right-3">
+                            <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+                              <CheckCircle2 className="w-4 h-4 text-primary-foreground" />
+                            </div>
                           </motion.div>
-                          <div className="min-w-0">
-                            <h3 className="font-semibold text-sm mb-0.5">{scenario.title}</h3>
-                            <Badge variant="secondary" className="text-[10px] font-normal">{scenario.industry}</Badge>
-                          </div>
-                        </div>
-                        <p className="text-xs text-muted-foreground leading-relaxed">{scenario.description}</p>
-                        <div className="mt-3 pt-3 border-t border-border/50 flex items-center justify-between">
-                          <span className="text-[10px] text-muted-foreground/60">Est. savings</span>
-                          <span className="text-xs font-bold text-emerald-500">{scenario.annualSavings}/yr</span>
-                        </div>
-                      </div>
-                      {selectedScenario?.id === scenario.id && (
-                        <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} className="absolute top-3 right-3">
-                          <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-                            <CheckCircle2 className="w-4 h-4 text-primary-foreground" />
-                          </div>
-                        </motion.div>
-                      )}
-                    </Card>
-                  </motion.div>
-                ))}
+                        )}
+                      </Card>
+                    </motion.div>
+                  );
+                })}
               </div>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="max-w-xl mx-auto mb-8">
+              <AnimatePresence>
+                {selectedScenario && (
+                  <motion.div
+                    className="flex justify-center mb-6"
+                    initial={{ opacity: 0, y: -10, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: "auto" }}
+                    exit={{ opacity: 0, y: -10, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                      <Button
+                        size="lg"
+                        onClick={() => startScan(selectedScenario)}
+                        className="gap-3 px-10 py-6 text-base shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
+                        data-testid="button-start-simulation"
+                      >
+                        <Play className="w-5 h-5" />
+                        Analyze This Challenge
+                        <ArrowRight className="w-5 h-5" />
+                      </Button>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="max-w-xl mx-auto">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="flex-1 h-px bg-border" />
+                  <span className="text-xs text-muted-foreground/60 font-medium uppercase tracking-wider">or describe your own</span>
+                  <div className="flex-1 h-px bg-border" />
+                </div>
                 <Card className="relative p-5 bg-card/80 backdrop-blur-sm">
-                  <h3 className="font-semibold mb-3 flex items-center gap-2 text-sm">
-                    <BrainCircuit className="w-4 h-4 text-primary" />
-                    Don't see your challenge? Describe it.
-                  </h3>
                   <Textarea
                     placeholder="e.g., Our sales team spends 3 hours daily updating CRM records manually..."
                     value={customProblem}
-                    onChange={(e) => setCustomProblem(e.target.value)}
+                    onChange={(e) => {
+                      setCustomProblem(e.target.value);
+                      if (e.target.value.trim()) setSelectedScenario(null);
+                    }}
                     className="min-h-[70px] resize-none mb-2 bg-background/50"
                     data-testid="input-custom-problem"
                   />
-                  <p className="text-[11px] text-muted-foreground/70">We'll match it to the closest scenario for this demo.</p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-[11px] text-muted-foreground/70">We'll match it to the closest scenario for this demo.</p>
+                    <AnimatePresence>
+                      {customProblem.trim() && !selectedScenario && (
+                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }}>
+                          <Button
+                            size="sm"
+                            onClick={() => startScan(matchScenario(customProblem))}
+                            className="gap-1.5 shadow-md shadow-primary/15"
+                            data-testid="button-start-custom"
+                          >
+                            <Play className="w-3.5 h-3.5" />
+                            Analyze
+                          </Button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </Card>
-              </motion.div>
-
-              <motion.div className="flex justify-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
-                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                  <Button
-                    size="lg"
-                    disabled={!selectedScenario && !customProblem.trim()}
-                    onClick={() => {
-                      const scenario = selectedScenario || matchScenario(customProblem);
-                      startScan(scenario);
-                    }}
-                    className="gap-3 px-10 py-6 text-base shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-shadow"
-                    data-testid="button-start-simulation"
-                  >
-                    <Play className="w-5 h-5" />
-                    Analyze This Challenge
-                    <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </motion.div>
               </motion.div>
             </motion.div>
           )}
@@ -995,7 +1038,7 @@ export default function Simulator() {
                             </div>
                             {deploying && (
                               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3 h-1 bg-muted rounded-full overflow-hidden">
-                                <motion.div className="h-full bg-primary rounded-full" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 1.2, ease: "easeInOut" }} />
+                                <motion.div className="h-full bg-primary rounded-full" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 2, ease: "easeInOut" }} />
                               </motion.div>
                             )}
                           </div>
