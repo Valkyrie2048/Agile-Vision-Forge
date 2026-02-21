@@ -37,6 +37,11 @@ import {
   SkipForward,
   Calendar,
   Gauge,
+  ArrowUpRight,
+  CircleDollarSign,
+  Lightbulb,
+  Timer,
+  PieChart,
   type LucideIcon,
 } from "lucide-react";
 
@@ -452,9 +457,9 @@ export default function Simulator() {
       setTransformStep(tStep);
       if (tStep >= scenario.aiSolutions.length + 1) {
         if (transformTimerRef.current) { clearInterval(transformTimerRef.current); transformTimerRef.current = null; }
-        improvementTimeoutRef.current = window.setTimeout(() => setShowImprovements(true), 1000);
+        improvementTimeoutRef.current = window.setTimeout(() => setShowImprovements(true), 1500);
       }
-    }, 2200);
+    }, 3000);
   }, [scrollToTop]);
 
   const startScan = useCallback((scenario: Scenario) => {
@@ -495,14 +500,14 @@ export default function Simulator() {
       } else {
         if (terminalTimerRef.current) { clearInterval(terminalTimerRef.current); terminalTimerRef.current = null; }
       }
-    }, 450);
+    }, 600);
 
     let progress = 0;
     let step = 0;
     const stepInterval = 100 / scenario.workflowSteps.length;
 
     scanTimerRef.current = window.setInterval(() => {
-      progress += 0.5;
+      progress += 0.35;
       if (progress >= (step + 1) * stepInterval && step < scenario.workflowSteps.length) {
         step++;
         setScanStep(step);
@@ -512,7 +517,7 @@ export default function Simulator() {
         if (scanTimerRef.current) { clearInterval(scanTimerRef.current); scanTimerRef.current = null; }
         transformTimeoutRef.current = window.setTimeout(() => {
           startTransformation(scenario);
-        }, 1200);
+        }, 1800);
       }
     }, 50);
   }, [scrollToTop, startTransformation]);
@@ -679,7 +684,7 @@ export default function Simulator() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-24 relative z-10">
         <AnimatePresence mode="wait">
           {phase === "discovery" && (
-            <motion.div key="discovery" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.5 }}>
+            <motion.div key="discovery" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.6 }}>
               <div className="text-center mb-8">
                 <h2 className="text-2xl sm:text-3xl font-bold mb-3" data-testid="text-discovery-heading">
                   What's your biggest operational headache?
@@ -779,7 +784,7 @@ export default function Simulator() {
                   <span className="text-xs text-muted-foreground/60 font-medium uppercase tracking-wider">or describe your own</span>
                   <div className="flex-1 h-px bg-border" />
                 </div>
-                <Card className="relative p-5 bg-card/80 backdrop-blur-sm">
+                <Card className="relative p-5 bg-card">
                   <Textarea
                     placeholder="e.g., Our sales team spends 3 hours daily updating CRM records manually..."
                     value={customProblem}
@@ -787,7 +792,7 @@ export default function Simulator() {
                       setCustomProblem(e.target.value);
                       if (e.target.value.trim()) setSelectedScenario(null);
                     }}
-                    className="min-h-[70px] resize-none mb-2 bg-background/50"
+                    className="min-h-[70px] resize-none mb-2 bg-background"
                     data-testid="input-custom-problem"
                   />
                   <div className="flex items-center justify-between">
@@ -814,7 +819,7 @@ export default function Simulator() {
           )}
 
           {phase === "scanning" && selectedScenario && (
-            <motion.div key="scanning" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.5 }}>
+            <motion.div key="scanning" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.7 }}>
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <div className="flex items-center gap-2 text-primary mb-1">
@@ -835,7 +840,7 @@ export default function Simulator() {
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
                 <div className="lg:col-span-2 space-y-5">
-                  <Card className="p-5 relative overflow-hidden">
+                  <Card className="p-5 relative overflow-hidden bg-card">
                     <div className="flex items-center justify-between mb-3">
                       <h3 className="font-semibold text-sm flex items-center gap-2">
                         <Workflow className="w-4 h-4 text-primary" />
@@ -883,7 +888,7 @@ export default function Simulator() {
                   <AnimatePresence>
                     {scanProgress > 50 && (
                       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-                        <Card className="p-5 border-red-500/15 bg-gradient-to-br from-red-500/5 to-transparent">
+                        <Card className="p-5 border-red-500/15 bg-card">
                           <h4 className="font-semibold text-sm flex items-center gap-2 mb-3">
                             <AlertTriangle className="w-4 h-4 text-red-500" />
                             Pain Points Detected
@@ -903,7 +908,7 @@ export default function Simulator() {
                 </div>
 
                 <div className="space-y-4">
-                  <Card className="p-4" data-testid="card-scan-metrics">
+                  <Card className="p-4 bg-card" data-testid="card-scan-metrics">
                     <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
                       <BarChart3 className="w-4 h-4 text-primary" />
                       Current Performance
@@ -954,7 +959,7 @@ export default function Simulator() {
           )}
 
           {phase === "transformation" && selectedScenario && (
-            <motion.div key="transformation" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.5 }}>
+            <motion.div key="transformation" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.7 }}>
               <div className="flex items-center justify-between mb-8">
                 <div>
                   <div className="flex items-center gap-2 text-emerald-500 mb-1">
@@ -985,7 +990,7 @@ export default function Simulator() {
                       animate={{ opacity: waiting ? 0.25 : 1, y: 0 }}
                       transition={{ duration: 0.4, delay: i * 0.08 }}
                     >
-                      <Card className={`p-5 transition-all duration-500 relative overflow-hidden ${
+                      <Card className={`p-5 transition-all duration-500 relative overflow-hidden bg-card ${
                         deploying ? "border-primary/50 shadow-xl shadow-primary/10" :
                         deployed ? "border-emerald-500/30" : ""
                       }`}>
@@ -1038,7 +1043,7 @@ export default function Simulator() {
                             </div>
                             {deploying && (
                               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3 h-1 bg-muted rounded-full overflow-hidden">
-                                <motion.div className="h-full bg-primary rounded-full" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 2, ease: "easeInOut" }} />
+                                <motion.div className="h-full bg-primary rounded-full" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 2.8, ease: "easeInOut" }} />
                               </motion.div>
                             )}
                           </div>
@@ -1082,13 +1087,27 @@ export default function Simulator() {
             </motion.div>
           )}
 
-          {phase === "report" && selectedScenario && (
-            <motion.div key="report" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.6 }}>
+          {phase === "report" && selectedScenario && (() => {
+            const annualNum = parseInt(selectedScenario.annualSavings.replace(/[^0-9]/g, ""));
+            const monthlyNum = Math.round(annualNum / 12);
+            const monthlySavings = `$${monthlyNum.toLocaleString()}`;
+            const fiveYearSavings = `$${(annualNum * 5).toLocaleString()}`;
+            const totalBottlenecks = selectedScenario.workflowSteps.filter(s => s.bottleneck).length;
+            const totalSteps = selectedScenario.workflowSteps.length;
+            const automationRate = Math.round(((totalSteps - totalBottlenecks) / totalSteps) * 100 + totalBottlenecks * 8);
+
+            return (
+            <motion.div key="report" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.8 }}>
               <div className="text-center mb-10">
                 <motion.div initial={{ scale: 0, rotate: -90 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 150, damping: 12 }} className="relative inline-block mb-4">
                   <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary via-purple-500 to-primary flex items-center justify-center shadow-2xl shadow-primary/30">
                     <BarChart3 className="w-10 h-10 text-white" />
                   </div>
+                  <motion.div
+                    className="absolute -inset-2 rounded-[28px] border-2 border-primary/30"
+                    animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5] }}
+                    transition={{ duration: 2.5, repeat: Infinity }}
+                  />
                 </motion.div>
                 <h2 className="text-3xl sm:text-4xl font-bold mb-3" data-testid="text-report-heading">Your AI Impact Report</h2>
                 <div className="flex items-center justify-center gap-3 text-muted-foreground">
@@ -1098,8 +1117,8 @@ export default function Simulator() {
                 </div>
               </div>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="mb-6">
-                <Card className="p-6 sm:p-8 relative overflow-hidden">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="mb-8">
+                <Card className="p-6 sm:p-8 relative overflow-hidden bg-card">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5" />
                   <div className="relative">
                     <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
@@ -1113,89 +1132,226 @@ export default function Simulator() {
                 </Card>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="mb-6">
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <Card className="p-5 text-center bg-gradient-to-br from-emerald-500/5 to-transparent border-emerald-500/15">
-                    <DollarSign className="w-6 h-6 mx-auto mb-2 text-emerald-500" />
-                    <div className="text-2xl sm:text-3xl font-bold text-emerald-500">{selectedScenario.annualSavings}</div>
-                    <div className="text-xs text-muted-foreground mt-1">Estimated Annual Savings</div>
-                  </Card>
-                  <Card className="p-5 text-center bg-gradient-to-br from-primary/5 to-transparent border-primary/15">
-                    <TrendingUp className="w-6 h-6 mx-auto mb-2 text-primary" />
-                    <div className="text-2xl sm:text-3xl font-bold text-primary">{selectedScenario.roiTimeline}</div>
-                    <div className="text-xs text-muted-foreground mt-1">Expected ROI Payback</div>
-                  </Card>
-                </div>
-              </motion.div>
-
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="mb-6">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="mb-8">
                 <h3 className="font-semibold text-base mb-4 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-primary" />
-                  Projected Improvements
+                  <CircleDollarSign className="w-4 h-4 text-emerald-500" />
+                  Financial Impact
                 </h3>
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                  {selectedScenario.improvements.map((imp, i) => (
-                    <motion.div key={imp.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 + i * 0.08 }}>
-                      <Card className="p-4 text-center group hover:border-emerald-500/30 transition-colors">
-                        <imp.icon className="w-5 h-5 mx-auto mb-2 text-primary" />
-                        <div className="text-[11px] text-muted-foreground mb-2 font-medium">{imp.label}</div>
-                        <div className="flex items-center justify-center gap-1.5 mb-2">
-                          <span className="text-[10px] line-through text-muted-foreground/50">{imp.before}</span>
-                          <ArrowRight className="w-3 h-3 text-emerald-500" />
-                          <span className="text-sm font-bold text-emerald-500">{imp.after}</span>
-                        </div>
-                        <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-[10px]">{imp.change}</Badge>
-                      </Card>
-                    </motion.div>
-                  ))}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, type: "spring" }}>
+                    <Card className="p-5 text-center bg-card border-emerald-500/20 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent" />
+                      <div className="relative">
+                        <DollarSign className="w-6 h-6 mx-auto mb-2 text-emerald-500" />
+                        <div className="text-2xl sm:text-3xl font-bold text-emerald-500">{selectedScenario.annualSavings}</div>
+                        <div className="text-[11px] text-muted-foreground mt-1 font-medium">Annual Savings</div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.35, type: "spring" }}>
+                    <Card className="p-5 text-center bg-card border-emerald-500/15 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/3 to-transparent" />
+                      <div className="relative">
+                        <TrendingUp className="w-6 h-6 mx-auto mb-2 text-emerald-500" />
+                        <div className="text-2xl sm:text-3xl font-bold text-emerald-500">{monthlySavings}</div>
+                        <div className="text-[11px] text-muted-foreground mt-1 font-medium">Monthly Savings</div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, type: "spring" }}>
+                    <Card className="p-5 text-center bg-card border-primary/15 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
+                      <div className="relative">
+                        <Timer className="w-6 h-6 mx-auto mb-2 text-primary" />
+                        <div className="text-2xl sm:text-3xl font-bold text-primary">{selectedScenario.roiTimeline}</div>
+                        <div className="text-[11px] text-muted-foreground mt-1 font-medium">ROI Payback Period</div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.45, type: "spring" }}>
+                    <Card className="p-5 text-center bg-card border-primary/15 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent" />
+                      <div className="relative">
+                        <PieChart className="w-6 h-6 mx-auto mb-2 text-primary" />
+                        <div className="text-2xl sm:text-3xl font-bold text-primary">{fiveYearSavings}</div>
+                        <div className="text-[11px] text-muted-foreground mt-1 font-medium">5-Year Projection</div>
+                      </div>
+                    </Card>
+                  </motion.div>
                 </div>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mb-6">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="mb-8">
+                <h3 className="font-semibold text-base mb-4 flex items-center gap-2">
+                  <Lightbulb className="w-4 h-4 text-amber-500" />
+                  Key Findings
+                </h3>
+                <Card className="p-5 bg-card">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.45 }} className="flex items-start gap-3 p-3 rounded-lg bg-red-500/5 border border-red-500/10">
+                      <div className="w-9 h-9 rounded-lg bg-red-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <AlertTriangle className="w-4 h-4 text-red-500" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-semibold mb-0.5">{totalBottlenecks} Bottlenecks Found</div>
+                        <p className="text-[11px] text-muted-foreground leading-relaxed">
+                          {selectedScenario.workflowSteps.filter(s => s.bottleneck).map(s => s.label).join(", ")} are slowing your operation significantly
+                        </p>
+                      </div>
+                    </motion.div>
+                    <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }} className="flex items-start gap-3 p-3 rounded-lg bg-amber-500/5 border border-amber-500/10">
+                      <div className="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Target className="w-4 h-4 text-amber-500" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-semibold mb-0.5">{selectedScenario.painPoints.length} Pain Points</div>
+                        <p className="text-[11px] text-muted-foreground leading-relaxed">
+                          Critical issues identified across your {selectedScenario.industry.toLowerCase()} workflow that AI can resolve
+                        </p>
+                      </div>
+                    </motion.div>
+                    <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.55 }} className="flex items-start gap-3 p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                      <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Zap className="w-4 h-4 text-emerald-500" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-semibold mb-0.5">{Math.min(automationRate, 95)}% Automatable</div>
+                        <p className="text-[11px] text-muted-foreground leading-relaxed">
+                          {selectedScenario.aiSolutions.length} AI solutions can automate the majority of your current manual processes
+                        </p>
+                      </div>
+                    </motion.div>
+                  </div>
+                </Card>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mb-8">
+                <h3 className="font-semibold text-base mb-4 flex items-center gap-2">
+                  <ArrowUpRight className="w-4 h-4 text-primary" />
+                  Before vs. After Comparison
+                </h3>
+                <Card className="overflow-hidden bg-card">
+                  <div className="grid grid-cols-[1fr,auto,1fr] items-stretch">
+                    <div className="p-4 sm:p-5">
+                      <div className="text-center mb-3">
+                        <Badge variant="outline" className="text-red-500 border-red-500/20 bg-red-500/5 text-[10px]">Current State</Badge>
+                      </div>
+                      <div className="space-y-3">
+                        {selectedScenario.improvements.map((imp, i) => (
+                          <motion.div key={imp.label} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 + i * 0.06 }} className="flex items-center justify-between p-2.5 rounded-lg bg-red-500/5">
+                            <div className="flex items-center gap-2">
+                              <imp.icon className="w-3.5 h-3.5 text-red-500/70" />
+                              <span className="text-xs text-muted-foreground">{imp.label}</span>
+                            </div>
+                            <span className="text-sm font-bold text-red-500">{imp.before}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="w-px bg-border relative flex items-center justify-center">
+                      <div className="absolute w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/20 z-10">
+                        <ArrowRight className="w-4 h-4 text-primary-foreground" />
+                      </div>
+                    </div>
+                    <div className="p-4 sm:p-5">
+                      <div className="text-center mb-3">
+                        <Badge variant="outline" className="text-emerald-500 border-emerald-500/20 bg-emerald-500/5 text-[10px]">With AI</Badge>
+                      </div>
+                      <div className="space-y-3">
+                        {selectedScenario.improvements.map((imp, i) => (
+                          <motion.div key={imp.label} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 + i * 0.06 }} className="flex items-center justify-between p-2.5 rounded-lg bg-emerald-500/5">
+                            <div className="flex items-center gap-2">
+                              <imp.icon className="w-3.5 h-3.5 text-emerald-500/70" />
+                              <span className="text-xs text-muted-foreground">{imp.label}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-bold text-emerald-500">{imp.after}</span>
+                              <Badge className="bg-emerald-500/10 text-emerald-500 text-[9px] font-bold px-1.5">{imp.change}</Badge>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mb-8">
                 <h3 className="font-semibold text-base mb-4 flex items-center gap-2">
                   <Zap className="w-4 h-4 text-primary" />
                   Implementation Roadmap
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {selectedScenario.aiSolutions.map((solution, i) => (
-                    <motion.div key={solution.title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 + i * 0.1 }} whileHover={{ y: -3 }}>
-                      <Card className="p-5 h-full hover:border-primary/20 transition-colors">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/15 to-purple-500/10 flex items-center justify-center flex-shrink-0">
-                            <solution.icon className="w-5 h-5 text-primary" />
+                <div className="relative">
+                  <div className="absolute left-6 top-0 bottom-0 w-px bg-border hidden md:block" />
+                  <div className="space-y-5">
+                    {selectedScenario.aiSolutions.map((solution, i) => (
+                      <motion.div key={solution.title} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.65 + i * 0.12 }}>
+                        <Card className="p-5 bg-card md:ml-12 relative hover:border-primary/20 transition-colors group">
+                          <div className="hidden md:flex absolute -left-[3.25rem] top-5 w-8 h-8 rounded-full bg-primary/10 border-2 border-primary items-center justify-center text-xs font-bold text-primary z-10">
+                            {i + 1}
                           </div>
-                          <div className="min-w-0">
-                            <h4 className="font-semibold text-sm">{solution.title}</h4>
+                          <div className="flex items-start gap-4">
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/15 to-purple-500/10 flex items-center justify-center flex-shrink-0 group-hover:from-primary/20 group-hover:to-purple-500/15 transition-colors">
+                              <solution.icon className="w-6 h-6 text-primary" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                                <h4 className="font-semibold">{solution.title}</h4>
+                                <Badge variant="outline" className={`text-[9px] ${difficultyColors[solution.difficulty]}`}>
+                                  <Gauge className="w-2.5 h-2.5 mr-1" />
+                                  {solution.difficulty}
+                                </Badge>
+                              </div>
+                              <p className="text-sm text-muted-foreground leading-relaxed mb-3">{solution.description}</p>
+                              <div className="flex items-center gap-4 pt-3 border-t border-border/50">
+                                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                  <Calendar className="w-3.5 h-3.5 text-primary" />
+                                  <span className="font-medium">{solution.timeline}</span>
+                                </div>
+                                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                  <Cog className="w-3.5 h-3.5 text-primary" />
+                                  <span className="font-medium">Phase {i + 1} of {selectedScenario.aiSolutions.length}</span>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        <p className="text-xs text-muted-foreground leading-relaxed mb-3">{solution.description}</p>
-                        <div className="flex items-center gap-2 pt-3 border-t border-border/50">
-                          <Badge variant="outline" className={`text-[9px] ${difficultyColors[solution.difficulty]}`}>
-                            <Gauge className="w-2.5 h-2.5 mr-1" />
-                            {solution.difficulty}
-                          </Badge>
-                          <Badge variant="outline" className="text-[9px]">
-                            <Calendar className="w-2.5 h-2.5 mr-1" />
-                            {solution.timeline}
-                          </Badge>
-                        </div>
-                      </Card>
-                    </motion.div>
-                  ))}
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
-                <Card className="p-8 sm:p-10 relative overflow-hidden">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.75 }} className="mb-8">
+                <Card className="p-5 bg-card border-dashed">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                      <Shield className="w-5 h-5 text-blue-500" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-sm mb-1">Methodology & Confidence</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        These projections are based on aggregated industry benchmarks, case studies from similar {selectedScenario.industry.toLowerCase()} implementations, and our experience deploying AI solutions across dozens of SMBs. Actual results may vary based on your specific operational context, data quality, and team adoption. We recommend a pilot phase to validate these estimates before full-scale deployment.
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}>
+                <Card className="p-8 sm:p-10 relative overflow-hidden bg-card">
                   <div className="absolute inset-0">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/8 via-purple-500/5 to-primary/8" />
                     <GlowOrb size={200} x="5%" y="20%" color="hsla(250,85%,60%,0.06)" delay={0} />
                     <GlowOrb size={150} x="80%" y="30%" color="hsla(280,80%,60%,0.05)" delay={1.5} />
                   </div>
                   <div className="relative text-center">
-                    <h3 className="text-2xl font-bold mb-2">Like What You See?</h3>
-                    <p className="text-muted-foreground mb-6 max-w-md mx-auto text-sm">
-                      These are projected results based on industry benchmarks. Let us build the real thing for your business.
+                    <h3 className="text-2xl font-bold mb-2">Ready to Make This Real?</h3>
+                    <p className="text-muted-foreground mb-3 max-w-lg mx-auto text-sm">
+                      You've just seen a preview of what AI can do for your {selectedScenario.industry.toLowerCase()} operations. Imagine what a custom solution, built specifically for your business, could achieve.
+                    </p>
+                    <p className="text-muted-foreground/70 mb-6 max-w-md mx-auto text-xs">
+                      Our team typically delivers the first working prototype within 2-3 weeks.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                       <Link href="/get-started">
@@ -1219,14 +1375,15 @@ export default function Simulator() {
                 </Card>
               </motion.div>
 
-              <motion.div className="flex justify-center mt-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
+              <motion.div className="flex justify-center mt-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.0 }}>
                 <Button variant="ghost" onClick={reset} className="gap-2 text-muted-foreground hover:text-foreground" data-testid="button-try-another">
                   <RefreshCw className="w-4 h-4" />
                   Try Another Scenario
                 </Button>
               </motion.div>
             </motion.div>
-          )}
+          );
+          })()}
         </AnimatePresence>
       </section>
     </div>
