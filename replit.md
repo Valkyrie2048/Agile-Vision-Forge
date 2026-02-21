@@ -54,17 +54,21 @@ Modern, VC-backed technology studio website for Agile Vision, specializing in AI
 - Target email: m.graham@live.ca (configured server-side, not exposed in frontend)
 
 ## AI Problem Solving Simulator (client/src/pages/simulator.tsx)
-- 4-phase immersive experience: Problem Discovery, Environment Scan, AI Transformation, Impact Report
+- 4-phase immersive experience: Discovery, Scenario Analysis, AI Transformation, Impact Report
+- Hero: "What Would AI Do For Your Business?" with 60-second value proposition
+- 3-step "How It Works" guide in discovery phase (Pick, Analyze, Results)
 - 6 pre-built business scenarios: Customer Support, Data Processing, Lead Management, Inventory/Supply Chain, Content Production, Quality Control
-- Each scenario includes: pain points, current metrics, workflow steps with bottleneck detection, AI solutions, before/after improvement metrics, executive summary
-- Animated scanning phase with progress bar, metric card reveals, workflow step-by-step analysis with bottleneck indicators
-- Transformation phase deploys AI solutions one-by-one with spinning cog animations, then shows improvement metrics with staggered reveals
-- Impact Report with executive summary, improvement grid, solution recommendations, and CTAs to Get Started or Contact
-- Custom problem input option (maps to closest scenario in demo)
-- Phase progress indicator at top tracks user position through the simulation
+- Each scenario includes: pain points, current metrics, workflow steps with bottleneck detection, AI solutions (with difficulty rating + timeline), before/after improvement metrics, annual savings, ROI payback period, executive summary
+- Scenario cards show estimated annual savings preview ($96K-$540K range)
+- Skip buttons on scanning and transformation phases for impatient users
+- Faster animations (~40% faster than original): scan 280ms terminal, 1200ms transform deploy
+- Report includes: ROI headline cards (annual savings + payback), projected improvements grid, implementation roadmap with difficulty (Easy/Medium/Advanced) and timeline per solution
+- Phase progress bar only shown after discovery (How It Works replaces it during discovery)
+- Custom problem input with keyword-based scenario matching
 - Demo version uses pre-built scenario templates; future full client version will use real AI analysis
 
 ## Recent Changes
+- 2026-02-21: Major simulator UX overhaul - clearer hero copy, How It Works guide, skip buttons, 40% faster animations, ROI projections ($132K-$540K annual savings), implementation timelines, difficulty ratings per solution, streamlined redundant content
 - 2026-02-20: Added AI Problem Solving Simulator (/simulator) with 6 business scenarios, 4-phase guided experience (Discovery, Scan, Transform, Report), animated workflow analysis, and impact reporting
 - 2026-02-19: Made AI Analysis section interactive: hidden by default with "Generate Analysis" button; clicking triggers animated analyzing steps, typed summary reveal, staggered takeaway appearance, and fade-in impact/relevance footer
 - 2026-02-19: Added "Agile Vision AI Analysis" section at end of each blog article with summary, key takeaways, impact score badge, and audience relevance; data stored in aiAnalysis field on BlogArticle type
