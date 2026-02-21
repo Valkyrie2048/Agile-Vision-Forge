@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "wouter";
 import { usePageTitle } from "@/hooks/use-page-title";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   Sparkles,
@@ -34,6 +34,9 @@ import {
   Search,
   Activity,
   Cpu,
+  SkipForward,
+  Calendar,
+  Gauge,
   type LucideIcon,
 } from "lucide-react";
 
@@ -46,8 +49,10 @@ interface Scenario {
   painPoints: string[];
   currentMetrics: { label: string; value: string; icon: LucideIcon }[];
   workflowSteps: { label: string; duration: string; bottleneck: boolean; description: string }[];
-  aiSolutions: { title: string; description: string; icon: LucideIcon }[];
+  aiSolutions: { title: string; description: string; icon: LucideIcon; difficulty: "Easy" | "Medium" | "Advanced"; timeline: string }[];
   improvements: { label: string; before: string; after: string; change: string; icon: LucideIcon }[];
+  annualSavings: string;
+  roiTimeline: string;
   summary: string;
 }
 
@@ -74,9 +79,9 @@ const scenarios: Scenario[] = [
       { label: "Resolution", duration: "Variable", bottleneck: false, description: "Follow-up exchanges until customer issue is fully resolved" },
     ],
     aiSolutions: [
-      { title: "AI Chatbot Triage", description: "Instantly categorize, prioritize, and resolve up to 70% of common queries without human intervention", icon: Bot },
-      { title: "Smart Routing", description: "AI matches tickets to the best-suited agent based on expertise, workload, and historical resolution data", icon: Workflow },
-      { title: "Response Copilot", description: "AI drafts contextual responses using your knowledge base, past resolutions, and customer history", icon: BrainCircuit },
+      { title: "AI Chatbot Triage", description: "Instantly categorize, prioritize, and resolve up to 70% of common queries without human intervention", icon: Bot, difficulty: "Easy", timeline: "2-3 weeks" },
+      { title: "Smart Routing", description: "AI matches tickets to the best-suited agent based on expertise, workload, and historical resolution data", icon: Workflow, difficulty: "Medium", timeline: "3-4 weeks" },
+      { title: "Response Copilot", description: "AI drafts contextual responses using your knowledge base, past resolutions, and customer history", icon: BrainCircuit, difficulty: "Medium", timeline: "4-6 weeks" },
     ],
     improvements: [
       { label: "Response Time", before: "4.2 hours", after: "8 minutes", change: "-97%", icon: Clock },
@@ -84,6 +89,8 @@ const scenarios: Scenario[] = [
       { label: "Customer Satisfaction", before: "62%", after: "91%", change: "+47%", icon: Target },
       { label: "Cost per Ticket", before: "$12.40", after: "$3.20", change: "-74%", icon: DollarSign },
     ],
+    annualSavings: "$132,000",
+    roiTimeline: "3-4 months",
     summary: "By deploying an AI-powered support ecosystem, your team can resolve most queries instantly while empowering agents to focus on complex, high-value interactions. The result: happier customers, lower costs, and a support team that scales effortlessly.",
   },
   {
@@ -108,9 +115,9 @@ const scenarios: Scenario[] = [
       { label: "Report Generation", duration: "1 hour", bottleneck: false, description: "Aggregated data is formatted into reports for stakeholders" },
     ],
     aiSolutions: [
-      { title: "Intelligent Document Processing", description: "AI extracts structured data from any document format with 99%+ accuracy", icon: FileText },
-      { title: "Automated Data Pipeline", description: "Connect all 7 systems with AI-powered ETL that runs continuously without human oversight", icon: Workflow },
-      { title: "Anomaly Detection", description: "Real-time validation catches errors before they propagate, flagging only true exceptions for review", icon: Shield },
+      { title: "Intelligent Document Processing", description: "AI extracts structured data from any document format with 99%+ accuracy", icon: FileText, difficulty: "Medium", timeline: "3-5 weeks" },
+      { title: "Automated Data Pipeline", description: "Connect all 7 systems with AI-powered ETL that runs continuously without human oversight", icon: Workflow, difficulty: "Advanced", timeline: "6-8 weeks" },
+      { title: "Anomaly Detection", description: "Real-time validation catches errors before they propagate, flagging only true exceptions for review", icon: Shield, difficulty: "Easy", timeline: "2-3 weeks" },
     ],
     improvements: [
       { label: "Processing Time", before: "120 hrs/week", after: "8 hrs/week", change: "-93%", icon: Clock },
@@ -118,6 +125,8 @@ const scenarios: Scenario[] = [
       { label: "Monthly Cost", before: "$18,500", after: "$4,200", change: "-77%", icon: DollarSign },
       { label: "Report Delivery", before: "2 days", after: "Real-time", change: "Instant", icon: TrendingUp },
     ],
+    annualSavings: "$171,600",
+    roiTimeline: "2-3 months",
     summary: "AI-powered automation eliminates the tedious manual work that consumes your team's time and introduces errors. Data flows seamlessly between systems in real-time, freeing your people to focus on analysis and decision-making instead of data entry.",
   },
   {
@@ -142,9 +151,9 @@ const scenarios: Scenario[] = [
       { label: "Follow-up", duration: "Days", bottleneck: false, description: "Multi-touch follow-up sequence executed manually by each rep" },
     ],
     aiSolutions: [
-      { title: "Instant Lead Scoring", description: "AI analyzes behavioral signals, firmographic data, and intent to score leads within seconds of capture", icon: Zap },
-      { title: "AI Sales Agent", description: "Autonomous agent engages leads within 60 seconds via personalized, conversational outreach across channels", icon: Bot },
-      { title: "Predictive Pipeline", description: "ML models predict conversion probability and recommend optimal engagement strategies per lead", icon: LineChart },
+      { title: "Instant Lead Scoring", description: "AI analyzes behavioral signals, firmographic data, and intent to score leads within seconds of capture", icon: Zap, difficulty: "Easy", timeline: "1-2 weeks" },
+      { title: "AI Sales Agent", description: "Autonomous agent engages leads within 60 seconds via personalized, conversational outreach across channels", icon: Bot, difficulty: "Advanced", timeline: "5-7 weeks" },
+      { title: "Predictive Pipeline", description: "ML models predict conversion probability and recommend optimal engagement strategies per lead", icon: LineChart, difficulty: "Medium", timeline: "4-6 weeks" },
     ],
     improvements: [
       { label: "Response Time", before: "26 hours", after: "58 seconds", change: "-99%", icon: Clock },
@@ -152,6 +161,8 @@ const scenarios: Scenario[] = [
       { label: "Revenue Recovered", before: "$0", after: "$45K/mo", change: "+$540K/yr", icon: DollarSign },
       { label: "Rep Productivity", before: "Baseline", after: "3.2x", change: "+220%", icon: TrendingUp },
     ],
+    annualSavings: "$540,000",
+    roiTimeline: "1-2 months",
     summary: "Speed wins deals. AI ensures every lead gets an instant, personalized response while intelligently prioritizing the highest-value opportunities. Your sales team focuses on closing instead of chasing, dramatically improving conversion rates and revenue.",
   },
   {
@@ -176,9 +187,9 @@ const scenarios: Scenario[] = [
       { label: "Receiving & Shelving", duration: "Ongoing", bottleneck: false, description: "Incoming shipments are inspected, logged, and distributed to locations" },
     ],
     aiSolutions: [
-      { title: "AI Demand Forecasting", description: "ML models analyze sales patterns, seasonality, events, and external signals to predict demand with 95%+ accuracy", icon: LineChart },
-      { title: "Automated Reordering", description: "Smart system triggers purchase orders at optimal quantities and timing based on real-time inventory and forecasts", icon: RefreshCw },
-      { title: "Supply Chain Intelligence", description: "AI monitors supplier performance, detects risks early, and suggests alternative sourcing to prevent disruptions", icon: Shield },
+      { title: "AI Demand Forecasting", description: "ML models analyze sales patterns, seasonality, events, and external signals to predict demand with 95%+ accuracy", icon: LineChart, difficulty: "Medium", timeline: "4-6 weeks" },
+      { title: "Automated Reordering", description: "Smart system triggers purchase orders at optimal quantities and timing based on real-time inventory and forecasts", icon: RefreshCw, difficulty: "Medium", timeline: "3-5 weeks" },
+      { title: "Supply Chain Intelligence", description: "AI monitors supplier performance, detects risks early, and suggests alternative sourcing to prevent disruptions", icon: Shield, difficulty: "Advanced", timeline: "6-8 weeks" },
     ],
     improvements: [
       { label: "Stockout Rate", before: "15%", after: "2.1%", change: "-86%", icon: AlertTriangle },
@@ -186,6 +197,8 @@ const scenarios: Scenario[] = [
       { label: "Forecast Accuracy", before: "61%", after: "94%", change: "+54%", icon: BarChart3 },
       { label: "Planning Time", before: "40 hrs/week", after: "5 hrs/week", change: "-88%", icon: Clock },
     ],
+    annualSavings: "$295,000",
+    roiTimeline: "4-5 months",
     summary: "AI transforms your supply chain from reactive to predictive. By accurately forecasting demand and automating replenishment, you eliminate costly stockouts and excess inventory while freeing your team from manual planning drudgery.",
   },
   {
@@ -210,9 +223,9 @@ const scenarios: Scenario[] = [
       { label: "Publishing", duration: "30 min", bottleneck: false, description: "Final content is scheduled and published across platforms" },
     ],
     aiSolutions: [
-      { title: "AI Content Studio", description: "Generate first drafts, outlines, and variations in minutes while maintaining your brand voice and SEO best practices", icon: BrainCircuit },
-      { title: "Multi-Channel Adapter", description: "Automatically transform one piece of content into optimized versions for every channel: blog, social, email, video scripts", icon: Layers },
-      { title: "Performance Optimizer", description: "AI analyzes content performance and continuously recommends improvements for engagement and conversion", icon: LineChart },
+      { title: "AI Content Studio", description: "Generate first drafts, outlines, and variations in minutes while maintaining your brand voice and SEO best practices", icon: BrainCircuit, difficulty: "Easy", timeline: "1-2 weeks" },
+      { title: "Multi-Channel Adapter", description: "Automatically transform one piece of content into optimized versions for every channel: blog, social, email, video scripts", icon: Layers, difficulty: "Medium", timeline: "3-4 weeks" },
+      { title: "Performance Optimizer", description: "AI analyzes content performance and continuously recommends improvements for engagement and conversion", icon: LineChart, difficulty: "Easy", timeline: "2-3 weeks" },
     ],
     improvements: [
       { label: "Content Output", before: "8/week", after: "35/week", change: "+338%", icon: FileText },
@@ -220,6 +233,8 @@ const scenarios: Scenario[] = [
       { label: "Channels Covered", before: "3 of 7", after: "7 of 7", change: "100%", icon: Layers },
       { label: "Organic Traffic", before: "Declining", after: "+140%", change: "Growing", icon: TrendingUp },
     ],
+    annualSavings: "$96,000",
+    roiTimeline: "1-2 months",
     summary: "AI-augmented content production lets your marketing team produce more high-quality, on-brand content across every channel without adding headcount. Your team focuses on strategy and creativity while AI handles the heavy lifting of drafting, adapting, and optimizing.",
   },
   {
@@ -244,9 +259,9 @@ const scenarios: Scenario[] = [
       { label: "Trend Analysis", duration: "Weekly", bottleneck: true, description: "Quality data is compiled weekly for trend reports and root cause analysis" },
     ],
     aiSolutions: [
-      { title: "Computer Vision QA", description: "AI-powered visual inspection detects defects invisible to the human eye at production line speed", icon: Search },
-      { title: "Predictive Quality", description: "ML models predict quality issues before they occur by analyzing process parameters in real-time", icon: Shield },
-      { title: "Automated Reporting", description: "Real-time quality dashboards with AI-driven root cause analysis and corrective action recommendations", icon: BarChart3 },
+      { title: "Computer Vision QA", description: "AI-powered visual inspection detects defects invisible to the human eye at production line speed", icon: Search, difficulty: "Advanced", timeline: "6-8 weeks" },
+      { title: "Predictive Quality", description: "ML models predict quality issues before they occur by analyzing process parameters in real-time", icon: Shield, difficulty: "Advanced", timeline: "8-10 weeks" },
+      { title: "Automated Reporting", description: "Real-time quality dashboards with AI-driven root cause analysis and corrective action recommendations", icon: BarChart3, difficulty: "Easy", timeline: "2-3 weeks" },
     ],
     improvements: [
       { label: "Defect Detection", before: "82%", after: "99.2%", change: "+21%", icon: Search },
@@ -254,19 +269,11 @@ const scenarios: Scenario[] = [
       { label: "Return Rate", before: "4.7%", after: "0.8%", change: "-83%", icon: RefreshCw },
       { label: "Annual QA Cost", before: "$420K", after: "$180K", change: "-57%", icon: DollarSign },
     ],
+    annualSavings: "$240,000",
+    roiTimeline: "5-6 months",
     summary: "AI-powered quality assurance catches every defect at superhuman speed and accuracy while predicting problems before they happen. The result: near-zero defect rates, faster throughput, and dramatic cost savings on warranties and rework.",
   },
 ];
-
-function PulsingDot({ color = "red", delay = 0 }: { color?: string; delay?: number }) {
-  const cls: Record<string, string> = { red: "bg-red-500", green: "bg-emerald-500", purple: "bg-purple-500" };
-  return (
-    <span className="relative flex h-2.5 w-2.5">
-      <motion.span className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${cls[color] || cls.red}`} animate={{ scale: [1, 2, 1], opacity: [0.75, 0, 0.75] }} transition={{ duration: 1.5, repeat: Infinity, delay }} />
-      <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${cls[color] || cls.red}`} />
-    </span>
-  );
-}
 
 function TypewriterText({ text, speed = 20, onComplete }: { text: string; speed?: number; onComplete?: () => void }) {
   const [displayed, setDisplayed] = useState("");
@@ -312,62 +319,19 @@ function GridBackground() {
   );
 }
 
-function RadarSweep() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-      <motion.div
-        className="w-[600px] h-[600px] rounded-full"
-        style={{ background: "conic-gradient(from 0deg, transparent 0%, transparent 85%, hsla(250,85%,60%,0.15) 90%, hsla(250,85%,60%,0.3) 95%, transparent 100%)" }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-      />
-    </div>
-  );
-}
-
-function TerminalLine({ text, delay, type = "info" }: { text: string; delay: number; type?: "info" | "warn" | "success" | "error" }) {
+function TerminalLine({ text, type = "info" }: { text: string; type?: "info" | "warn" | "success" | "error" }) {
   const colors = { info: "text-blue-400", warn: "text-amber-400", success: "text-emerald-400", error: "text-red-400" };
   const prefixes = { info: "[SCAN]", warn: "[WARN]", success: "[OK]", error: "[ERR]" };
   return (
     <motion.div
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ delay, duration: 0.3 }}
+      transition={{ duration: 0.3 }}
       className="font-mono text-[11px] leading-relaxed flex gap-2"
     >
       <span className={colors[type]}>{prefixes[type]}</span>
       <span className="text-muted-foreground">{text}</span>
     </motion.div>
-  );
-}
-
-function CircularProgress({ progress, size = 120, strokeWidth = 6, children }: { progress: number; size?: number; strokeWidth?: number; children?: React.ReactNode }) {
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * 2 * Math.PI;
-  const offset = circumference - (progress / 100) * circumference;
-  return (
-    <div className="relative inline-flex items-center justify-center">
-      <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={radius} stroke="currentColor" strokeWidth={strokeWidth} fill="none" className="text-muted/30" />
-        <motion.circle
-          cx={size / 2} cy={size / 2} r={radius}
-          stroke="url(#progressGradient)" strokeWidth={strokeWidth} fill="none"
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          animate={{ strokeDashoffset: offset }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        />
-        <defs>
-          <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="hsl(250, 85%, 60%)" />
-            <stop offset="100%" stopColor="hsl(280, 80%, 65%)" />
-          </linearGradient>
-        </defs>
-      </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        {children}
-      </div>
-    </div>
   );
 }
 
@@ -411,7 +375,6 @@ function NodeGraph({ steps, activeStep }: { steps: { label: string; bottleneck: 
 }
 
 function ImpactGauge({ label, change, icon: Icon, delay }: { label: string; change: string; icon: LucideIcon; delay: number }) {
-  const isPositive = change.includes("+") || change.includes("Instant") || change.includes("Growing");
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5, rotateY: 90 }}
@@ -420,7 +383,7 @@ function ImpactGauge({ label, change, icon: Icon, delay }: { label: string; chan
       className="text-center"
     >
       <motion.div
-        className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl mx-auto mb-3 flex items-center justify-center relative overflow-hidden ${isPositive ? "bg-emerald-500/10" : "bg-emerald-500/10"}`}
+        className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl mx-auto mb-3 flex items-center justify-center relative overflow-hidden bg-emerald-500/10"
         whileHover={{ scale: 1.05, rotate: 2 }}
       >
         <motion.div
@@ -437,6 +400,12 @@ function ImpactGauge({ label, change, icon: Icon, delay }: { label: string; chan
     </motion.div>
   );
 }
+
+const howItWorksSteps = [
+  { icon: Target, title: "Pick Your Challenge", description: "Select the business problem that resonates most with your situation" },
+  { icon: Activity, title: "Watch the Analysis", description: "We map your workflow, find bottlenecks, and identify exactly where AI creates impact" },
+  { icon: BarChart3, title: "See Your Results", description: "Get a detailed report with projected savings, timelines, and recommended solutions" },
+];
 
 export default function Simulator() {
   usePageTitle("AI Problem Solving Simulator");
@@ -459,6 +428,34 @@ export default function Simulator() {
   const scrollToTop = useCallback(() => {
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
+
+  const clearAllTimers = useCallback(() => {
+    [scanTimerRef, transformTimerRef, terminalTimerRef].forEach(r => { if (r.current) { clearInterval(r.current); r.current = null; } });
+    [transformTimeoutRef, improvementTimeoutRef].forEach(r => { if (r.current) { clearTimeout(r.current); r.current = null; } });
+  }, []);
+
+  const skipToReport = useCallback(() => {
+    if (!selectedScenario) return;
+    clearAllTimers();
+    setPhase("report");
+    scrollToTop();
+  }, [selectedScenario, clearAllTimers, scrollToTop]);
+
+  const startTransformation = useCallback((scenario: Scenario) => {
+    setPhase("transformation");
+    setTransformStep(0);
+    setShowImprovements(false);
+    scrollToTop();
+    let tStep = 0;
+    transformTimerRef.current = window.setInterval(() => {
+      tStep++;
+      setTransformStep(tStep);
+      if (tStep >= scenario.aiSolutions.length + 1) {
+        if (transformTimerRef.current) { clearInterval(transformTimerRef.current); transformTimerRef.current = null; }
+        improvementTimeoutRef.current = window.setTimeout(() => setShowImprovements(true), 600);
+      }
+    }, 1200);
+  }, [scrollToTop]);
 
   const startScan = useCallback((scenario: Scenario) => {
     setSelectedScenario(scenario);
@@ -492,49 +489,32 @@ export default function Simulator() {
       } else {
         if (terminalTimerRef.current) { clearInterval(terminalTimerRef.current); terminalTimerRef.current = null; }
       }
-    }, 350);
+    }, 280);
 
     let progress = 0;
     let step = 0;
     const stepInterval = 100 / scenario.workflowSteps.length;
 
     scanTimerRef.current = window.setInterval(() => {
-      progress += 0.6;
+      progress += 0.9;
       if (progress >= (step + 1) * stepInterval && step < scenario.workflowSteps.length) {
         step++;
         setScanStep(step);
       }
       setScanProgress(Math.min(progress, 100));
       if (progress >= 100) {
-        if (scanTimerRef.current) clearInterval(scanTimerRef.current);
+        if (scanTimerRef.current) { clearInterval(scanTimerRef.current); scanTimerRef.current = null; }
         transformTimeoutRef.current = window.setTimeout(() => {
-          setPhase("transformation");
-          setTransformStep(0);
-          setShowImprovements(false);
-          scrollToTop();
-          let tStep = 0;
-          transformTimerRef.current = window.setInterval(() => {
-            tStep++;
-            setTransformStep(tStep);
-            if (tStep >= scenario.aiSolutions.length + 1) {
-              if (transformTimerRef.current) clearInterval(transformTimerRef.current);
-              improvementTimeoutRef.current = window.setTimeout(() => setShowImprovements(true), 800);
-            }
-          }, 1500);
-        }, 1000);
+          startTransformation(scenario);
+        }, 600);
       }
     }, 50);
-  }, [scrollToTop]);
+  }, [scrollToTop, startTransformation]);
 
   const goToReport = useCallback(() => {
     setPhase("report");
     scrollToTop();
   }, [scrollToTop]);
-
-  const clearAllTimers = useCallback(() => {
-    [scanTimerRef, transformTimerRef, terminalTimerRef].forEach(r => { if (r.current) { clearInterval(r.current); r.current = null; } });
-    [transformTimeoutRef, improvementTimeoutRef].forEach(r => { if (r.current) { clearTimeout(r.current); r.current = null; } });
-  }, []);
 
   const reset = useCallback(() => {
     clearAllTimers();
@@ -574,13 +554,18 @@ export default function Simulator() {
     return best;
   }, []);
 
+  const difficultyColors: Record<string, string> = {
+    Easy: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    Medium: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    Advanced: "bg-purple-500/10 text-purple-600 dark:text-purple-400",
+  };
+
   return (
     <div ref={topRef} className="min-h-screen relative">
-      <section className="relative pt-28 pb-16 overflow-hidden">
+      <section className="relative pt-28 pb-12 overflow-hidden">
         <GridBackground />
         <GlowOrb size={400} x="10%" y="10%" color="hsla(250,85%,60%,0.06)" delay={0} />
         <GlowOrb size={300} x="70%" y="20%" color="hsla(280,80%,60%,0.05)" delay={2} />
-        <GlowOrb size={250} x="50%" y="60%" color="hsla(250,85%,60%,0.04)" delay={1} />
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}>
@@ -593,13 +578,13 @@ export default function Simulator() {
               <motion.div animate={{ rotate: 360 }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }}>
                 <Cpu className="w-4 h-4" />
               </motion.div>
-              AI Problem Solving Simulator
+              Interactive Demo
             </motion.div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-5 leading-[1.1]" data-testid="text-simulator-title">
-              See How AI Transforms{" "}
+              What Would AI Do{" "}
               <span className="relative">
-                <span className="gradient-text">Your Business</span>
+                <span className="gradient-text">For Your Business?</span>
                 <motion.span
                   className="absolute -bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-primary via-purple-400 to-primary rounded-full"
                   initial={{ scaleX: 0 }}
@@ -609,48 +594,79 @@ export default function Simulator() {
               </span>
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed" data-testid="text-simulator-subtitle">
-              Select a challenge, watch us scan your environment in real-time, and witness the transformative power of AI on your operations.
+              Pick a real business challenge. In 60 seconds, you'll see exactly how AI would solve it, what it would cost, and how much you'd save.
             </p>
           </motion.div>
 
-          <motion.div
-            className="flex items-center justify-center mt-12 mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            data-testid="progress-phases"
-          >
-            {phaseLabels.map((label, i) => (
-              <div key={label} className="flex items-center">
-                <div className="flex flex-col items-center gap-2">
-                  <motion.div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold transition-all duration-500 relative ${
-                      i <= currentPhaseIndex
-                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
-                        : "bg-muted/80 text-muted-foreground"
-                    }`}
-                    animate={i === currentPhaseIndex ? { boxShadow: ["0 0 0 0 hsla(250,85%,60%,0)", "0 0 0 8px hsla(250,85%,60%,0.15)", "0 0 0 0 hsla(250,85%,60%,0)"] } : {}}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    {i < currentPhaseIndex ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
-                  </motion.div>
-                  <span className={`text-[10px] sm:text-xs font-medium transition-colors whitespace-nowrap ${i <= currentPhaseIndex ? "text-primary" : "text-muted-foreground/60"}`}>
-                    {label}
-                  </span>
-                </div>
-                {i < phaseLabels.length - 1 && (
-                  <div className="relative w-8 sm:w-16 lg:w-24 h-1 mx-1 sm:mx-3 -mt-6 rounded-full overflow-hidden bg-muted/50">
-                    <motion.div
-                      className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-purple-400 rounded-full"
-                      initial={{ width: "0%" }}
-                      animate={{ width: i < currentPhaseIndex ? "100%" : "0%" }}
-                      transition={{ duration: 0.6, delay: 0.2 }}
-                    />
+          {phase === "discovery" && (
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-2xl mx-auto mt-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              data-testid="how-it-works"
+            >
+              {howItWorksSteps.map((step, i) => (
+                <motion.div
+                  key={step.title}
+                  className="flex flex-col items-center gap-2 text-center"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 + i * 0.1 }}
+                >
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-1">
+                    <step.icon className="w-5 h-5 text-primary" />
                   </div>
-                )}
-              </div>
-            ))}
-          </motion.div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-bold text-primary">{i + 1}.</span>
+                    <span className="text-sm font-semibold">{step.title}</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{step.description}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+
+          {phase !== "discovery" && (
+            <motion.div
+              className="flex items-center justify-center mt-8 mb-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              data-testid="progress-phases"
+            >
+              {phaseLabels.map((label, i) => (
+                <div key={label} className="flex items-center">
+                  <div className="flex flex-col items-center gap-2">
+                    <motion.div
+                      className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-xs font-bold transition-all duration-500 relative ${
+                        i <= currentPhaseIndex
+                          ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
+                          : "bg-muted/80 text-muted-foreground"
+                      }`}
+                      animate={i === currentPhaseIndex ? { boxShadow: ["0 0 0 0 hsla(250,85%,60%,0)", "0 0 0 8px hsla(250,85%,60%,0.15)", "0 0 0 0 hsla(250,85%,60%,0)"] } : {}}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      {i < currentPhaseIndex ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
+                    </motion.div>
+                    <span className={`text-[10px] sm:text-xs font-medium transition-colors whitespace-nowrap ${i <= currentPhaseIndex ? "text-primary" : "text-muted-foreground/60"}`}>
+                      {label}
+                    </span>
+                  </div>
+                  {i < phaseLabels.length - 1 && (
+                    <div className="relative w-6 sm:w-12 lg:w-20 h-1 mx-1 sm:mx-2 -mt-6 rounded-full overflow-hidden bg-muted/50">
+                      <motion.div
+                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-purple-400 rounded-full"
+                        initial={{ width: "0%" }}
+                        animate={{ width: i < currentPhaseIndex ? "100%" : "0%" }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                      />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -658,21 +674,21 @@ export default function Simulator() {
         <AnimatePresence mode="wait">
           {phase === "discovery" && (
             <motion.div key="discovery" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.5 }}>
-              <div className="text-center mb-10">
+              <div className="text-center mb-8">
                 <h2 className="text-2xl sm:text-3xl font-bold mb-3" data-testid="text-discovery-heading">
-                  What challenge is holding your business back?
+                  What's your biggest operational headache?
                 </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">Choose a scenario to begin your AI transformation simulation.</p>
+                <p className="text-muted-foreground max-w-lg mx-auto">Choose the challenge closest to your situation. We'll do the rest.</p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
                 {scenarios.map((scenario, idx) => (
                   <motion.div
                     key={scenario.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.08, duration: 0.4 }}
-                    whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                    transition={{ delay: idx * 0.06, duration: 0.4 }}
+                    whileHover={{ y: -4, transition: { duration: 0.2 } }}
                   >
                     <Card
                       className={`relative p-5 cursor-pointer transition-all duration-300 h-full group overflow-hidden ${
@@ -690,8 +706,6 @@ export default function Simulator() {
                             className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                               selectedScenario?.id === scenario.id ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" : "bg-primary/10 text-primary group-hover:bg-primary/15"
                             }`}
-                            animate={selectedScenario?.id === scenario.id ? { scale: [1, 1.05, 1] } : {}}
-                            transition={{ duration: 2, repeat: Infinity }}
                           >
                             <scenario.icon className="w-5 h-5" />
                           </motion.div>
@@ -701,6 +715,10 @@ export default function Simulator() {
                           </div>
                         </div>
                         <p className="text-xs text-muted-foreground leading-relaxed">{scenario.description}</p>
+                        <div className="mt-3 pt-3 border-t border-border/50 flex items-center justify-between">
+                          <span className="text-[10px] text-muted-foreground/60">Est. savings</span>
+                          <span className="text-xs font-bold text-emerald-500">{scenario.annualSavings}/yr</span>
+                        </div>
                       </div>
                       {selectedScenario?.id === scenario.id && (
                         <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} className="absolute top-3 right-3">
@@ -714,27 +732,24 @@ export default function Simulator() {
                 ))}
               </div>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="max-w-xl mx-auto mb-10">
-                <div className="relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-purple-500/20 to-primary/20 rounded-xl blur-xl opacity-50" />
-                  <Card className="relative p-6 bg-card/80 backdrop-blur-sm">
-                    <h3 className="font-semibold mb-3 flex items-center gap-2 text-sm">
-                      <BrainCircuit className="w-4 h-4 text-primary" />
-                      Or describe your unique challenge
-                    </h3>
-                    <Textarea
-                      placeholder="e.g., Our sales team spends 3 hours daily updating CRM records manually, and we're losing deals because follow-ups fall through the cracks..."
-                      value={customProblem}
-                      onChange={(e) => setCustomProblem(e.target.value)}
-                      className="min-h-[80px] resize-none mb-3 bg-background/50"
-                      data-testid="input-custom-problem"
-                    />
-                    <p className="text-[11px] text-muted-foreground/70">Custom problems are intelligently matched to our closest scenario for the demo experience.</p>
-                  </Card>
-                </div>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="max-w-xl mx-auto mb-8">
+                <Card className="relative p-5 bg-card/80 backdrop-blur-sm">
+                  <h3 className="font-semibold mb-3 flex items-center gap-2 text-sm">
+                    <BrainCircuit className="w-4 h-4 text-primary" />
+                    Don't see your challenge? Describe it.
+                  </h3>
+                  <Textarea
+                    placeholder="e.g., Our sales team spends 3 hours daily updating CRM records manually..."
+                    value={customProblem}
+                    onChange={(e) => setCustomProblem(e.target.value)}
+                    className="min-h-[70px] resize-none mb-2 bg-background/50"
+                    data-testid="input-custom-problem"
+                  />
+                  <p className="text-[11px] text-muted-foreground/70">We'll match it to the closest scenario for this demo.</p>
+                </Card>
               </motion.div>
 
-              <motion.div className="flex justify-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+              <motion.div className="flex justify-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
                 <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                   <Button
                     size="lg"
@@ -747,7 +762,7 @@ export default function Simulator() {
                     data-testid="button-start-simulation"
                   >
                     <Play className="w-5 h-5" />
-                    Launch Simulation
+                    Analyze This Challenge
                     <ArrowRight className="w-5 h-5" />
                   </Button>
                 </motion.div>
@@ -757,21 +772,28 @@ export default function Simulator() {
 
           {phase === "scanning" && selectedScenario && (
             <motion.div key="scanning" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.5 }}>
-              <div className="text-center mb-8">
-                <motion.div className="inline-flex items-center gap-2 text-primary mb-3" animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 1.5, repeat: Infinity }}>
-                  <Activity className="w-5 h-5" />
-                  <span className="text-sm font-medium uppercase tracking-wider">Live Analysis</span>
-                </motion.div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2" data-testid="text-scanning-heading">
-                  Analyzing Your Scenario
-                </h2>
-                <p className="text-muted-foreground">{selectedScenario.title} - {selectedScenario.industry}</p>
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <div className="flex items-center gap-2 text-primary mb-1">
+                    <motion.div animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                      <Activity className="w-4 h-4" />
+                    </motion.div>
+                    <span className="text-xs font-medium uppercase tracking-wider">Live Analysis</span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-bold" data-testid="text-scanning-heading">
+                    Analyzing: {selectedScenario.title}
+                  </h2>
+                </div>
+                <Button variant="ghost" size="sm" onClick={skipToReport} className="gap-1.5 text-muted-foreground hover:text-foreground" data-testid="button-skip-to-results">
+                  <SkipForward className="w-4 h-4" />
+                  Skip to Results
+                </Button>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <div className="lg:col-span-2 space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
+                <div className="lg:col-span-2 space-y-5">
                   <Card className="p-5 relative overflow-hidden">
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center justify-between mb-3">
                       <h3 className="font-semibold text-sm flex items-center gap-2">
                         <Workflow className="w-4 h-4 text-primary" />
                         Workflow Mapping
@@ -785,23 +807,21 @@ export default function Simulator() {
 
                     <NodeGraph steps={selectedScenario.workflowSteps.map(s => ({ label: s.label, bottleneck: s.bottleneck }))} activeStep={scanStep} />
 
-                    <div className="space-y-2 mt-4">
+                    <div className="space-y-2 mt-3">
                       {selectedScenario.workflowSteps.map((step, i) => {
                         const revealed = i < scanStep;
-                        const current = i === scanStep - 1;
                         if (!revealed) return null;
                         return (
                           <motion.div
                             key={step.label}
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
-                            transition={{ duration: 0.4 }}
+                            transition={{ duration: 0.3 }}
                             className={`p-3 rounded-lg border transition-all ${
-                              step.bottleneck ? "border-red-500/20 bg-red-500/5" :
-                              current ? "border-primary/20 bg-primary/5" : "border-transparent bg-muted/30"
+                              step.bottleneck ? "border-red-500/20 bg-red-500/5" : "border-transparent bg-muted/30"
                             }`}
                           >
-                            <div className="flex items-center gap-2 mb-1">
+                            <div className="flex items-center gap-2 mb-0.5">
                               <span className="font-medium text-xs">{step.label}</span>
                               <Badge variant={step.bottleneck ? "destructive" : "secondary"} className="text-[9px] px-1.5 py-0">{step.duration}</Badge>
                               {step.bottleneck && (
@@ -819,16 +839,16 @@ export default function Simulator() {
 
                   <AnimatePresence>
                     {scanProgress > 50 && (
-                      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+                      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                         <Card className="p-5 border-red-500/15 bg-gradient-to-br from-red-500/5 to-transparent">
                           <h4 className="font-semibold text-sm flex items-center gap-2 mb-3">
                             <AlertTriangle className="w-4 h-4 text-red-500" />
-                            Critical Pain Points Identified
+                            Pain Points Detected
                           </h4>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {selectedScenario.painPoints.map((point, i) => (
-                              <motion.div key={i} initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.15 }} className="flex items-start gap-2">
-                                <PulsingDot color="red" delay={i * 0.3} />
+                              <motion.div key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} className="flex items-start gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
                                 <span className="text-xs text-muted-foreground leading-relaxed">{point}</span>
                               </motion.div>
                             ))}
@@ -840,20 +860,19 @@ export default function Simulator() {
                 </div>
 
                 <div className="space-y-4">
-                  <Card className="p-5 relative overflow-hidden" data-testid="card-scan-metrics">
-                    <RadarSweep />
-                    <h3 className="font-semibold text-sm mb-4 flex items-center gap-2 relative z-10">
+                  <Card className="p-4" data-testid="card-scan-metrics">
+                    <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
                       <BarChart3 className="w-4 h-4 text-primary" />
-                      Current Metrics
+                      Current Performance
                     </h3>
-                    <div className="space-y-3 relative z-10">
+                    <div className="space-y-2.5">
                       {selectedScenario.currentMetrics.map((metric, i) => (
                         <motion.div
                           key={metric.label}
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: scanProgress > (i + 1) * 15 ? 1 : 0.15, x: scanProgress > (i + 1) * 15 ? 0 : 10 }}
-                          transition={{ duration: 0.5 }}
-                          className="flex items-center gap-3 p-2.5 rounded-lg bg-background/50"
+                          initial={{ opacity: 0, x: 15 }}
+                          animate={{ opacity: scanProgress > (i + 1) * 15 ? 1 : 0.15, x: scanProgress > (i + 1) * 15 ? 0 : 8 }}
+                          transition={{ duration: 0.4 }}
+                          className="flex items-center gap-3 p-2.5 rounded-lg bg-muted/30"
                         >
                           <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                             <metric.icon className="w-4 h-4 text-primary" />
@@ -867,16 +886,16 @@ export default function Simulator() {
                     </div>
                   </Card>
 
-                  <Card className="p-4 bg-zinc-950 dark:bg-zinc-950 border-zinc-800 overflow-hidden" data-testid="card-terminal">
-                    <div className="flex items-center gap-1.5 mb-3">
-                      <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                      <span className="text-[10px] text-zinc-500 ml-2 font-mono">scan_output.log</span>
+                  <Card className="p-3 bg-zinc-950 dark:bg-zinc-950 border-zinc-800 overflow-hidden" data-testid="card-terminal">
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <div className="w-2 h-2 rounded-full bg-red-500/80" />
+                      <div className="w-2 h-2 rounded-full bg-amber-500/80" />
+                      <div className="w-2 h-2 rounded-full bg-emerald-500/80" />
+                      <span className="text-[9px] text-zinc-500 ml-1.5 font-mono">analysis.log</span>
                     </div>
-                    <div ref={terminalRef} className="h-48 overflow-y-auto space-y-1 scrollbar-thin">
+                    <div ref={terminalRef} className="h-40 overflow-y-auto space-y-0.5 scrollbar-thin">
                       {terminalLines.map((line, i) => line ? (
-                        <TerminalLine key={i} text={line.text} type={line.type} delay={0} />
+                        <TerminalLine key={i} text={line.text} type={line.type} />
                       ) : null)}
                       {scanProgress < 100 && (
                         <motion.div className="flex items-center gap-1 mt-1" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity }}>
@@ -893,18 +912,25 @@ export default function Simulator() {
 
           {phase === "transformation" && selectedScenario && (
             <motion.div key="transformation" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.5 }}>
-              <div className="text-center mb-10">
-                <motion.div className="inline-flex items-center gap-2 text-emerald-500 mb-3" animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 1.5, repeat: Infinity }}>
-                  <Zap className="w-5 h-5" />
-                  <span className="text-sm font-medium uppercase tracking-wider">Deploying Solutions</span>
-                </motion.div>
-                <h2 className="text-2xl sm:text-3xl font-bold mb-2" data-testid="text-transformation-heading">
-                  AI Transformation In Progress
-                </h2>
-                <p className="text-muted-foreground">Deploying intelligent automation to eliminate bottlenecks...</p>
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <div className="flex items-center gap-2 text-emerald-500 mb-1">
+                    <motion.div animate={{ opacity: [0.5, 1, 0.5] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                      <Zap className="w-4 h-4" />
+                    </motion.div>
+                    <span className="text-xs font-medium uppercase tracking-wider">Deploying Solutions</span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-bold" data-testid="text-transformation-heading">
+                    AI Transformation
+                  </h2>
+                </div>
+                <Button variant="ghost" size="sm" onClick={skipToReport} className="gap-1.5 text-muted-foreground hover:text-foreground" data-testid="button-skip-transform">
+                  <SkipForward className="w-4 h-4" />
+                  Skip to Results
+                </Button>
               </div>
 
-              <div className="max-w-3xl mx-auto space-y-5 mb-12">
+              <div className="max-w-3xl mx-auto space-y-4 mb-10">
                 {selectedScenario.aiSolutions.map((solution, i) => {
                   const deployed = transformStep > i + 1;
                   const deploying = transformStep === i + 1;
@@ -912,12 +938,12 @@ export default function Simulator() {
                   return (
                     <motion.div
                       key={solution.title}
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: waiting ? 0.25 : 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: i * 0.1 }}
+                      transition={{ duration: 0.4, delay: i * 0.08 }}
                     >
-                      <Card className={`p-6 transition-all duration-700 relative overflow-hidden ${
-                        deploying ? "border-primary/50 shadow-2xl shadow-primary/15" :
+                      <Card className={`p-5 transition-all duration-500 relative overflow-hidden ${
+                        deploying ? "border-primary/50 shadow-xl shadow-primary/10" :
                         deployed ? "border-emerald-500/30" : ""
                       }`}>
                         {deploying && (
@@ -927,47 +953,49 @@ export default function Simulator() {
                             transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
                           />
                         )}
-                        <div className="relative flex items-start gap-5">
-                          <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all duration-700 ${
+                        <div className="relative flex items-start gap-4">
+                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-500 ${
                             deployed ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/25" :
                             deploying ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" :
                             "bg-muted text-muted-foreground"
                           }`}>
                             {deployed ? (
                               <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 200 }}>
-                                <CheckCircle2 className="w-7 h-7" />
+                                <CheckCircle2 className="w-6 h-6" />
                               </motion.div>
                             ) : deploying ? (
                               <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }}>
-                                <Cog className="w-7 h-7" />
+                                <Cog className="w-6 h-6" />
                               </motion.div>
                             ) : (
-                              <solution.icon className="w-7 h-7" />
+                              <solution.icon className="w-6 h-6" />
                             )}
                           </div>
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1.5">
-                              <h3 className="font-semibold text-base">{solution.title}</h3>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1 flex-wrap">
+                              <h3 className="font-semibold text-sm">{solution.title}</h3>
                               {deploying && (
-                                <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}>
-                                  <Badge className="bg-primary/10 text-primary text-[10px] gap-1">
-                                    <motion.div className="w-1.5 h-1.5 rounded-full bg-primary" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 1, repeat: Infinity }} />
-                                    Deploying
-                                  </Badge>
-                                </motion.div>
+                                <Badge className="bg-primary/10 text-primary text-[10px] gap-1">
+                                  <motion.div className="w-1.5 h-1.5 rounded-full bg-primary" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 1, repeat: Infinity }} />
+                                  Deploying
+                                </Badge>
                               )}
                               {deployed && (
-                                <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }}>
-                                  <Badge className="bg-emerald-500/10 text-emerald-500 text-[10px] gap-1">
-                                    <CheckCircle2 className="w-3 h-3" /> Live
-                                  </Badge>
-                                </motion.div>
+                                <Badge className="bg-emerald-500/10 text-emerald-500 text-[10px] gap-1">
+                                  <CheckCircle2 className="w-3 h-3" /> Live
+                                </Badge>
                               )}
                             </div>
-                            <p className="text-sm text-muted-foreground leading-relaxed">{solution.description}</p>
+                            <p className="text-xs text-muted-foreground leading-relaxed mb-2">{solution.description}</p>
+                            <div className="flex items-center gap-3">
+                              <Badge variant="outline" className={`text-[9px] ${difficultyColors[solution.difficulty]}`}>{solution.difficulty}</Badge>
+                              <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+                                <Calendar className="w-3 h-3" /> {solution.timeline}
+                              </span>
+                            </div>
                             {deploying && (
                               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3 h-1 bg-muted rounded-full overflow-hidden">
-                                <motion.div className="h-full bg-primary rounded-full" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 1.5, ease: "easeInOut" }} />
+                                <motion.div className="h-full bg-primary rounded-full" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: 1.2, ease: "easeInOut" }} />
                               </motion.div>
                             )}
                           </div>
@@ -980,52 +1008,27 @@ export default function Simulator() {
 
               <AnimatePresence>
                 {showImprovements && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
-                    <div className="text-center mb-8">
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 150, damping: 12 }}
-                        className="relative inline-block mb-4"
-                      >
-                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-2xl shadow-emerald-500/30">
-                          <Zap className="w-10 h-10 text-white" />
+                  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+                    <div className="text-center mb-6">
+                      <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 150, damping: 12 }} className="relative inline-block mb-3">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-xl shadow-emerald-500/25">
+                          <Zap className="w-8 h-8 text-white" />
                         </div>
-                        <motion.div
-                          className="absolute -inset-3 rounded-3xl border-2 border-emerald-500/30"
-                          animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        />
                       </motion.div>
-                      <h3 className="text-2xl font-bold" data-testid="text-improvements-heading">Transformation Complete</h3>
-                      <p className="text-muted-foreground mt-1">All AI solutions deployed successfully. Here are your projected improvements.</p>
+                      <h3 className="text-xl font-bold" data-testid="text-improvements-heading">All Solutions Deployed</h3>
+                      <p className="text-sm text-muted-foreground mt-1">Here's a preview of your projected impact.</p>
                     </div>
 
-                    <div className="flex flex-wrap justify-center gap-6 sm:gap-8 mb-10">
+                    <div className="flex flex-wrap justify-center gap-5 sm:gap-6 mb-8">
                       {selectedScenario.improvements.map((imp, i) => (
-                        <ImpactGauge key={imp.label} label={imp.label} change={imp.change} icon={imp.icon} delay={i * 0.2} />
+                        <ImpactGauge key={imp.label} label={imp.label} change={imp.change} icon={imp.icon} delay={i * 0.15} />
                       ))}
                     </div>
 
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-                      {selectedScenario.improvements.map((imp, i) => (
-                        <motion.div key={imp.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 + i * 0.1 }}>
-                          <Card className="p-4 text-center border-emerald-500/10">
-                            <div className="text-[11px] text-muted-foreground mb-2">{imp.label}</div>
-                            <div className="flex items-center justify-center gap-2">
-                              <span className="text-xs line-through text-muted-foreground/60">{imp.before}</span>
-                              <ArrowRight className="w-3 h-3 text-emerald-500" />
-                              <span className="text-base font-bold text-emerald-500">{imp.after}</span>
-                            </div>
-                          </Card>
-                        </motion.div>
-                      ))}
-                    </div>
-
-                    <motion.div className="flex justify-center" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}>
+                    <motion.div className="flex justify-center" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
                       <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                         <Button size="lg" onClick={goToReport} className="gap-3 px-10 py-6 text-base shadow-lg shadow-primary/20" data-testid="button-view-report">
-                          View Full Impact Report
+                          See Full Impact Report
                           <ArrowRight className="w-5 h-5" />
                         </Button>
                       </motion.div>
@@ -1038,23 +1041,13 @@ export default function Simulator() {
 
           {phase === "report" && selectedScenario && (
             <motion.div key="report" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.6 }}>
-              <div className="text-center mb-12">
-                <motion.div
-                  initial={{ scale: 0, rotate: -90 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ type: "spring", stiffness: 150, damping: 12 }}
-                  className="relative inline-block mb-5"
-                >
-                  <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-primary via-purple-500 to-primary flex items-center justify-center shadow-2xl shadow-primary/30">
-                    <BarChart3 className="w-12 h-12 text-white" />
+              <div className="text-center mb-10">
+                <motion.div initial={{ scale: 0, rotate: -90 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 150, damping: 12 }} className="relative inline-block mb-4">
+                  <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary via-purple-500 to-primary flex items-center justify-center shadow-2xl shadow-primary/30">
+                    <BarChart3 className="w-10 h-10 text-white" />
                   </div>
-                  <motion.div
-                    className="absolute -inset-2 rounded-[20px] border-2 border-primary/20"
-                    animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0, 0.3] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  />
                 </motion.div>
-                <h2 className="text-3xl sm:text-4xl font-bold mb-3" data-testid="text-report-heading">AI Impact Report</h2>
+                <h2 className="text-3xl sm:text-4xl font-bold mb-3" data-testid="text-report-heading">Your AI Impact Report</h2>
                 <div className="flex items-center justify-center gap-3 text-muted-foreground">
                   <Badge variant="outline" className="font-normal">{selectedScenario.title}</Badge>
                   <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
@@ -1062,67 +1055,94 @@ export default function Simulator() {
                 </div>
               </div>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                <Card className="p-6 sm:p-8 mb-8 relative overflow-hidden">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="mb-6">
+                <Card className="p-6 sm:p-8 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5" />
                   <div className="relative">
-                    <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
+                    <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
                       <BrainCircuit className="w-5 h-5 text-primary" />
                       Executive Summary
                     </h3>
                     <p className="text-muted-foreground leading-relaxed text-[15px]" data-testid="text-report-summary">
-                      <TypewriterText text={selectedScenario.summary} speed={15} />
+                      <TypewriterText text={selectedScenario.summary} speed={12} />
                     </p>
                   </div>
                 </Card>
               </motion.div>
 
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                {selectedScenario.improvements.map((imp, i) => (
-                  <motion.div key={imp.label} initial={{ opacity: 0, y: 30, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.4 + i * 0.12, type: "spring", stiffness: 120 }}>
-                    <Card className="p-5 text-center relative overflow-hidden group hover:border-emerald-500/30 transition-colors">
-                      <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <div className="relative">
-                        <imp.icon className="w-7 h-7 mx-auto mb-3 text-primary" />
-                        <div className="text-xs text-muted-foreground mb-3 font-medium">{imp.label}</div>
-                        <div className="space-y-1.5 mb-3">
-                          <div className="text-xs text-muted-foreground/60">
-                            Before: <span className="font-medium text-foreground/70">{imp.before}</span>
-                          </div>
-                          <div className="text-emerald-500">
-                            After: <span className="text-xl font-bold">{imp.after}</span>
-                          </div>
-                        </div>
-                        <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs">{imp.change}</Badge>
-                      </div>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
-                <Card className="p-6 sm:p-8 mb-8">
-                  <h3 className="font-semibold text-lg mb-5 flex items-center gap-2">
-                    <Zap className="w-5 h-5 text-primary" />
-                    Recommended AI Solutions
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    {selectedScenario.aiSolutions.map((solution, i) => (
-                      <motion.div key={solution.title} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 + i * 0.15 }} whileHover={{ y: -3 }}>
-                        <div className="p-5 rounded-xl bg-muted/50 h-full border border-transparent hover:border-primary/20 transition-colors">
-                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/15 to-purple-500/10 flex items-center justify-center mb-4">
-                            <solution.icon className="w-6 h-6 text-primary" />
-                          </div>
-                          <h4 className="font-semibold text-sm mb-2">{solution.title}</h4>
-                          <p className="text-xs text-muted-foreground leading-relaxed">{solution.description}</p>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </Card>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="mb-6">
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <Card className="p-5 text-center bg-gradient-to-br from-emerald-500/5 to-transparent border-emerald-500/15">
+                    <DollarSign className="w-6 h-6 mx-auto mb-2 text-emerald-500" />
+                    <div className="text-2xl sm:text-3xl font-bold text-emerald-500">{selectedScenario.annualSavings}</div>
+                    <div className="text-xs text-muted-foreground mt-1">Estimated Annual Savings</div>
+                  </Card>
+                  <Card className="p-5 text-center bg-gradient-to-br from-primary/5 to-transparent border-primary/15">
+                    <TrendingUp className="w-6 h-6 mx-auto mb-2 text-primary" />
+                    <div className="text-2xl sm:text-3xl font-bold text-primary">{selectedScenario.roiTimeline}</div>
+                    <div className="text-xs text-muted-foreground mt-1">Expected ROI Payback</div>
+                  </Card>
+                </div>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="mb-6">
+                <h3 className="font-semibold text-base mb-4 flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-primary" />
+                  Projected Improvements
+                </h3>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                  {selectedScenario.improvements.map((imp, i) => (
+                    <motion.div key={imp.label} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 + i * 0.08 }}>
+                      <Card className="p-4 text-center group hover:border-emerald-500/30 transition-colors">
+                        <imp.icon className="w-5 h-5 mx-auto mb-2 text-primary" />
+                        <div className="text-[11px] text-muted-foreground mb-2 font-medium">{imp.label}</div>
+                        <div className="flex items-center justify-center gap-1.5 mb-2">
+                          <span className="text-[10px] line-through text-muted-foreground/50">{imp.before}</span>
+                          <ArrowRight className="w-3 h-3 text-emerald-500" />
+                          <span className="text-sm font-bold text-emerald-500">{imp.after}</span>
+                        </div>
+                        <Badge className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-[10px]">{imp.change}</Badge>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mb-6">
+                <h3 className="font-semibold text-base mb-4 flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-primary" />
+                  Implementation Roadmap
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {selectedScenario.aiSolutions.map((solution, i) => (
+                    <motion.div key={solution.title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 + i * 0.1 }} whileHover={{ y: -3 }}>
+                      <Card className="p-5 h-full hover:border-primary/20 transition-colors">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/15 to-purple-500/10 flex items-center justify-center flex-shrink-0">
+                            <solution.icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <div className="min-w-0">
+                            <h4 className="font-semibold text-sm">{solution.title}</h4>
+                          </div>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed mb-3">{solution.description}</p>
+                        <div className="flex items-center gap-2 pt-3 border-t border-border/50">
+                          <Badge variant="outline" className={`text-[9px] ${difficultyColors[solution.difficulty]}`}>
+                            <Gauge className="w-2.5 h-2.5 mr-1" />
+                            {solution.difficulty}
+                          </Badge>
+                          <Badge variant="outline" className="text-[9px]">
+                            <Calendar className="w-2.5 h-2.5 mr-1" />
+                            {solution.timeline}
+                          </Badge>
+                        </div>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
                 <Card className="p-8 sm:p-10 relative overflow-hidden">
                   <div className="absolute inset-0">
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/8 via-purple-500/5 to-primary/8" />
@@ -1130,24 +1150,24 @@ export default function Simulator() {
                     <GlowOrb size={150} x="80%" y="30%" color="hsla(280,80%,60%,0.05)" delay={1.5} />
                   </div>
                   <div className="relative text-center">
-                    <h3 className="text-2xl font-bold mb-3">Ready to Transform Your Business?</h3>
-                    <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-                      This simulation is just the beginning. Let our team build a custom AI solution tailored to your exact needs and environment.
+                    <h3 className="text-2xl font-bold mb-2">Like What You See?</h3>
+                    <p className="text-muted-foreground mb-6 max-w-md mx-auto text-sm">
+                      These are projected results based on industry benchmarks. Let us build the real thing for your business.
                     </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                       <Link href="/get-started">
                         <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                          <Button size="lg" className="gap-2 px-8 py-6 text-base shadow-lg shadow-primary/20" data-testid="button-get-started">
-                            <Sparkles className="w-5 h-5" />
+                          <Button size="lg" className="gap-2 px-8 py-5 text-sm shadow-lg shadow-primary/20" data-testid="button-get-started">
+                            <Sparkles className="w-4 h-4" />
                             Start Your Project
                           </Button>
                         </motion.div>
                       </Link>
                       <Link href="/contact">
                         <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                          <Button size="lg" variant="outline" className="gap-2 px-8 py-6 text-base" data-testid="button-contact">
+                          <Button size="lg" variant="outline" className="gap-2 px-8 py-5 text-sm" data-testid="button-contact">
                             Talk to Our Team
-                            <ArrowRight className="w-5 h-5" />
+                            <ArrowRight className="w-4 h-4" />
                           </Button>
                         </motion.div>
                       </Link>
@@ -1156,7 +1176,7 @@ export default function Simulator() {
                 </Card>
               </motion.div>
 
-              <motion.div className="flex justify-center mt-10" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }}>
+              <motion.div className="flex justify-center mt-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
                 <Button variant="ghost" onClick={reset} className="gap-2 text-muted-foreground hover:text-foreground" data-testid="button-try-another">
                   <RefreshCw className="w-4 h-4" />
                   Try Another Scenario
