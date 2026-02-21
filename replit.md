@@ -61,8 +61,9 @@ Modern, VC-backed technology studio website for Agile Vision, specializing in AI
 - Each scenario includes: pain points, current metrics, workflow steps with bottleneck detection, AI solutions (with difficulty rating + timeline), before/after improvement metrics, annual savings, ROI payback period, executive summary
 - Scenario cards show estimated annual savings preview ($96K-$540K range)
 - Skip buttons on scanning and transformation phases for impatient users
-- Faster animations (~40% faster than original): scan 280ms terminal, 1200ms transform deploy
-- Report includes: ROI headline cards (annual savings + payback), projected improvements grid, implementation roadmap with difficulty (Easy/Medium/Advanced) and timeline per solution
+- Deliberate, slower animations: terminal 600ms, scan 0.35/tick, transform 3000ms/step, phase transitions 0.7-0.8s, deploy bar 2.8s
+- All content containers fully opaque (bg-card) to prevent background animation bleed-through
+- Enhanced Impact Report: Executive Summary, Financial Impact (4 cards: annual/monthly/ROI/5-year), Key Findings (bottlenecks/pain points/automation %), Before vs After comparison table, Implementation Roadmap (timeline with phase numbers), Methodology disclaimer, compelling CTA with 2-3 week prototype mention
 - Phase progress bar only shown after discovery (How It Works replaces it during discovery)
 - Custom problem input with keyword-based scenario matching
 - Demo version uses pre-built scenario templates; future full client version will use real AI analysis
