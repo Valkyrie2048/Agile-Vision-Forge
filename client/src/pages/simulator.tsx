@@ -726,15 +726,15 @@ export default function Simulator() {
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                         <div className="relative p-5">
-                          <div className="flex items-center gap-3 mb-4">
-                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                          <div className="flex items-center gap-4">
+                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                               isSelected ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" : "bg-primary/10 text-primary group-hover:bg-primary/15"
                             }`}>
-                              <scenario.icon className="w-5 h-5" />
+                              <scenario.icon className="w-6 h-6" />
                             </div>
                             <div className="min-w-0 flex-1">
-                              <h3 className="font-semibold text-sm leading-snug">{scenario.title}</h3>
-                              <Badge variant="secondary" className="text-[10px] font-normal px-1.5 py-0 mt-0.5">{scenario.industry}</Badge>
+                              <h3 className="font-semibold text-base leading-snug">{scenario.title}</h3>
+                              <Badge variant="secondary" className="text-xs font-normal mt-1">{scenario.industry}</Badge>
                             </div>
                             {isSelected && (
                               <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} className="flex-shrink-0">
