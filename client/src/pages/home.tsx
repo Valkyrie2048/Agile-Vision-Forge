@@ -618,19 +618,35 @@ function GetStartedPreview() {
           </BlurReveal>
         </div>
 
-        <BlurReveal delay={0.3} className="flex flex-wrap justify-center gap-2 mb-8">
-          {projectTypes.map((type) => (
-            <Button
-              key={type.id}
-              variant={selected === type.id ? "default" : "outline"}
-              size="sm"
-              onClick={() => setSelected(type.id)}
-              data-testid={`preview-type-${type.id}`}
-            >
-              <type.icon className="w-3.5 h-3.5 mr-1.5" />
-              {type.label}
-            </Button>
-          ))}
+        <BlurReveal delay={0.3} className="flex flex-col items-center gap-2 mb-8">
+          <div className="flex justify-center gap-2">
+            {projectTypes.slice(0, 5).map((type) => (
+              <Button
+                key={type.id}
+                variant={selected === type.id ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelected(type.id)}
+                data-testid={`preview-type-${type.id}`}
+              >
+                <type.icon className="w-3.5 h-3.5 mr-1.5" />
+                {type.label}
+              </Button>
+            ))}
+          </div>
+          <div className="flex justify-center gap-2">
+            {projectTypes.slice(5).map((type) => (
+              <Button
+                key={type.id}
+                variant={selected === type.id ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelected(type.id)}
+                data-testid={`preview-type-${type.id}`}
+              >
+                <type.icon className="w-3.5 h-3.5 mr-1.5" />
+                {type.label}
+              </Button>
+            ))}
+          </div>
         </BlurReveal>
 
         <BlurReveal delay={0.4} className="w-full">
