@@ -693,7 +693,7 @@ export default function Simulator() {
         <AnimatePresence mode="wait">
           {phase === "discovery" && (
             <motion.div key="discovery" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.6 }}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+              <div className="flex flex-col max-w-md mx-auto gap-3 mb-6">
                 {scenarios.map((scenario, idx) => {
                   const isSelected = selectedScenario?.id === scenario.id;
                   return (
