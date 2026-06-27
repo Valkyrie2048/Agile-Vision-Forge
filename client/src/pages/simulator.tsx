@@ -744,11 +744,6 @@ export default function Simulator() {
                               </motion.div>
                             )}
                           </div>
-                          <div className="mt-3 flex items-center gap-1.5 px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/15">
-                            <TrendingUp className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-                            <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">Save up to</span>
-                            <span className="text-sm font-bold text-emerald-500 ml-auto">{scenario.annualSavings}<span className="text-[10px] font-medium">/yr</span></span>
-                          </div>
                         </div>
                       </Card>
                     </motion.div>
