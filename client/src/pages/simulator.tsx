@@ -299,6 +299,25 @@ function TypewriterText({ text, speed = 20, onComplete }: { text: string; speed?
   return <span>{displayed}<motion.span animate={{ opacity: [1, 0] }} transition={{ duration: 0.5, repeat: Infinity }} className="text-primary">|</motion.span></span>;
 }
 
+function CountUp({ target, prefix = "", suffix = "", duration = 1800, delay = 0 }: { target: number; prefix?: string; suffix?: string; duration?: number; delay?: number }) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const start = Date.now();
+      const tick = () => {
+        const elapsed = Date.now() - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        setValue(Math.round(target * ease));
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, delay);
+    return () => clearTimeout(timeout);
+  }, [target, duration, delay]);
+  return <span>{prefix}{value.toLocaleString()}{suffix}</span>;
+}
+
 function GlowOrb({ size, x, y, color, delay }: { size: number; x: string; y: string; color: string; delay: number }) {
   return (
     <motion.div
@@ -380,6 +399,17 @@ function NodeGraph({ steps, activeStep }: { steps: { label: string; bottleneck: 
 }
 
 function ImpactGauge({ label, change, icon: Icon, delay }: { label: string; change: string; icon: LucideIcon; delay: number }) {
+  const isPositive = change.startsWith("+") || (!change.startsWith("-") && change !== "Instant" && change !== "Real-time" && change !== "100%" && change !== "Growing");
+  const isNeutral = change === "Instant" || change === "Real-time" || change === "Growing" || change === "100%";
+  const color = isNeutral ? "hsl(250 85% 60%)" : isPositive ? "hsl(142 70% 45%)" : "hsl(142 70% 45%)";
+  const bgColor = isNeutral ? "hsla(250,85%,60%,0.1)" : "hsla(142,70%,45%,0.1)";
+
+  const rawNum = parseInt(change.replace(/[^0-9]/g, ""));
+  const percentage = Math.min(isNaN(rawNum) ? 85 : Math.abs(rawNum) > 100 ? Math.min(Math.abs(rawNum) / 5, 100) : Math.abs(rawNum), 100);
+  const radius = 34;
+  const circ = 2 * Math.PI * radius;
+  const dash = (percentage / 100) * circ;
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5, rotateY: 90 }}
@@ -387,21 +417,27 @@ function ImpactGauge({ label, change, icon: Icon, delay }: { label: string; chan
       transition={{ delay, duration: 0.6, type: "spring", stiffness: 120 }}
       className="text-center"
     >
-      <motion.div
-        className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl mx-auto mb-3 flex items-center justify-center relative overflow-hidden bg-emerald-500/10"
-        whileHover={{ scale: 1.05, rotate: 2 }}
-      >
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent"
-          animate={{ opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity, delay }}
-        />
-        <div className="relative">
-          <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-500 mb-1" />
-          <div className="text-sm sm:text-lg font-bold text-emerald-500">{change}</div>
+      <motion.div className="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-3" whileHover={{ scale: 1.05 }}>
+        <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r={radius} fill="none" stroke={bgColor} strokeWidth="5" />
+          <motion.circle
+            cx="40" cy="40" r={radius}
+            fill="none"
+            stroke={color}
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeDasharray={circ}
+            initial={{ strokeDashoffset: circ }}
+            animate={{ strokeDashoffset: circ - dash }}
+            transition={{ delay: delay + 0.2, duration: 1.2, ease: "easeOut" }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ borderRadius: "50%" }}>
+          <Icon className="w-4 h-4 sm:w-5 sm:h-5 mb-0.5" style={{ color }} />
+          <div className="text-xs sm:text-sm font-bold leading-tight" style={{ color }}>{change}</div>
         </div>
       </motion.div>
-      <div className="text-xs text-muted-foreground font-medium">{label}</div>
+      <div className="text-[11px] sm:text-xs text-muted-foreground font-medium max-w-[80px] mx-auto leading-tight">{label}</div>
     </motion.div>
   );
 }
@@ -687,9 +723,9 @@ export default function Simulator() {
             <motion.div key="discovery" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.6 }}>
               <div className="text-center mb-8">
                 <h2 className="text-2xl sm:text-3xl font-bold mb-3" data-testid="text-discovery-heading">
-                  What's your biggest operational headache?
+                  Select your business challenge
                 </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">Choose the challenge closest to your situation. We'll do the rest.</p>
+                <p className="text-muted-foreground max-w-lg mx-auto">Pick the scenario closest to your operation. We'll map the bottlenecks and show you exactly what AI would change.</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
@@ -704,10 +740,10 @@ export default function Simulator() {
                       whileHover={{ y: -4, transition: { duration: 0.2 } }}
                     >
                       <Card
-                        className={`relative p-5 cursor-pointer transition-all duration-300 h-full group overflow-hidden ${
+                        className={`relative cursor-pointer transition-all duration-300 h-full group overflow-hidden ${
                           isSelected
-                            ? "border-primary shadow-xl shadow-primary/15 bg-primary/5 ring-1 ring-primary/20"
-                            : "hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+                            ? "border-primary shadow-xl shadow-primary/20 ring-1 ring-primary/30"
+                            : "hover:border-primary/40 hover:shadow-lg hover:shadow-primary/8"
                         }`}
                         onClick={() => {
                           if (isSelected) {
@@ -719,34 +755,52 @@ export default function Simulator() {
                         }}
                         data-testid={`card-scenario-${scenario.id}`}
                       >
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <div className="relative">
-                          <div className="flex items-start gap-3.5 mb-3">
-                            <motion.div
-                              className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                        {isSelected && (
+                          <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-primary/3 to-transparent pointer-events-none" />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                        <div className="relative p-5">
+                          <div className="flex items-start justify-between gap-2 mb-3">
+                            <div className="flex items-start gap-3">
+                              <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                                 isSelected ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" : "bg-primary/10 text-primary group-hover:bg-primary/15"
-                              }`}
-                            >
-                              <scenario.icon className="w-5 h-5" />
-                            </motion.div>
-                            <div className="min-w-0">
-                              <h3 className="font-semibold text-sm mb-0.5">{scenario.title}</h3>
-                              <Badge variant="secondary" className="text-[10px] font-normal">{scenario.industry}</Badge>
+                              }`}>
+                                <scenario.icon className="w-5 h-5" />
+                              </div>
+                              <div className="min-w-0 pt-0.5">
+                                <h3 className="font-semibold text-sm leading-snug mb-1">{scenario.title}</h3>
+                                <Badge variant="secondary" className="text-[10px] font-normal px-1.5 py-0">{scenario.industry}</Badge>
+                              </div>
                             </div>
+                            {isSelected && (
+                              <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} className="flex-shrink-0">
+                                <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                                  <CheckCircle2 className="w-3.5 h-3.5 text-primary-foreground" />
+                                </div>
+                              </motion.div>
+                            )}
                           </div>
-                          <p className="text-xs text-muted-foreground leading-relaxed">{scenario.description}</p>
-                          <div className="mt-3 pt-3 border-t border-border/50 flex items-center justify-between">
-                            <span className="text-[10px] text-muted-foreground/60">Est. savings</span>
-                            <span className="text-xs font-bold text-emerald-500">{scenario.annualSavings}/yr</span>
+
+                          <p className="text-xs text-muted-foreground leading-relaxed mb-3">{scenario.description}</p>
+
+                          <div className="space-y-1 mb-3">
+                            {scenario.painPoints.slice(0, 2).map((pt, pi) => (
+                              <div key={pi} className="flex items-start gap-1.5">
+                                <span className="w-1 h-1 rounded-full bg-red-400/60 mt-1.5 flex-shrink-0" />
+                                <span className="text-[10px] text-muted-foreground/70 leading-relaxed">{pt}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="pt-3 border-t border-border/50 flex items-center justify-between">
+                            <span className="text-[10px] text-muted-foreground/60 font-medium">Est. annual savings</span>
+                            <div className="flex items-center gap-1">
+                              <TrendingUp className="w-3 h-3 text-emerald-500" />
+                              <span className="text-sm font-bold text-emerald-500">{scenario.annualSavings}</span>
+                            </div>
                           </div>
                         </div>
-                        {isSelected && (
-                          <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} className="absolute top-3 right-3">
-                            <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-                              <CheckCircle2 className="w-4 h-4 text-primary-foreground" />
-                            </div>
-                          </motion.div>
-                        )}
                       </Card>
                     </motion.div>
                   );
@@ -1098,7 +1152,7 @@ export default function Simulator() {
 
             return (
             <motion.div key="report" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.8 }}>
-              <div className="text-center mb-10">
+              <div className="text-center mb-8">
                 <motion.div initial={{ scale: 0, rotate: -90 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 150, damping: 12 }} className="relative inline-block mb-4">
                   <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary via-purple-500 to-primary flex items-center justify-center shadow-2xl shadow-primary/30">
                     <BarChart3 className="w-10 h-10 text-white" />
@@ -1110,11 +1164,37 @@ export default function Simulator() {
                   />
                 </motion.div>
                 <h2 className="text-3xl sm:text-4xl font-bold mb-3" data-testid="text-report-heading">Your AI Impact Report</h2>
-                <div className="flex items-center justify-center gap-3 text-muted-foreground">
+                <div className="flex items-center justify-center gap-3 text-muted-foreground mb-6">
                   <Badge variant="outline" className="font-normal">{selectedScenario.title}</Badge>
                   <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
                   <Badge variant="outline" className="font-normal">{selectedScenario.industry}</Badge>
                 </div>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ delay: 0.3, type: "spring", stiffness: 120 }}
+                  className="inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-8 px-8 py-5 rounded-2xl border border-emerald-500/25 bg-emerald-500/5 relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 via-transparent to-emerald-500/5" />
+                  <div className="relative text-center">
+                    <div className="text-[11px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-semibold mb-1">Annual Savings Potential</div>
+                    <div className="text-4xl sm:text-5xl font-black text-emerald-500">
+                      $<CountUp target={annualNum} duration={1600} delay={400} />
+                    </div>
+                  </div>
+                  <div className="hidden sm:block w-px h-12 bg-emerald-500/20" />
+                  <div className="relative flex flex-col sm:flex-row gap-4 sm:gap-6 text-center">
+                    <div>
+                      <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium mb-0.5">ROI Payback</div>
+                      <div className="text-xl font-bold text-foreground">{selectedScenario.roiTimeline}</div>
+                    </div>
+                    <div>
+                      <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium mb-0.5">5-Year Value</div>
+                      <div className="text-xl font-bold text-foreground">$<CountUp target={annualNum * 5} duration={1800} delay={600} /></div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
 
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="mb-8">
@@ -1138,28 +1218,32 @@ export default function Simulator() {
                   Financial Impact
                 </h3>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, type: "spring" }}>
-                    <Card className="p-5 text-center bg-card border-emerald-500/20 relative overflow-hidden">
+                  <motion.div initial={{ opacity: 0, scale: 0.9, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ delay: 0.3, type: "spring" }}>
+                    <Card className="p-5 text-center bg-card border-emerald-500/20 relative overflow-hidden group hover:border-emerald-500/40 transition-colors">
                       <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent" />
                       <div className="relative">
                         <DollarSign className="w-6 h-6 mx-auto mb-2 text-emerald-500" />
-                        <div className="text-2xl sm:text-3xl font-bold text-emerald-500">{selectedScenario.annualSavings}</div>
+                        <div className="text-2xl sm:text-3xl font-bold text-emerald-500">
+                          $<CountUp target={annualNum} duration={1500} delay={350} />
+                        </div>
                         <div className="text-[11px] text-muted-foreground mt-1 font-medium">Annual Savings</div>
                       </div>
                     </Card>
                   </motion.div>
-                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.35, type: "spring" }}>
-                    <Card className="p-5 text-center bg-card border-emerald-500/15 relative overflow-hidden">
+                  <motion.div initial={{ opacity: 0, scale: 0.9, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ delay: 0.38, type: "spring" }}>
+                    <Card className="p-5 text-center bg-card border-emerald-500/15 relative overflow-hidden group hover:border-emerald-500/35 transition-colors">
                       <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/3 to-transparent" />
                       <div className="relative">
                         <TrendingUp className="w-6 h-6 mx-auto mb-2 text-emerald-500" />
-                        <div className="text-2xl sm:text-3xl font-bold text-emerald-500">{monthlySavings}</div>
+                        <div className="text-2xl sm:text-3xl font-bold text-emerald-500">
+                          $<CountUp target={monthlyNum} duration={1400} delay={450} />
+                        </div>
                         <div className="text-[11px] text-muted-foreground mt-1 font-medium">Monthly Savings</div>
                       </div>
                     </Card>
                   </motion.div>
-                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, type: "spring" }}>
-                    <Card className="p-5 text-center bg-card border-primary/15 relative overflow-hidden">
+                  <motion.div initial={{ opacity: 0, scale: 0.9, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ delay: 0.46, type: "spring" }}>
+                    <Card className="p-5 text-center bg-card border-primary/15 relative overflow-hidden group hover:border-primary/30 transition-colors">
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
                       <div className="relative">
                         <Timer className="w-6 h-6 mx-auto mb-2 text-primary" />
@@ -1168,12 +1252,14 @@ export default function Simulator() {
                       </div>
                     </Card>
                   </motion.div>
-                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.45, type: "spring" }}>
-                    <Card className="p-5 text-center bg-card border-primary/15 relative overflow-hidden">
+                  <motion.div initial={{ opacity: 0, scale: 0.9, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ delay: 0.54, type: "spring" }}>
+                    <Card className="p-5 text-center bg-card border-primary/15 relative overflow-hidden group hover:border-primary/30 transition-colors">
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent" />
                       <div className="relative">
                         <PieChart className="w-6 h-6 mx-auto mb-2 text-primary" />
-                        <div className="text-2xl sm:text-3xl font-bold text-primary">{fiveYearSavings}</div>
+                        <div className="text-2xl sm:text-3xl font-bold text-primary">
+                          $<CountUp target={annualNum * 5} duration={1700} delay={550} />
+                        </div>
                         <div className="text-[11px] text-muted-foreground mt-1 font-medium">5-Year Projection</div>
                       </div>
                     </Card>
@@ -1376,7 +1462,7 @@ export default function Simulator() {
               </motion.div>
 
               <motion.div className="flex justify-center mt-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.0 }}>
-                <Button variant="ghost" onClick={reset} className="gap-2 text-muted-foreground hover:text-foreground" data-testid="button-try-another">
+                <Button variant="outline" onClick={reset} className="gap-2 px-6 py-2.5 text-sm border-border/60 hover:border-primary/40 hover:bg-primary/5 hover:text-primary transition-all" data-testid="button-try-another">
                   <RefreshCw className="w-4 h-4" />
                   Try Another Scenario
                 </Button>
