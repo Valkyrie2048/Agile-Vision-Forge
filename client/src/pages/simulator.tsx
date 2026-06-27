@@ -640,39 +640,11 @@ export default function Simulator() {
                 />
               </span>
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed" data-testid="text-simulator-subtitle">
-              Pick a real business challenge. In 60 seconds, you'll see exactly how AI would solve it, what it would cost, and how much you'd save.
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto leading-relaxed" data-testid="text-simulator-subtitle">
+              Pick a challenge below and see your projected savings in under 60 seconds.
             </p>
           </motion.div>
 
-          {phase === "discovery" && (
-            <motion.div
-              className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-2xl mx-auto mt-12"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              data-testid="how-it-works"
-            >
-              {howItWorksSteps.map((step, i) => (
-                <motion.div
-                  key={step.title}
-                  className="flex flex-col items-center gap-2 text-center"
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + i * 0.1 }}
-                >
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-1">
-                    <step.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs font-bold text-primary">{i + 1}.</span>
-                    <span className="text-sm font-semibold">{step.title}</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{step.description}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
 
           {phase !== "discovery" && (
             <motion.div
@@ -721,13 +693,6 @@ export default function Simulator() {
         <AnimatePresence mode="wait">
           {phase === "discovery" && (
             <motion.div key="discovery" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30, filter: "blur(8px)" }} transition={{ duration: 0.6 }}>
-              <div className="text-center mb-8">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-3" data-testid="text-discovery-heading">
-                  Select your business challenge
-                </h2>
-                <p className="text-muted-foreground max-w-lg mx-auto">Pick the scenario closest to your operation. We'll map the bottlenecks and show you exactly what AI would change.</p>
-              </div>
-
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 {scenarios.map((scenario, idx) => {
                   const isSelected = selectedScenario?.id === scenario.id;
@@ -761,17 +726,15 @@ export default function Simulator() {
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                         <div className="relative p-5">
-                          <div className="flex items-start justify-between gap-2 mb-3">
-                            <div className="flex items-start gap-3">
-                              <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                                isSelected ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" : "bg-primary/10 text-primary group-hover:bg-primary/15"
-                              }`}>
-                                <scenario.icon className="w-5 h-5" />
-                              </div>
-                              <div className="min-w-0 pt-0.5">
-                                <h3 className="font-semibold text-sm leading-snug mb-1">{scenario.title}</h3>
-                                <Badge variant="secondary" className="text-[10px] font-normal px-1.5 py-0">{scenario.industry}</Badge>
-                              </div>
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
+                              isSelected ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" : "bg-primary/10 text-primary group-hover:bg-primary/15"
+                            }`}>
+                              <scenario.icon className="w-5 h-5" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <h3 className="font-semibold text-sm leading-snug">{scenario.title}</h3>
+                              <Badge variant="secondary" className="text-[10px] font-normal px-1.5 py-0 mt-0.5">{scenario.industry}</Badge>
                             </div>
                             {isSelected && (
                               <motion.div initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} className="flex-shrink-0">
@@ -781,24 +744,9 @@ export default function Simulator() {
                               </motion.div>
                             )}
                           </div>
-
-                          <p className="text-xs text-muted-foreground leading-relaxed mb-3">{scenario.description}</p>
-
-                          <div className="space-y-1 mb-3">
-                            {scenario.painPoints.slice(0, 2).map((pt, pi) => (
-                              <div key={pi} className="flex items-start gap-1.5">
-                                <span className="w-1 h-1 rounded-full bg-red-400/60 mt-1.5 flex-shrink-0" />
-                                <span className="text-[10px] text-muted-foreground/70 leading-relaxed">{pt}</span>
-                              </div>
-                            ))}
-                          </div>
-
-                          <div className="pt-3 border-t border-border/50 flex items-center justify-between">
-                            <span className="text-[10px] text-muted-foreground/60 font-medium">Est. annual savings</span>
-                            <div className="flex items-center gap-1">
-                              <TrendingUp className="w-3 h-3 text-emerald-500" />
-                              <span className="text-sm font-bold text-emerald-500">{scenario.annualSavings}</span>
-                            </div>
+                          <div className="flex items-center justify-between pt-3 border-t border-border/50">
+                            <span className="text-[10px] text-muted-foreground/60 font-medium">Est. savings/yr</span>
+                            <span className="text-sm font-bold text-emerald-500">{scenario.annualSavings}</span>
                           </div>
                         </div>
                       </Card>
