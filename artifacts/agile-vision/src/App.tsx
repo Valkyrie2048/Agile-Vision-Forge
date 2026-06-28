@@ -1,11 +1,12 @@
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ParticleField } from "@/components/particle-field";
+import { WarpDrive, type WarpTrigger } from "@/components/warp-drive";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import Home from "@/pages/home";
@@ -38,15 +39,44 @@ function Router() {
   );
 }
 
+const INTERACTIVE_SELECTOR = "a, button, input, textarea, select, label, [role='button'], [tabindex]";
+
 function AppContent() {
   const [location] = useLocation();
   const isBlogPage = location === "/blog" || location.startsWith("/blog/");
+
+  const [warp, setWarp] = useState<WarpTrigger | null>(null);
+
+  const fireWarp = useCallback((x: number, y: number, target: EventTarget | null) => {
+    if (warp) return; // already running
+    if (target instanceof Element && target.closest(INTERACTIVE_SELECTOR)) return;
+    setWarp({ x, y });
+  }, [warp]);
+
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    fireWarp(e.clientX, e.clientY, e.target);
+  }, [fireWarp]);
+
+  const handleTouch = useCallback((e: React.TouchEvent) => {
+    const t = e.changedTouches[0];
+    if (t) fireWarp(t.clientX, t.clientY, e.target);
+  }, [fireWarp]);
+
+  const handleComplete = useCallback(() => {
+    setWarp(null);
+  }, []);
 
   return (
     <>
       <ScrollToTop />
       {!isBlogPage && <ParticleField />}
-      <div className="min-h-screen flex flex-col relative z-[2]" style={{ pointerEvents: "auto" }}>
+      <WarpDrive trigger={warp} onComplete={handleComplete} />
+      <div
+        className="min-h-screen flex flex-col relative z-[2]"
+        style={{ pointerEvents: "auto" }}
+        onClick={handleClick}
+        onTouchEnd={handleTouch}
+      >
         <Navigation />
         <main className="flex-1">
           <Router />
