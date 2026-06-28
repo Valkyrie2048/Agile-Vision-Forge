@@ -28,6 +28,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { DemoPreview } from "@/components/demo-previews";
+import { AINetworkGraph } from "@/components/ai-network-graph";
 import capAgenticAi from "../assets/images/cap-agentic-ai.png";
 import capChatbots from "../assets/images/cap-chatbots.png";
 import capWebapps from "../assets/images/cap-webapps.png";
@@ -139,112 +140,6 @@ function AnimatedCounter({ value, suffix = "", prefix = "", duration = 2 }: { va
 }
 
 
-function ParticleField({ mousePos }: { mousePos: React.RefObject<{ x: number; y: number }> }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const NUM = 110;
-    const MAX_DIST = 170;
-    const MOUSE_RADIUS = 160;
-
-    const particles = Array.from({ length: NUM }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25,
-      r: Math.random() * 1.4 + 0.4,
-    }));
-
-    let rafId: number;
-
-    const tick = () => {
-      const w = canvas.width;
-      const h = canvas.height;
-      ctx.clearRect(0, 0, w, h);
-
-      const mx = mousePos.current?.x ?? -9999;
-      const my = mousePos.current?.y ?? -9999;
-      const hasMouseIn = mx > 0 && mx < w;
-
-      for (const p of particles) {
-        if (hasMouseIn) {
-          const dx = p.x - mx;
-          const dy = p.y - my;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < MOUSE_RADIUS * MOUSE_RADIUS) {
-            const d = Math.sqrt(d2) || 1;
-            const force = (MOUSE_RADIUS - d) / MOUSE_RADIUS;
-            p.vx += (dx / d) * force * 0.6;
-            p.vy += (dy / d) * force * 0.6;
-          }
-        }
-
-        // Damping + speed clamp — high retention for fluid glide
-        p.vx *= 0.993;
-        p.vy *= 0.993;
-        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (speed > 2.5) { p.vx = (p.vx / speed) * 2.5; p.vy = (p.vy / speed) * 2.5; }
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Wrap edges
-        if (p.x < 0) p.x += w;
-        if (p.x > w) p.x -= w;
-        if (p.y < 0) p.y += h;
-        if (p.y > h) p.y -= h;
-      }
-
-      // Connections
-      ctx.lineWidth = 0.7;
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < MAX_DIST) {
-            const alpha = (1 - dist / MAX_DIST) * 0.2;
-            ctx.strokeStyle = `hsla(260, 80%, 72%, ${alpha})`;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Dots
-      for (const p of particles) {
-        ctx.fillStyle = "hsla(265, 75%, 78%, 0.5)";
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      rafId = requestAnimationFrame(tick);
-    };
-
-    rafId = requestAnimationFrame(tick);
-    return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("resize", resize);
-    };
-  }, [mousePos]);
-
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />;
-}
 
 function ScrollProgressBar() {
   const { scrollYProgress } = useScroll();
@@ -270,9 +165,6 @@ function HeroSection() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.95]);
-
-  // Shared mouse position ref for canvas particle field
-  const mousePos = useRef({ x: -9999, y: -9999 });
 
   // Mouse tracking — offset from center for orb parallax
   const rawMouseX = useMotionValue(0);
@@ -311,7 +203,6 @@ function HeroSection() {
     rawMouseY.set(e.clientY - cy);
     rawGlowX.set(e.clientX - rect.left);
     rawGlowY.set(e.clientY - rect.top);
-    mousePos.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
   };
 
   const handleMouseLeave = () => {
@@ -319,7 +210,6 @@ function HeroSection() {
     rawMouseY.set(0);
     rawGlowX.set(-9999);
     rawGlowY.set(-9999);
-    mousePos.current = { x: -9999, y: -9999 };
   };
 
   return (
@@ -394,7 +284,7 @@ function HeroSection() {
 
       <div className="absolute inset-0 bg-black/40 pointer-events-none" />
       <div className="absolute inset-0 grid-pattern opacity-10 pointer-events-none" />
-      <ParticleField mousePos={mousePos} />
+      <AINetworkGraph />
 
       <motion.div
         style={{ y: heroY, opacity: heroOpacity, scale: heroScale }}
