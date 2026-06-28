@@ -49,7 +49,9 @@ function AppContent() {
 
   const fireWarp = useCallback((x: number, y: number, target: EventTarget | null) => {
     if (warp) return; // already running
-    if (target instanceof Element && target.closest(INTERACTIVE_SELECTOR)) return;
+    if (!(target instanceof Element)) return;
+    if (!target.closest("[data-warp-zone]")) return; // hero section only
+    if (target.closest(INTERACTIVE_SELECTOR)) return;
     setWarp({ x, y });
   }, [warp]);
 

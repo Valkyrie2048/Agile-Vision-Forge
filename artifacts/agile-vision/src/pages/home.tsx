@@ -215,6 +215,7 @@ function HeroSection() {
   return (
     <section
       ref={sectionRef}
+      data-warp-zone=""
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
