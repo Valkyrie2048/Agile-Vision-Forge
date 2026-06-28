@@ -1019,6 +1019,70 @@ function FinalCTASection() {
   );
 }
 
+function TestimonialsSection() {
+  const testimonials = [
+    {
+      quote: "We handed Agile Vision a half-formed idea on a Monday. By Friday we had a working prototype. By the following month we had a product our customers actually use every day. The speed without the corners cut — that's the rare thing.",
+      company: "GIGAMATIC",
+    },
+    {
+      quote: "Our research sits at the edge of AI and human consciousness — not an easy brief for any technology partner. Agile Vision understood the nuance immediately and built us tooling that respects both the science and the stakes. Exceptional work.",
+      company: "The Institute for AI and The Future of Consciousness",
+    },
+    {
+      quote: "We needed an agentic system that could adapt to real-world variability without falling over. Agile Vision delivered exactly that. Our operational overhead dropped by over 40% in the first quarter and the system has been rock solid since.",
+      company: "WaterBalanced Technology Inc.",
+    },
+  ];
+
+  return (
+    <section className="py-24 bg-card" data-testid="section-testimonials">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <BlurReveal>
+            <Badge variant="secondary" className="mb-4">
+              <Quote className="w-3 h-3 mr-1" />
+              Testimonials
+            </Badge>
+          </BlurReveal>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            <TextReveal>What Our Clients Say</TextReveal>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {testimonials.map((testimonial, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <div
+                className="rounded-md p-px h-full"
+                style={{
+                  background: "linear-gradient(135deg, hsl(250 85% 60% / 0.3), hsl(265 80% 60% / 0.1), hsl(250 85% 60% / 0.05))",
+                }}
+              >
+                <div className="rounded-md bg-card p-6 h-full flex flex-col">
+                  <Quote className="w-8 h-8 text-primary/30 mb-4 shrink-0" />
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
+                    "{testimonial.quote}"
+                  </p>
+                  <div className="font-semibold text-sm">
+                    {testimonial.company}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   usePageTitle("");
   return (
@@ -1029,6 +1093,7 @@ export default function Home() {
       <GetStartedPreview />
       <ProcessSection />
       <TechPartnersSection />
+      <TestimonialsSection />
       <FinalCTASection />
     </div>
   );
