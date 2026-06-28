@@ -12,7 +12,7 @@ const SITE_NAME = "Agile Vision";
 const DEFAULT_TITLE = "Agile Vision - AI-Native Technology Studio";
 const DEFAULT_DESC =
   "We build intelligent products powered by AI and Agentic AI. From concept to launch, we help startups and SMBs ship faster.";
-const DEFAULT_IMAGE = "/og-image.png";
+const DEFAULT_IMAGE = "/opengraph.jpg";
 
 function setMeta(selector: string, content: string) {
   let el = document.querySelector<HTMLMetaElement>(selector);
@@ -37,7 +37,7 @@ function absUrl(path: string): string {
 export function usePageMeta({ title, description, imageUrl, url, type = "article" }: PageMetaOptions) {
   useEffect(() => {
     const fullTitle = `${title} | ${SITE_NAME}`;
-    const absImage = absUrl(imageUrl ?? DEFAULT_IMAGE);
+    const absImage = absUrl(DEFAULT_IMAGE);
     const canonicalUrl = url ?? window.location.href;
 
     document.title = fullTitle;
@@ -45,8 +45,8 @@ export function usePageMeta({ title, description, imageUrl, url, type = "article
     setMeta(`meta[property="og:title"]`, fullTitle);
     setMeta(`meta[property="og:description"]`, description);
     setMeta(`meta[property="og:image"]`, absImage);
-    setMeta(`meta[property="og:image:width"]`, "1200");
-    setMeta(`meta[property="og:image:height"]`, "630");
+    setMeta(`meta[property="og:image:width"]`, "1280");
+    setMeta(`meta[property="og:image:height"]`, "720");
     setMeta(`meta[property="og:url"]`, canonicalUrl);
     setMeta(`meta[property="og:type"]`, type);
     setMeta(`meta[property="og:site_name"]`, SITE_NAME);
@@ -63,6 +63,8 @@ export function usePageMeta({ title, description, imageUrl, url, type = "article
       setMeta(`meta[property="og:title"]`, DEFAULT_TITLE);
       setMeta(`meta[property="og:description"]`, DEFAULT_DESC);
       setMeta(`meta[property="og:image"]`, absUrl(DEFAULT_IMAGE));
+      setMeta(`meta[property="og:image:width"]`, "1280");
+      setMeta(`meta[property="og:image:height"]`, "720");
       setMeta(`meta[property="og:url"]`, absUrl("/"));
       setMeta(`meta[property="og:type"]`, "website");
       setMeta(`meta[name="twitter:title"]`, DEFAULT_TITLE);
