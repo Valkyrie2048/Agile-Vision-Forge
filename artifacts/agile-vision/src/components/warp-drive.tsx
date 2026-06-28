@@ -48,18 +48,14 @@ void main() {
   float k     = 0.55;
   float depth = k / max(r, 0.006);
 
-  // Warp speed: accelerates quickly, plateaus, then ring flush slows
-  float accel  = u_t * 18.0 + u_t * u_t * 5.0;
-  float animD  = fract(depth + accel);   // sawtooth [0,1) per ring band
+  // Steady scroll — no acceleration spike
+  float accel  = u_t * 9.0;
+  float animD  = fract(depth + accel);
 
-  // ── Ring brightness functions ──────────────────────────────
-  // Soft belly glow peaks at animD = 0.5
-  float belly   = pow(animD * (1.0 - animD) * 4.0, 4.0);
-  // Sharp leading edge at animD ≈ 0  (front face of each ring)
-  float leading = pow(max(0.0, 1.0 - animD * 7.0), 3.0);
-  // Outer corona  at animD ≈ 1  (trailing edge receding behind you)
-  float trailing = pow(max(0.0, animD - 0.75) * 4.0, 2.5);
-  float glow     = belly * 0.50 + leading * 0.65 + trailing * 0.30;
+  // ── Ring brightness — pure sine, no sawtooth discontinuities ──
+  float sinPhase = animD * 3.14159265;          // maps [0,1) → [0,π]
+  float belly    = pow(sin(sinPhase), 5.0);     // smooth hill, zero at edges
+  float glow     = pow(sin(sinPhase), 2.5) * 0.55; // softer wide halo
 
   // ── Spiral accent — 6-fold symmetry ───────────────────────
   float spAngle = th / PI + depth * 0.12 + u_t * 0.40;
@@ -104,15 +100,8 @@ void main() {
   vec3 col = DEEP * mask * 0.10;
 
   // Ring belly glow
-  col += BRAND  * belly   * mask * haze * 0.20;
-  col += BRIGHT * glow    * mask * haze * 0.14;
-
-  // Leading edge punch
-  col += WHITE  * leading * leading * mask * 0.18;
-  col += GOLD   * pow(leading, 5.0) * mask * 0.10;
-
-  // Trailing corona
-  col += BRAND  * trailing * mask * 0.07;
+  col += BRAND  * belly * mask * haze * 0.22;
+  col += BRIGHT * glow  * mask * haze * 0.14;
 
   // Spiral accent
   col += CYAN   * spiral * mask * 0.08;
