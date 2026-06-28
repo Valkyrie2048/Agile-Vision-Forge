@@ -1,0 +1,31 @@
+kind = "slides"
+previewPath = "/agile-vision-slides/"
+title = "Agile Vision — Project Overview"
+version = "1.0.0"
+id = "artifacts/agile-vision-slides"
+router = "path"
+
+[[integratedSkills]]
+name = "slides"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/agile-vision-slides/" ]
+localPort = 23839
+
+[services.development]
+run = "pnpm --filter @workspace/agile-vision-slides run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/agile-vision-slides", "run", "build" ]
+publicDir = "artifacts/agile-vision-slides/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23839"
+BASE_PATH = "/agile-vision-slides/"
