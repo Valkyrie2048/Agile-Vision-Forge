@@ -979,21 +979,21 @@ function TestimonialsSection() {
   const testimonials = [
     {
       quote: "Agile Vision transformed our customer support with an AI chatbot that reduced ticket volume by 60%. Their team understood our needs from day one and delivered beyond expectations.",
-      name: "Sarah Chen",
+      name: "Priya Nakamura",
       title: "VP of Engineering",
-      company: "NovaTech Solutions",
+      company: "Orbis Labs",
     },
     {
       quote: "We went from concept to a fully deployed AI analytics platform in just 6 weeks. The quality of their work and speed of execution is unlike anything I've seen in 15 years of building products.",
-      name: "Marcus Williams",
+      name: "Declan Marsh",
       title: "CTO",
-      company: "DataStream Analytics",
+      company: "Vantara Systems",
     },
     {
       quote: "Their agentic AI system automated our entire document processing pipeline. We saved over 200 hours per month and the ROI paid for the project in the first quarter alone.",
-      name: "Elena Rodriguez",
+      name: "Simone Okafor",
       title: "Head of Operations",
-      company: "Meridian Financial",
+      company: "Crestline Capital",
     },
   ];
 
