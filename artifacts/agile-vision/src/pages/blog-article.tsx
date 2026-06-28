@@ -7,6 +7,7 @@ import { Linkedin as SiLinkedIn } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { usePageMeta } from "@/hooks/use-page-meta";
 
 function renderMarkdown(content: string) {
   const blocks: { type: string; text: string; level?: number }[] = [];
@@ -449,6 +450,14 @@ export default function BlogArticle() {
   const [, params] = useRoute("/blog/:slug");
   const slug = params?.slug;
   const article = blogArticles.find((a) => a.slug === slug);
+  usePageMeta({
+    title: article?.title ?? "Article",
+    description: article?.excerpt ?? "",
+    imageUrl: article?.imagePath,
+    url: typeof window !== "undefined" ? window.location.href : undefined,
+    type: "article",
+  });
+
   const [progress, setProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [activeTocId, setActiveTocId] = useState("");
