@@ -629,9 +629,10 @@ export default function Simulator() {
             </motion.div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-5 leading-[1.1]" data-testid="text-simulator-title">
-              What Would AI Do{" "}
-              <span className="relative">
-                <span className="gradient-text">For Your Business?</span>
+              Your Business Problems
+              <br />
+              <span className="relative inline-block">
+                <span className="gradient-text">Have AI Solutions</span>
                 <motion.span
                   className="absolute -bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-primary via-purple-400 to-primary rounded-full"
                   initial={{ scaleX: 0 }}
@@ -641,7 +642,7 @@ export default function Simulator() {
               </span>
             </h1>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto leading-relaxed" data-testid="text-simulator-subtitle">
-              Pick a challenge below and see your projected savings in under 60 seconds.
+              Pick your biggest challenge and see your projected AI savings in under 60 seconds.
             </p>
           </motion.div>
 
