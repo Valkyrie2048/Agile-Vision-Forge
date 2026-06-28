@@ -49,13 +49,13 @@ void main() {
   float depth = k / max(r, 0.006);
 
   // Steady scroll — no acceleration spike
-  float accel  = u_t * 9.0;
+  float accel  = u_t * 6.5;
   float animD  = fract(depth + accel);
 
   // ── Ring brightness — pure sine, no sawtooth discontinuities ──
   float sinPhase = animD * 3.14159265;          // maps [0,1) → [0,π]
-  float belly    = pow(sin(sinPhase), 5.0);     // smooth hill, zero at edges
-  float glow     = pow(sin(sinPhase), 2.5) * 0.55; // softer wide halo
+  float belly    = pow(sin(sinPhase), 7.0);     // tighter, softer hill
+  float glow     = pow(sin(sinPhase), 3.5) * 0.50; // softer wide halo
 
   // ── Spiral accent — 6-fold symmetry ───────────────────────
   float spAngle = th / PI + depth * 0.12 + u_t * 0.40;
