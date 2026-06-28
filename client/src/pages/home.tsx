@@ -284,20 +284,6 @@ function HeroSection() {
           </MagneticButton>
         </BlurReveal>
 
-        <BlurReveal delay={0.9} className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
-          {[
-            { value: 50, suffix: "+", label: "Products Shipped" },
-            { value: 3, suffix: "x", label: "Avg. ROI" },
-            { value: 24, suffix: "hr", label: "Avg. Turnaround" },
-          ].map((stat, i) => (
-            <div key={i} className="text-center" data-testid={`stat-hero-${i}`}>
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
-                <AnimatedCounter value={stat.value} suffix={stat.suffix} prefix={(stat as any).prefix || ""} />
-              </div>
-              <div className="text-sm text-white/50">{stat.label}</div>
-            </div>
-          ))}
-        </BlurReveal>
       </motion.div>
 
       <motion.div
