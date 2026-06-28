@@ -155,16 +155,16 @@ function ParticleField({ mousePos }: { mousePos: React.RefObject<{ x: number; y:
     resize();
     window.addEventListener("resize", resize);
 
-    const NUM = 90;
-    const MAX_DIST = 155;
-    const MOUSE_RADIUS = 130;
+    const NUM = 110;
+    const MAX_DIST = 170;
+    const MOUSE_RADIUS = 160;
 
     const particles = Array.from({ length: NUM }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.45,
-      vy: (Math.random() - 0.5) * 0.45,
-      r: Math.random() * 1.2 + 0.4,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      r: Math.random() * 1.4 + 0.4,
     }));
 
     let rafId: number;
@@ -191,11 +191,11 @@ function ParticleField({ mousePos }: { mousePos: React.RefObject<{ x: number; y:
           }
         }
 
-        // Damping + speed clamp
-        p.vx *= 0.97;
-        p.vy *= 0.97;
+        // Damping + speed clamp — high retention for fluid glide
+        p.vx *= 0.993;
+        p.vy *= 0.993;
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (speed > 1.8) { p.vx = (p.vx / speed) * 1.8; p.vy = (p.vy / speed) * 1.8; }
+        if (speed > 2.5) { p.vx = (p.vx / speed) * 2.5; p.vy = (p.vy / speed) * 2.5; }
 
         p.x += p.vx;
         p.y += p.vy;
@@ -287,6 +287,10 @@ function HeroSection() {
   const glowY = useSpring(rawGlowY, { stiffness: 120, damping: 25 });
   const glowLeft = useTransform(glowX, (v) => v - 200);
   const glowTop = useTransform(glowY, (v) => v - 200);
+
+  // Text 3D tilt from mouse
+  const textRotateX = useTransform(mouseY, (v) => v / -180);
+  const textRotateY = useTransform(mouseX, (v) => v / 220);
 
   // Per-orb parallax at different depths
   const orb1X = useTransform(mouseX, (v) => v * 0.04);
@@ -418,16 +422,34 @@ function HeroSection() {
           </Badge>
         </BlurReveal>
 
-        <h1
-          className="font-serif text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] mb-6 text-white"
-          data-testid="text-hero-title"
+        <motion.div
+          style={{ perspective: 1200, rotateX: textRotateX, rotateY: textRotateY }}
+          className="mb-6"
         >
-          <TextReveal delay={0.2}>We Build the</TextReveal>
-          <br />
-          <span className="gradient-text shimmer-text">
-            <TextReveal delay={0.35}>Future with AI</TextReveal>
-          </span>
-        </h1>
+          <h1
+            className="font-serif text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] text-white"
+            data-testid="text-hero-title"
+          >
+            <TextReveal delay={0.2}>We Build the</TextReveal>
+            <br />
+            <span className="relative inline-block">
+              {/* Pulsing aura behind gradient text */}
+              <motion.span
+                className="absolute -inset-x-8 -inset-y-4 pointer-events-none rounded-full"
+                aria-hidden="true"
+                animate={{ opacity: [0.3, 0.55, 0.3] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                style={{
+                  background: "radial-gradient(ellipse at center, hsla(270,85%,62%,0.5) 0%, hsla(300,70%,55%,0.2) 50%, transparent 75%)",
+                  filter: "blur(28px)",
+                }}
+              />
+              <span className="gradient-text shimmer-text relative">
+                <TextReveal delay={0.35}>Future with AI</TextReveal>
+              </span>
+            </span>
+          </h1>
+        </motion.div>
 
         <BlurReveal delay={0.5}>
           <p
