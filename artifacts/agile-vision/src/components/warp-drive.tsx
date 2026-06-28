@@ -8,41 +8,183 @@ interface WarpDriveProps {
 }
 
 // ─────────────────────────────────────────────────────────
-// Cinematic pulse — feature-film shockwave aesthetic.
-// Drawn with "screen" composite so rings ADD light to the
-// scene rather than sitting opaquely on top of content.
-// Background, hero text, and nodes remain fully readable.
+// WebGL warp-tunnel pulse
+//
+// A raw-WebGL fragment shader renders an infinite perspective
+// tunnel centred on the click vanishing point.  Rings expand
+// outward from the horizon (r→0) to the screen edge, making
+// the viewer feel like they are accelerating through deep space.
+//
+// Canvas uses CSS mix-blend-mode: screen so every pure-black
+// pixel composites away — hero text, nodes and buttons stay
+// fully readable.
 // ─────────────────────────────────────────────────────────
 
-const DURATION = 2100; // ms — slow, stately wave
+// ── Vertex shader — one fullscreen triangle pair ──────────
+const VERT = /* glsl */`
+attribute vec2 a_pos;
+void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }
+`;
 
-// Per ring config.  maxR is a fraction of the viewport diagonal.
-// coreW = core stroke width (px).  glowW = soft halo width (px).
-const RINGS = [
-  { birth: 0.00, life: 0.84, maxR: 0.60, h: 255, s: 55, l: 93, coreW: 1.8, glowW: 30 },
-  { birth: 0.09, life: 0.82, maxR: 0.72, h: 250, s: 48, l: 95, coreW: 1.5, glowW: 26 },
-  { birth: 0.20, life: 0.80, maxR: 0.81, h: 220, s: 52, l: 91, coreW: 1.2, glowW: 22 },
-  { birth: 0.34, life: 0.78, maxR: 0.88, h: 260, s: 42, l: 93, coreW: 1.0, glowW: 18 },
-  { birth: 0.50, life: 0.74, maxR: 0.78, h: 250, s: 38, l: 95, coreW: 0.8, glowW: 15 },
-] as const;
+// ── Fragment shader ───────────────────────────────────────
+const FRAG = /* glsl */`
+precision highp float;
 
-// Slow deceleration — rings expand fast then drift to a halt
-const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
-const easeInQuad   = (t: number) => t * t;
+uniform float u_t;       // 0.0 → 1.0 over DURATION ms
+uniform vec2  u_origin;  // click pos in framebuffer px (y-up)
+uniform vec2  u_res;     // framebuffer size in px
 
-function clamp(v: number, lo: number, hi: number) {
-  return Math.min(hi, Math.max(lo, v));
+#define PI 3.14159265358979323846
+
+void main() {
+  // ── UV: centred on click, normalised by half viewport height ──
+  vec2 px  = gl_FragCoord.xy - u_origin;
+  vec2 uv  = px / (u_res.y * 0.5);
+  float r  = length(uv);
+  float th = atan(uv.y, uv.x);   // −π … +π
+
+  // ── Perspective tunnel ─────────────────────────────────────
+  // depth = k/r  →  large near horizon (r≈0), small near screen edge
+  float k     = 0.55;
+  float depth = k / max(r, 0.006);
+
+  // Warp speed: accelerates quickly, plateaus, then ring flush slows
+  float accel  = u_t * 18.0 + u_t * u_t * 5.0;
+  float animD  = fract(depth + accel);   // sawtooth [0,1) per ring band
+
+  // ── Ring brightness functions ──────────────────────────────
+  // Soft belly glow peaks at animD = 0.5
+  float belly   = pow(animD * (1.0 - animD) * 4.0, 4.0);
+  // Sharp leading edge at animD ≈ 0  (front face of each ring)
+  float leading = pow(max(0.0, 1.0 - animD * 7.0), 3.0);
+  // Outer corona  at animD ≈ 1  (trailing edge receding behind you)
+  float trailing = pow(max(0.0, animD - 0.75) * 4.0, 2.5);
+  float glow     = belly * 0.50 + leading * 0.65 + trailing * 0.30;
+
+  // ── Spiral accent — 6-fold symmetry ───────────────────────
+  float spAngle = th / PI + depth * 0.12 + u_t * 0.40;
+  float spBand  = sin(spAngle * 6.0 * PI);
+  float spiral  = pow(max(0.0, spBand), 10.0) * 0.30 * belly;
+
+  // ── Chromatic split — R/G/B rings at slightly different depths ─
+  float dr = k / max(r * 1.00, 0.006);
+  float dg = k / max(r * 1.02, 0.006);
+  float db = k / max(r * 1.04, 0.006);
+  float ar = fract(dr + accel);
+  float ag = fract(dg + accel);
+  float ab = fract(db + accel);
+  float chromaBelly   = pow(ar*(1.-ar)*4., 4.) * 0.5
+                      + pow(ag*(1.-ag)*4., 4.) * 0.5
+                      + pow(ab*(1.-ab)*4., 4.) * 0.5;
+  chromaBelly *= 0.20;   // subtle additive fringe
+
+  // ── Radial masks ──────────────────────────────────────────
+  float inner = smoothstep(0.04, 0.28, r);       // hollow centre = tunnel mouth
+  float outer = 1.0 - smoothstep(1.35, 2.20, r); // clip off-screen
+  float mask  = inner * outer;
+
+  // Depth haze: rings very close to horizon are slightly dimmer
+  float haze = 1.0 - smoothstep(8.0, 20.0, depth) * 0.45;
+
+  // ── Time envelope ─────────────────────────────────────────
+  float fadeIn  = smoothstep(0.0,  0.07, u_t);
+  float fadeOut = 1.0 - smoothstep(0.76, 1.00, u_t);
+  float env     = fadeIn * fadeOut;
+
+  // ── Color palette ─────────────────────────────────────────
+  // Brand: hsl(250 85% 60%) ≈ rgb(97,38,230)
+  vec3 DEEP   = vec3(0.05, 0.01, 0.15);   // very dark purple wall
+  vec3 BRAND  = vec3(0.38, 0.12, 0.84);   // brand purple
+  vec3 BRIGHT = vec3(0.62, 0.40, 0.97);   // lighter purple
+  vec3 WHITE  = vec3(0.94, 0.88, 1.00);   // near-white lavender
+  vec3 GOLD   = vec3(1.00, 0.86, 0.50);   // gold accent on leading edge
+  vec3 CYAN   = vec3(0.20, 0.80, 1.00);   // subtle cyan fringe
+
+  // Base layer: tunnel wall (screens away on black background)
+  vec3 col = DEEP * mask * 0.35;
+
+  // Ring belly glow
+  col += BRAND  * belly   * mask * haze * 0.80;
+  col += BRIGHT * glow    * mask * haze * 0.55;
+
+  // Leading edge punch
+  col += WHITE  * leading * leading * mask * 0.70;
+  col += GOLD   * pow(leading, 5.0) * mask * 0.45;
+
+  // Trailing corona
+  col += BRAND  * trailing * mask * 0.35;
+
+  // Spiral accent
+  col += CYAN   * spiral * mask * 0.40;
+  col += BRIGHT * spiral * mask * 0.30;
+
+  // Chromatic fringe
+  col += WHITE * chromaBelly * mask * 0.18;
+
+  // ── Origin bloom (warp initiation flash) ──────────────────
+  float bloom    = pow(max(0.0, 1.0 - r * 3.8), 2.2);
+  float bloomEnv = smoothstep(0.0, 0.05, u_t) * (1.0 - smoothstep(0.08, 0.36, u_t));
+  col += WHITE  * bloom * bloomEnv * 1.1;
+  col += BRIGHT * bloom * bloomEnv * 0.6;
+  col += GOLD   * bloom * bloomEnv * 0.2;
+
+  // ── Horizon glow (light at end of tunnel) ─────────────────
+  // Fades as rings take over, re-brightens briefly at end
+  float horizonR   = pow(max(0.0, 1.0 - r * 18.0), 1.5);
+  float horizonEnv = smoothstep(0.06, 0.18, u_t) * (1.0 - smoothstep(0.50, 0.78, u_t));
+  col += BRIGHT * horizonR * horizonEnv * 0.8;
+  col += WHITE  * horizonR * horizonEnv * 0.5;
+
+  // Apply time envelope
+  col *= env;
+
+  // Output opaque — CSS mix-blend-mode:screen handles compositing.
+  // Black areas screen away, coloured areas add light to the scene.
+  gl_FragColor = vec4(col, 1.0);
 }
-function phase(t: number, a: number, b: number) {
-  return clamp((t - a) / (b - a), 0, 1);
+`;
+
+// ─────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────
+
+function makeShader(gl: WebGLRenderingContext, type: number, src: string): WebGLShader | null {
+  const s = gl.createShader(type);
+  if (!s) return null;
+  gl.shaderSource(s, src);
+  gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+    console.error("WarpDrive shader error:", gl.getShaderInfoLog(s));
+    gl.deleteShader(s);
+    return null;
+  }
+  return s;
 }
 
-// Alpha: quick fade-in over first 16% of life, full plateau until 52%, smooth decay.
-function ringAlpha(age: number): number {
-  if (age < 0.16) return age / 0.16;
-  if (age < 0.52) return 1.0;
-  return 1 - easeInQuad((age - 0.52) / 0.48);
+function makeProgram(gl: WebGLRenderingContext): WebGLProgram | null {
+  const vert = makeShader(gl, gl.VERTEX_SHADER,   VERT);
+  const frag = makeShader(gl, gl.FRAGMENT_SHADER, FRAG);
+  if (!vert || !frag) return null;
+  const prog = gl.createProgram();
+  if (!prog) return null;
+  gl.attachShader(prog, vert);
+  gl.attachShader(prog, frag);
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    console.error("WarpDrive link error:", gl.getProgramInfoLog(prog));
+    return null;
+  }
+  return prog;
 }
+
+// Fullscreen quad: two triangles covering NDC [-1,1]²
+const QUAD_VERTS = new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]);
+
+const DURATION = 2500; // ms
+
+// ─────────────────────────────────────────────────────────
+// Component
+// ─────────────────────────────────────────────────────────
 
 export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
   const canvasRef     = useRef<HTMLCanvasElement>(null);
@@ -52,86 +194,84 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
   useEffect(() => {
     if (!trigger) return;
 
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
+    // Honour reduced-motion preference
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       const id = setTimeout(() => onCompleteRef.current(), 60);
       return () => clearTimeout(id);
     }
 
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
 
+    // ── Canvas sizing ────────────────────────────────────────
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const W   = window.innerWidth;
     const H   = window.innerHeight;
-    canvas.width  = W * dpr;
-    canvas.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    canvas.width  = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
 
-    const cx        = trigger.x;
-    const cy        = trigger.y;
-    const diag      = Math.sqrt(W * W + H * H);
-    const startTime = performance.now();
-    let   rafId: number;
+    // ── WebGL context ────────────────────────────────────────
+    // alpha:false  → canvas is opaque black; CSS mix-blend-mode:screen
+    // makes black areas transparent to the viewer.
+    const gl = canvas.getContext("webgl", {
+      alpha:                 false,
+      antialias:             false,
+      depth:                 false,
+      stencil:               false,
+      powerPreference:       "high-performance",
+    });
+    if (!gl) {
+      // WebGL not available — skip gracefully
+      onCompleteRef.current();
+      return;
+    }
+
+    // ── Shader program ───────────────────────────────────────
+    const prog = makeProgram(gl);
+    if (!prog) {
+      onCompleteRef.current();
+      return;
+    }
+
+    // ── Geometry buffer ──────────────────────────────────────
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, QUAD_VERTS, gl.STATIC_DRAW);
+
+    gl.useProgram(prog);
+
+    const aPosLoc  = gl.getAttribLocation(prog,  "a_pos");
+    const uTLoc    = gl.getUniformLocation(prog,  "u_t");
+    const uOriLoc  = gl.getUniformLocation(prog,  "u_origin");
+    const uResLoc  = gl.getUniformLocation(prog,  "u_res");
+
+    gl.enableVertexAttribArray(aPosLoc);
+    gl.vertexAttribPointer(aPosLoc, 2, gl.FLOAT, false, 0, 0);
+
+    // ── Static uniforms ──────────────────────────────────────
+    const fw = Math.round(W * dpr);
+    const fh = Math.round(H * dpr);
+    gl.viewport(0, 0, fw, fh);
+    gl.uniform2f(uResLoc, fw, fh);
+
+    // WebGL Y-axis is bottom-up; CSS/screen Y is top-down
+    gl.uniform2f(uOriLoc,
+      trigger.x * dpr,
+      (H - trigger.y) * dpr,
+    );
+
+    gl.clearColor(0, 0, 0, 1);
+
+    // ── Animation loop ───────────────────────────────────────
+    const start = performance.now();
+    let rafId: number;
 
     const draw = (now: number) => {
-      const t = clamp((now - startTime) / DURATION, 0, 1);
-
-      // Clear to fully transparent — "screen" composite will add light
-      // on top of whatever is rendered behind this canvas element.
-      ctx.clearRect(0, 0, W, H);
-      ctx.globalCompositeOperation = "screen";
-
-      // ── Origin spark ────────────────────────────────────
-      // A tight radial glow at the click point — appears briefly,
-      // fades before the first ring has expanded far.
-      const sparkP = phase(t, 0, 0.28);
-      const sparkA = sparkP < 0.5
-        ? sparkP / 0.5
-        : 1 - (sparkP - 0.5) / 0.5;
-
-      if (sparkA > 0.02) {
-        const sg = ctx.createRadialGradient(cx, cy, 0, cx, cy, 48);
-        sg.addColorStop(0,    `rgba(255,255,255,${sparkA * 0.65})`);
-        sg.addColorStop(0.35, `rgba(210,200,255,${sparkA * 0.24})`);
-        sg.addColorStop(1,    "rgba(160,140,255,0)");
-        ctx.fillStyle = sg;
-        ctx.beginPath();
-        ctx.arc(cx, cy, 48, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // ── Rings ─────────────────────────────────────────
-      for (const ring of RINGS) {
-        if (t < ring.birth) continue;
-        const age  = phase(t, ring.birth, ring.birth + ring.life);
-        const r    = easeOutQuart(age) * diag * ring.maxR;
-        const a    = ringAlpha(age);
-        if (a < 0.014 || r < 1) continue;
-
-        // Diffuse halo — very soft and wide, barely-there purple tint
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `hsla(${ring.h},${ring.s}%,${ring.l}%,${a * 0.13})`;
-        ctx.lineWidth   = ring.glowW;
-        ctx.stroke();
-
-        // Core ring — thin, sharp white line
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255,255,255,${a * 0.44})`;
-        ctx.lineWidth   = ring.coreW;
-        ctx.stroke();
-      }
-
-      // Restore for next clear
-      ctx.globalCompositeOperation = "source-over";
-
-      if (t < 1) {
+      const t = Math.min((now - start) / DURATION, 1.0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.uniform1f(uTLoc, t);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      if (t < 1.0) {
         rafId = requestAnimationFrame(draw);
       } else {
         onCompleteRef.current();
@@ -155,6 +295,7 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
         height:        "100%",
         zIndex:        45,
         pointerEvents: "none",
+        mixBlendMode:  "screen",
       }}
     />
   );
