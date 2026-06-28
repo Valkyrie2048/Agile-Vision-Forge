@@ -220,10 +220,10 @@ const TOUR_START_IDLE_MS = 5000;
 const TOUR_STORAGE_KEY = "agile-vision-tour-seen";
 
 const TYPE_COLOR: Record<NodeType, { h: number; s: number; l: number }> = {
-  model:  { h: 252, s: 85, l: 67 },
-  tool:   { h: 214, s: 88, l: 66 },
-  data:   { h: 174, s: 72, l: 54 },
-  output: { h: 143, s: 62, l: 58 },
+  model:  { h: 250, s: 22, l: 68 },
+  tool:   { h: 250, s: 22, l: 68 },
+  data:   { h: 250, s: 22, l: 68 },
+  output: { h: 250, s: 22, l: 68 },
 };
 
 const TYPE_LABEL: Record<NodeType, string> = {
@@ -259,11 +259,11 @@ function nodeColor(type: NodeType, alpha = 1) {
   return hsl(TYPE_COLOR[type], alpha);
 }
 
-const NODE_RADIUS = 18;
-const IDEAL_EDGE_LEN = 160;
-const REPULSION_K = 6000;
-const SPRING_K = 0.04;
-const CENTER_K = 0.003;
+const NODE_RADIUS = 9;
+const IDEAL_EDGE_LEN = 140;
+const REPULSION_K = 9000;
+const SPRING_K = 0.004;
+const CENTER_K = 0.005;
 const DAMPING = 0.88;
 
 // ─────────────────────────────────────────────────────────
@@ -328,10 +328,10 @@ export function AINetworkGraph() {
     const init = (w: number, h: number) => {
       const cx = w / 2;
       const cy = h / 2;
-      const r = Math.min(w, h) * 0.35;
+      const r = Math.min(w, h) * 0.46;
       nodesRef.current = NODE_DEFS.map((def, i) => {
         const angle = (i / NODE_DEFS.length) * Math.PI * 2;
-        const jitter = 0.4 + Math.random() * 0.6;
+        const jitter = 0.90 + Math.random() * 0.20; // start well outside exclusion zone
         return {
           ...def,
           x: cx + Math.cos(angle) * r * jitter,
@@ -426,10 +426,38 @@ export function AINetworkGraph() {
         ay[b] -= (dy / dist) * f;
       }
 
-      // Center gravity
+      // Center exclusion — hard wall + preventive force + outer ring
+      const EXCL_R = Math.min(w, h) * 0.43; // ~310px — clears entire text block
+      const outerR = Math.min(w, h) * 0.90; // effectively disabled; viewport boundary handles edges
       for (let i = 0; i < nodes.length; i++) {
-        ax[i] += (cx - nodes[i].x) * CENTER_K;
-        ay[i] += (cy - nodes[i].y) * CENTER_K;
+        const dxc = nodes[i].x - cx;
+        const dyc = nodes[i].y - cy;
+        const distC = Math.sqrt(dxc * dxc + dyc * dyc) || 1;
+        const nx = dxc / distC;
+        const ny = dyc / distC;
+
+        if (distC < EXCL_R) {
+          // Hard wall: snap position to exclusion boundary
+          nodes[i].x = cx + nx * EXCL_R;
+          nodes[i].y = cy + ny * EXCL_R;
+          // Strip any inward velocity component
+          const vDotN = nodes[i].vx * nx + nodes[i].vy * ny;
+          if (vDotN < 0) {
+            nodes[i].vx -= 1.4 * vDotN * nx;
+            nodes[i].vy -= 1.4 * vDotN * ny;
+          }
+        } else if (distC < EXCL_R * 1.35) {
+          // Preventive push zone: strong force just outside the wall
+          const t = 1 - (distC - EXCL_R) / (EXCL_R * 0.35);
+          ax[i] += nx * t * t * 28;
+          ay[i] += ny * t * t * 28;
+        }
+
+        if (distC > outerR) {
+          // Soft outer ring: gently pull nodes back in
+          ax[i] -= nx * (distC - outerR) * CENTER_K;
+          ay[i] -= ny * (distC - outerR) * CENTER_K;
+        }
       }
 
       // Mouse repulsion
@@ -579,8 +607,8 @@ export function AINetworkGraph() {
         const isHov = i === hovered;
         const isAct = i === active;
         const isTourNode = isTour && tourNodes.has(i);
-        const glowR = isAct || isTourNode ? 56 : isHov ? 46 : 34;
-        const coreAlpha = isAct || isTourNode ? 0.35 : isHov ? 0.28 : 0.14;
+        const glowR = isAct || isTourNode ? 28 : isHov ? 22 : 16;
+        const coreAlpha = isAct || isTourNode ? 0.30 : isHov ? 0.22 : 0.10;
         const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR);
         g.addColorStop(0, nodeColor(n.type, coreAlpha * alpha));
         g.addColorStop(1, nodeColor(n.type, 0));
@@ -630,16 +658,20 @@ export function AINetworkGraph() {
         ctx.stroke();
       }
 
-      // ── 5. Labels ──
+      // ── 5. Labels — only on hovered / active / tour nodes ──
       ctx.font = "bold 10px Inter, sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       for (let i = 0; i < nodes.length; i++) {
+        const isHovL = i === hovered;
+        const isActL = i === active;
+        const isTourL = isTour && tourNodes.has(i);
+        if (!isHovL && !isActL && !isTourL) continue;
         const n = nodes[i];
         const alpha = nodeAlpha(i);
         if (alpha < 0.1) continue;
-        const labelY = n.y + NODE_RADIUS + 6;
-        ctx.fillStyle = `rgba(255,255,255,${0.75 * alpha})`;
+        const labelY = n.y + NODE_RADIUS + 5;
+        ctx.fillStyle = `rgba(255,255,255,${0.9 * alpha})`;
         ctx.fillText(n.label, n.x, labelY);
       }
 
@@ -661,7 +693,7 @@ export function AINetworkGraph() {
         const n = nodes[active];
         const pulse = Math.sin(frameRef.current * 0.06) * 0.4 + 0.6;
         ctx.beginPath();
-        ctx.arc(n.x - NODE_RADIUS + 5, n.y - NODE_RADIUS + 5, 4, 0, Math.PI * 2);
+        ctx.arc(n.x - NODE_RADIUS - 1, n.y - NODE_RADIUS - 1, 2.5, 0, Math.PI * 2);
         ctx.fillStyle = nodeColor(n.type, pulse);
         ctx.fill();
       }
@@ -672,7 +704,7 @@ export function AINetworkGraph() {
         for (const idx of tourNodes) {
           const n = nodes[idx];
           ctx.beginPath();
-          ctx.arc(n.x - NODE_RADIUS + 5, n.y - NODE_RADIUS + 5, 4, 0, Math.PI * 2);
+          ctx.arc(n.x - NODE_RADIUS - 1, n.y - NODE_RADIUS - 1, 2.5, 0, Math.PI * 2);
           ctx.fillStyle = nodeColor(n.type, pulse);
           ctx.fill();
         }
