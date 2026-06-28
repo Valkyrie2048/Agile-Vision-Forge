@@ -12,7 +12,7 @@ interface NodeDef {
   type: NodeType;
   description: string;
   connections: string[];
-  metrics: { latency: string; throughput: string; uptime: string };
+  metrics: { latency: string; throughput: string; accuracy: string };
 }
 
 interface SimNode extends NodeDef {
@@ -47,115 +47,115 @@ const NODE_DEFS: NodeDef[] = [
     id: "gpt4o", label: "GPT-4o", type: "model",
     description: "Multimodal reasoning & generation",
     connections: ["websearch", "codeexec", "vectordb", "planner", "apiresponse"],
-    metrics: { latency: "340ms", throughput: "2.1k tok/s", uptime: "99.97%" },
+    metrics: { latency: "340ms", throughput: "2.1k tok/s", accuracy: "97.4%" },
   },
   {
     id: "claude", label: "Claude 3.5", type: "model",
     description: "Long-context analysis & writing",
     connections: ["memory", "filestore", "planner", "reportgen"],
-    metrics: { latency: "280ms", throughput: "1.8k tok/s", uptime: "99.94%" },
+    metrics: { latency: "280ms", throughput: "1.8k tok/s", accuracy: "96.8%" },
   },
   {
     id: "gemini", label: "Gemini Pro", type: "model",
     description: "Image & video understanding",
     connections: ["filestore", "apiresponse"],
-    metrics: { latency: "410ms", throughput: "1.5k tok/s", uptime: "99.91%" },
+    metrics: { latency: "410ms", throughput: "1.5k tok/s", accuracy: "94.2%" },
   },
   {
     id: "mistral", label: "Mistral 8x7B", type: "model",
     description: "Fast parallel inference",
     connections: ["codeexec", "stream"],
-    metrics: { latency: "120ms", throughput: "4.2k tok/s", uptime: "99.88%" },
+    metrics: { latency: "120ms", throughput: "4.2k tok/s", accuracy: "91.7%" },
   },
   {
     id: "embedder", label: "Embedder", type: "model",
     description: "Semantic vector encoding",
     connections: ["vectordb", "memory"],
-    metrics: { latency: "45ms", throughput: "8.4k tok/s", uptime: "99.99%" },
+    metrics: { latency: "45ms", throughput: "8.4k tok/s", accuracy: "99.1%" },
   },
   {
     id: "websearch", label: "Web Search", type: "tool",
     description: "Real-time web retrieval",
     connections: ["stream", "dashboard"],
-    metrics: { latency: "520ms", throughput: "42 req/s", uptime: "99.82%" },
+    metrics: { latency: "520ms", throughput: "42 req/s", accuracy: "88.3%" },
   },
   {
     id: "codeexec", label: "Code Exec", type: "tool",
     description: "Safe sandboxed runtime",
     connections: ["apiresponse"],
-    metrics: { latency: "890ms", throughput: "8 req/s", uptime: "99.76%" },
+    metrics: { latency: "890ms", throughput: "8 req/s", accuracy: "99.6%" },
   },
   {
     id: "memory", label: "Memory", type: "tool",
     description: "Persistent agent context",
     connections: ["vectordb"],
-    metrics: { latency: "12ms", throughput: "200 req/s", uptime: "99.99%" },
+    metrics: { latency: "12ms", throughput: "200 req/s", accuracy: "99.9%" },
   },
   {
     id: "planner", label: "Planner", type: "tool",
     description: "Multi-step task decomposition",
     connections: ["evaluator", "emailagent", "sqlstore"],
-    metrics: { latency: "230ms", throughput: "15 req/s", uptime: "99.91%" },
+    metrics: { latency: "230ms", throughput: "15 req/s", accuracy: "93.5%" },
   },
   {
     id: "evaluator", label: "Evaluator", type: "tool",
     description: "Output quality scoring",
     connections: ["apiresponse", "dashboard"],
-    metrics: { latency: "180ms", throughput: "28 req/s", uptime: "99.95%" },
+    metrics: { latency: "180ms", throughput: "28 req/s", accuracy: "96.2%" },
   },
   {
     id: "vectordb", label: "Vector DB", type: "data",
     description: "Semantic embedding store",
     connections: ["filestore"],
-    metrics: { latency: "8ms", throughput: "1.2k req/s", uptime: "99.99%" },
+    metrics: { latency: "8ms", throughput: "1.2k req/s", accuracy: "99.9%" },
   },
   {
     id: "filestore", label: "File Store", type: "data",
     description: "Document & media storage",
     connections: [],
-    metrics: { latency: "35ms", throughput: "320 req/s", uptime: "99.98%" },
+    metrics: { latency: "35ms", throughput: "320 req/s", accuracy: "99.8%" },
   },
   {
     id: "stream", label: "Event Stream", type: "data",
     description: "Real-time event pipeline",
     connections: ["dashboard", "webhook"],
-    metrics: { latency: "4ms", throughput: "50k evt/s", uptime: "99.99%" },
+    metrics: { latency: "4ms", throughput: "50k evt/s", accuracy: "99.9%" },
   },
   {
     id: "sqlstore", label: "SQL Store", type: "data",
     description: "Structured data queries",
     connections: ["dashboard"],
-    metrics: { latency: "18ms", throughput: "800 req/s", uptime: "99.97%" },
+    metrics: { latency: "18ms", throughput: "800 req/s", accuracy: "99.7%" },
   },
   {
     id: "apiresponse", label: "API Response", type: "output",
     description: "Structured JSON output",
     connections: ["webhook"],
-    metrics: { latency: "< 1ms", throughput: "5k req/s", uptime: "99.99%" },
+    metrics: { latency: "< 1ms", throughput: "5k req/s", accuracy: "99.9%" },
   },
   {
     id: "dashboard", label: "Dashboard", type: "output",
     description: "Live analytics UI",
     connections: [],
-    metrics: { latency: "60ms", throughput: "200 ws/s", uptime: "99.94%" },
+    metrics: { latency: "60ms", throughput: "200 ws/s", accuracy: "98.1%" },
   },
   {
     id: "emailagent", label: "Email Agent", type: "output",
     description: "Automated communications",
     connections: ["reportgen"],
-    metrics: { latency: "1.2s", throughput: "180/min", uptime: "99.88%" },
+    metrics: { latency: "1.2s", throughput: "180/min", accuracy: "95.4%" },
   },
   {
     id: "webhook", label: "Webhook", type: "output",
     description: "External system triggers",
     connections: [],
-    metrics: { latency: "< 1ms", throughput: "2k req/s", uptime: "99.97%" },
+    metrics: { latency: "< 1ms", throughput: "2k req/s", accuracy: "99.9%" },
   },
   {
     id: "reportgen", label: "Report Gen", type: "output",
     description: "Document synthesis",
     connections: [],
-    metrics: { latency: "3.4s", throughput: "12/min", uptime: "99.92%" },
+    metrics: { latency: "3.4s", throughput: "12/min", accuracy: "92.8%" },
   },
 ];
 
@@ -248,6 +248,7 @@ export function AINetworkGraph() {
   // React state for hover card only
   const [hoveredNode, setHoveredNode] = useState<{ node: SimNode; sx: number; sy: number } | null>(null);
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
+  const [animatedMetrics, setAnimatedMetrics] = useState<{ latency: string; throughput: string; accuracy: string } | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -302,7 +303,7 @@ export function AINetworkGraph() {
       canvas.height = rect.height * dpr;
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const w = rect.width;
       const h = rect.height;
       if (nodesRef.current.length === 0) init(w, h);
@@ -382,8 +383,15 @@ export function AINetworkGraph() {
         }
       }
 
-      // Integrate + damp
+      // Integrate + damp (skip position update for hovered node — freeze it in place)
+      const hoveredIdx = hoveredIdxRef.current;
       for (let i = 0; i < nodes.length; i++) {
+        if (i === hoveredIdx) {
+          // Drain velocity so it stops quickly without snapping
+          nodes[i].vx *= 0.5;
+          nodes[i].vy *= 0.5;
+          continue;
+        }
         nodes[i].vx = (nodes[i].vx + ax[i]) * DAMPING;
         nodes[i].vy = (nodes[i].vy + ay[i]) * DAMPING;
         nodes[i].x += nodes[i].vx;
@@ -664,6 +672,46 @@ export function AINetworkGraph() {
     };
   }, []);
 
+  // ── Metric count-up animation ───────────────────────────
+  useEffect(() => {
+    if (!hoveredNode) {
+      setAnimatedMetrics(null);
+      return;
+    }
+    const metrics = hoveredNode.node.metrics;
+    const SCRAMBLE = "0123456789abcdefghijklmnopqrstuvwxyz%./k <>ms";
+    const duration = 620;
+    const startTime = performance.now();
+
+    const scramble = (target: string, progress: number) => {
+      const revealCount = Math.floor(target.length * progress);
+      return target.split("").map((ch, i) => {
+        if (i < revealCount) return ch;
+        if (ch === " ") return " ";
+        return SCRAMBLE[Math.floor(Math.random() * SCRAMBLE.length)];
+      }).join("");
+    };
+
+    let rafId: number;
+    const animate = (now: number) => {
+      const raw = Math.min((now - startTime) / duration, 1);
+      // cubic ease-out so the last chars settle smoothly
+      const ease = 1 - Math.pow(1 - raw, 3);
+      if (raw >= 1) {
+        setAnimatedMetrics({ latency: metrics.latency, throughput: metrics.throughput, accuracy: metrics.accuracy });
+      } else {
+        setAnimatedMetrics({
+          latency:    scramble(metrics.latency,    ease),
+          throughput: scramble(metrics.throughput, ease * 0.88),
+          accuracy:   scramble(metrics.accuracy,   ease * 0.76),
+        });
+        rafId = requestAnimationFrame(animate);
+      }
+    };
+    rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
+  }, [hoveredNode?.node.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // ── Hover card ──────────────────────────────────────────
   const renderCard = () => {
     if (!hoveredNode) return null;
@@ -723,9 +771,9 @@ export function AINetworkGraph() {
           {/* Metrics */}
           <div style={{ padding: "8px 12px", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
             {[
-              { label: "Latency", value: node.metrics.latency },
-              { label: "Throughput", value: node.metrics.throughput },
-              { label: "Uptime", value: node.metrics.uptime },
+              { label: "Latency",    value: animatedMetrics?.latency    ?? node.metrics.latency },
+              { label: "Throughput", value: animatedMetrics?.throughput ?? node.metrics.throughput },
+              { label: "Accuracy",   value: animatedMetrics?.accuracy   ?? node.metrics.accuracy },
             ].map(({ label, value }) => (
               <div key={label} style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
                 <span style={{ fontSize: 10, color: "rgba(200,190,240,0.45)", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</span>
