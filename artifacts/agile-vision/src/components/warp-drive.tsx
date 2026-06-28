@@ -101,38 +101,38 @@ void main() {
   vec3 CYAN   = vec3(0.20, 0.80, 1.00);   // subtle cyan fringe
 
   // Base layer: tunnel wall (screens away on black background)
-  vec3 col = DEEP * mask * 0.20;
+  vec3 col = DEEP * mask * 0.10;
 
   // Ring belly glow
-  col += BRAND  * belly   * mask * haze * 0.45;
-  col += BRIGHT * glow    * mask * haze * 0.30;
+  col += BRAND  * belly   * mask * haze * 0.20;
+  col += BRIGHT * glow    * mask * haze * 0.14;
 
   // Leading edge punch
-  col += WHITE  * leading * leading * mask * 0.38;
-  col += GOLD   * pow(leading, 5.0) * mask * 0.22;
+  col += WHITE  * leading * leading * mask * 0.18;
+  col += GOLD   * pow(leading, 5.0) * mask * 0.10;
 
   // Trailing corona
-  col += BRAND  * trailing * mask * 0.16;
+  col += BRAND  * trailing * mask * 0.07;
 
   // Spiral accent
-  col += CYAN   * spiral * mask * 0.18;
-  col += BRIGHT * spiral * mask * 0.12;
+  col += CYAN   * spiral * mask * 0.08;
+  col += BRIGHT * spiral * mask * 0.05;
 
   // Chromatic fringe
-  col += WHITE * chromaBelly * mask * 0.07;
+  col += WHITE * chromaBelly * mask * 0.03;
 
   // ── Origin bloom (warp initiation flash) ──────────────────
   float bloom    = pow(max(0.0, 1.0 - r * 3.8), 2.2);
   float bloomEnv = smoothstep(0.0, 0.05, u_t) * (1.0 - smoothstep(0.08, 0.36, u_t));
-  col += WHITE  * bloom * bloomEnv * 0.50;
-  col += BRIGHT * bloom * bloomEnv * 0.25;
-  col += GOLD   * bloom * bloomEnv * 0.08;
+  col += WHITE  * bloom * bloomEnv * 0.22;
+  col += BRIGHT * bloom * bloomEnv * 0.10;
+  col += GOLD   * bloom * bloomEnv * 0.04;
 
   // ── Horizon glow (light at end of tunnel) ─────────────────
   float horizonR   = pow(max(0.0, 1.0 - r * 18.0), 1.5);
   float horizonEnv = smoothstep(0.06, 0.18, u_t) * (1.0 - smoothstep(0.50, 0.78, u_t));
-  col += BRIGHT * horizonR * horizonEnv * 0.30;
-  col += WHITE  * horizonR * horizonEnv * 0.18;
+  col += BRIGHT * horizonR * horizonEnv * 0.12;
+  col += WHITE  * horizonR * horizonEnv * 0.08;
 
   // Apply time envelope
   col *= env;
