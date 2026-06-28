@@ -975,75 +975,7 @@ function TechPartnersSection() {
   );
 }
 
-function TestimonialsSection() {
-  const testimonials = [
-    {
-      quote: "Agile Vision transformed our customer support with an AI chatbot that reduced ticket volume by 60%. Their team understood our needs from day one and delivered beyond expectations.",
-      name: "Priya Nakamura",
-      title: "VP of Engineering",
-    },
-    {
-      quote: "We went from concept to a fully deployed AI analytics platform in just 6 weeks. The quality of their work and speed of execution is unlike anything I've seen in 15 years of building products.",
-      name: "Declan Marsh",
-      title: "CTO",
-    },
-    {
-      quote: "Their agentic AI system automated our entire document processing pipeline. We saved over 200 hours per month and the ROI paid for the project in the first quarter alone.",
-      name: "Simone Okafor",
-      title: "Head of Operations",
-    },
-  ];
 
-  return (
-    <section className="py-24 bg-card" data-testid="section-testimonials">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <BlurReveal>
-            <Badge variant="secondary" className="mb-4">
-              <Quote className="w-3 h-3 mr-1" />
-              Testimonials
-            </Badge>
-          </BlurReveal>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <TextReveal>What Our Clients Say</TextReveal>
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
-              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
-              <div
-                className="rounded-md p-px h-full"
-                style={{
-                  background: "linear-gradient(135deg, hsl(250 85% 60% / 0.3), hsl(280 80% 60% / 0.1), hsl(250 85% 60% / 0.05))",
-                }}
-              >
-                <div className="rounded-md bg-card p-6 h-full flex flex-col">
-                  <Quote className="w-8 h-8 text-primary/30 mb-4 shrink-0" />
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
-                    "{testimonial.quote}"
-                  </p>
-                  <div>
-                    <div className="font-semibold text-sm">{testimonial.name}</div>
-                    <div className="text-xs text-muted-foreground">
-                      {testimonial.title}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function FinalCTASection() {
   return (
@@ -1112,7 +1044,6 @@ export default function Home() {
       <GetStartedPreview />
       <ProcessSection />
       <TechPartnersSection />
-      <TestimonialsSection />
       <FinalCTASection />
     </div>
   );
