@@ -26,8 +26,8 @@ interface Star {
 // Constants
 // ─────────────────────────────────────────────────────────
 
-const DURATION   = 2100;  // ms — longer for drama
-const STAR_COUNT = 310;
+const DURATION   = 2800;
+const STAR_COUNT = 420;
 
 // ─────────────────────────────────────────────────────────
 // Helpers
@@ -36,6 +36,7 @@ const STAR_COUNT = 310;
 const easeInCubic    = (t: number) => t * t * t;
 const easeOutCubic   = (t: number) => 1 - Math.pow(1 - t, 3);
 const easeInQuart    = (t: number) => t * t * t * t;
+const easeInQuint    = (t: number) => t * t * t * t * t;
 const easeInOutCubic = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
@@ -72,16 +73,16 @@ function seedStars(): Star[] {
 //   0.12-1.00  explode outward   from 0   → 1
 // ─────────────────────────────────────────────────────────
 
+// Phase 1 (0.00-0.35): Slow outward drift  → 8% of maxDist
+// Phase 2 (0.35-0.88): Exponential blast   → 100% of maxDist
 function starProgress(t: number): number {
-  if (t <= 0.12) return 0.40 * (1 - easeInCubic(t / 0.12));
-  return easeInCubic(phase(t, 0.12, 0.88));
+  if (t < 0.35) return easeInCubic(t / 0.35) * 0.08;
+  return 0.08 + easeInQuint(phase(t, 0.35, 0.88)) * 0.92;
 }
 
-// Speed factor (0-1): how fast stars appear to be moving right now
-// Used for streak length and chromatic aberration amount.
 function speedFactor(t: number): number {
-  if (t <= 0.12) return easeInCubic(t / 0.12);
-  return easeInOutCubic(phase(t, 0.12, 0.85));
+  if (t < 0.35) return easeInCubic(t / 0.35) * 0.10;
+  return easeInOutCubic(phase(t, 0.35, 0.84));
 }
 
 // ─────────────────────────────────────────────────────────
@@ -118,9 +119,9 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
 
     // Shockwave ring definitions
     const ringDefs = [
-      { tBirth: 0.12, tLife: 0.52, speed: 0.88, hue: 265, lum: 90, lw: 2.8 },
-      { tBirth: 0.29, tLife: 0.50, speed: 0.72, hue: 245, lum: 86, lw: 2.1 },
-      { tBirth: 0.47, tLife: 0.48, speed: 0.94, hue: 255, lum: 91, lw: 1.7 },
+      { tBirth: 0.40, tLife: 0.48, speed: 0.88, hue: 265, lum: 90, lw: 2.8 },
+      { tBirth: 0.54, tLife: 0.44, speed: 0.72, hue: 245, lum: 86, lw: 2.1 },
+      { tBirth: 0.66, tLife: 0.40, speed: 0.94, hue: 255, lum: 91, lw: 1.7 },
     ];
 
     const draw = (now: number) => {
@@ -128,11 +129,9 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
       const t = clamp((now - startTime) / DURATION, 0, 1);
 
       // ── derived values ─────────────────────────────────
-      const compressP = phase(t, 0, 0.12);
-      const sf        = speedFactor(t);
-      const progress  = starProgress(t);
-      // Global alpha: full during effect, fades out at tail
-      const gAlpha    = 1 - easeInQuart(phase(t, 0.86, 1.0));
+      const sf       = speedFactor(t);
+      const progress = starProgress(t);
+      const gAlpha   = 1 - easeInQuart(phase(t, 0.88, 1.0));
 
       // ── Layer 0: motion-blur persistence ───────────────
       // First frame: hard clear so we start clean
@@ -141,15 +140,22 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
       // Each subsequent frame we lay a semi-transparent dark rect
       // which decays previous content into trails.
       // Compression: fast decay (sharp dots). Hyperspace: slow decay (long streaks).
-      const trailAlpha = t < 0.12 ? 0.82
-                       : t < 0.84 ? 0.20
-                       :            0.75 + phase(t, 0.84, 1.0) * 0.20;
+      const trailAlpha = t < 0.35 ? 0.92
+                       : t < 0.84 ? 0.16
+                       :            0.74 + phase(t, 0.84, 1.0) * 0.22;
       ctx.fillStyle = `rgba(3,1,12,${trailAlpha})`;
       ctx.fillRect(0, 0, W, H);
 
+      // Early deep-space darkening — reinforces content blur before hyperspace
+      const darkA = phase(t, 0, 0.28) * (1 - phase(t, 0.86, 1.0)) * 0.55;
+      if (darkA > 0.01) {
+        ctx.fillStyle = `rgba(0,0,0,${darkA})`;
+        ctx.fillRect(0, 0, W, H);
+      }
+
       // ── Layer 1: nebula background blobs ───────────────
       // Soft coloured clouds add depth and colour to the tunnel.
-      const nA = Math.min(phase(t, 0.09, 0.28), 1 - phase(t, 0.82, 0.93)) * 0.32;
+      const nA = Math.min(phase(t, 0.30, 0.50), 1 - phase(t, 0.82, 0.93)) * 0.32;
       if (nA > 0.01) {
         ctx.save();
         ctx.filter = "blur(58px)";
@@ -174,7 +180,7 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
 
       // ── Layer 2: star streaks + chromatic aberration ───
       const maxDist  = diag * 0.72;
-      const spiralT  = phase(t, 0.12, 1.0) * 0.14; // slow angular drift
+      const spiralT  = phase(t, 0.35, 1.0) * 0.14;
 
       ctx.save();
       ctx.lineCap = "round";
@@ -189,8 +195,8 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
         const hy   = cy + sinA * headDist;
 
         // Streak length: longer when moving fast AND further from centre (perspective)
-        const rawStreak = headDist * s.tailRatio * sf * 2.6;
-        const streakLen = clamp(rawStreak, 0, headDist * 0.92);
+        const rawStreak = headDist * s.tailRatio * sf * 3.2;
+        const streakLen = clamp(rawStreak, 0, headDist * 0.94);
         const tailDist  = headDist - streakLen;
         const tx = cx + cosA * tailDist;
         const ty = cy + sinA * tailDist;
@@ -199,14 +205,14 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
 
         // Star brightness: fades in as it emerges, clips at extreme distance
         const df        = headDist / (maxDist * s.speed);
-        const starAlpha = clamp(df * 3.5, 0, 1) * gAlpha
-                        * (1 - clamp((df - 0.82) / 0.18, 0, 1));
+        const starAlpha = clamp(df * 4.0, 0, 1) * gAlpha
+                        * (1 - clamp((df - 0.88) / 0.12, 0, 1));
         if (starAlpha < 0.03) continue;
 
-        const w = s.width * (0.55 + sf * 1.9);
+        const w = s.width * (0.50 + sf * 2.2);
 
         // Chromatic aberration — perpendicular to travel direction
-        const caAmt = clamp(sf * 3.5 + w * 0.8, 0, 7);
+        const caAmt = clamp(sf * 4.5 + w * 0.9, 0, 9);
         const px = -sinA, py = cosA;   // perpendicular unit vector
 
         // Red fringe (+perp side)
@@ -257,7 +263,7 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
         if (starAlpha > 0.22 && headDist > 12) {
           ctx.fillStyle = `rgba(255,255,255,${0.90 * starAlpha})`;
           ctx.beginPath();
-          ctx.arc(hx, hy, w * 0.88, 0, Math.PI * 2);
+          ctx.arc(hx, hy, w * 0.90, 0, Math.PI * 2);
           ctx.fill();
         }
       }
@@ -288,34 +294,33 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
       }
       ctx.restore();
 
-      // ── Layer 4: central singularity ───────────────────
+      // ── Layer 4: central core ───────────────────────────
 
-      // Compression pupil: dark contracting hole
-      if (t < 0.15) {
-        const pR = 24 * (1 - easeInCubic(compressP));
-        if (pR > 0.5) {
-          ctx.save();
-          const pg = ctx.createRadialGradient(cx, cy, 0, cx, cy, pR + 14);
-          pg.addColorStop(0,               `rgba(0,0,0,${0.97 * compressP})`);
-          pg.addColorStop(pR / (pR + 14),  `rgba(18,4,48,${0.55 * compressP})`);
-          pg.addColorStop(1,               "rgba(0,0,0,0)");
-          ctx.fillStyle = pg;
-          ctx.beginPath();
-          ctx.arc(cx, cy, pR + 14, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.restore();
-        }
+      // Slow-phase glow: subtle pulse at origin during initial drift
+      const driftA = phase(t, 0.05, 0.20) * (1 - phase(t, 0.32, 0.46)) * gAlpha * 0.6;
+      if (driftA > 0.01) {
+        const dr = 6 + phase(t, 0.05, 0.35) * 18;
+        ctx.save();
+        const dg = ctx.createRadialGradient(cx, cy, 0, cx, cy, dr);
+        dg.addColorStop(0,   `rgba(255,255,255,${driftA})`);
+        dg.addColorStop(0.4, `rgba(200,170,255,${0.55 * driftA})`);
+        dg.addColorStop(1,   "rgba(0,0,0,0)");
+        ctx.fillStyle = dg;
+        ctx.beginPath();
+        ctx.arc(cx, cy, dr, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
       }
 
-      // Birth flash — bright spike at launch moment (t≈0.12)
-      const bfA = phase(t, 0.10, 0.18) * (1 - phase(t, 0.18, 0.33));
+      // Launch flash — bright spike at blast-off (t≈0.35)
+      const bfA = phase(t, 0.33, 0.42) * (1 - phase(t, 0.42, 0.56));
       if (bfA > 0.01) {
-        const br = 8 + phase(t, 0.10, 0.20) * 72;
+        const br = 8 + phase(t, 0.33, 0.46) * 80;
         ctx.save();
         const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, br);
         bg.addColorStop(0,    `rgba(255,255,255,${bfA})`);
-        bg.addColorStop(0.18, `rgba(230,210,255,${0.82 * bfA})`);
-        bg.addColorStop(0.55, `rgba(148,88,255,${0.42 * bfA})`);
+        bg.addColorStop(0.18, `rgba(230,210,255,${0.85 * bfA})`);
+        bg.addColorStop(0.55, `rgba(148,88,255,${0.44 * bfA})`);
         bg.addColorStop(1,    "rgba(0,0,0,0)");
         ctx.fillStyle = bg;
         ctx.beginPath();
@@ -324,10 +329,10 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
         ctx.restore();
       }
 
-      // Sustained core glow (during hyperspace)
-      const coreA = phase(t, 0.18, 0.32) * (1 - phase(t, 0.60, 0.86)) * gAlpha;
+      // Sustained core glow during hyperspace
+      const coreA = phase(t, 0.42, 0.56) * (1 - phase(t, 0.65, 0.86)) * gAlpha;
       if (coreA > 0.01) {
-        const cr = 10 + phase(t, 0.18, 0.62) * 26;
+        const cr = 10 + phase(t, 0.42, 0.68) * 26;
         ctx.save();
         const cg = ctx.createRadialGradient(cx, cy, 0, cx, cy, cr);
         cg.addColorStop(0,    `rgba(255,255,255,${coreA})`);
@@ -342,12 +347,12 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
       }
 
       // ── Layer 5: lens flare cross ───────────────────────
-      const flP = phase(t, 0.38, 0.86);
-      const flA = flP < 0.42
-        ? easeInOutCubic(flP / 0.42)
-        : 1 - easeOutCubic((flP - 0.42) / 0.58);
+      const flP = phase(t, 0.50, 0.88);
+      const flA = flP < 0.38
+        ? easeInOutCubic(flP / 0.38)
+        : 1 - easeOutCubic((flP - 0.38) / 0.62);
       if (flA > 0.02) {
-        const rotOff = phase(t, 0.38, 0.86) * 0.10; // slow rotation
+        const rotOff = phase(t, 0.50, 0.88) * 0.10;
         const fl     = diag * 0.42 * flA;
 
         ctx.save();
@@ -390,10 +395,10 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
       }
 
       // ── Layer 6: outer bloom ────────────────────────────
-      const blP = phase(t, 0.10, 0.80);
-      const blA = blP < 0.35
-        ? easeInQuart(blP / 0.35)
-        : 1 - easeInOutCubic((blP - 0.35) / 0.65);
+      const blP = phase(t, 0.28, 0.88);
+      const blA = blP < 0.30
+        ? easeInQuart(blP / 0.30)
+        : 1 - easeInOutCubic((blP - 0.30) / 0.70);
       if (blA > 0.02 && gAlpha > 0.01) {
         const br2 = 30 + blA * diag * 0.20;
         const bg  = ctx.createRadialGradient(cx, cy, 0, cx, cy, br2);
@@ -407,19 +412,22 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
         ctx.fill();
       }
 
-      // ── Layer 7: exit flash ─────────────────────────────
-      // White surge at peak, fades to purple tint
-      const exP = phase(t, 0.54, 0.84);
-      const exA = exP < 0.28
-        ? easeInQuart(exP / 0.28)
-        : 1 - easeOutCubic((exP - 0.28) / 0.72);
+      // ── Layer 7: peak flash (full-screen white-out) ─────
+      const exP = phase(t, 0.68, 0.90);
+      const exA = exP < 0.24
+        ? easeInQuart(exP / 0.24)
+        : 1 - easeOutCubic((exP - 0.24) / 0.76);
       if (exA > 0.01 && gAlpha > 0.01) {
-        ctx.fillStyle = `rgba(255,255,255,${exA * 0.34 * gAlpha})`;
+        ctx.fillStyle = `rgba(255,255,255,${exA * 0.46 * gAlpha})`;
         ctx.fillRect(0, 0, W, H);
+        if (exA > 0.4) {
+          ctx.fillStyle = `rgba(180,140,255,${(exA - 0.4) * 0.3 * gAlpha})`;
+          ctx.fillRect(0, 0, W, H);
+        }
       }
 
       // ── Layer 8: vignette ───────────────────────────────
-      const vigA = Math.min(phase(t, 0.06, 0.24), 1 - phase(t, 0.82, 1.0)) * gAlpha;
+      const vigA = Math.min(phase(t, 0.04, 0.28), 1 - phase(t, 0.84, 1.0)) * gAlpha * 0.8;
       if (vigA > 0.01) {
         const vg = ctx.createRadialGradient(cx, cy, 0, cx, cy, diag * 0.62);
         vg.addColorStop(0,   "rgba(0,0,0,0)");

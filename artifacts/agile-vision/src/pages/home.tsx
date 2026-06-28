@@ -304,6 +304,7 @@ function HeroSection() {
           <h1
             className="font-serif text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] text-white"
             data-testid="text-hero-title"
+            data-hero-heading
           >
             <TextReveal delay={0.2}>We Build the</TextReveal>
             <br />

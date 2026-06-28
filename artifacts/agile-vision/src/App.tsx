@@ -46,11 +46,13 @@ function AppContent() {
   const isBlogPage = location === "/blog" || location.startsWith("/blog/");
 
   const [warp, setWarp] = useState<WarpTrigger | null>(null);
+  const [warpActive, setWarpActive] = useState(false);
 
   const fireWarp = useCallback((x: number, y: number, target: EventTarget | null) => {
     if (warp) return; // already running
     if (target instanceof Element && target.closest(INTERACTIVE_SELECTOR)) return;
     setWarp({ x, y });
+    setWarpActive(true);
   }, [warp]);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
@@ -64,6 +66,7 @@ function AppContent() {
 
   const handleComplete = useCallback(() => {
     setWarp(null);
+    setWarpActive(false);
   }, []);
 
   return (
@@ -73,7 +76,12 @@ function AppContent() {
       <WarpDrive trigger={warp} onComplete={handleComplete} />
       <div
         className="min-h-screen flex flex-col relative z-[2]"
-        style={{ pointerEvents: "auto" }}
+        style={{
+          pointerEvents: "auto",
+          transition: "filter 0.50s ease, opacity 0.50s ease",
+          filter: warpActive ? "blur(10px)" : "none",
+          opacity: warpActive ? 0.35 : 1,
+        }}
         onClick={handleClick}
         onTouchEnd={handleTouch}
       >

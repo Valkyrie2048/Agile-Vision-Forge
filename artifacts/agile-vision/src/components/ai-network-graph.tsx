@@ -259,7 +259,7 @@ function nodeColor(type: NodeType, alpha = 1) {
   return hsl(TYPE_COLOR[type], alpha);
 }
 
-const NODE_RADIUS = 9;
+const NODE_RADIUS = 2.5;
 const IDEAL_EDGE_LEN = 140;
 const REPULSION_K = 9000;
 const SPRING_K = 0.004;
@@ -283,6 +283,7 @@ export function AINetworkGraph() {
   const hoveredIdxRef = useRef<number | null>(null);
   const activeIdxRef = useRef<number | null>(null);
   const frameRef = useRef(0);
+  const exclRadiusRef = useRef(280); // exclusion zone radius, measured from hero heading
 
   // Tour refs (read inside the draw loop, must be refs not state)
   const tourNodesRef = useRef<Set<number>>(new Set());   // indices of currently lit tour nodes
@@ -328,14 +329,14 @@ export function AINetworkGraph() {
     const init = (w: number, h: number) => {
       const cx = w / 2;
       const cy = h / 2;
-      const r = Math.min(w, h) * 0.46;
+      const initR = exclRadiusRef.current + 30; // start at ring centre
       nodesRef.current = NODE_DEFS.map((def, i) => {
-        const angle = (i / NODE_DEFS.length) * Math.PI * 2;
-        const jitter = 0.90 + Math.random() * 0.20; // start well outside exclusion zone
+        const angle  = (i / NODE_DEFS.length) * Math.PI * 2;
+        const jitter = 0.92 + Math.random() * 0.16;
         return {
           ...def,
-          x: cx + Math.cos(angle) * r * jitter,
-          y: cy + Math.sin(angle) * r * jitter,
+          x: cx + Math.cos(angle) * initR * jitter,
+          y: cy + Math.sin(angle) * initR * jitter,
           vx: (Math.random() - 0.5) * 0.5,
           vy: (Math.random() - 0.5) * 0.5,
         };
@@ -370,6 +371,24 @@ export function AINetworkGraph() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const w = rect.width;
       const h = rect.height;
+
+      // Measure exclusion zone from hero heading element
+      const headingEl = document.querySelector<HTMLElement>('[data-hero-heading]');
+      if (headingEl) {
+        // h1 is block-level; its height is the reliable measurement.
+        // Width: heading text fills ~55% of block width when centred.
+        const hr = headingEl.getBoundingClientRect();
+        const headingHalfH = hr.height / 2;
+        // Add badge above (~62px) + subtitle/buttons/tags below (~120px) for full content
+        const contentHalfH = headingHalfH + 90;
+        // Use viewport-relative width estimate: heading text ≈ 52% of viewport at large sizes
+        const contentHalfW = Math.min(w * 0.27, 360);
+        const measured = Math.sqrt(contentHalfW * contentHalfW + contentHalfH * contentHalfH);
+        exclRadiusRef.current = Math.min(Math.max(measured + 38, 160), Math.min(w, h) * 0.43);
+      } else {
+        exclRadiusRef.current = Math.min(w, h) * 0.40;
+      }
+
       if (nodesRef.current.length === 0) init(w, h);
     };
     resize();
@@ -426,9 +445,10 @@ export function AINetworkGraph() {
         ay[b] -= (dy / dist) * f;
       }
 
-      // Center exclusion — hard wall + preventive force + outer ring
-      const EXCL_R = Math.min(w, h) * 0.43; // ~310px — clears entire text block
-      const outerR = Math.min(w, h) * 0.90; // effectively disabled; viewport boundary handles edges
+      // Center exclusion + ring attraction
+      const EXCL_R   = exclRadiusRef.current;
+      const TARGET_R  = EXCL_R + 28;   // ring centre — nodes attracted here
+      const OUTER_R   = EXCL_R + 85;   // outer soft wall
       for (let i = 0; i < nodes.length; i++) {
         const dxc = nodes[i].x - cx;
         const dyc = nodes[i].y - cy;
@@ -437,26 +457,28 @@ export function AINetworkGraph() {
         const ny = dyc / distC;
 
         if (distC < EXCL_R) {
-          // Hard wall: snap position to exclusion boundary
+          // Hard wall: snap to boundary + strip inward velocity
           nodes[i].x = cx + nx * EXCL_R;
           nodes[i].y = cy + ny * EXCL_R;
-          // Strip any inward velocity component
           const vDotN = nodes[i].vx * nx + nodes[i].vy * ny;
           if (vDotN < 0) {
             nodes[i].vx -= 1.4 * vDotN * nx;
             nodes[i].vy -= 1.4 * vDotN * ny;
           }
-        } else if (distC < EXCL_R * 1.35) {
-          // Preventive push zone: strong force just outside the wall
-          const t = 1 - (distC - EXCL_R) / (EXCL_R * 0.35);
-          ax[i] += nx * t * t * 28;
-          ay[i] += ny * t * t * 28;
         }
 
-        if (distC > outerR) {
-          // Soft outer ring: gently pull nodes back in
-          ax[i] -= nx * (distC - outerR) * CENTER_K;
-          ay[i] -= ny * (distC - outerR) * CENTER_K;
+        if (distC > EXCL_R) {
+          // Bidirectional ring attraction toward TARGET_R
+          const ringErr = distC - TARGET_R;
+          const ringK   = ringErr < 0 ? 0.14 : 0.10;
+          ax[i] -= nx * ringErr * ringK;
+          ay[i] -= ny * ringErr * ringK;
+
+          // Outer soft wall
+          if (distC > OUTER_R) {
+            ax[i] -= nx * (distC - OUTER_R) * CENTER_K * 1.8;
+            ay[i] -= ny * (distC - OUTER_R) * CENTER_K * 1.8;
+          }
         }
       }
 
@@ -490,7 +512,7 @@ export function AINetworkGraph() {
         nodes[i].y += nodes[i].vy;
 
         // Soft boundary
-        const pad = NODE_RADIUS + 24;
+        const pad = NODE_RADIUS + 8;
         if (nodes[i].x < pad) nodes[i].vx += (pad - nodes[i].x) * 0.15;
         if (nodes[i].x > w - pad) nodes[i].vx -= (nodes[i].x - (w - pad)) * 0.15;
         if (nodes[i].y < pad) nodes[i].vy += (pad - nodes[i].y) * 0.15;
@@ -535,22 +557,22 @@ export function AINetworkGraph() {
       const nodeAlpha = (i: number) => {
         if (isTour) {
           if (tourNodes.has(i)) return 1;
-          return 0.07;
+          return 0.06;
         }
-        if (active === null) return 1;
+        if (active === null) return 0.18;
         if (i === active) return 1;
         if (isConnected(i, active)) return 0.85;
-        return 0.12;
+        return 0.10;
       };
 
       const edgeAlpha = (a: number, b: number) => {
         if (isTour) {
           if (tourEdges.has(`${a}-${b}`) || tourEdges.has(`${b}-${a}`)) return 0.75;
-          return 0.04;
+          return 0.03;
         }
-        if (active === null) return 0.22;
+        if (active === null) return 0.08;
         if (a === active || b === active) return 0.7;
-        return 0.04;
+        return 0.03;
       };
 
       // ── 1. Edges ──
@@ -599,14 +621,15 @@ export function AINetworkGraph() {
         ctx.fill();
       }
 
-      // ── 3. Node glows ──
+      // ── 3. Node glows — interactive nodes only ──
       for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        const alpha = nodeAlpha(i);
-        if (alpha < 0.1) continue;
         const isHov = i === hovered;
         const isAct = i === active;
         const isTourNode = isTour && tourNodes.has(i);
+        if (!isHov && !isAct && !isTourNode) continue;
+        const n = nodes[i];
+        const alpha = nodeAlpha(i);
+        if (alpha < 0.1) continue;
         const glowR = isAct || isTourNode ? 28 : isHov ? 22 : 16;
         const coreAlpha = isAct || isTourNode ? 0.30 : isHov ? 0.22 : 0.10;
         const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR);
@@ -622,40 +645,44 @@ export function AINetworkGraph() {
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         const alpha = nodeAlpha(i);
-        if (alpha < 0.05) continue;
+        if (alpha < 0.03) continue;
         const isHov = i === hovered;
         const isAct = i === active;
         const isTourNode = isTour && tourNodes.has(i);
-        const r = isHov || isAct || isTourNode ? NODE_RADIUS + 3 : NODE_RADIUS;
-        const c = TYPE_COLOR[n.type];
+        const isInteractive = isHov || isAct || isTourNode;
 
-        // Border ring (active/hovered/tour)
-        if (isAct || isHov || isTourNode) {
+        if (isInteractive) {
+          const r = NODE_RADIUS + 3;
+          const c = TYPE_COLOR[n.type];
+
           ctx.beginPath();
           ctx.arc(n.x, n.y, r + 4, 0, Math.PI * 2);
           ctx.strokeStyle = nodeColor(n.type, isAct || isTourNode ? 0.9 : 0.55);
           ctx.lineWidth = isAct || isTourNode ? 2 : 1.2;
           ctx.stroke();
+
+          const fill = ctx.createRadialGradient(
+            n.x - r * 0.25, n.y - r * 0.25, 0, n.x, n.y, r
+          );
+          fill.addColorStop(0, hsl({ h: c.h, s: c.s, l: Math.min(c.l + 15, 90) }, alpha));
+          fill.addColorStop(1, hsl({ h: c.h, s: c.s - 10, l: c.l - 12 }, alpha));
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+          ctx.fillStyle = fill;
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+          ctx.strokeStyle = nodeColor(n.type, 0.5 * alpha);
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        } else {
+          // Idle: plain dim dot, no gradient
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, NODE_RADIUS, 0, Math.PI * 2);
+          ctx.fillStyle = nodeColor(n.type, alpha);
+          ctx.fill();
         }
-
-        // Fill
-        const fill = ctx.createRadialGradient(
-          n.x - r * 0.25, n.y - r * 0.25, 0,
-          n.x, n.y, r
-        );
-        fill.addColorStop(0, hsl({ h: c.h, s: c.s, l: Math.min(c.l + 15, 90) }, alpha));
-        fill.addColorStop(1, hsl({ h: c.h, s: c.s - 10, l: c.l - 12 }, alpha));
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-        ctx.fillStyle = fill;
-        ctx.fill();
-
-        // Inner stroke
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
-        ctx.strokeStyle = nodeColor(n.type, 0.5 * alpha);
-        ctx.lineWidth = 1;
-        ctx.stroke();
       }
 
       // ── 5. Labels — only on hovered / active / tour nodes ──
