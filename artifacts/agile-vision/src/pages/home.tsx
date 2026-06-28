@@ -440,7 +440,7 @@ function HeroSection() {
                 animate={{ opacity: [0.3, 0.55, 0.3] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                 style={{
-                  background: "radial-gradient(ellipse at center, hsla(270,85%,62%,0.5) 0%, hsla(300,70%,55%,0.2) 50%, transparent 75%)",
+                  background: "radial-gradient(ellipse at center, hsla(255,85%,65%,0.45) 0%, hsla(265,75%,60%,0.15) 50%, transparent 75%)",
                   filter: "blur(28px)",
                 }}
               />
