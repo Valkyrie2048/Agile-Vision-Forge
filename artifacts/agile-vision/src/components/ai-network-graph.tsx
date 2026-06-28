@@ -281,7 +281,6 @@ export function AINetworkGraph() {
   const ripplesRef = useRef<Ripple[]>([]);
   const mouseRef = useRef({ x: -9999, y: -9999 });
   const hoveredIdxRef = useRef<number | null>(null);
-  const activeIdxRef = useRef<number | null>(null);
   const frameRef = useRef(0);
   const exclRadiusRef = useRef(280); // exclusion zone radius, measured from hero heading
 
@@ -291,10 +290,8 @@ export function AINetworkGraph() {
   const tourActiveRef = useRef(false);
   const tourTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  // React state for hover card only
-  const [hoveredNode, setHoveredNode] = useState<{ node: SimNode; sx: number; sy: number } | null>(null);
-  const [activeIdx, setActiveIdx] = useState<number | null>(null);
-  const [animatedMetrics, setAnimatedMetrics] = useState<{ latency: string; throughput: string; accuracy: string } | null>(null);
+  // Hover state — drives cursor style only (no card)
+  const [hoveredNode, setHoveredNode] = useState<boolean>(false);
 
   // Tour UI state
   const [tourStep, setTourStep] = useState<number | null>(null);          // null = not started/done
@@ -395,16 +392,8 @@ export function AINetworkGraph() {
     const ro = new ResizeObserver(resize);
     ro.observe(wrapper);
 
-    // ── Mobile auto-cycle ─────────────────────────────────
-    let mobileCycleTimer: ReturnType<typeof setInterval> | null = null;
-    let mobileCycleIdx = 0;
-    if (isMobile()) {
-      mobileCycleTimer = setInterval(() => {
-        mobileCycleIdx = (mobileCycleIdx + 1) % NODE_DEFS.length;
-        activeIdxRef.current = mobileCycleIdx;
-        setActiveIdx(mobileCycleIdx);
-      }, 3000);
-    }
+    // Mobile: no auto-cycle (panel removed)
+    const mobileCycleTimer: ReturnType<typeof setInterval> | null = null;
 
     // ── Physics step ─────────────────────────────────────
     const step = (w: number, h: number) => {
@@ -545,7 +534,6 @@ export function AINetworkGraph() {
       frameRef.current += 1;
 
       const nodes = nodesRef.current;
-      const active = activeIdxRef.current;
       const hovered = hoveredIdxRef.current;
       const pulses = pulsesRef.current;
       const ripples = ripplesRef.current;
@@ -553,16 +541,13 @@ export function AINetworkGraph() {
       const tourEdges = tourEdgesRef.current;
       const isTour = tourActiveRef.current;
 
-      // Helper: node opacity
+      // Helper: node opacity — no active-node dimming
       const nodeAlpha = (i: number) => {
         if (isTour) {
           if (tourNodes.has(i)) return 1;
           return 0.06;
         }
-        if (active === null) return 0.18;
-        if (i === active) return 1;
-        if (isConnected(i, active)) return 0.85;
-        return 0.10;
+        return 0.18;
       };
 
       const edgeAlpha = (a: number, b: number) => {
@@ -570,9 +555,7 @@ export function AINetworkGraph() {
           if (tourEdges.has(`${a}-${b}`) || tourEdges.has(`${b}-${a}`)) return 0.75;
           return 0.03;
         }
-        if (active === null) return 0.08;
-        if (a === active || b === active) return 0.7;
-        return 0.03;
+        return 0.08;
       };
 
       // ── 1. Edges ──
@@ -587,9 +570,7 @@ export function AINetworkGraph() {
         ctx.moveTo(na.x, na.y);
         ctx.lineTo(nb.x, nb.y);
         ctx.strokeStyle = grad;
-        ctx.lineWidth = active !== null && (a === active || b === active) ? 1.5
-          : (isTour && (tourEdges.has(`${a}-${b}`) || tourEdges.has(`${b}-${a}`))) ? 2
-          : 0.8;
+        ctx.lineWidth = (isTour && (tourEdges.has(`${a}-${b}`) || tourEdges.has(`${b}-${a}`))) ? 2 : 0.8;
         ctx.stroke();
       }
 
@@ -624,14 +605,13 @@ export function AINetworkGraph() {
       // ── 3. Node glows — interactive nodes only ──
       for (let i = 0; i < nodes.length; i++) {
         const isHov = i === hovered;
-        const isAct = i === active;
         const isTourNode = isTour && tourNodes.has(i);
-        if (!isHov && !isAct && !isTourNode) continue;
+        if (!isHov && !isTourNode) continue;
         const n = nodes[i];
         const alpha = nodeAlpha(i);
         if (alpha < 0.1) continue;
-        const glowR = isAct || isTourNode ? 28 : isHov ? 22 : 16;
-        const coreAlpha = isAct || isTourNode ? 0.30 : isHov ? 0.22 : 0.10;
+        const glowR = isTourNode ? 28 : isHov ? 22 : 16;
+        const coreAlpha = isTourNode ? 0.30 : isHov ? 0.22 : 0.10;
         const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR);
         g.addColorStop(0, nodeColor(n.type, coreAlpha * alpha));
         g.addColorStop(1, nodeColor(n.type, 0));
@@ -647,9 +627,8 @@ export function AINetworkGraph() {
         const alpha = nodeAlpha(i);
         if (alpha < 0.03) continue;
         const isHov = i === hovered;
-        const isAct = i === active;
         const isTourNode = isTour && tourNodes.has(i);
-        const isInteractive = isHov || isAct || isTourNode;
+        const isInteractive = isHov || isTourNode;
 
         if (isInteractive) {
           const r = NODE_RADIUS + 3;
@@ -657,8 +636,8 @@ export function AINetworkGraph() {
 
           ctx.beginPath();
           ctx.arc(n.x, n.y, r + 4, 0, Math.PI * 2);
-          ctx.strokeStyle = nodeColor(n.type, isAct || isTourNode ? 0.9 : 0.55);
-          ctx.lineWidth = isAct || isTourNode ? 2 : 1.2;
+          ctx.strokeStyle = nodeColor(n.type, isTourNode ? 0.9 : 0.55);
+          ctx.lineWidth = isTourNode ? 2 : 1.2;
           ctx.stroke();
 
           const fill = ctx.createRadialGradient(
@@ -691,9 +670,8 @@ export function AINetworkGraph() {
       ctx.textBaseline = "top";
       for (let i = 0; i < nodes.length; i++) {
         const isHovL = i === hovered;
-        const isActL = i === active;
         const isTourL = isTour && tourNodes.has(i);
-        if (!isHovL && !isActL && !isTourL) continue;
+        if (!isHovL && !isTourL) continue;
         const n = nodes[i];
         const alpha = nodeAlpha(i);
         if (alpha < 0.1) continue;
@@ -715,17 +693,7 @@ export function AINetworkGraph() {
         ctx.stroke();
       }
 
-      // ── 7. Active node "live" dot (pulsing) ──
-      if (active !== null) {
-        const n = nodes[active];
-        const pulse = Math.sin(frameRef.current * 0.06) * 0.4 + 0.6;
-        ctx.beginPath();
-        ctx.arc(n.x - NODE_RADIUS - 1, n.y - NODE_RADIUS - 1, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = nodeColor(n.type, pulse);
-        ctx.fill();
-      }
-
-      // ── 8. Tour node "live" dots (pulsing) ──
+      // ── 7. Tour node "live" dots (pulsing) ──
       if (isTour) {
         const pulse = Math.sin(frameRef.current * 0.06) * 0.4 + 0.6;
         for (const idx of tourNodes) {
@@ -753,16 +721,7 @@ export function AINetworkGraph() {
         const hit = hitTest(mx, my);
         if (hit !== hoveredIdxRef.current) {
           hoveredIdxRef.current = hit;
-          if (hit !== null) {
-            const n = nodesRef.current[hit];
-            setHoveredNode({ node: n, sx: n.x, sy: n.y });
-          } else {
-            setHoveredNode(null);
-          }
-        } else if (hit !== null) {
-          // Update card position smoothly
-          const n = nodesRef.current[hit];
-          setHoveredNode(prev => prev ? { ...prev, sx: n.x, sy: n.y } : null);
+          setHoveredNode(hit !== null);
         }
       }
     };
@@ -770,7 +729,7 @@ export function AINetworkGraph() {
     const onLeave = () => {
       mouseRef.current = { x: -9999, y: -9999 };
       hoveredIdxRef.current = null;
-      setHoveredNode(null);
+      setHoveredNode(false);
     };
 
     const onClick = (e: MouseEvent) => {
@@ -779,35 +738,8 @@ export function AINetworkGraph() {
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
       const hit = hitTest(mx, my);
-
-      if (hit === null) {
-        activeIdxRef.current = null;
-        setActiveIdx(null);
-        return;
-      }
-
-      // Stop propagation so the hero click handler doesn't also fire the ripple
-      e.stopPropagation();
-
-      if (hit === activeIdxRef.current) {
-        activeIdxRef.current = null;
-        setActiveIdx(null);
-        return;
-      }
-
-      activeIdxRef.current = hit;
-      setActiveIdx(hit);
-
-      // Spawn ripple
-      const n = nodesRef.current[hit];
-      const col = TYPE_COLOR[n.type];
-      ripplesRef.current.push({
-        x: n.x, y: n.y,
-        radius: NODE_RADIUS + 4,
-        maxRadius: 90,
-        alpha: 0.8,
-        color: `hsla(${col.h},${col.s}%,${col.l}%,1)`,
-      });
+      // Stop node clicks from bubbling to the hero ripple trigger
+      if (hit !== null) e.stopPropagation();
     };
 
     const overlay = wrapperRef.current?.querySelector<HTMLDivElement>(".ai-network-overlay");
@@ -901,137 +833,6 @@ export function AINetworkGraph() {
       tourTimersRef.current = [];
     };
   }, [dismissTour]);
-
-  // ── Metric count-up animation ───────────────────────────
-  useEffect(() => {
-    if (!hoveredNode) {
-      setAnimatedMetrics(null);
-      return;
-    }
-    const metrics = hoveredNode.node.metrics;
-    const SCRAMBLE = "0123456789abcdefghijklmnopqrstuvwxyz%./k <>ms";
-    const duration = 620;
-    const startTime = performance.now();
-
-    const scramble = (target: string, progress: number) => {
-      const revealCount = Math.floor(target.length * progress);
-      return target.split("").map((ch, i) => {
-        if (i < revealCount) return ch;
-        if (ch === " ") return " ";
-        return SCRAMBLE[Math.floor(Math.random() * SCRAMBLE.length)];
-      }).join("");
-    };
-
-    let rafId: number;
-    const animate = (now: number) => {
-      const raw = Math.min((now - startTime) / duration, 1);
-      // cubic ease-out so the last chars settle smoothly
-      const ease = 1 - Math.pow(1 - raw, 3);
-      if (raw >= 1) {
-        setAnimatedMetrics({ latency: metrics.latency, throughput: metrics.throughput, accuracy: metrics.accuracy });
-      } else {
-        setAnimatedMetrics({
-          latency:    scramble(metrics.latency,    ease),
-          throughput: scramble(metrics.throughput, ease * 0.88),
-          accuracy:   scramble(metrics.accuracy,   ease * 0.76),
-        });
-        rafId = requestAnimationFrame(animate);
-      }
-    };
-    rafId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafId);
-  }, [hoveredNode?.node.id]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // ── Hover card ──────────────────────────────────────────
-  const renderCard = () => {
-    if (!hoveredNode) return null;
-    const { node, sx, sy } = hoveredNode;
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return null;
-    const wh = wrapper.getBoundingClientRect().height;
-
-    // Position above node if in bottom half, else below
-    const above = sy > wh / 2;
-    const cardTop = above ? sy - NODE_RADIUS - 8 - 170 : sy + NODE_RADIUS + 14;
-    const rawLeft = sx - 110; // card width ~220
-    const containerW = wrapper.getBoundingClientRect().width;
-    const cardLeft = Math.max(8, Math.min(rawLeft, containerW - 228));
-
-    const connectedNames = NODE_DEFS.filter((_, i) => isConnected(IDX[node.id], i) && i !== IDX[node.id]).map(n => n.label);
-
-    return (
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          left: cardLeft,
-          top: cardTop,
-          width: 220,
-          zIndex: 30,
-          filter: "drop-shadow(0 8px 32px rgba(0,0,0,0.5))",
-        }}
-      >
-        <div
-          style={{
-            background: "rgba(12,8,28,0.92)",
-            backdropFilter: "blur(16px)",
-            border: `1px solid ${TYPE_BADGE_BORDER[node.type]}`,
-            borderRadius: 12,
-            overflow: "hidden",
-          }}
-        >
-          {/* Header */}
-          <div style={{ padding: "10px 12px 8px", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
-              <span
-                style={{
-                  fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em",
-                  padding: "2px 7px", borderRadius: 4,
-                  background: TYPE_BADGE_BG[node.type],
-                  border: `1px solid ${TYPE_BADGE_BORDER[node.type]}`,
-                  color: TYPE_TEXT[node.type],
-                }}
-              >
-                {TYPE_LABEL[node.type]}
-              </span>
-            </div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: "#f0ecff", marginBottom: 2 }}>{node.label}</div>
-            <div style={{ fontSize: 11, color: "rgba(200,190,240,0.6)", lineHeight: 1.4 }}>{node.description}</div>
-          </div>
-
-          {/* Metrics */}
-          <div style={{ padding: "8px 12px", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-            {[
-              { label: "Latency",    value: animatedMetrics?.latency    ?? node.metrics.latency },
-              { label: "Throughput", value: animatedMetrics?.throughput ?? node.metrics.throughput },
-              { label: "Accuracy",   value: animatedMetrics?.accuracy   ?? node.metrics.accuracy },
-            ].map(({ label, value }) => (
-              <div key={label} style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                <span style={{ fontSize: 10, color: "rgba(200,190,240,0.45)", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</span>
-                <span style={{ fontSize: 11, fontWeight: 600, color: TYPE_TEXT[node.type], fontFamily: "JetBrains Mono, monospace" }}>{value}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Connections */}
-          {connectedNames.length > 0 && (
-            <div style={{ padding: "7px 12px 9px" }}>
-              <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.07em", color: "rgba(200,190,240,0.35)", marginBottom: 5 }}>Connected to</div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-                {connectedNames.slice(0, 5).map(name => (
-                  <span key={name} style={{ fontSize: 9, padding: "2px 6px", borderRadius: 4, background: "rgba(255,255,255,0.07)", color: "rgba(200,190,240,0.65)", border: "1px solid rgba(255,255,255,0.1)" }}>
-                    {name}
-                  </span>
-                ))}
-                {connectedNames.length > 5 && (
-                  <span style={{ fontSize: 9, color: "rgba(200,190,240,0.4)" }}>+{connectedNames.length - 5} more</span>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
 
   // ── Tour UI overlay ──────────────────────────────────────
   const renderTour = () => {
@@ -1187,28 +988,6 @@ export function AINetworkGraph() {
     );
   };
 
-  // "Click to explore" hint — only show if nothing is active and tour is not running
-  const renderHint = () => {
-    if (activeIdx !== null) return null;
-    if (tourStep !== null) return null;
-    return (
-      <div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-none"
-        style={{ zIndex: 15 }}
-      >
-        <div
-          style={{
-            fontSize: 10, color: "rgba(200,180,255,0.35)", letterSpacing: "0.1em",
-            textTransform: "uppercase", display: "flex", alignItems: "center", gap: 6,
-          }}
-        >
-          <span style={{ width: 24, height: 1, background: "rgba(200,180,255,0.2)", display: "inline-block" }} />
-          Click any node to explore
-          <span style={{ width: 24, height: 1, background: "rgba(200,180,255,0.2)", display: "inline-block" }} />
-        </div>
-      </div>
-    );
-  };
 
   return (
     <div
@@ -1232,9 +1011,7 @@ export function AINetworkGraph() {
         className="ai-network-overlay absolute inset-0"
         style={{ zIndex: 6, cursor: hoveredNode ? "pointer" : "default" }}
       />
-      {renderCard()}
       {renderTour()}
-      {renderHint()}
     </div>
   );
 }

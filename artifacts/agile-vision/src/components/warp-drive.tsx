@@ -1,9 +1,5 @@
 import { useEffect, useRef } from "react";
 
-// ─────────────────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────────────────
-
 export interface WarpTrigger { x: number; y: number; }
 
 interface WarpDriveProps {
@@ -12,31 +8,27 @@ interface WarpDriveProps {
 }
 
 // ─────────────────────────────────────────────────────────
-// Constants
+// Cinematic pulse — feature-film shockwave aesthetic.
+// Drawn with "screen" composite so rings ADD light to the
+// scene rather than sitting opaquely on top of content.
+// Background, hero text, and nodes remain fully readable.
 // ─────────────────────────────────────────────────────────
 
-const DURATION = 1700; // ms
+const DURATION = 2100; // ms — slow, stately wave
 
-// Per ring: birth and life are fractions of DURATION.
-// Outer rings live longer so they don't vanish while still large.
+// Per ring config.  maxR is a fraction of the viewport diagonal.
+// coreW = core stroke width (px).  glowW = soft halo width (px).
 const RINGS = [
-  { birth: 0.00, life: 0.70, maxR: 0.54, h: 250, s: 92, l: 70, lw: 7.0 },
-  { birth: 0.06, life: 0.66, maxR: 0.44, h: 255, s: 88, l: 82, lw: 4.5 },
-  { birth: 0.13, life: 0.70, maxR: 0.64, h: 222, s: 86, l: 70, lw: 5.5 },
-  { birth: 0.21, life: 0.72, maxR: 0.74, h:  45, s: 92, l: 72, lw: 4.5 },
-  { birth: 0.31, life: 0.70, maxR: 0.80, h: 265, s: 84, l: 73, lw: 3.8 },
-  { birth: 0.42, life: 0.66, maxR: 0.70, h: 200, s: 78, l: 73, lw: 3.2 },
-  { birth: 0.55, life: 0.62, maxR: 0.60, h: 250, s: 76, l: 70, lw: 2.6 },
+  { birth: 0.00, life: 0.84, maxR: 0.60, h: 255, s: 55, l: 93, coreW: 1.8, glowW: 30 },
+  { birth: 0.09, life: 0.82, maxR: 0.72, h: 250, s: 48, l: 95, coreW: 1.5, glowW: 26 },
+  { birth: 0.20, life: 0.80, maxR: 0.81, h: 220, s: 52, l: 91, coreW: 1.2, glowW: 22 },
+  { birth: 0.34, life: 0.78, maxR: 0.88, h: 260, s: 42, l: 93, coreW: 1.0, glowW: 18 },
+  { birth: 0.50, life: 0.74, maxR: 0.78, h: 250, s: 38, l: 95, coreW: 0.8, glowW: 15 },
 ] as const;
 
-// ─────────────────────────────────────────────────────────
-// Easing
-// ─────────────────────────────────────────────────────────
-
-// Fast burst that decelerates — perfect for wave expansion
-const easeOutExpo  = (t: number) => t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
-const easeInCubic  = (t: number) => t * t * t;
-const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+// Slow deceleration — rings expand fast then drift to a halt
+const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
+const easeInQuad   = (t: number) => t * t;
 
 function clamp(v: number, lo: number, hi: number) {
   return Math.min(hi, Math.max(lo, v));
@@ -45,15 +37,12 @@ function phase(t: number, a: number, b: number) {
   return clamp((t - a) / (b - a), 0, 1);
 }
 
-// Ring alpha: holds near full brightness for the first 40% of its life,
-// then falls off with a cubic curve so the disappearance feels crisp.
+// Alpha: quick fade-in over first 16% of life, full plateau until 52%, smooth decay.
 function ringAlpha(age: number): number {
-  return age < 0.40 ? 1.0 : 1 - easeInCubic((age - 0.40) / 0.60);
+  if (age < 0.16) return age / 0.16;
+  if (age < 0.52) return 1.0;
+  return 1 - easeInQuad((age - 0.52) / 0.48);
 }
-
-// ─────────────────────────────────────────────────────────
-// Component
-// ─────────────────────────────────────────────────────────
 
 export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
   const canvasRef     = useRef<HTMLCanvasElement>(null);
@@ -63,7 +52,6 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
   useEffect(() => {
     if (!trigger) return;
 
-    // Reduced-motion: skip animation entirely
     if (
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -92,62 +80,56 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
 
     const draw = (now: number) => {
       const t = clamp((now - startTime) / DURATION, 0, 1);
+
+      // Clear to fully transparent — "screen" composite will add light
+      // on top of whatever is rendered behind this canvas element.
       ctx.clearRect(0, 0, W, H);
+      ctx.globalCompositeOperation = "screen";
 
-      // ── Origin bloom ─────────────────────────────────────
-      // A vivid radial burst at the click point that lingers briefly
-      // before fading, giving the rings a clear source to emanate from.
-      const bloomAge  = phase(t, 0, 0.58);
-      const bloomFade = bloomAge < 0.42
-        ? 1.0
-        : 1 - easeOutCubic((bloomAge - 0.42) / 0.58);
-      const bloomR = easeOutCubic(Math.min(bloomAge / 0.30, 1)) * 88;
+      // ── Origin spark ────────────────────────────────────
+      // A tight radial glow at the click point — appears briefly,
+      // fades before the first ring has expanded far.
+      const sparkP = phase(t, 0, 0.28);
+      const sparkA = sparkP < 0.5
+        ? sparkP / 0.5
+        : 1 - (sparkP - 0.5) / 0.5;
 
-      if (bloomR > 0.5 && bloomFade > 0.02) {
-        const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, bloomR);
-        bg.addColorStop(0,    `rgba(255,255,255,${bloomFade * 0.96})`);
-        bg.addColorStop(0.18, `rgba(235,215,255,${bloomFade * 0.72})`);
-        bg.addColorStop(0.52, `rgba(160,110,255,${bloomFade * 0.36})`);
-        bg.addColorStop(1,    "rgba(130,80,255,0)");
-        ctx.fillStyle = bg;
+      if (sparkA > 0.02) {
+        const sg = ctx.createRadialGradient(cx, cy, 0, cx, cy, 48);
+        sg.addColorStop(0,    `rgba(255,255,255,${sparkA * 0.65})`);
+        sg.addColorStop(0.35, `rgba(210,200,255,${sparkA * 0.24})`);
+        sg.addColorStop(1,    "rgba(160,140,255,0)");
+        ctx.fillStyle = sg;
         ctx.beginPath();
-        ctx.arc(cx, cy, bloomR, 0, Math.PI * 2);
+        ctx.arc(cx, cy, 48, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // ── Concentric rings ─────────────────────────────────
-      ctx.save();
+      // ── Rings ─────────────────────────────────────────
       for (const ring of RINGS) {
         if (t < ring.birth) continue;
-
-        // age 0 → 1 within this ring's own lifespan
         const age  = phase(t, ring.birth, ring.birth + ring.life);
-        const r    = easeOutExpo(age) * diag * ring.maxR;
-        const alph = ringAlpha(age) * 0.92;
-        if (alph < 0.018 || r < 1) continue;
+        const r    = easeOutQuart(age) * diag * ring.maxR;
+        const a    = ringAlpha(age);
+        if (a < 0.014 || r < 1) continue;
 
-        // Wide diffuse glow (blurred halo behind the ring)
+        // Diffuse halo — very soft and wide, barely-there purple tint
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `hsla(${ring.h},${ring.s}%,${ring.l}%,${alph * 0.30})`;
-        ctx.lineWidth   = ring.lw * (2.4 + age * 3.2);
+        ctx.strokeStyle = `hsla(${ring.h},${ring.s}%,${ring.l}%,${a * 0.13})`;
+        ctx.lineWidth   = ring.glowW;
         ctx.stroke();
 
-        // Core ring — sharper, fully saturated
+        // Core ring — thin, sharp white line
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `hsla(${ring.h},${ring.s}%,${Math.min(ring.l + 14, 94)}%,${alph})`;
-        ctx.lineWidth   = ring.lw * 0.72;
-        ctx.stroke();
-
-        // Bright leading edge
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255,255,255,${alph * 0.54})`;
-        ctx.lineWidth   = ring.lw * 0.26;
+        ctx.strokeStyle = `rgba(255,255,255,${a * 0.44})`;
+        ctx.lineWidth   = ring.coreW;
         ctx.stroke();
       }
-      ctx.restore();
+
+      // Restore for next clear
+      ctx.globalCompositeOperation = "source-over";
 
       if (t < 1) {
         rafId = requestAnimationFrame(draw);
