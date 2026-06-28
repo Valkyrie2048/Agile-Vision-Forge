@@ -138,33 +138,6 @@ function AnimatedCounter({ value, suffix = "", prefix = "", duration = 2 }: { va
   );
 }
 
-function CyclingWords({ words }: { words: string[] }) {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((i) => (i + 1) % words.length);
-    }, 2600);
-    return () => clearInterval(timer);
-  }, [words.length]);
-
-  return (
-    <span className="relative inline-block overflow-hidden h-[1.1em] align-bottom w-full">
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={words[index]}
-          className="gradient-text block"
-          initial={{ y: "100%", opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: "-100%", opacity: 0 }}
-          transition={{ duration: 0.45, ease: [0.33, 1, 0.68, 1] }}
-        >
-          {words[index]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
-  );
-}
 
 function ScrollProgressBar() {
   const { scrollYProgress } = useScroll();
@@ -336,10 +309,11 @@ function HeroSection() {
           className="font-serif text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] mb-6 text-white"
           data-testid="text-hero-title"
         >
-          <BlurReveal delay={0.2}>
-            <span className="block">We Build</span>
-          </BlurReveal>
-          <CyclingWords words={["AI Chatbots", "Automation", "Agentic AI", "Smart Apps", "the Future"]} />
+          <TextReveal delay={0.2}>We Build the</TextReveal>
+          <br />
+          <span className="gradient-text shimmer-text">
+            <TextReveal delay={0.35}>Future with AI</TextReveal>
+          </span>
         </h1>
 
         <BlurReveal delay={0.5}>
