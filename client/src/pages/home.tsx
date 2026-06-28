@@ -163,8 +163,55 @@ function HeroSection() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.95]);
 
+  // Mouse tracking — offset from center for orb parallax
+  const rawMouseX = useMotionValue(0);
+  const rawMouseY = useMotionValue(0);
+  const mouseX = useSpring(rawMouseX, { stiffness: 60, damping: 20 });
+  const mouseY = useSpring(rawMouseY, { stiffness: 60, damping: 20 });
+
+  // Cursor glow — absolute position within section
+  const rawGlowX = useMotionValue(-9999);
+  const rawGlowY = useMotionValue(-9999);
+  const glowX = useSpring(rawGlowX, { stiffness: 120, damping: 25 });
+  const glowY = useSpring(rawGlowY, { stiffness: 120, damping: 25 });
+  const glowLeft = useTransform(glowX, (v) => v - 200);
+  const glowTop = useTransform(glowY, (v) => v - 200);
+
+  // Per-orb parallax at different depths
+  const orb1X = useTransform(mouseX, (v) => v * 0.04);
+  const orb1Y = useTransform(mouseY, (v) => v * 0.04);
+  const orb2X = useTransform(mouseX, (v) => v * -0.06);
+  const orb2Y = useTransform(mouseY, (v) => v * -0.06);
+  const orb3X = useTransform(mouseX, (v) => v * 0.08);
+  const orb3Y = useTransform(mouseY, (v) => v * -0.03);
+  const orb4X = useTransform(mouseX, (v) => v * -0.03);
+  const orb4Y = useTransform(mouseY, (v) => v * 0.09);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    rawMouseX.set(e.clientX - cx);
+    rawMouseY.set(e.clientY - cy);
+    rawGlowX.set(e.clientX - rect.left);
+    rawGlowY.set(e.clientY - rect.top);
+  };
+
+  const handleMouseLeave = () => {
+    rawMouseX.set(0);
+    rawMouseY.set(0);
+    rawGlowX.set(-9999);
+    rawGlowY.set(-9999);
+  };
+
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       <style>{`
         @keyframes float1 {
           0%, 100% { transform: translate(0, 0) scale(1); }
@@ -214,22 +261,34 @@ function HeroSection() {
         }}
       />
 
-      <div
-        className="absolute top-[10%] left-[15%] w-[400px] h-[400px] rounded-full opacity-40 blur-[100px] pointer-events-none"
-        style={{ background: "hsl(250 85% 60%)", animation: "float1 20s ease-in-out infinite" }}
+      {/* Cursor glow spot — follows mouse */}
+      <motion.div
+        className="absolute w-[400px] h-[400px] rounded-full pointer-events-none"
+        style={{
+          left: glowLeft,
+          top: glowTop,
+          background: "radial-gradient(circle, hsla(250,85%,65%,0.15) 0%, transparent 70%)",
+          filter: "blur(24px)",
+        }}
       />
-      <div
-        className="absolute top-[60%] right-[10%] w-[350px] h-[350px] rounded-full opacity-30 blur-[100px] pointer-events-none"
-        style={{ background: "hsl(280 80% 55%)", animation: "float2 25s ease-in-out infinite" }}
-      />
-      <div
-        className="absolute bottom-[20%] left-[40%] w-[300px] h-[300px] rounded-full opacity-25 blur-[120px] pointer-events-none"
-        style={{ background: "hsl(220 90% 55%)", animation: "float3 18s ease-in-out infinite" }}
-      />
-      <div
-        className="absolute top-[30%] right-[35%] w-[200px] h-[200px] rounded-full opacity-20 blur-[80px] pointer-events-none"
-        style={{ background: "hsl(300 70% 50%)", animation: "float4 22s ease-in-out infinite" }}
-      />
+
+      {/* Mouse-reactive orbs — outer div handles CSS float, inner motion handles mouse offset */}
+      <motion.div className="absolute top-[10%] left-[15%] pointer-events-none" style={{ x: orb1X, y: orb1Y }}>
+        <div className="w-[400px] h-[400px] rounded-full opacity-40 blur-[100px]"
+          style={{ background: "hsl(250 85% 60%)", animation: "float1 20s ease-in-out infinite" }} />
+      </motion.div>
+      <motion.div className="absolute top-[60%] right-[10%] pointer-events-none" style={{ x: orb2X, y: orb2Y }}>
+        <div className="w-[350px] h-[350px] rounded-full opacity-30 blur-[100px]"
+          style={{ background: "hsl(280 80% 55%)", animation: "float2 25s ease-in-out infinite" }} />
+      </motion.div>
+      <motion.div className="absolute bottom-[20%] left-[40%] pointer-events-none" style={{ x: orb3X, y: orb3Y }}>
+        <div className="w-[300px] h-[300px] rounded-full opacity-25 blur-[120px]"
+          style={{ background: "hsl(220 90% 55%)", animation: "float3 18s ease-in-out infinite" }} />
+      </motion.div>
+      <motion.div className="absolute top-[30%] right-[35%] pointer-events-none" style={{ x: orb4X, y: orb4Y }}>
+        <div className="w-[200px] h-[200px] rounded-full opacity-20 blur-[80px]"
+          style={{ background: "hsl(300 70% 50%)", animation: "float4 22s ease-in-out infinite" }} />
+      </motion.div>
 
       <div className="absolute inset-0 bg-black/40 pointer-events-none" />
       <div className="absolute inset-0 grid-pattern opacity-10 pointer-events-none" />
