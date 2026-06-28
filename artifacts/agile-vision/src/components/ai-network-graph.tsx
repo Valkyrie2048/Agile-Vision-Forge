@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // ─────────────────────────────────────────────────────────
 // Types
@@ -180,6 +180,45 @@ function isConnected(a: number, b: number) {
   return CONNECTED_SET.has(`${a}-${b}`);
 }
 
+// ─────────────────────────────────────────────────────────
+// Tour steps
+// ─────────────────────────────────────────────────────────
+
+interface TourStep {
+  title: string;
+  description: string;
+  path: string[];
+}
+
+const TOUR_STEPS: TourStep[] = [
+  {
+    title: "RAG: Retrieval-Augmented Generation",
+    description: "A user request arrives at GPT-4o, which queries the Vector DB for relevant context, then returns a structured API Response in milliseconds.",
+    path: ["gpt4o", "vectordb", "apiresponse"],
+  },
+  {
+    title: "Semantic Memory Pipeline",
+    description: "The Embedder converts raw text into dense vectors and stores them in the Vector DB, which syncs to File Store for long-term persistence.",
+    path: ["embedder", "vectordb", "filestore"],
+  },
+  {
+    title: "Autonomous Agent Loop",
+    description: "Claude 3.5 orchestrates a Planner that decomposes complex tasks, routes them through an Evaluator for quality scoring, then surfaces insights on the Dashboard.",
+    path: ["claude", "planner", "evaluator", "dashboard"],
+  },
+  {
+    title: "Real-Time Event Pipeline",
+    description: "Mistral generates and executes code at high speed inside a safe sandbox, producing an API Response that triggers downstream Webhooks instantly.",
+    path: ["mistral", "codeexec", "apiresponse", "webhook"],
+  },
+];
+
+// Node-reveal timing per step (ms per node + hold after all revealed)
+const TOUR_NODE_REVEAL_MS = 480;
+const TOUR_HOLD_MS = 2000;
+const TOUR_START_IDLE_MS = 5000;
+const TOUR_STORAGE_KEY = "agile-vision-tour-seen";
+
 const TYPE_COLOR: Record<NodeType, { h: number; s: number; l: number }> = {
   model:  { h: 252, s: 85, l: 67 },
   tool:   { h: 214, s: 88, l: 66 },
@@ -245,10 +284,35 @@ export function AINetworkGraph() {
   const activeIdxRef = useRef<number | null>(null);
   const frameRef = useRef(0);
 
+  // Tour refs (read inside the draw loop, must be refs not state)
+  const tourNodesRef = useRef<Set<number>>(new Set());   // indices of currently lit tour nodes
+  const tourEdgesRef = useRef<Set<string>>(new Set());   // "a-b" strings for lit tour edges
+  const tourActiveRef = useRef(false);
+  const tourTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+
   // React state for hover card only
   const [hoveredNode, setHoveredNode] = useState<{ node: SimNode; sx: number; sy: number } | null>(null);
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const [animatedMetrics, setAnimatedMetrics] = useState<{ latency: string; throughput: string; accuracy: string } | null>(null);
+
+  // Tour UI state
+  const [tourStep, setTourStep] = useState<number | null>(null);          // null = not started/done
+  const [tourRevealCount, setTourRevealCount] = useState(0);              // how many nodes revealed so far
+
+  const dismissTour = useCallback(() => {
+    // Clear all pending timers
+    tourTimersRef.current.forEach(clearTimeout);
+    tourTimersRef.current = [];
+    // Clear draw-loop refs
+    tourNodesRef.current = new Set();
+    tourEdgesRef.current = new Set();
+    tourActiveRef.current = false;
+    // Clear React state
+    setTourStep(null);
+    setTourRevealCount(0);
+    // Remember we've seen it
+    try { localStorage.setItem(TOUR_STORAGE_KEY, "1"); } catch { /* ignore */ }
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -435,9 +499,16 @@ export function AINetworkGraph() {
       const hovered = hoveredIdxRef.current;
       const pulses = pulsesRef.current;
       const ripples = ripplesRef.current;
+      const tourNodes = tourNodesRef.current;
+      const tourEdges = tourEdgesRef.current;
+      const isTour = tourActiveRef.current;
 
       // Helper: node opacity
       const nodeAlpha = (i: number) => {
+        if (isTour) {
+          if (tourNodes.has(i)) return 1;
+          return 0.07;
+        }
         if (active === null) return 1;
         if (i === active) return 1;
         if (isConnected(i, active)) return 0.85;
@@ -445,6 +516,10 @@ export function AINetworkGraph() {
       };
 
       const edgeAlpha = (a: number, b: number) => {
+        if (isTour) {
+          if (tourEdges.has(`${a}-${b}`) || tourEdges.has(`${b}-${a}`)) return 0.75;
+          return 0.04;
+        }
         if (active === null) return 0.22;
         if (a === active || b === active) return 0.7;
         return 0.04;
@@ -462,7 +537,9 @@ export function AINetworkGraph() {
         ctx.moveTo(na.x, na.y);
         ctx.lineTo(nb.x, nb.y);
         ctx.strokeStyle = grad;
-        ctx.lineWidth = active !== null && (a === active || b === active) ? 1.5 : 0.8;
+        ctx.lineWidth = active !== null && (a === active || b === active) ? 1.5
+          : (isTour && (tourEdges.has(`${a}-${b}`) || tourEdges.has(`${b}-${a}`))) ? 2
+          : 0.8;
         ctx.stroke();
       }
 
@@ -501,8 +578,9 @@ export function AINetworkGraph() {
         if (alpha < 0.1) continue;
         const isHov = i === hovered;
         const isAct = i === active;
-        const glowR = isAct ? 56 : isHov ? 46 : 34;
-        const coreAlpha = isAct ? 0.35 : isHov ? 0.28 : 0.14;
+        const isTourNode = isTour && tourNodes.has(i);
+        const glowR = isAct || isTourNode ? 56 : isHov ? 46 : 34;
+        const coreAlpha = isAct || isTourNode ? 0.35 : isHov ? 0.28 : 0.14;
         const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR);
         g.addColorStop(0, nodeColor(n.type, coreAlpha * alpha));
         g.addColorStop(1, nodeColor(n.type, 0));
@@ -519,15 +597,16 @@ export function AINetworkGraph() {
         if (alpha < 0.05) continue;
         const isHov = i === hovered;
         const isAct = i === active;
-        const r = isHov || isAct ? NODE_RADIUS + 3 : NODE_RADIUS;
+        const isTourNode = isTour && tourNodes.has(i);
+        const r = isHov || isAct || isTourNode ? NODE_RADIUS + 3 : NODE_RADIUS;
         const c = TYPE_COLOR[n.type];
 
-        // Border ring (active/hovered)
-        if (isAct || isHov) {
+        // Border ring (active/hovered/tour)
+        if (isAct || isHov || isTourNode) {
           ctx.beginPath();
           ctx.arc(n.x, n.y, r + 4, 0, Math.PI * 2);
-          ctx.strokeStyle = nodeColor(n.type, isAct ? 0.9 : 0.55);
-          ctx.lineWidth = isAct ? 2 : 1.2;
+          ctx.strokeStyle = nodeColor(n.type, isAct || isTourNode ? 0.9 : 0.55);
+          ctx.lineWidth = isAct || isTourNode ? 2 : 1.2;
           ctx.stroke();
         }
 
@@ -585,6 +664,18 @@ export function AINetworkGraph() {
         ctx.arc(n.x - NODE_RADIUS + 5, n.y - NODE_RADIUS + 5, 4, 0, Math.PI * 2);
         ctx.fillStyle = nodeColor(n.type, pulse);
         ctx.fill();
+      }
+
+      // ── 8. Tour node "live" dots (pulsing) ──
+      if (isTour) {
+        const pulse = Math.sin(frameRef.current * 0.06) * 0.4 + 0.6;
+        for (const idx of tourNodes) {
+          const n = nodes[idx];
+          ctx.beginPath();
+          ctx.arc(n.x - NODE_RADIUS + 5, n.y - NODE_RADIUS + 5, 4, 0, Math.PI * 2);
+          ctx.fillStyle = nodeColor(n.type, pulse);
+          ctx.fill();
+        }
       }
 
       animRef.current = requestAnimationFrame(draw);
@@ -671,6 +762,83 @@ export function AINetworkGraph() {
       overlay?.removeEventListener("click", onClick);
     };
   }, []);
+
+  // ── Tour orchestration ───────────────────────────────────
+  useEffect(() => {
+    // Check if already seen
+    try {
+      if (localStorage.getItem(TOUR_STORAGE_KEY)) return;
+    } catch { /* ignore */ }
+
+    const scheduleStep = (stepIdx: number) => {
+      if (stepIdx >= TOUR_STEPS.length) {
+        // Tour complete
+        const t = setTimeout(() => dismissTour(), 600);
+        tourTimersRef.current.push(t);
+        return;
+      }
+
+      const step = TOUR_STEPS[stepIdx];
+      const pathIndices = step.path.map(id => IDX[id]).filter(i => i !== undefined);
+
+      // Reset highlights for new step
+      tourNodesRef.current = new Set();
+      tourEdgesRef.current = new Set();
+      tourActiveRef.current = true;
+      setTourStep(stepIdx);
+      setTourRevealCount(0);
+
+      // Reveal each node in the path one at a time
+      pathIndices.forEach((nodeIdx, i) => {
+        const t = setTimeout(() => {
+          tourNodesRef.current = new Set([...tourNodesRef.current, nodeIdx]);
+
+          // Add edge from previous node if applicable
+          if (i > 0) {
+            const prevIdx = pathIndices[i - 1];
+            tourEdgesRef.current = new Set([
+              ...tourEdgesRef.current,
+              `${prevIdx}-${nodeIdx}`,
+              `${nodeIdx}-${prevIdx}`,
+            ]);
+          }
+          setTourRevealCount(i + 1);
+
+          // Spawn a ripple on this node
+          const nodes = nodesRef.current;
+          if (nodes[nodeIdx]) {
+            const n = nodes[nodeIdx];
+            const col = TYPE_COLOR[n.type];
+            ripplesRef.current.push({
+              x: n.x, y: n.y,
+              radius: NODE_RADIUS + 4,
+              maxRadius: 80,
+              alpha: 0.7,
+              color: `hsla(${col.h},${col.s}%,${col.l}%,1)`,
+            });
+          }
+        }, i * TOUR_NODE_REVEAL_MS);
+        tourTimersRef.current.push(t);
+      });
+
+      // After all nodes revealed + hold, advance to next step
+      const advanceDelay = pathIndices.length * TOUR_NODE_REVEAL_MS + TOUR_HOLD_MS;
+      const advanceTimer = setTimeout(() => {
+        scheduleStep(stepIdx + 1);
+      }, advanceDelay);
+      tourTimersRef.current.push(advanceTimer);
+    };
+
+    const startTimer = setTimeout(() => {
+      scheduleStep(0);
+    }, TOUR_START_IDLE_MS);
+    tourTimersRef.current.push(startTimer);
+
+    return () => {
+      tourTimersRef.current.forEach(clearTimeout);
+      tourTimersRef.current = [];
+    };
+  }, [dismissTour]);
 
   // ── Metric count-up animation ───────────────────────────
   useEffect(() => {
@@ -803,9 +971,164 @@ export function AINetworkGraph() {
     );
   };
 
-  // "Click to explore" hint — only show if nothing is active
+  // ── Tour UI overlay ──────────────────────────────────────
+  const renderTour = () => {
+    if (tourStep === null) return null;
+    const step = TOUR_STEPS[tourStep];
+    const pathLen = step.path.length;
+
+    // Build the path label with arrows
+    const pathLabels = step.path.map(id => NODE_DEFS[IDX[id]]?.label ?? id);
+
+    return (
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          bottom: 72,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "min(480px, calc(100% - 32px))",
+          zIndex: 40,
+          filter: "drop-shadow(0 12px 40px rgba(0,0,0,0.6))",
+          animation: "tourFadeIn 0.4s ease-out",
+        }}
+      >
+        <div
+          style={{
+            background: "rgba(8,5,22,0.93)",
+            backdropFilter: "blur(20px)",
+            border: "1px solid rgba(160,120,255,0.25)",
+            borderRadius: 16,
+            overflow: "hidden",
+          }}
+        >
+          {/* Progress bar */}
+          <div style={{ height: 2, background: "rgba(255,255,255,0.06)" }}>
+            <div
+              style={{
+                height: "100%",
+                background: "linear-gradient(90deg, #8b5cf6, #60a5fa)",
+                width: `${((tourStep + tourRevealCount / pathLen) / TOUR_STEPS.length) * 100}%`,
+                transition: "width 0.4s ease",
+              }}
+            />
+          </div>
+
+          <div style={{ padding: "16px 18px 14px" }}>
+            {/* Step counter + title */}
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 8 }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
+                  <span style={{
+                    fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em",
+                    color: "rgba(160,130,255,0.7)", background: "rgba(140,92,246,0.15)",
+                    border: "1px solid rgba(140,92,246,0.3)", borderRadius: 4, padding: "1px 7px",
+                  }}>
+                    {tourStep + 1} / {TOUR_STEPS.length}
+                  </span>
+                  <span style={{ fontSize: 9, color: "rgba(200,190,240,0.4)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    Data flow
+                  </span>
+                </div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "#f0ecff", lineHeight: 1.3, marginBottom: 6 }}>
+                  {step.title}
+                </div>
+              </div>
+            </div>
+
+            {/* Path visualization */}
+            <div style={{
+              display: "flex", alignItems: "center",
+              marginBottom: 10, flexWrap: "wrap", gap: 4,
+            }}>
+              {pathLabels.map((label, i) => {
+                const nodeIdx = IDX[step.path[i]];
+                const nodeType = NODE_DEFS[nodeIdx]?.type ?? "model";
+                const revealed = i < tourRevealCount;
+                return (
+                  <div key={label} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                    {i > 0 && (
+                      <svg width="14" height="10" viewBox="0 0 14 10" style={{ opacity: revealed ? 0.7 : 0.2, transition: "opacity 0.3s" }}>
+                        <path d="M0 5h10M8 2l4 3-4 3" stroke="rgba(200,180,255,0.6)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                    <span style={{
+                      fontSize: 10, fontWeight: 600, padding: "2px 8px", borderRadius: 6,
+                      background: revealed ? TYPE_BADGE_BG[nodeType] : "rgba(255,255,255,0.04)",
+                      border: `1px solid ${revealed ? TYPE_BADGE_BORDER[nodeType] : "rgba(255,255,255,0.08)"}`,
+                      color: revealed ? TYPE_TEXT[nodeType] : "rgba(200,190,240,0.3)",
+                      transition: "all 0.35s ease",
+                      boxShadow: revealed ? `0 0 12px ${TYPE_BADGE_BORDER[nodeType]}` : "none",
+                    }}>
+                      {label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Description */}
+            <div style={{ fontSize: 11, color: "rgba(200,190,240,0.6)", lineHeight: 1.55, marginBottom: 12 }}>
+              {step.description}
+            </div>
+
+            {/* Step dots + skip */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", gap: 5 }}>
+                {TOUR_STEPS.map((_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      width: i === tourStep ? 18 : 6,
+                      height: 6,
+                      borderRadius: 3,
+                      background: i === tourStep
+                        ? "linear-gradient(90deg,#8b5cf6,#60a5fa)"
+                        : i < tourStep ? "rgba(140,92,246,0.45)" : "rgba(255,255,255,0.12)",
+                      transition: "all 0.3s ease",
+                    }}
+                  />
+                ))}
+              </div>
+              {/* Skip button — needs pointer-events */}
+              <button
+                onClick={dismissTour}
+                style={{
+                  pointerEvents: "all",
+                  background: "transparent",
+                  border: "1px solid rgba(200,180,255,0.2)",
+                  borderRadius: 6,
+                  padding: "4px 12px",
+                  color: "rgba(200,180,255,0.5)",
+                  fontSize: 10,
+                  fontWeight: 600,
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLButtonElement).style.color = "rgba(200,180,255,0.9)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(200,180,255,0.45)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLButtonElement).style.color = "rgba(200,180,255,0.5)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(200,180,255,0.2)";
+                }}
+              >
+                Skip tour
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // "Click to explore" hint — only show if nothing is active and tour is not running
   const renderHint = () => {
     if (activeIdx !== null) return null;
+    if (tourStep !== null) return null;
     return (
       <div
         className="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-none"
@@ -831,6 +1154,12 @@ export function AINetworkGraph() {
       className="absolute inset-0"
       style={{ zIndex: 4 }}
     >
+      <style>{`
+        @keyframes tourFadeIn {
+          from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+          to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+      `}</style>
       <canvas
         ref={canvasRef}
         className="absolute inset-0 pointer-events-none"
@@ -842,6 +1171,7 @@ export function AINetworkGraph() {
         style={{ zIndex: 6, cursor: hoveredNode ? "pointer" : "default" }}
       />
       {renderCard()}
+      {renderTour()}
       {renderHint()}
     </div>
   );
