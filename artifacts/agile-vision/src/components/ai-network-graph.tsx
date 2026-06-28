@@ -524,7 +524,7 @@ export function AINetworkGraph() {
     const hitTest = (mx: number, my: number): number | null => {
       const nodes = nodesRef.current;
       let best: number | null = null;
-      let bestD = (NODE_RADIUS + 12) * (NODE_RADIUS + 12);
+      let bestD = (NODE_RADIUS + 20) * (NODE_RADIUS + 20);
       for (let i = 0; i < nodes.length; i++) {
         const dx = nodes[i].x - mx;
         const dy = nodes[i].y - my;
@@ -785,6 +785,9 @@ export function AINetworkGraph() {
         setActiveIdx(null);
         return;
       }
+
+      // Stop propagation so the hero click handler doesn't also fire the ripple
+      e.stopPropagation();
 
       if (hit === activeIdxRef.current) {
         activeIdxRef.current = null;
