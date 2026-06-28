@@ -138,6 +138,34 @@ function AnimatedCounter({ value, suffix = "", prefix = "", duration = 2 }: { va
   );
 }
 
+function CyclingWords({ words }: { words: string[] }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % words.length);
+    }, 2600);
+    return () => clearInterval(timer);
+  }, [words.length]);
+
+  return (
+    <span className="relative inline-block overflow-hidden h-[1.1em] align-bottom w-full">
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={words[index]}
+          className="gradient-text block"
+          initial={{ y: "100%", opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: "-100%", opacity: 0 }}
+          transition={{ duration: 0.45, ease: [0.33, 1, 0.68, 1] }}
+        >
+          {words[index]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
 function ScrollProgressBar() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
@@ -305,42 +333,54 @@ function HeroSection() {
         </BlurReveal>
 
         <h1
-          className="font-serif text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.1] mb-6 text-white"
+          className="font-serif text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] mb-6 text-white"
           data-testid="text-hero-title"
         >
-          <TextReveal delay={0.2}>We Build the</TextReveal>
-          <br />
-          <span className="gradient-text">
-            <TextReveal delay={0.35}>Future with AI</TextReveal>
-          </span>
+          <BlurReveal delay={0.2}>
+            <span className="block">We Build</span>
+          </BlurReveal>
+          <CyclingWords words={["AI Chatbots", "Automation", "Agentic AI", "Smart Apps", "the Future"]} />
         </h1>
 
         <BlurReveal delay={0.5}>
           <p
-            className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed"
+            className="text-lg sm:text-xl text-white/60 max-w-xl mx-auto mb-10 leading-relaxed"
             data-testid="text-hero-subtitle"
           >
-            Agile Vision is a technology studio that designs and builds AI-powered
-            products, agentic systems, and intelligent software for ambitious companies.
+            From idea to launch — AI products, agentic systems, and intelligent software for ambitious companies.
           </p>
         </BlurReveal>
 
-        <BlurReveal delay={0.7} className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <BlurReveal delay={0.7} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <MagneticButton>
             <Link href="/get-started">
-              <Button size="lg" data-testid="button-hero-get-started">
-                Get Started
+              <Button size="lg" className="px-8 shadow-lg shadow-primary/30" data-testid="button-hero-get-started">
+                Start a Project
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
           </MagneticButton>
           <MagneticButton>
-            <a href="#capabilities">
-              <Button size="lg" variant="outline" className="bg-white/5 backdrop-blur-sm border-white/20 text-white" data-testid="button-hero-see-work">
-                See Our Work
+            <Link href="/simulator">
+              <Button size="lg" variant="outline" className="bg-white/5 backdrop-blur-sm border-white/20 text-white hover:bg-white/10" data-testid="button-hero-simulator">
+                Try the AI Simulator
               </Button>
-            </a>
+            </Link>
           </MagneticButton>
+        </BlurReveal>
+
+        {/* Floating tech tags */}
+        <BlurReveal delay={0.9}>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {["GPT-4o", "Claude", "LangChain", "React", "Node.js", "Python", "Supabase", "Vercel"].map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 rounded-full text-xs font-medium bg-white/6 border border-white/10 text-white/50 backdrop-blur-sm"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         </BlurReveal>
 
       </motion.div>
