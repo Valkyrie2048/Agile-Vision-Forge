@@ -89,12 +89,12 @@ void main() {
 
   // ── Color palette ─────────────────────────────────────────
   // Brand: hsl(250 85% 60%) ≈ rgb(97,38,230)
-  vec3 DEEP   = vec3(0.05, 0.01, 0.15);   // very dark purple wall
-  vec3 BRAND  = vec3(0.38, 0.12, 0.84);   // brand purple
-  vec3 BRIGHT = vec3(0.62, 0.40, 0.97);   // lighter purple
-  vec3 WHITE  = vec3(0.94, 0.88, 1.00);   // near-white lavender
-  vec3 GOLD   = vec3(1.00, 0.86, 0.50);   // gold accent on leading edge
-  vec3 CYAN   = vec3(0.20, 0.80, 1.00);   // subtle cyan fringe
+  vec3 DEEP   = vec3(0.03, 0.01, 0.10);   // very dark purple wall
+  vec3 BRAND  = vec3(0.28, 0.16, 0.60);   // muted brand purple
+  vec3 BRIGHT = vec3(0.44, 0.34, 0.70);   // muted lighter purple
+  vec3 WHITE  = vec3(0.80, 0.76, 0.90);   // softer near-white
+  vec3 GOLD   = vec3(0.75, 0.65, 0.38);   // muted gold
+  vec3 CYAN   = vec3(0.15, 0.55, 0.75);   // muted cyan fringe
 
   // Base layer: tunnel wall (screens away on black background)
   vec3 col = DEEP * mask * 0.10;
