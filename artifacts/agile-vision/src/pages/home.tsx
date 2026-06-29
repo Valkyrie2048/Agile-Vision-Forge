@@ -799,85 +799,172 @@ function IndustriesSection() {
 }
 
 const projectTypes = [
-  { id: "mobile", label: "Mobile App", icon: Smartphone },
-  { id: "webapp", label: "Web App", icon: Globe },
-  { id: "chatbot", label: "AI Chatbot", icon: MessageSquare },
-  { id: "automation", label: "Automation", icon: Cog },
-  { id: "dataapp", label: "Analytics", icon: BarChart3 },
-  { id: "agentic", label: "Agentic AI", icon: BrainCircuit },
-  { id: "ecommerce", label: "E-Commerce", icon: ShoppingCart },
-  { id: "game", label: "Games", icon: Gamepad2 },
-  { id: "edtech", label: "EdTech", icon: GraduationCap },
+  {
+    id: "chatbot",
+    label: "AI Chatbot",
+    icon: MessageSquare,
+    tagline: "Conversations that convert",
+    description: "LLM-powered assistants that understand context, integrate with your systems, and resolve queries without a human in the loop.",
+    bullets: ["Multi-channel (web, Slack, WhatsApp)", "CRM & helpdesk integrations", "Conversation analytics"],
+  },
+  {
+    id: "agentic",
+    label: "Agentic AI",
+    icon: BrainCircuit,
+    tagline: "AI that reasons and acts",
+    description: "Multi-agent architectures that research, plan, and execute complex workflows autonomously — with human checkpoints where it matters.",
+    bullets: ["Tool use and web browsing", "Long-running memory systems", "Human-in-the-loop controls"],
+  },
+  {
+    id: "webapp",
+    label: "Web App",
+    icon: Globe,
+    tagline: "Platforms that scale",
+    description: "From MVP to enterprise-scale SaaS — real-time dashboards, AI-powered search, and the infrastructure to grow with you.",
+    bullets: ["React, Next.js, TypeScript", "Real-time collaboration", "AI search & recommendations"],
+  },
+  {
+    id: "mobile",
+    label: "Mobile App",
+    icon: Smartphone,
+    tagline: "Concept to App Store",
+    description: "Native-quality mobile apps with AI baked in from day one — on-device ML for instant results, cloud AI for complex tasks.",
+    bullets: ["React Native & Swift/Kotlin", "On-device ML for offline AI", "App Store launch strategy"],
+  },
+  {
+    id: "dataapp",
+    label: "Analytics",
+    icon: BarChart3,
+    tagline: "Data that decides for you",
+    description: "Predictive analytics, anomaly detection, and natural-language query interfaces that surface insight automatically.",
+    bullets: ["Forecasting & trend detection", "Natural language queries", "ETL pipelines & warehousing"],
+  },
+  {
+    id: "automation",
+    label: "Automation",
+    icon: Cog,
+    tagline: "Kill the busywork",
+    description: "End-to-end process automation combining RPA, AI decision-making, and deep system integrations to free your team.",
+    bullets: ["AI document processing", "API & webhook integration", "Error recovery & monitoring"],
+  },
+  {
+    id: "ecommerce",
+    label: "E-Commerce",
+    icon: ShoppingCart,
+    tagline: "Sell smarter",
+    description: "AI-personalised storefronts with dynamic pricing, real-time inventory, and recommendation engines that lift AOV.",
+    bullets: ["Personalised product feeds", "Dynamic pricing engine", "Cart abandonment recovery"],
+  },
+  {
+    id: "game",
+    label: "Games",
+    icon: Gamepad2,
+    tagline: "Play, powered by AI",
+    description: "Adaptive game experiences with AI-driven NPCs, procedural content, and real-time difficulty tuning that keeps players hooked.",
+    bullets: ["Procedural world generation", "AI-driven NPC behaviour", "Real-time difficulty scaling"],
+  },
+  {
+    id: "edtech",
+    label: "EdTech",
+    icon: GraduationCap,
+    tagline: "Learning that adapts",
+    description: "Adaptive learning platforms that personalise content, pace, and assessments to each learner in real time.",
+    bullets: ["Adaptive content delivery", "AI tutoring & feedback", "Progress analytics dashboard"],
+  },
 ];
 
 function GetStartedPreview() {
   const [selected, setSelected] = useState("chatbot");
+  const active = projectTypes.find(t => t.id === selected)!;
 
   return (
-    <section className="py-24" data-testid="section-get-started-preview">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-card" data-testid="section-get-started-preview">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <BlurReveal>
             <Badge variant="secondary" className="mb-4">
               <Sparkles className="w-3 h-3 mr-1" />
-              Start Your Project
+              Live Previews
             </Badge>
           </BlurReveal>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <TextReveal>What Will You Build?</TextReveal>
+            <TextReveal>See It Before You Build It</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Choose a project type and see what we can create for you.
+              Pick a product type and get a live preview of what we'd ship for you.
             </p>
           </BlurReveal>
         </div>
 
-        <BlurReveal delay={0.3} className="flex flex-col items-center gap-2 mb-8">
-          <div className="flex justify-center gap-2">
-            {projectTypes.slice(0, 5).map((type) => (
-              <Button
+        <BlurReveal delay={0.25}>
+          <div className="flex flex-wrap justify-center gap-2 mb-10">
+            {projectTypes.map((type) => (
+              <button
                 key={type.id}
-                variant={selected === type.id ? "default" : "outline"}
-                size="sm"
                 onClick={() => setSelected(type.id)}
                 data-testid={`preview-type-${type.id}`}
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium border transition-all duration-200 ${
+                  selected === type.id
+                    ? "bg-primary border-primary text-white shadow-lg shadow-primary/25"
+                    : "border-white/15 text-white/60 hover:border-white/30 hover:text-white/85 bg-white/[0.03]"
+                }`}
               >
-                <type.icon className="w-3.5 h-3.5 mr-1.5" />
+                <type.icon className="w-3.5 h-3.5" />
                 {type.label}
-              </Button>
-            ))}
-          </div>
-          <div className="flex justify-center gap-2">
-            {projectTypes.slice(5).map((type) => (
-              <Button
-                key={type.id}
-                variant={selected === type.id ? "default" : "outline"}
-                size="sm"
-                onClick={() => setSelected(type.id)}
-                data-testid={`preview-type-${type.id}`}
-              >
-                <type.icon className="w-3.5 h-3.5 mr-1.5" />
-                {type.label}
-              </Button>
+              </button>
             ))}
           </div>
         </BlurReveal>
 
-        <BlurReveal delay={0.4} className="w-full">
-          <DemoPreview projectType={selected} />
-        </BlurReveal>
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
+          {/* Left — context panel */}
+          <motion.div
+            key={selected + "-info"}
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="flex flex-col gap-6"
+          >
+            <div
+              className="w-12 h-12 rounded-xl flex items-center justify-center"
+              style={{ background: "hsl(250 85% 60% / 0.15)", border: "1px solid hsl(250 85% 60% / 0.3)" }}
+            >
+              <active.icon className="w-6 h-6 text-primary" />
+            </div>
 
-        <BlurReveal delay={0.5} className="text-center mt-10">
-          <MagneticButton className="inline-block">
-            <Link href="/get-started">
-              <Button size="lg" data-testid="button-preview-get-started">
-                Get Started
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-          </MagneticButton>
-        </BlurReveal>
+            <div>
+              <p className="text-sm font-semibold text-primary uppercase tracking-widest mb-1">{active.label}</p>
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-3 leading-snug">{active.tagline}</h3>
+              <p className="text-white/65 leading-relaxed">{active.description}</p>
+            </div>
+
+            <ul className="space-y-2.5">
+              {active.bullets.map((b, i) => (
+                <li key={i} className="flex items-center gap-2.5 text-sm text-white/70">
+                  <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+
+            <div className="pt-2">
+              <MagneticButton className="inline-block">
+                <Link href="/get-started">
+                  <Button size="lg" data-testid="button-preview-get-started">
+                    Build your {active.label}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </MagneticButton>
+            </div>
+          </motion.div>
+
+          {/* Right — live demo */}
+          <BlurReveal delay={0.1} className="w-full">
+            <DemoPreview projectType={selected} />
+          </BlurReveal>
+        </div>
       </div>
     </section>
   );
