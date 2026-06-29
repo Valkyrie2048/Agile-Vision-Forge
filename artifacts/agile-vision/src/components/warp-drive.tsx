@@ -282,6 +282,7 @@ export function WarpDrive({ trigger, onComplete }: WarpDriveProps) {
         width:         "100%",
         height:        "100%",
         zIndex:        45,
+        opacity:       0.88,
         pointerEvents: "none",
         mixBlendMode:  "screen",
       }}
