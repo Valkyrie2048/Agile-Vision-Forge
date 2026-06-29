@@ -765,15 +765,15 @@ function IndustriesSection() {
                     </div>
 
                     <div className="relative z-10">
-                      <div className="text-[11px] font-semibold uppercase tracking-widest mb-0.5" style={{ color: ind.accent }}>
+                      <div className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: ind.accent }}>
                         {ind.label}
                       </div>
-                      <h3 className="font-semibold text-white text-sm leading-snug mb-1.5">{ind.tagline}</h3>
-                      <p className="text-xs text-white/50 leading-relaxed">{ind.blurb}</p>
+                      <h3 className="font-semibold text-white text-base leading-snug mb-2">{ind.tagline}</h3>
+                      <p className="text-sm text-white/55 leading-relaxed">{ind.blurb}</p>
                     </div>
 
                     <div className="mt-auto pt-1 flex items-center gap-1 relative z-10">
-                      <span className="text-xs font-medium" style={{ color: ind.accent }}>See live demo</span>
+                      <span className="text-sm font-medium" style={{ color: ind.accent }}>See live demo</span>
                       <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1" style={{ color: ind.accent }} />
                     </div>
                   </div>
