@@ -46,6 +46,7 @@ const INTERACTIVE_SELECTOR = "a, button, input, textarea, select, label, [role='
 function AppContent() {
   const [location] = useLocation();
   const isBlogPage = location === "/blog" || location.startsWith("/blog/");
+  const isIndustriesPage = location === "/industries";
 
   const [warp, setWarp] = useState<WarpTrigger | null>(null);
 
@@ -73,7 +74,7 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
-      {!isBlogPage && <ParticleField />}
+      {!isBlogPage && !isIndustriesPage && <ParticleField />}
       <WarpDrive trigger={warp} onComplete={handleComplete} />
       <div
         className="min-h-screen flex flex-col relative z-[2]"
