@@ -738,8 +738,6 @@ export function AINetworkGraph() {
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
       const hit = hitTest(mx, my);
-      // Stop node clicks from bubbling to the hero ripple trigger
-      if (hit !== null) e.stopPropagation();
     };
 
     const overlay = wrapperRef.current?.querySelector<HTMLDivElement>(".ai-network-overlay");
