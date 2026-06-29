@@ -892,7 +892,7 @@ export default function Industries() {
               const Icon = ind.icon;
               return (
                 <button key={ind.id} onClick={() => scrollTo(i)}
-                  className={`flex items-center gap-2 px-5 py-4 text-base font-semibold whitespace-nowrap border-b-2 transition-colors shrink-0 ${
+                  className={`flex items-center gap-2 px-6 py-5 text-lg font-semibold whitespace-nowrap border-b-2 transition-colors shrink-0 ${
                     active === i
                       ? "border-primary text-white"
                       : "border-transparent text-white/60 hover:text-white/85"
@@ -907,7 +907,7 @@ export default function Industries() {
       </div>
 
       {/* Industry sections */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 pb-12 space-y-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-28 pb-12 space-y-24">
         {INDUSTRIES.map((ind, i) => {
           const Icon = ind.icon;
           const { Demo } = ind;
