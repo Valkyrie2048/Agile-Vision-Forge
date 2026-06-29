@@ -56,20 +56,23 @@ function RangeSlider({ label, value, min, max, onChange, unit = "" }: {
 // ── 1. Healthcare — Triage Prioritization ─────────────────────
 
 const PATIENT_POOL = [
-  { name: "Emma R.", condition: "Chest Pain", severity: 5, hr: 112, bp: "88/60", confidence: 94 },
-  { name: "James T.", condition: "Shortness of Breath", severity: 4, hr: 98, bp: "102/72", confidence: 87 },
-  { name: "Olivia M.", condition: "High Fever", severity: 3, hr: 104, bp: "118/76", confidence: 76 },
-  { name: "Noah K.", condition: "Abdominal Pain", severity: 3, hr: 88, bp: "124/80", confidence: 68 },
-  { name: "Ava S.", condition: "Laceration", severity: 2, hr: 78, bp: "120/78", confidence: 91 },
-  { name: "Liam B.", condition: "Migraine", severity: 2, hr: 72, bp: "116/74", confidence: 82 },
-  { name: "Sophia L.", condition: "Nausea/Vomiting", severity: 1, hr: 76, bp: "118/76", confidence: 59 },
-  { name: "Mason D.", condition: "Ankle Sprain", severity: 1, hr: 70, bp: "122/80", confidence: 73 },
-  { name: "Isabella W.", condition: "Cardiac Arrhythmia", severity: 5, hr: 138, bp: "82/52", confidence: 97 },
-  { name: "Ethan H.", condition: "Severe Headache", severity: 4, hr: 94, bp: "148/96", confidence: 81 },
-  { name: "Charlotte N.", condition: "Allergic Reaction", severity: 4, hr: 106, bp: "100/68", confidence: 89 },
-  { name: "Benjamin C.", condition: "Back Pain", severity: 2, hr: 74, bp: "126/82", confidence: 62 },
+  { name: "Emma R.",     condition: "Chest Pain",           severity: 5, hr: 112, bp: "88/60",   spo2: 94,  wait: 2,  confidence: 94 },
+  { name: "James T.",    condition: "Shortness of Breath",  severity: 4, hr: 98,  bp: "102/72",  spo2: 91,  wait: 7,  confidence: 87 },
+  { name: "Olivia M.",   condition: "High Fever 40.1°C",    severity: 3, hr: 104, bp: "118/76",  spo2: 97,  wait: 14, confidence: 76 },
+  { name: "Noah K.",     condition: "Abdominal Pain",       severity: 3, hr: 88,  bp: "124/80",  spo2: 98,  wait: 18, confidence: 68 },
+  { name: "Ava S.",      condition: "Deep Laceration",      severity: 2, hr: 78,  bp: "120/78",  spo2: 99,  wait: 23, confidence: 91 },
+  { name: "Liam B.",     condition: "Migraine w/ Aura",     severity: 2, hr: 72,  bp: "116/74",  spo2: 99,  wait: 31, confidence: 82 },
+  { name: "Sophia L.",   condition: "Nausea & Vomiting",    severity: 1, hr: 76,  bp: "118/76",  spo2: 98,  wait: 42, confidence: 59 },
+  { name: "Mason D.",    condition: "Ankle Sprain",         severity: 1, hr: 70,  bp: "122/80",  spo2: 99,  wait: 55, confidence: 73 },
+  { name: "Isabella W.", condition: "Cardiac Arrhythmia",   severity: 5, hr: 138, bp: "82/52",   spo2: 88,  wait: 1,  confidence: 97 },
+  { name: "Ethan H.",    condition: "Hypertensive Crisis",  severity: 4, hr: 94,  bp: "188/116", spo2: 96,  wait: 9,  confidence: 81 },
+  { name: "Charlotte N.","condition": "Anaphylaxis",        severity: 4, hr: 106, bp: "100/68",  spo2: 93,  wait: 4,  confidence: 89 },
+  { name: "Benjamin C.", condition: "Acute Back Pain",      severity: 2, hr: 74,  bp: "126/82",  spo2: 99,  wait: 37, confidence: 62 },
 ];
 
+const SEV_LABEL: Record<number, string> = {
+  5: "Critical", 4: "Urgent", 3: "Semi-urgent", 2: "Standard", 1: "Routine",
+};
 const SEV_COLOR: Record<number, string> = {
   5: "bg-red-500/20 border-red-500/40 text-red-400",
   4: "bg-orange-500/20 border-orange-500/40 text-orange-400",
@@ -77,10 +80,15 @@ const SEV_COLOR: Record<number, string> = {
   2: "bg-blue-500/20 border-blue-500/40 text-blue-400",
   1: "bg-white/10 border-white/20 text-white/70",
 };
+const SEV_BADGE: Record<number, string> = {
+  5: "bg-red-500 text-white", 4: "bg-orange-500 text-white",
+  3: "bg-yellow-500 text-black", 2: "bg-blue-500 text-white", 1: "bg-white/20 text-white",
+};
 
 function TriageDemo() {
   const [threshold, setThreshold] = useState(70);
   const [patients, setPatients] = useState(PATIENT_POOL.slice(0, 4).map((p, i) => ({ ...p, id: i })));
+  const [newest, setNewest] = useState<number>(3);
   const [key, setKey] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const countRef = useRef(4);
@@ -89,6 +97,7 @@ function TriageDemo() {
     timerRef.current = setInterval(() => {
       if (countRef.current >= PATIENT_POOL.length) { clearInterval(timerRef.current!); return; }
       const next = { ...PATIENT_POOL[countRef.current], id: countRef.current };
+      setNewest(next.id);
       countRef.current++;
       setPatients(prev => [...prev.slice(-7), next]);
     }, 1800);
@@ -99,6 +108,7 @@ function TriageDemo() {
   const reset = () => {
     clearInterval(timerRef.current!);
     countRef.current = 4;
+    setNewest(3);
     setPatients(PATIENT_POOL.slice(0, 4).map((p, i) => ({ ...p, id: i })));
     setKey(k => k + 1);
   };
@@ -107,15 +117,21 @@ function TriageDemo() {
     const aOk = a.confidence >= threshold, bOk = b.confidence >= threshold;
     if (aOk && !bOk) return -1;
     if (!aOk && bOk) return 1;
-    if (aOk && bOk) return b.severity - a.severity;
+    if (aOk && bOk) return b.severity - a.severity || a.wait - b.wait;
     return 0;
   });
 
   return (
-    <DemoCard title="AI Triage Queue" description="Drag the confidence threshold to re-rank incoming patients" onReset={reset}>
-      <div className="mb-4">
+    <DemoCard title="ED Triage Queue — St. Agile Medical Center" description="Adjust AI confidence threshold to control which patients the model auto-prioritizes" onReset={reset}>
+      <div className="mb-4 space-y-2">
         <RangeSlider label="AI Confidence Threshold" value={threshold} min={50} max={95}
           onChange={setThreshold} unit="%" />
+        <div className="flex items-center gap-2 text-[11px] text-white/50">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+          Above threshold: auto-prioritized by severity
+          <span className="w-2 h-2 rounded-full bg-white/20 inline-block ml-2" />
+          Below: held for manual review
+        </div>
       </div>
       <div className="space-y-1.5 max-h-64 overflow-y-auto pr-1">
         <AnimatePresence mode="popLayout">
@@ -123,13 +139,20 @@ function TriageDemo() {
             <motion.div key={p.id} layout
               initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 30 }}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg border text-xs ${SEV_COLOR[p.severity]}`}>
-              <span className="font-bold text-[10px] w-3 text-center">{p.severity}</span>
+              className={`flex items-center gap-2.5 px-3 py-2 rounded-lg border text-xs ${SEV_COLOR[p.severity]}`}>
+              <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold shrink-0 ${SEV_BADGE[p.severity]}`}>
+                {SEV_LABEL[p.severity]}
+              </span>
               <div className="flex-1 min-w-0">
-                <div className="font-semibold truncate">{p.name}</div>
-                <div className="opacity-70">{p.condition} · HR {p.hr} · BP {p.bp}</div>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-semibold">{p.name}</span>
+                  {p.id === newest && (
+                    <span className="text-[9px] bg-primary/30 text-primary px-1 rounded font-bold animate-pulse">NEW</span>
+                  )}
+                </div>
+                <div className="opacity-80 truncate">{p.condition} · HR {p.hr} · SpO₂ {p.spo2}% · {p.wait}m wait</div>
               </div>
-              <div className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${p.confidence >= threshold ? "bg-emerald-500/20 text-emerald-400" : "bg-white/5 text-white/30"}`}>
+              <div className={`text-[10px] px-1.5 py-0.5 rounded font-mono shrink-0 ${p.confidence >= threshold ? "bg-emerald-500/20 text-emerald-400" : "bg-white/5 text-white/30"}`}>
                 {p.confidence}%
               </div>
             </motion.div>
@@ -172,10 +195,23 @@ function detectAnomalies(data: number[], window = 20): number[] {
   }, []);
 }
 
+const BASE_PRICE = 142.50;
+
+function detectAnomaliesTyped(data: number[], window = 20): { idx: number; type: "spike" | "crash" }[] {
+  return data.reduce<{ idx: number; type: "spike" | "crash" }[]>((acc, val, i) => {
+    if (i < window) return acc;
+    const slice = data.slice(i - window, i);
+    const mean = slice.reduce((s, v) => s + v, 0) / slice.length;
+    const std = Math.sqrt(slice.reduce((s, v) => s + (v - mean) ** 2, 0) / slice.length);
+    if (Math.abs(val - mean) > 2.2 * std) acc.push({ idx: i, type: val > mean ? "spike" : "crash" });
+    return acc;
+  }, []);
+}
+
 function AnomalyChartDemo() {
   const W = 480, H = 160;
   const [prices, setPrices] = useState<number[]>(() => {
-    const arr: number[] = [100];
+    const arr: number[] = [BASE_PRICE];
     for (let i = 1; i < 40; i++) arr.push(+(arr[i - 1] + (Math.random() - 0.5) * 1.2).toFixed(2));
     return arr;
   });
@@ -194,7 +230,7 @@ function AnomalyChartDemo() {
   }, [running, key]);
 
   const reset = () => {
-    const arr: number[] = [100];
+    const arr: number[] = [BASE_PRICE];
     for (let i = 1; i < 40; i++) arr.push(+(arr[i - 1] + (Math.random() - 0.5) * 1.2).toFixed(2));
     lastRef.current = arr[arr.length - 1];
     setPrices(arr);
@@ -203,28 +239,38 @@ function AnomalyChartDemo() {
   };
 
   const inject = (dir: 1 | -1) => {
-    const spike = +(lastRef.current + dir * 6).toFixed(2);
+    const spike = +(lastRef.current + dir * 9).toFixed(2);
     lastRef.current = spike;
     setPrices(prev => [...prev.slice(-59), spike]);
   };
 
-  const anomalies = detectAnomalies(prices);
+  const anomalies = detectAnomaliesTyped(prices);
   const path = buildPath(prices, W, H);
   const latest = prices[prices.length - 1];
+  const change = latest - prices[0];
+  const changePct = (change / prices[0]) * 100;
 
   return (
-    <DemoCard title="Anomaly Detection" description="Live tick data — inject a spike or dip to watch the model react" onReset={reset}>
-      <div className="mb-3 flex gap-2">
-        <Button size="sm" variant="outline" onClick={() => inject(1)}
-          className="h-7 text-xs border-orange-500/40 text-orange-400 hover:bg-orange-500/10">
-          <Zap className="w-3 h-3 mr-1" /> Inject Spike
-        </Button>
-        <Button size="sm" variant="outline" onClick={() => inject(-1)}
-          className="h-7 text-xs border-blue-500/40 text-blue-400 hover:bg-blue-500/10">
-          <TrendingDown className="w-3 h-3 mr-1" /> Inject Dip
-        </Button>
-        <div className="ml-auto flex items-center gap-2">
-          <span className="text-xs font-mono text-white/85">${latest.toFixed(2)}</span>
+    <DemoCard title="Real-Time Fraud & Anomaly Monitor" description="Live equity tick stream — inject events to trigger the detection model" onReset={reset}>
+      <div className="mb-3 flex items-center gap-3">
+        <div className="flex-1">
+          <div className="flex items-baseline gap-2">
+            <span className="text-base font-bold text-white font-mono">${latest.toFixed(2)}</span>
+            <span className={`text-xs font-mono ${change >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+              {change >= 0 ? "+" : ""}{change.toFixed(2)} ({changePct.toFixed(2)}%)
+            </span>
+          </div>
+          <div className="text-[11px] text-white/50">AGVI · NASDAQ · Agile Vision Inc.</div>
+        </div>
+        <div className="flex gap-1.5">
+          <Button size="sm" variant="outline" onClick={() => inject(1)}
+            className="h-7 text-xs border-orange-500/40 text-orange-400 hover:bg-orange-500/10">
+            <Zap className="w-3 h-3 mr-1" /> Spike
+          </Button>
+          <Button size="sm" variant="outline" onClick={() => inject(-1)}
+            className="h-7 text-xs border-red-500/40 text-red-400 hover:bg-red-500/10">
+            <TrendingDown className="w-3 h-3 mr-1" /> Crash
+          </Button>
           <Button size="sm" variant="ghost" onClick={() => setRunning(r => !r)}
             className="h-7 w-7 p-0 text-white/70 hover:text-white">
             {running ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
@@ -242,23 +288,30 @@ function AnomalyChartDemo() {
           <path d={`${path} V${H - 16} L32,${H - 16} Z`} fill="url(#chartFill)" />
           <path d={path} fill="none" stroke="hsl(250 85% 60%)" strokeWidth="1.5" />
         </>}
-        {anomalies.map(i => {
-          const { x, y } = ptCoords(i, prices, W, H);
+        {anomalies.map(({ idx, type }) => {
+          const { x, y } = ptCoords(idx, prices, W, H);
+          const isSpike = type === "spike";
+          const color = isSpike ? "hsl(25 90% 55%)" : "hsl(0 80% 55%)";
+          const label = isSpike ? "Unusual Spike" : "Flash Crash";
           return (
-            <g key={i}>
-              <circle cx={x} cy={y} r={6} fill="hsl(0 80% 55%)" fillOpacity={0.25} stroke="hsl(0 80% 55%)" strokeWidth={1.5} />
-              <text x={x} y={y - 10} textAnchor="middle" fontSize={9} fill="hsl(0 80% 65%)">anomaly</text>
+            <g key={idx}>
+              <circle cx={x} cy={y} r={7} fill={color} fillOpacity={0.2} stroke={color} strokeWidth={1.5} />
+              <text x={Math.min(x, W - 52)} y={isSpike ? y - 11 : y + 19} textAnchor="middle" fontSize={9} fill={color} fontWeight="600">{label}</text>
             </g>
           );
         })}
         {anomalies.length === 0 && prices.length > 20 && (
-          <text x={W / 2} y={H - 4} textAnchor="middle" fontSize={9} fill="rgba(255,255,255,0.2)">no anomalies detected</text>
+          <text x={W / 2} y={H - 5} textAnchor="middle" fontSize={9} fill="rgba(255,255,255,0.2)">all signals within normal range</text>
         )}
       </svg>
       {anomalies.length > 0 && (
-        <div className="mt-2 flex items-center gap-1.5 text-xs text-red-400">
-          <AlertTriangle className="w-3 h-3" />
-          {anomalies.length} anomal{anomalies.length === 1 ? "y" : "ies"} flagged
+        <div className="mt-2 flex flex-wrap gap-2">
+          {anomalies.slice(-3).map(({ idx, type }) => (
+            <span key={idx} className={`flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border ${type === "spike" ? "border-orange-500/40 text-orange-400 bg-orange-500/10" : "border-red-500/40 text-red-400 bg-red-500/10"}`}>
+              <AlertTriangle className="w-2.5 h-2.5" />
+              {type === "spike" ? "Unusual Spike" : "Flash Crash"} detected
+            </span>
+          ))}
         </div>
       )}
     </DemoCard>
@@ -267,10 +320,13 @@ function AnomalyChartDemo() {
 
 // ── 3. Retail — Demand Forecast Sandbox ─────────────────────
 
-function heuristic(season: number, price: number, promo: number): number[] {
+const PRICE_MIN = 149, PRICE_MAX = 299;
+
+function heuristic(season: number, priceSlider: number, promo: number): number[] {
+  const unitPrice = PRICE_MIN + (priceSlider / 100) * (PRICE_MAX - PRICE_MIN);
   const base = 1200;
   const s = 1 + (season - 50) / 100 * 0.6;
-  const p = 1 - (price - 50) / 100 * 0.55;
+  const p = 1 - (priceSlider / 100) * 0.55;
   const pr = 1 + (promo / 100) * 0.45;
   return Array.from({ length: 8 }, (_, i) => {
     const wave = 1 + Math.sin(i * 0.9 + season / 25) * 0.08;
@@ -280,27 +336,31 @@ function heuristic(season: number, price: number, promo: number): number[] {
 
 function DemandForecastDemo() {
   const [season, setSeason] = useState(55);
-  const [price, setPrice] = useState(50);
+  const [priceSlider, setPriceSlider] = useState(30);
   const [promo, setPromo] = useState(30);
-  const W = 480, H = 140;
+  const W = 480, H = 130;
 
-  const forecast = heuristic(season, price, promo);
+  const unitPrice = Math.round(PRICE_MIN + (priceSlider / 100) * (PRICE_MAX - PRICE_MIN));
+  const campaignBudget = Math.round(promo * 120);
+  const forecast = heuristic(season, priceSlider, promo);
   const maxVal = Math.max(...forecast);
+  const totalUnits = forecast.reduce((s, v) => s + v, 0);
+  const totalRevenue = totalUnits * unitPrice;
   const barW = (W - 40) / forecast.length - 6;
-  const weeks = ["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8"];
+  const weeks = ["Wk 1", "Wk 2", "Wk 3", "Wk 4", "Wk 5", "Wk 6", "Wk 7", "Wk 8"];
 
   return (
-    <DemoCard title="Demand Forecast Sandbox" description="Adjust variables — chart updates instantly">
-      <div className="space-y-3 mb-4">
-        <RangeSlider label="Seasonality Index" value={season} min={0} max={100} onChange={setSeason} />
-        <RangeSlider label="Price Point" value={price} min={0} max={100} onChange={setPrice} unit="%" />
-        <RangeSlider label="Promo Multiplier" value={promo} min={0} max={100} onChange={setPromo} unit="%" />
+    <DemoCard title="Horizon Pro Earbuds — 8-Week Demand Forecast" description="Adjust inputs to see how the model rebalances the forecast in real time">
+      <div className="space-y-3 mb-3">
+        <RangeSlider label="Seasonal Demand Signal" value={season} min={0} max={100} onChange={setSeason} />
+        <RangeSlider label={`Unit Price  $${unitPrice}`} value={priceSlider} min={0} max={100} onChange={setPriceSlider} />
+        <RangeSlider label={`Campaign Budget  $${campaignBudget.toLocaleString()}`} value={promo} min={0} max={100} onChange={setPromo} />
       </div>
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: 140 }}>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: H }}>
         {forecast.map((v, i) => {
-          const bh = (v / maxVal) * (H - 36);
+          const bh = (v / maxVal) * (H - 32);
           const x = 20 + i * ((W - 40) / forecast.length);
-          const y = H - 20 - bh;
+          const y = H - 18 - bh;
           const intensity = 40 + Math.round((v / maxVal) * 60);
           return (
             <g key={i}>
@@ -311,14 +371,26 @@ function DemandForecastDemo() {
                 animate={{ y, height: bh }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
               />
-              <text x={x + barW / 2} y={H - 4} textAnchor="middle" fontSize={9} fill="rgba(255,255,255,0.35)">{weeks[i]}</text>
-              <text x={x + barW / 2} y={y - 3} textAnchor="middle" fontSize={8} fill="rgba(255,255,255,0.5)">
+              <text x={x + barW / 2} y={H - 3} textAnchor="middle" fontSize={8} fill="rgba(255,255,255,0.35)">{weeks[i]}</text>
+              <text x={x + barW / 2} y={y - 3} textAnchor="middle" fontSize={8} fill="rgba(255,255,255,0.55)">
                 {v >= 1000 ? `${(v / 1000).toFixed(1)}k` : v}
               </text>
             </g>
           );
         })}
       </svg>
+      <div className="mt-2 grid grid-cols-3 gap-2">
+        {[
+          { label: "Projected Units", value: totalUnits.toLocaleString() },
+          { label: "Unit Price", value: `$${unitPrice}` },
+          { label: "8-Wk Revenue", value: `$${(totalRevenue / 1000).toFixed(0)}k` },
+        ].map(stat => (
+          <div key={stat.label} className="rounded-lg bg-white/[0.05] border border-white/10 px-3 py-2 text-center">
+            <div className="text-sm font-bold text-white">{stat.value}</div>
+            <div className="text-[10px] text-white/50 mt-0.5">{stat.label}</div>
+          </div>
+        ))}
+      </div>
     </DemoCard>
   );
 }
@@ -326,33 +398,53 @@ function DemandForecastDemo() {
 // ── 4. Manufacturing — Defect Scanner ────────────────────────
 
 const TILE_PATTERNS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+const DEFECT_TYPES = ["Solder Bridge", "Missing Cap", "PCB Scratch", "Misalignment", "Oxidation", "Cold Joint"];
 
-function ProductTile({ idx, defect, scanComplete }: { idx: number; defect: { confidence: number } | null; scanComplete: boolean }) {
+function PCBTile({ idx, defect, scanComplete }: {
+  idx: number;
+  defect: { confidence: number; type: string } | null;
+  scanComplete: boolean;
+}) {
   const s = idx * 137 + 31;
-  const cx = 20 + (s % 40), cy = 12 + (s % 16), r = 4 + (s % 6);
-  const lx = 10 + (s % 20), ly = 30 + (s % 10);
+  const chipX = 18 + (s % 20), chipY = 14 + (s % 12);
+  const chipW = 20 + (s % 12), chipH = 14 + (s % 8);
+  const traces = [
+    [chipX - 8, chipY + chipH / 2, 8, 0],
+    [chipX + chipW, chipY + chipH / 3, 10 + (s % 8), 0],
+    [chipX + chipW / 2, chipY - 6, 0, 6],
+    [chipX + chipW / 3, chipY + chipH, 0, 5 + (s % 5)],
+  ] as const;
+  const padX = 52 + (s % 10), padY = 38 + (s % 10);
   return (
     <div className="relative aspect-[4/3]">
-      <svg viewBox="0 0 80 60" className="w-full h-full rounded" style={{ background: "rgba(255,255,255,0.03)" }}>
-        <rect x="8" y="8" width="64" height="44" rx="3" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-        <circle cx={cx} cy={cy} r={r} fill="rgba(255,255,255,0.06)" />
-        <line x1={lx} y1={ly} x2={lx + 30 + (s % 20)} y2={ly + (s % 8)} stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-        <rect x={50 - (s % 10)} y={38 + (s % 8)} width={8 + (s % 10)} height={4 + (s % 4)} rx="1" fill="rgba(255,255,255,0.06)" />
+      <svg viewBox="0 0 80 60" className="w-full h-full rounded" style={{ background: "rgba(0,20,10,0.6)" }}>
+        <rect x="3" y="3" width="74" height="54" rx="3" fill="none" stroke="rgba(0,200,100,0.12)" strokeWidth="0.8" />
+        {traces.map(([x, y, dx, dy], ti) => (
+          <line key={ti} x1={x} y1={y} x2={x + dx} y2={y + dy}
+            stroke="rgba(0,200,120,0.25)" strokeWidth="1" />
+        ))}
+        <rect x={chipX} y={chipY} width={chipW} height={chipH} rx="2"
+          fill="rgba(30,60,40,0.9)" stroke="rgba(0,200,100,0.35)" strokeWidth="0.8" />
+        {Array.from({ length: 3 }, (_, pi) => (
+          <rect key={pi} x={chipX + 3 + pi * 5} y={chipY + chipH - 1} width="3" height="3" rx="0.5"
+            fill="rgba(0,200,100,0.5)" />
+        ))}
+        <rect x={padX} y={padY} width="8" height="5" rx="1" fill="rgba(0,180,100,0.3)" stroke="rgba(0,200,100,0.3)" strokeWidth="0.6" />
+        <circle cx={10 + (s % 8)} cy={50 - (s % 8)} r="2.5" fill="none" stroke="rgba(0,200,100,0.25)" strokeWidth="0.8" />
+        <circle cx={70 - (s % 6)} cy={10 + (s % 6)} r="2" fill="none" stroke="rgba(0,200,100,0.2)" strokeWidth="0.8" />
       </svg>
       <AnimatePresence>
         {scanComplete && defect && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="absolute inset-0 rounded border-2 border-red-500 pointer-events-none">
-            <span className="absolute -top-2.5 right-0 text-[9px] bg-red-500 text-white px-1 rounded font-mono">
-              {defect.confidence}%
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+            className="absolute inset-0 rounded border-2 border-red-500/80 pointer-events-none bg-red-900/10">
+            <span className="absolute -top-3 left-0 right-0 text-[8px] bg-red-600 text-white px-1 py-0.5 text-center leading-none rounded-sm truncate">
+              {defect.type}
             </span>
           </motion.div>
         )}
         {scanComplete && !defect && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            className="absolute inset-0 rounded border border-emerald-500/30 pointer-events-none" />
+            className="absolute inset-0 rounded border border-emerald-500/40 pointer-events-none" />
         )}
       </AnimatePresence>
     </div>
@@ -362,9 +454,10 @@ function ProductTile({ idx, defect, scanComplete }: { idx: number; defect: { con
 function DefectScannerDemo() {
   const [scanning, setScanning] = useState(false);
   const [scanY, setScanY] = useState(0);
-  const [defects, setDefects] = useState<Record<number, { confidence: number }>>({});
+  const [defects, setDefects] = useState<Record<number, { confidence: number; type: string }>>({});
   const [done, setDone] = useState(false);
   const [key, setKey] = useState(0);
+  const batchRef = useRef(`AV-${new Date().toISOString().slice(2, 10).replace(/-/g, "")}-R4`);
 
   const reset = () => { setScanning(false); setScanY(0); setDefects({}); setDone(false); setKey(k => k + 1); };
 
@@ -375,13 +468,16 @@ function DefectScannerDemo() {
     const duration = 2200;
     const defectIdxs = new Set<number>();
     while (defectIdxs.size < 3) defectIdxs.add(Math.floor(Math.random() * 12));
+    const typeMap: Record<number, string> = {};
+    let typeIdx = 0;
+    defectIdxs.forEach(i => { typeMap[i] = DEFECT_TYPES[typeIdx++ % DEFECT_TYPES.length]; });
 
     const tick = (now: number) => {
       const t = Math.min((now - start) / duration, 1);
       setScanY(t * 100);
       if (t < 1) { requestAnimationFrame(tick); return; }
-      const result: Record<number, { confidence: number }> = {};
-      defectIdxs.forEach(i => { result[i] = { confidence: 72 + Math.floor(Math.random() * 25) }; });
+      const result: Record<number, { confidence: number; type: string }> = {};
+      defectIdxs.forEach(i => { result[i] = { confidence: 72 + Math.floor(Math.random() * 25), type: typeMap[i] }; });
       setDefects(result);
       setDone(true);
       setScanning(false);
@@ -392,38 +488,39 @@ function DefectScannerDemo() {
   const defectCount = Object.keys(defects).length;
 
   return (
-    <DemoCard title="Computer Vision Defect Scanner" description='Click "Run Scan" to analyse the product batch' onReset={reset}>
+    <DemoCard title="PCB Vision Inspector — Line 3" description={`Batch ${batchRef.current} · 12 boards queued`} onReset={reset}>
       <div className="relative mb-3">
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-4 gap-2 pt-3">
           {TILE_PATTERNS.map(i => (
-            <ProductTile key={`${key}-${i}`} idx={i} defect={defects[i] ?? null} scanComplete={done} />
+            <PCBTile key={`${key}-${i}`} idx={i} defect={defects[i] ?? null} scanComplete={done} />
           ))}
         </div>
         {scanning && (
           <div className="absolute inset-0 pointer-events-none overflow-hidden rounded">
             <motion.div
-              className="absolute left-0 right-0 h-0.5 bg-primary shadow-[0_0_12px_2px_hsl(250_85%_60%)]"
+              className="absolute left-0 right-0 h-0.5 bg-primary shadow-[0_0_14px_3px_hsl(250_85%_60%)]"
               style={{ top: `${scanY}%` }}
             />
           </div>
         )}
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 flex-wrap">
         <Button size="sm" onClick={runScan} disabled={scanning}
           className="bg-primary/80 hover:bg-primary text-white text-xs">
           <Play className="w-3 h-3 mr-1" />
-          {scanning ? "Scanning..." : "Run Scan"}
+          {scanning ? "Scanning..." : "Run Vision Scan"}
         </Button>
         {done && (
           <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2 text-xs">
-            <span className="flex items-center gap-1 text-red-400">
-              <AlertTriangle className="w-3 h-3" />{defectCount} defect{defectCount !== 1 ? "s" : ""}
-            </span>
-            <span className="text-white/50">·</span>
+            className="flex flex-wrap items-center gap-2 text-xs">
             <span className="flex items-center gap-1 text-emerald-400">
-              <CheckCircle2 className="w-3 h-3" />{12 - defectCount} passed
+              <CheckCircle2 className="w-3 h-3" />{12 - defectCount} passed QC
             </span>
+            {Object.entries(defects).map(([, d]) => (
+              <span key={d.type} className="flex items-center gap-1 text-red-400 bg-red-500/10 border border-red-500/30 px-1.5 py-0.5 rounded">
+                <AlertTriangle className="w-2.5 h-2.5" />{d.type}
+              </span>
+            ))}
           </motion.div>
         )}
       </div>
@@ -436,10 +533,23 @@ function DefectScannerDemo() {
 const POS = new Set(["amazing","awesome","beautiful","best","brilliant","celebrate","cheerful","clean","creative","delight","dynamic","easy","effective","elegant","energetic","enjoy","excellent","exceptional","exciting","fantastic","fast","friendly","fun","great","happy","helpful","impressive","innovative","inspiring","joy","love","magnificent","modern","nice","perfect","pleasant","positive","powerful","premium","professional","quality","reliable","remarkable","robust","safe","satisfied","smooth","stunning","superb","versatile","vibrant","wonderful","win","success","clear","quick","smart","powerful","leading","top","superior","effortless","seamless","intuitive"]);
 const NEG = new Set(["awful","bad","boring","broken","cheap","complex","confusing","crash","dangerous","defective","difficult","disappointing","dull","error","expensive","fail","failure","frustrating","hard","hate","horrible","inconsistent","inferior","issue","messy","misleading","negative","obsolete","overpriced","painful","poor","problem","risk","slow","terrible","ugly","unreliable","unstable","useless","weak","worst","wrong","bug","glitch","clunky","bloated","laggy","crashing","broken"]);
 
-const PLACEHOLDER = "Type your copy here and watch the AI score each word as you type...";
+const SENTIMENT_PRESETS = [
+  {
+    label: "Launch Tweet",
+    text: "Thrilled to announce our newest product! Fast, reliable, and beautifully designed — it's the best we've ever built. Innovation at its finest. Seamless and intuitive from day one.",
+  },
+  {
+    label: "1-Star Review",
+    text: "Terrible experience. The app crashed twice, support was unhelpful, and the product feels cheap and broken. Slow, frustrating, and overpriced. Would not recommend to anyone.",
+  },
+  {
+    label: "Earnings Call",
+    text: "We delivered exceptional growth this quarter. Robust demand across all segments, premium margins, and a clear path to profitability. Our innovative platform remains the leading solution.",
+  },
+];
 
 function SentimentAnalyzerDemo() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(SENTIMENT_PRESETS[0].text);
   const [key, setKey] = useState(0);
 
   const tokens = text.trim().split(/\s+/).filter(Boolean).map(raw => {
@@ -448,6 +558,8 @@ function SentimentAnalyzerDemo() {
     return { raw, score };
   });
 
+  const posCount = tokens.filter(t => t.score === 1).length;
+  const negCount = tokens.filter(t => t.score === -1).length;
   const totalScore = tokens.reduce((s, t) => s + t.score, 0);
   const polarity = tokens.length ? totalScore / tokens.length : 0;
   const polarityLabel = polarity > 0.15 ? "Positive" : polarity < -0.15 ? "Negative" : "Neutral";
@@ -455,34 +567,50 @@ function SentimentAnalyzerDemo() {
   const meterPct = Math.min(100, Math.max(0, (polarity + 1) / 2 * 100));
 
   return (
-    <DemoCard title="Live Sentiment Analyzer" description="Every token scores against an embedded lexicon in real time"
+    <DemoCard title="Brand Sentiment Analyzer" description="Load a preset or type your own copy — every word scores in real time"
       onReset={() => { setText(""); setKey(k => k + 1); }}>
+      <div className="flex gap-1.5 mb-2.5">
+        {SENTIMENT_PRESETS.map(p => (
+          <button key={p.label} onClick={() => setText(p.text)}
+            className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${text === p.text
+              ? "border-primary bg-primary/20 text-primary"
+              : "border-white/15 text-white/55 hover:border-white/30 hover:text-white/80"}`}>
+            {p.label}
+          </button>
+        ))}
+      </div>
       <textarea key={key}
         value={text}
         onChange={e => setText(e.target.value)}
-        placeholder={PLACEHOLDER}
         rows={3}
         className="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-white/40 resize-none focus:outline-none focus:border-primary/50 mb-3"
       />
       {tokens.length > 0 && (
         <>
-          <div className="flex flex-wrap gap-1 mb-3">
+          <div className="flex flex-wrap gap-1 mb-3 max-h-20 overflow-y-auto">
             {tokens.map((t, i) => (
               <span key={i} className={`text-xs px-1.5 py-0.5 rounded font-medium ${
                 t.score === 1 ? "bg-emerald-500/20 text-emerald-300" :
                 t.score === -1 ? "bg-red-500/20 text-red-300" :
-                "text-white/60"
+                "text-white/50"
               }`}>{t.raw}</span>
             ))}
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 mb-2">
             <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
               <motion.div className="h-full rounded-full"
                 style={{ background: polarity > 0.15 ? "hsl(160 80% 50%)" : polarity < -0.15 ? "hsl(0 80% 55%)" : "hsl(250 40% 60%)" }}
                 animate={{ width: `${meterPct}%` }}
                 transition={{ duration: 0.3 }} />
             </div>
-            <span className={`text-xs font-semibold w-16 text-right ${polarityColor}`}>{polarityLabel}</span>
+            <span className={`text-xs font-bold w-16 text-right ${polarityColor}`}>{polarityLabel}</span>
+          </div>
+          <div className="flex gap-3 text-[11px] text-white/50">
+            <span className="text-emerald-400">{posCount} positive signal{posCount !== 1 ? "s" : ""}</span>
+            <span>·</span>
+            <span className="text-red-400">{negCount} negative signal{negCount !== 1 ? "s" : ""}</span>
+            <span>·</span>
+            <span>{tokens.length - posCount - negCount} neutral</span>
           </div>
         </>
       )}
@@ -492,16 +620,17 @@ function SentimentAnalyzerDemo() {
 
 // ── 6. Logistics — Route Optimizer ───────────────────────────
 
-type RouteNode = { id: number; x: number; y: number; label: string; isDepot: boolean };
+type RouteNode = { id: number; x: number; y: number; label: string; short: string; isDepot: boolean };
 
 const INIT_NODES: RouteNode[] = [
-  { id: 0, x: 200, y: 135, label: "Depot", isDepot: true },
-  { id: 1, x: 75,  y: 55,  label: "A", isDepot: false },
-  { id: 2, x: 330, y: 45,  label: "B", isDepot: false },
-  { id: 3, x: 355, y: 215, label: "C", isDepot: false },
-  { id: 4, x: 60,  y: 220, label: "D", isDepot: false },
-  { id: 5, x: 195, y: 40,  label: "E", isDepot: false },
+  { id: 0, x: 200, y: 135, label: "Warehouse",    short: "WH",  isDepot: true },
+  { id: 1, x: 75,  y: 55,  label: "Airport Hub",  short: "AIR", isDepot: false },
+  { id: 2, x: 330, y: 45,  label: "City Hotel",   short: "HTL", isDepot: false },
+  { id: 3, x: 355, y: 215, label: "Harbor Dock",  short: "HBR", isDepot: false },
+  { id: 4, x: 60,  y: 220, label: "Tech Campus",  short: "TEC", isDepot: false },
+  { id: 5, x: 195, y: 40,  label: "Central Mall", short: "MAL", isDepot: false },
 ];
+const PX_TO_KM = 0.12;
 
 function routeDist(nodes: RouteNode[], route: number[]): number {
   let d = 0;
@@ -588,7 +717,7 @@ function RouteOptimizerDemo() {
   const visibleEdges = route.slice(0, animStep + 1);
 
   return (
-    <DemoCard title="Route Optimizer" description="Drag nodes to reposition — click Optimize to animate the solution" onReset={reset}>
+    <DemoCard title="Last-Mile Route Optimizer" description="Drag any stop to reposition it — the algorithm replans the route instantly" onReset={reset}>
       <svg key={key} ref={svgRef} viewBox="0 0 420 280" className="w-full rounded-lg bg-black/20 mb-3 touch-none"
         style={{ height: 200 }} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerLeave={onPointerUp}>
         {visibleEdges.map((_, i) => {
@@ -601,32 +730,55 @@ function RouteOptimizerDemo() {
               transition={{ duration: 0.25 }} />
           );
         })}
-        {nodes.map(n => (
-          <g key={n.id} style={{ cursor: "grab" }}
-            onPointerDown={onPointerDown(n.id)}>
-            <circle cx={n.x} cy={n.y} r={n.isDepot ? 14 : 10}
-              fill={n.isDepot ? "hsl(250 85% 25%)" : "hsl(250 50% 18%)"}
-              stroke={n.isDepot ? "hsl(250 85% 60%)" : "rgba(255,255,255,0.2)"} strokeWidth={1.5} />
-            <text x={n.x} y={n.y + 4} textAnchor="middle" fontSize={n.isDepot ? 9 : 10}
-              fill="white" fontWeight="600" style={{ pointerEvents: "none", userSelect: "none" }}>
-              {n.isDepot ? "D" : n.label}
-            </text>
-          </g>
-        ))}
+        {nodes.map(n => {
+          const labelAbove = n.y > 60;
+          const labelX = Math.min(Math.max(n.x, 28), 392);
+          const labelY = labelAbove ? n.y - (n.isDepot ? 19 : 15) : n.y + (n.isDepot ? 22 : 18);
+          return (
+            <g key={n.id} style={{ cursor: "grab" }} onPointerDown={onPointerDown(n.id)}>
+              <circle cx={n.x} cy={n.y} r={n.isDepot ? 14 : 11}
+                fill={n.isDepot ? "hsl(250 85% 25%)" : "hsl(250 50% 18%)"}
+                stroke={n.isDepot ? "hsl(250 85% 60%)" : "rgba(255,255,255,0.3)"} strokeWidth={1.5} />
+              <text x={n.x} y={n.y + 4} textAnchor="middle" fontSize={n.isDepot ? 9 : 9}
+                fill="white" fontWeight="700" style={{ pointerEvents: "none", userSelect: "none" }}>
+                {n.short}
+              </text>
+              <text x={labelX} y={labelY} textAnchor="middle" fontSize={8}
+                fill="rgba(255,255,255,0.55)" style={{ pointerEvents: "none", userSelect: "none" }}>
+                {n.label}
+              </text>
+            </g>
+          );
+        })}
       </svg>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 flex-wrap">
         <Button size="sm" onClick={() => optimize()} disabled={optimizing}
           className="bg-primary/80 hover:bg-primary text-white text-xs">
           <Play className="w-3 h-3 mr-1" />
           {optimizing ? "Optimizing..." : "Optimize Route"}
         </Button>
-        {saved !== null && !optimizing && (
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            className="text-xs text-emerald-400 flex items-center gap-1">
-            <CheckCircle2 className="w-3 h-3" />
-            {saved > 0 ? `${saved}% distance saved vs. naive order` : "Already near-optimal"}
-          </motion.span>
-        )}
+        {saved !== null && !optimizing && (() => {
+          const optDist = routeDist(nodes, route);
+          const km = (optDist * PX_TO_KM).toFixed(1);
+          const mins = Math.round(optDist * PX_TO_KM / 50 * 60);
+          const stopOrder = route.slice(1, -1).map(i => nodes[i].short).join(" → ");
+          return (
+            <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
+              className="flex flex-col gap-1">
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-emerald-400 flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3" />
+                  {saved > 0 ? `${saved}% shorter than sequential` : "Already optimal"}
+                </span>
+                <span className="text-white/40">·</span>
+                <span className="text-white/60">{km} km · ~{mins} min</span>
+              </div>
+              <div className="text-[11px] text-white/40">
+                WH → {stopOrder} → WH
+              </div>
+            </motion.div>
+          );
+        })()}
       </div>
     </DemoCard>
   );
