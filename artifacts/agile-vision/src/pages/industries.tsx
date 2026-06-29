@@ -845,7 +845,21 @@ export default function Industries() {
 
   const scrollTo = (idx: number) => {
     setActive(idx);
-    sectionRefs.current[idx]?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const el = sectionRefs.current[idx];
+    if (!el) return;
+    const targetY = el.getBoundingClientRect().top + window.scrollY - 120;
+    const startY = window.scrollY;
+    const distance = targetY - startY;
+    const duration = 900;
+    const start = performance.now();
+    const ease = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const step = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + distance * ease(progress));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
   };
 
   useEffect(() => {
