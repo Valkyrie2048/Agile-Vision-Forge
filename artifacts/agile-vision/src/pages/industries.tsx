@@ -19,8 +19,8 @@ function DemoCard({ title, description, onReset, children }: {
       <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-white/[0.03]">
         <div>
           <p className="text-xs font-semibold text-primary uppercase tracking-widest">Live Demo</p>
-          <h3 className="text-sm font-semibold text-white mt-0.5">{title}</h3>
-          <p className="text-xs text-white/40 mt-0.5">{description}</p>
+          <h3 className="text-base font-semibold text-white mt-0.5">{title}</h3>
+          <p className="text-sm text-white/40 mt-0.5">{description}</p>
         </div>
         {onReset && (
           <Button size="icon" variant="ghost" onClick={onReset}
@@ -740,7 +740,7 @@ export default function Industries() {
               const Icon = ind.icon;
               return (
                 <button key={ind.id} onClick={() => scrollTo(i)}
-                  className={`flex items-center gap-1.5 px-4 py-3.5 text-xs font-medium whitespace-nowrap border-b-2 transition-colors shrink-0 ${
+                  className={`flex items-center gap-1.5 px-4 py-3.5 text-sm font-medium whitespace-nowrap border-b-2 transition-colors shrink-0 ${
                     active === i
                       ? "border-primary text-white"
                       : "border-transparent text-white/40 hover:text-white/70"
@@ -776,13 +776,13 @@ export default function Industries() {
                     </div>
                     <Badge variant="outline" className="border-white/15 text-white/50 text-xs">{ind.label}</Badge>
                   </div>
-                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-4 leading-snug">
+                  <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white mb-4 leading-snug">
                     {ind.headline}
                   </h2>
-                  <p className="text-white/55 leading-relaxed mb-6 text-sm">{ind.positioning}</p>
+                  <p className="text-white/55 leading-relaxed mb-6 text-base">{ind.positioning}</p>
                   <ul className="space-y-2">
                     {ind.useCases.map((uc, j) => (
-                      <li key={j} className="flex items-start gap-2 text-sm text-white/50">
+                      <li key={j} className="flex items-start gap-2 text-base text-white/50">
                         <ArrowRight className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
                         {uc}
                       </li>
