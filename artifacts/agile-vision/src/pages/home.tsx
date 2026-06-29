@@ -25,6 +25,11 @@ import {
   GraduationCap,
   X,
   CheckCircle2,
+  Activity,
+  TrendingUp,
+  Factory,
+  FileText,
+  Truck,
   type LucideIcon,
 } from "lucide-react";
 import { DemoPreview } from "@/components/demo-previews";
@@ -654,6 +659,145 @@ function CapabilitiesSection() {
   );
 }
 
+const INDUSTRY_CARDS = [
+  {
+    icon: Activity,
+    label: "Healthcare",
+    tagline: "Clinical AI & Patient Intelligence",
+    blurb: "Triage support, outcome prediction, and real-time clinical decision tools that keep clinicians in control.",
+    accent: "hsl(160 75% 45%)",
+    glow: "hsla(160,75%,45%,0.12)",
+  },
+  {
+    icon: TrendingUp,
+    label: "Finance",
+    tagline: "Market Signals & Anomaly Detection",
+    blurb: "Flash-crash alerts, portfolio risk models, and NLP-powered earnings analysis at institutional speed.",
+    accent: "hsl(250 85% 65%)",
+    glow: "hsla(250,85%,65%,0.12)",
+  },
+  {
+    icon: ShoppingCart,
+    label: "Retail & E-Commerce",
+    tagline: "Demand Forecasting & Personalisation",
+    blurb: "Dynamic pricing engines, inventory optimisation, and real-time recommendation layers at scale.",
+    accent: "hsl(35 90% 55%)",
+    glow: "hsla(35,90%,55%,0.12)",
+  },
+  {
+    icon: Factory,
+    label: "Manufacturing",
+    tagline: "Vision-Based Defect Detection",
+    blurb: "Computer-vision pipelines that flag solder bridges and missing components before they leave the line.",
+    accent: "hsl(200 80% 55%)",
+    glow: "hsla(200,80%,55%,0.12)",
+  },
+  {
+    icon: FileText,
+    label: "Media & Content",
+    tagline: "Real-Time Brand Sentiment",
+    blurb: "Token-level sentiment scoring, topic clustering, and audience-signal dashboards for content teams.",
+    accent: "hsl(280 75% 65%)",
+    glow: "hsla(280,75%,65%,0.12)",
+  },
+  {
+    icon: Truck,
+    label: "Logistics",
+    tagline: "Last-Mile Route Optimisation",
+    blurb: "Travelling-salesman solvers, live re-routing, and ETA prediction that cut delivery kilometres.",
+    accent: "hsl(15 80% 55%)",
+    glow: "hsla(15,80%,55%,0.12)",
+  },
+];
+
+function IndustriesSection() {
+  return (
+    <section className="py-24" data-testid="section-industries">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <BlurReveal>
+            <Badge variant="secondary" className="mb-4">
+              <Sparkles className="w-3 h-3 mr-1" />
+              Industry Solutions
+            </Badge>
+          </BlurReveal>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
+            <TextReveal>AI Built for Your Industry</TextReveal>
+          </h2>
+          <BlurReveal delay={0.2}>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Every sector has its own rhythms, risks, and data. We ship AI tailored to the realities of your vertical — not generic templates.
+            </p>
+          </BlurReveal>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+          {INDUSTRY_CARDS.map((ind, i) => (
+            <motion.div
+              key={ind.label}
+              initial={{ opacity: 0, y: 36, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.55, delay: i * 0.07, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <Link href="/industries">
+                <motion.div
+                  className="group relative rounded-md p-px h-full cursor-pointer"
+                  style={{ background: `linear-gradient(135deg, ${ind.accent}33, transparent 60%)` }}
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <div
+                    className="rounded-md h-full flex flex-col gap-3 p-5 transition-colors duration-300"
+                    style={{ background: "hsl(250 20% 10%)" }}
+                  >
+                    {/* Hover glow */}
+                    <div
+                      className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                      style={{ background: `radial-gradient(ellipse at 30% 30%, ${ind.glow} 0%, transparent 70%)` }}
+                    />
+
+                    <div
+                      className="w-10 h-10 rounded-md flex items-center justify-center shrink-0 relative z-10"
+                      style={{ background: `${ind.accent}22`, border: `1px solid ${ind.accent}44` }}
+                    >
+                      <ind.icon className="w-5 h-5" style={{ color: ind.accent }} />
+                    </div>
+
+                    <div className="relative z-10">
+                      <div className="text-[11px] font-semibold uppercase tracking-widest mb-0.5" style={{ color: ind.accent }}>
+                        {ind.label}
+                      </div>
+                      <h3 className="font-semibold text-white text-sm leading-snug mb-1.5">{ind.tagline}</h3>
+                      <p className="text-xs text-white/50 leading-relaxed">{ind.blurb}</p>
+                    </div>
+
+                    <div className="mt-auto pt-1 flex items-center gap-1 relative z-10">
+                      <span className="text-xs font-medium" style={{ color: ind.accent }}>See live demo</span>
+                      <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1" style={{ color: ind.accent }} />
+                    </div>
+                  </div>
+                </motion.div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        <BlurReveal delay={0.4} className="text-center">
+          <MagneticButton className="inline-block">
+            <Link href="/industries">
+              <Button size="lg" className="px-8 shadow-lg shadow-primary/20">
+                Explore All Industry Demos
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
+            </Link>
+          </MagneticButton>
+        </BlurReveal>
+      </div>
+    </section>
+  );
+}
+
 const projectTypes = [
   { id: "mobile", label: "Mobile App", icon: Smartphone },
   { id: "webapp", label: "Web App", icon: Globe },
@@ -982,6 +1126,7 @@ export default function Home() {
       <ScrollProgressBar />
       <HeroSection />
       <CapabilitiesSection />
+      <IndustriesSection />
       <GetStartedPreview />
       <ProcessSection />
       <TechPartnersSection />
