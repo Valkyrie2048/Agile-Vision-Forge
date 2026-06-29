@@ -965,7 +965,7 @@ export default function Industries() {
         <div className="max-w-2xl mx-auto px-4">
           <h2 className="font-serif text-3xl font-bold text-white mb-4">Ready to Build?</h2>
           <p className="text-white/75 mb-8">Tell us your industry and your biggest operational pain point. We will propose a tailored AI solution within 48 hours.</p>
-          <a href="/get-started">
+          <a href="/contact">
             <Button size="lg" className="px-8 shadow-lg shadow-primary/25">
               Start a Conversation <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
