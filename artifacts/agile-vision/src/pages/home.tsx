@@ -898,7 +898,7 @@ function GetStartedPreview() {
             </Badge>
           </BlurReveal>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <TextReveal>Lots of Ways to Solve a Problem</TextReveal>
+            <TextReveal>We Have Lots of Ways to Solve a Problem</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
             <p className="text-muted-foreground max-w-lg mx-auto">
@@ -969,7 +969,7 @@ function GetStartedPreview() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Info below demo */}
+        {/* Info below demo — two-column layout */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selected + "-info"}
@@ -977,34 +977,44 @@ function GetStartedPreview() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="text-center pt-2"
           >
-            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-2 leading-snug">
-              {active.tagline}
-            </h3>
-            <p className="text-white/50 max-w-md mx-auto leading-relaxed mb-6 text-sm">
-              {active.description}
-            </p>
+            <div className="mt-2 pt-6 border-t flex flex-col sm:flex-row sm:items-start gap-6 sm:gap-10"
+              style={{ borderColor: "hsl(250 20% 18%)" }}>
+              {/* Left — copy */}
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold uppercase tracking-widest mb-2"
+                  style={{ color: "hsl(250 85% 68%)" }}>
+                  {active.label}
+                </p>
+                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug mb-3">
+                  {active.tagline}
+                </h3>
+                <p className="text-white/50 leading-relaxed text-sm">
+                  {active.description}
+                </p>
+              </div>
 
-            {/* Feature pills */}
-            <div className="flex flex-wrap justify-center gap-2 mb-7">
-              {active.bullets.map((b, i) => (
-                <span key={i} className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium"
-                  style={{ background: "hsl(250 85% 60% / 0.08)", border: "1px solid hsl(250 85% 60% / 0.18)", color: "hsl(250 60% 72%)" }}>
-                  <CheckCircle2 className="w-3 h-3 shrink-0" />
-                  {b}
-                </span>
-              ))}
+              {/* Right — bullets + CTA */}
+              <div className="sm:w-64 shrink-0 flex flex-col gap-3">
+                <ul className="space-y-2">
+                  {active.bullets.map((b, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm"
+                      style={{ color: "hsl(250 40% 70%)" }}>
+                      <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: "hsl(250 85% 65%)" }} />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+                <MagneticButton className="block mt-1">
+                  <Link href="/get-started">
+                    <Button className="w-full" data-testid="button-preview-get-started">
+                      Build your {active.label}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
+                </MagneticButton>
+              </div>
             </div>
-
-            <MagneticButton className="inline-block">
-              <Link href="/get-started">
-                <Button size="lg" data-testid="button-preview-get-started">
-                  Build your {active.label}
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-            </MagneticButton>
           </motion.div>
         </AnimatePresence>
 

@@ -174,26 +174,18 @@ export function ChatbotDemo() {
           <div ref={bottomRef} />
         </div>
 
-        {/* Quick replies — single scrolling row, opacity-only animation to avoid overflow-y clip */}
-        <div className="px-3 pb-2 space-y-2">
-          <div className="h-8 overflow-x-auto scrollbar-hide flex items-center">
-            <AnimatePresence mode="wait">
-              {chips.length > 0 && !typing && (
-                <motion.div
-                  key={chips.join(",")}
-                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                  transition={{ duration: 0.18 }}
-                  className="flex gap-1.5 w-max">
-                  {chips.map(c => (
-                    <button key={c} onClick={() => send(c)}
-                      className="text-[11px] px-3 py-1 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-all whitespace-nowrap leading-tight">
-                      {c}
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+        {/* Quick replies — plain conditional render, no animation complexity */}
+        <div className="px-3 pb-2 space-y-1.5">
+          {chips.length > 0 && !typing && (
+            <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-0.5">
+              {chips.map(c => (
+                <button key={c} onClick={() => send(c)}
+                  className="text-[11px] px-3 py-1 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-colors whitespace-nowrap shrink-0 leading-none">
+                  {c}
+                </button>
+              ))}
+            </div>
+          )}
           <div className="flex items-center gap-2">
             <div className="flex-1 bg-white/[0.06] border border-white/10 rounded-full px-4 py-2 text-[11px] text-white/25">
               Or type a message…
