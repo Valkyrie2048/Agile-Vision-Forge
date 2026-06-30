@@ -1084,49 +1084,42 @@ function TechPartnersSection() {
   const [signals, setSignals] = useState<TechSignal[]>([]);
 
   const nodes = [
-    { id: "openai",      name: "OpenAI",      px: 95,  py: 92,  r: 13, tier: 1, desc: "GPT-4o, o3" },
-    { id: "anthropic",   name: "Anthropic",   px: 255, py: 66,  r: 12, tier: 1, desc: "Claude Sonnet" },
-    { id: "gemini",      name: "Gemini",      px: 432, py: 86,  r: 11, tier: 1, desc: "Google AI" },
-    { id: "mistral",     name: "Mistral",     px: 605, py: 72,  r: 9,  tier: 2, desc: "Open weights" },
-    { id: "python",      name: "Python",      px: 172, py: 225, r: 12, tier: 1, desc: "Core language" },
-    { id: "typescript",  name: "TypeScript",  px: 345, py: 196, r: 10, tier: 2, desc: "Type safety" },
-    { id: "react",       name: "React",       px: 492, py: 216, r: 12, tier: 1, desc: "UI library" },
-    { id: "nextjs",      name: "Next.js",     px: 634, py: 196, r: 10, tier: 2, desc: "Full-stack" },
-    { id: "fastapi",     name: "FastAPI",     px: 136, py: 348, r: 9,  tier: 2, desc: "Python API" },
-    { id: "aws",         name: "AWS",         px: 778, py: 130, r: 12, tier: 1, desc: "Cloud infra" },
-    { id: "vercel",      name: "Vercel",      px: 874, py: 216, r: 9,  tier: 2, desc: "Deployment" },
-    { id: "docker",      name: "Docker",      px: 814, py: 318, r: 9,  tier: 2, desc: "Containers" },
-    { id: "kubernetes",  name: "Kubernetes",  px: 778, py: 428, r: 9,  tier: 2, desc: "Orchestration" },
-    { id: "redis",       name: "Redis",       px: 655, py: 384, r: 8,  tier: 3, desc: "Cache layer" },
-    { id: "postgresql",  name: "PostgreSQL",  px: 524, py: 394, r: 9,  tier: 2, desc: "Database" },
-    { id: "langchain",   name: "LangChain",   px: 268, py: 354, r: 10, tier: 2, desc: "LLM chains" },
-    { id: "llamaindex",  name: "LlamaIndex",  px: 410, py: 328, r: 9,  tier: 2, desc: "RAG pipelines" },
-    { id: "pinecone",    name: "Pinecone",    px: 388, py: 450, r: 8,  tier: 3, desc: "Vector DB" },
-    { id: "huggingface", name: "HuggingFace", px: 198, py: 464, r: 8,  tier: 3, desc: "Open models" },
+    { id: "openai",      name: "OpenAI",      px: 95,  py: 92,  r: 13, tier: 1, desc: "GPT-4o, o3",      fx: 4,  fy: 5,  fd: 6.8, fDelay: 0    },
+    { id: "anthropic",   name: "Anthropic",   px: 255, py: 66,  r: 12, tier: 1, desc: "Claude Sonnet",   fx: 5,  fy: 4,  fd: 7.4, fDelay: 1.1  },
+    { id: "gemini",      name: "Gemini",      px: 432, py: 86,  r: 11, tier: 1, desc: "Google AI",       fx: 4,  fy: 5,  fd: 6.2, fDelay: 0.5  },
+    { id: "mistral",     name: "Mistral",     px: 605, py: 72,  r: 9,  tier: 2, desc: "Open weights",    fx: 3,  fy: 4,  fd: 8.1, fDelay: 1.8  },
+    { id: "python",      name: "Python",      px: 172, py: 225, r: 12, tier: 1, desc: "Core language",   fx: 5,  fy: 4,  fd: 7.0, fDelay: 0.8  },
+    { id: "typescript",  name: "TypeScript",  px: 345, py: 196, r: 10, tier: 2, desc: "Type safety",     fx: 3,  fy: 3,  fd: 8.6, fDelay: 2.2  },
+    { id: "react",       name: "React",       px: 492, py: 216, r: 12, tier: 1, desc: "UI library",      fx: 4,  fy: 5,  fd: 7.3, fDelay: 1.4  },
+    { id: "nextjs",      name: "Next.js",     px: 634, py: 196, r: 10, tier: 2, desc: "Full-stack",      fx: 3,  fy: 4,  fd: 9.0, fDelay: 0.3  },
+    { id: "fastapi",     name: "FastAPI",     px: 136, py: 348, r: 9,  tier: 2, desc: "Python API",      fx: 4,  fy: 3,  fd: 7.8, fDelay: 1.6  },
+    { id: "aws",         name: "AWS",         px: 778, py: 130, r: 12, tier: 1, desc: "Cloud infra",     fx: 4,  fy: 5,  fd: 6.5, fDelay: 0.9  },
+    { id: "vercel",      name: "Vercel",      px: 874, py: 216, r: 9,  tier: 2, desc: "Deployment",      fx: 3,  fy: 3,  fd: 8.3, fDelay: 2.0  },
+    { id: "docker",      name: "Docker",      px: 814, py: 318, r: 9,  tier: 2, desc: "Containers",      fx: 4,  fy: 3,  fd: 7.6, fDelay: 0.4  },
+    { id: "kubernetes",  name: "Kubernetes",  px: 778, py: 428, r: 9,  tier: 2, desc: "Orchestration",   fx: 3,  fy: 4,  fd: 9.2, fDelay: 1.3  },
+    { id: "redis",       name: "Redis",       px: 655, py: 384, r: 8,  tier: 3, desc: "Cache layer",     fx: 2,  fy: 3,  fd: 10.1, fDelay: 0.7 },
+    { id: "postgresql",  name: "PostgreSQL",  px: 524, py: 394, r: 9,  tier: 2, desc: "Database",        fx: 3,  fy: 4,  fd: 8.8, fDelay: 1.9  },
+    { id: "langchain",   name: "LangChain",   px: 268, py: 354, r: 10, tier: 2, desc: "LLM chains",      fx: 4,  fy: 3,  fd: 7.5, fDelay: 0.6  },
+    { id: "llamaindex",  name: "LlamaIndex",  px: 410, py: 328, r: 9,  tier: 2, desc: "RAG pipelines",   fx: 3,  fy: 4,  fd: 8.4, fDelay: 2.1  },
+    { id: "pinecone",    name: "Pinecone",    px: 388, py: 450, r: 8,  tier: 3, desc: "Vector DB",       fx: 2,  fy: 3,  fd: 9.7, fDelay: 1.0  },
+    { id: "huggingface", name: "HuggingFace", px: 198, py: 464, r: 8,  tier: 3, desc: "Open models",     fx: 3,  fy: 2,  fd: 10.4, fDelay: 1.7 },
   ];
 
   const edges: [string, string][] = [
-    // AI model relationships — same generation, comparable capabilities
     ["openai", "anthropic"], ["openai", "gemini"],
     ["anthropic", "gemini"], ["gemini", "mistral"],
     ["mistral", "huggingface"],
-    // LLM framework integrations — each framework supports these model APIs
     ["openai", "langchain"], ["anthropic", "langchain"],
     ["gemini", "langchain"], ["openai", "llamaindex"],
     ["langchain", "llamaindex"], ["langchain", "pinecone"],
     ["llamaindex", "pinecone"], ["huggingface", "llamaindex"],
-    // Python ecosystem — these are all Python-first libraries
     ["python", "langchain"], ["python", "llamaindex"],
     ["python", "fastapi"], ["python", "huggingface"], ["python", "postgresql"],
-    // TypeScript + Frontend — LangChain.js ships a TS-first SDK
     ["typescript", "react"], ["typescript", "nextjs"], ["typescript", "langchain"],
     ["react", "nextjs"], ["nextjs", "vercel"], ["react", "vercel"],
-    // Backend + DB — common FastAPI data layer pairings
     ["fastapi", "postgresql"], ["fastapi", "redis"], ["fastapi", "docker"],
-    // Infrastructure — container/cloud orchestration chain
     ["aws", "docker"], ["aws", "kubernetes"], ["aws", "vercel"],
     ["docker", "kubernetes"], ["kubernetes", "redis"], ["redis", "postgresql"],
-    // Cross-cutting
     ["mistral", "aws"], ["pinecone", "python"],
   ];
 
@@ -1139,7 +1132,7 @@ function TechPartnersSection() {
 
   const spawnSignal = (from: string, to: string) => {
     const sig: TechSignal = { id: `${from}-${to}-${Date.now()}-${Math.random()}`, from, to };
-    setSignals(prev => [...prev.slice(-20), sig]);
+    setSignals(prev => [...prev.slice(-22), sig]);
     setTimeout(() => setSignals(prev => prev.filter(s => s.id !== sig.id)), 1400);
   };
 
@@ -1149,7 +1142,7 @@ function TechPartnersSection() {
       const edge = edgesSnap[Math.floor(Math.random() * edgesSnap.length)];
       const fwd = Math.random() > 0.5;
       spawnSignal(fwd ? edge[0] : edge[1], fwd ? edge[1] : edge[0]);
-    }, 550);
+    }, 450);
     return () => clearInterval(iv);
   }, []);
 
@@ -1159,7 +1152,7 @@ function TechPartnersSection() {
       .filter(([a, b]) => a === hovered || b === hovered)
       .map(([a, b]) => (a === hovered ? b : a));
     const timers: ReturnType<typeof setTimeout>[] = [];
-    connected.forEach((tgt, i) => { timers.push(setTimeout(() => spawnSignal(hovered, tgt), i * 80)); });
+    connected.forEach((tgt, i) => { timers.push(setTimeout(() => spawnSignal(hovered, tgt), i * 70)); });
     return () => timers.forEach(clearTimeout);
   }, [hovered]);
 
@@ -1186,16 +1179,13 @@ function TechPartnersSection() {
         transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Centered header */}
+      {/* Centered header — matches other sections */}
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-2" style={{ zIndex: 2 }}>
         <BlurReveal>
           <div className="pb-8" style={{ borderBottom: "1px solid hsl(250 30% 16%)" }}>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white mb-3">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-0">
               The stack behind everything we build.
             </h2>
-            <p className="text-sm" style={{ color: "hsl(250 15% 48%)" }}>
-              Hover any node to explore how our tools connect.
-            </p>
           </div>
         </BlurReveal>
       </div>
@@ -1216,8 +1206,12 @@ function TechPartnersSection() {
             <filter id="gl" x="-200%" y="-200%" width="500%" height="500%">
               <feGaussianBlur stdDeviation="14" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
+            <filter id="gxl" x="-300%" y="-300%" width="700%" height="700%">
+              <feGaussianBlur stdDeviation="22" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
           </defs>
 
+          {/* Edges — drawn at fixed coordinates */}
           {edges.map(([a, b]) => {
             const na = getNode(a), nb = getNode(b);
             const lit = hovered === a || hovered === b;
@@ -1227,12 +1221,13 @@ function TechPartnersSection() {
                 x1={na.px} y1={na.py} x2={nb.px} y2={nb.py}
                 stroke={lit ? "hsl(250 85% 65%)" : "hsl(250 50% 70% / 0.10)"}
                 strokeWidth={lit ? 1.8 : 0.7}
-                opacity={dimmed ? 0.15 : 1}
-                style={{ transition: "stroke 0.25s, stroke-width 0.25s, opacity 0.25s" }}
+                opacity={dimmed ? 0.12 : 1}
+                style={{ transition: "stroke 0.3s, stroke-width 0.3s, opacity 0.3s" }}
               />
             );
           })}
 
+          {/* Signal pulses */}
           {signals.map(sig => {
             const src = nodes.find(n => n.id === sig.from);
             const tgt = nodes.find(n => n.id === sig.to);
@@ -1247,15 +1242,27 @@ function TechPartnersSection() {
             );
           })}
 
+          {/* Nodes — each wrapped in a floating motion.g */}
           {nodes.map(node => {
             const isHov = hovered === node.id;
             const isCon = connectedIds.includes(node.id);
             const isDim = !!hovered && !isHov && !isCon;
             return (
-              <g key={node.id} style={{ cursor: "pointer" }}
-                onMouseEnter={() => setHovered(node.id)}
-                onMouseLeave={() => setHovered(null)}
+              <motion.g key={node.id}
+                animate={{ x: [0, node.fx, -node.fx * 0.6, node.fx * 0.3, 0], y: [0, -node.fy, node.fy * 0.4, -node.fy * 0.2, 0] }}
+                transition={{ duration: node.fd, delay: node.fDelay, repeat: Infinity, ease: "easeInOut", repeatType: "mirror" }}
               >
+                {/* Ambient halo for tier-1 — breathes slowly */}
+                {node.tier === 1 && (
+                  <motion.circle cx={node.px} cy={node.py} r={node.r * 2.2}
+                    fill="hsl(250 85% 55%)"
+                    filter="url(#gxl)"
+                    animate={{ opacity: isHov ? 0 : isDim ? 0 : [0.06, 0.16, 0.06] }}
+                    transition={{ duration: node.fd * 0.8, delay: node.fDelay, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                )}
+
+                {/* Hover pulse rings */}
                 {isHov && (
                   <motion.circle cx={node.px} cy={node.py} r={node.r} fill="none"
                     stroke="hsl(250 85% 65%)" strokeWidth={1.5} filter="url(#gm)"
@@ -1272,20 +1279,28 @@ function TechPartnersSection() {
                     transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut", delay: 0.9 }}
                   />
                 )}
+
+                {/* Node body */}
                 <motion.circle cx={node.px} cy={node.py} r={node.r}
                   fill={isHov ? "hsl(250 85% 60%)" : isCon ? "hsl(250 65% 46%)" : "hsl(250 28% 20%)"}
                   stroke={isHov ? "hsl(250 85% 80%)" : isCon ? "hsl(250 65% 62%)" : "hsl(250 35% 38%)"}
                   strokeWidth={isHov ? 2 : 1}
                   filter={isHov ? "url(#gl)" : isCon ? "url(#gs)" : "none"}
-                  style={{ transformOrigin: `${node.px}px ${node.py}px` }}
+                  style={{ transformOrigin: `${node.px}px ${node.py}px`, cursor: "pointer" }}
                   animate={{ scale: isHov ? 1.22 : 1, opacity: isDim ? 0.15 : 1 }}
                   transition={{ duration: 0.2 }}
+                  onMouseEnter={() => setHovered(node.id)}
+                  onMouseLeave={() => setHovered(null)}
                 />
+
+                {/* Specular highlight */}
                 <circle cx={node.px - node.r * 0.22} cy={node.py - node.r * 0.22}
                   r={node.r * 0.26} fill="white"
                   opacity={isDim ? 0 : isHov ? 0.85 : 0.45}
                   style={{ transition: "opacity 0.2s", pointerEvents: "none" }}
                 />
+
+                {/* Label */}
                 <text
                   x={node.px} y={node.py + node.r + 14}
                   textAnchor="middle"
@@ -1298,11 +1313,12 @@ function TechPartnersSection() {
                 >
                   {node.name}
                 </text>
-              </g>
+              </motion.g>
             );
           })}
         </svg>
 
+        {/* Tooltip */}
         <AnimatePresence>
           {hovered && (() => {
             const n = getNode(hovered);
