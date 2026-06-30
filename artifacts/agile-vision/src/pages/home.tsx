@@ -970,37 +970,27 @@ function GetStartedPreview() {
           </div>
         </BlurReveal>
 
-        {/* Demo frame */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selected + "-demo"}
-            initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-8"
-          >
-            <div className="relative rounded-2xl overflow-hidden"
-              style={{
-                border: "1px solid hsl(250 28% 20%)",
-                background: "hsl(250 20% 5%)",
-                boxShadow: "0 0 0 1px hsl(250 85% 60% / 0.07), 0 28px 72px -16px hsl(250 20% 3% / 0.88)",
-              }}>
-              {/* Accent stripe */}
-              <div className="h-px" style={{ background: "linear-gradient(90deg, transparent 5%, hsl(250 85% 60% / 0.65) 35%, hsl(270 75% 65% / 0.45) 65%, transparent 95%)" }} />
-              {/* LIVE badge */}
-              <div className="absolute top-3.5 right-4 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full pointer-events-none"
-                style={{ background: "hsl(160 70% 38% / 0.14)", border: "1px solid hsl(160 70% 38% / 0.32)" }}>
-                <motion.div className="w-1.5 h-1.5 rounded-full bg-emerald-400"
-                  animate={{ opacity: [1, 0.25, 1] }} transition={{ duration: 1.6, repeat: Infinity }} />
-                <span className="text-[9px] font-bold uppercase tracking-wider text-emerald-400">Live</span>
-              </div>
-              <div className="p-5 sm:p-8">
-                <DemoPreview projectType={selected} />
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        {/* Demo frame — shell stays mounted, only DemoPreview remounts on tab switch */}
+        <div className="relative rounded-2xl overflow-hidden mb-8"
+          style={{
+            border: "1px solid hsl(250 28% 20%)",
+            background: "hsl(250 20% 5%)",
+            boxShadow: "0 0 0 1px hsl(250 85% 60% / 0.07), 0 28px 72px -16px hsl(250 20% 3% / 0.88)",
+          }}>
+          {/* Accent stripe */}
+          <div className="h-px" style={{ background: "linear-gradient(90deg, transparent 5%, hsl(250 85% 60% / 0.65) 35%, hsl(270 75% 65% / 0.45) 65%, transparent 95%)" }} />
+          {/* LIVE badge */}
+          <div className="absolute top-3.5 right-4 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full pointer-events-none"
+            style={{ background: "hsl(160 70% 38% / 0.14)", border: "1px solid hsl(160 70% 38% / 0.32)" }}>
+            <motion.div className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+              animate={{ opacity: [1, 0.25, 1] }} transition={{ duration: 1.6, repeat: Infinity }} />
+            <span className="text-[9px] font-bold uppercase tracking-wider text-emerald-400">Live</span>
+          </div>
+          <div className="p-5 sm:p-8">
+            {/* key forces full remount on every tab switch — auto-play useEffects fire immediately */}
+            <DemoPreview key={selected} projectType={selected} />
+          </div>
+        </div>
 
         {/* Info below demo */}
         <AnimatePresence mode="wait">
