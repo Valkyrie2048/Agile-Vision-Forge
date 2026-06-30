@@ -989,26 +989,14 @@ function GetStartedPreview() {
                 {active.description}
               </p>
 
-              {/* Features + CTA on same row */}
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-                  {active.bullets.map((b, i) => (
-                    <span key={i} className="flex items-center gap-1.5 text-xs text-white/40">
-                      {i > 0 && <span className="text-white/20">·</span>}
-                      <CheckCircle2 className="w-3 h-3 shrink-0" style={{ color: "hsl(250 85% 60% / 0.7)" }} />
-                      {b}
-                    </span>
-                  ))}
-                </div>
-                <MagneticButton className="shrink-0">
-                  <Link href="/get-started">
-                    <Button size="default" data-testid="button-preview-get-started">
-                      Build your {active.label}
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </Link>
-                </MagneticButton>
-              </div>
+              <MagneticButton>
+                <Link href="/get-started">
+                  <Button size="default" data-testid="button-preview-get-started">
+                    Build your {active.label}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </MagneticButton>
             </div>
           </motion.div>
         </AnimatePresence>
