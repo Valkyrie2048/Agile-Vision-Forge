@@ -898,7 +898,7 @@ function GetStartedPreview() {
             </Badge>
           </BlurReveal>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <TextReveal>We Have Lots of Ways to Solve a Problem</TextReveal>
+            <TextReveal>We Build AI Solutions</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
             <p className="text-muted-foreground max-w-lg mx-auto">
@@ -980,17 +980,17 @@ function GetStartedPreview() {
           >
             <div className="pt-5 border-t" style={{ borderColor: "hsl(250 20% 18%)" }}>
               {/* Tagline */}
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug mb-3">
+              <h3 className="font-sans text-2xl sm:text-3xl font-bold text-white leading-snug mb-3 tracking-tight">
                 {active.tagline}
               </h3>
 
               {/* Description */}
-              <p className="text-white/45 text-sm leading-relaxed mb-4">
+              <p className="text-white/70 text-sm leading-relaxed mb-5 max-w-md">
                 {active.description}
               </p>
 
               {/* Features + CTA on same row */}
-              <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
                   {active.bullets.map((b, i) => (
                     <span key={i} className="flex items-center gap-1.5 text-xs text-white/40">
@@ -1002,9 +1002,9 @@ function GetStartedPreview() {
                 </div>
                 <MagneticButton className="shrink-0">
                   <Link href="/get-started">
-                    <Button size="sm" data-testid="button-preview-get-started">
+                    <Button size="default" data-testid="button-preview-get-started">
                       Build your {active.label}
-                      <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                      <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
                 </MagneticButton>
