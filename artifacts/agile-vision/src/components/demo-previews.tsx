@@ -174,19 +174,19 @@ export function ChatbotDemo() {
           <div ref={bottomRef} />
         </div>
 
-        {/* Quick replies — single scrolling row, no wrapping */}
+        {/* Quick replies — single scrolling row, opacity-only animation to avoid overflow-y clip */}
         <div className="px-3 pb-2 space-y-2">
-          <div className="h-8 overflow-x-auto scrollbar-hide">
+          <div className="h-8 overflow-x-auto scrollbar-hide flex items-center">
             <AnimatePresence mode="wait">
               {chips.length > 0 && !typing && (
                 <motion.div
                   key={chips.join(",")}
-                  initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.2 }}
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  transition={{ duration: 0.18 }}
                   className="flex gap-1.5 w-max">
                   {chips.map(c => (
                     <button key={c} onClick={() => send(c)}
-                      className="text-[11px] px-3 py-1.5 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-all whitespace-nowrap">
+                      className="text-[11px] px-3 py-1 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-all whitespace-nowrap leading-tight">
                       {c}
                     </button>
                   ))}

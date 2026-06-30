@@ -881,136 +881,117 @@ function GetStartedPreview() {
   const row2 = projectTypes.slice(5);
 
   return (
-    <section className="py-24 bg-card" data-testid="section-get-started-preview">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 relative overflow-hidden" data-testid="section-get-started-preview"
+      style={{ background: "hsl(250 18% 7%)" }}>
+      {/* Subtle radial glow behind the demo */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 55%, hsl(250 85% 60% / 0.06) 0%, transparent 70%)" }} />
+
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
         <div className="text-center mb-10">
           <BlurReveal>
             <Badge variant="secondary" className="mb-4">
               <Sparkles className="w-3 h-3 mr-1" />
-              Live Previews
+              Our Work
             </Badge>
           </BlurReveal>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <TextReveal>See It Before You Build It</TextReveal>
+            <TextReveal>Products We've Shipped</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Pick a product type and get a live preview of what we'd ship for you.
+            <p className="text-muted-foreground max-w-lg mx-auto">
+              Interactive demos of real products from our studio — each one built for a client just like you.
             </p>
           </BlurReveal>
         </div>
 
-        {/* Tab rows: 5 on top, 4 on bottom */}
+        {/* Tab rows — icon cards, 5 on top + 4 on bottom */}
         <BlurReveal delay={0.25}>
-          <div className="flex flex-col items-center gap-3 mb-10">
-            {/* Row 1 — 5 tabs */}
-            <div className="flex flex-wrap justify-center gap-2">
-              {row1.map((type) => (
-                <button
-                  key={type.id}
-                  onClick={() => setSelected(type.id)}
-                  data-testid={`preview-type-${type.id}`}
-                  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 ${
-                    selected === type.id
-                      ? "bg-primary border-primary text-white shadow-lg shadow-primary/30 scale-105"
-                      : "border-white/12 text-white/55 hover:border-white/25 hover:text-white/80 bg-white/[0.03] hover:bg-white/[0.06]"
-                  }`}
-                >
-                  <type.icon className="w-3.5 h-3.5" />
-                  {type.label}
-                </button>
-              ))}
-            </div>
-            {/* Row divider */}
-            <div className="flex items-center gap-3 w-48">
-              <div className="flex-1 h-px bg-white/8" />
-              <span className="text-[10px] text-white/20 uppercase tracking-widest font-medium">more</span>
-              <div className="flex-1 h-px bg-white/8" />
-            </div>
-            {/* Row 2 — 4 tabs */}
-            <div className="flex flex-wrap justify-center gap-2">
-              {row2.map((type) => (
-                <button
-                  key={type.id}
-                  onClick={() => setSelected(type.id)}
-                  data-testid={`preview-type-${type.id}`}
-                  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 ${
-                    selected === type.id
-                      ? "bg-primary border-primary text-white shadow-lg shadow-primary/30 scale-105"
-                      : "border-white/12 text-white/55 hover:border-white/25 hover:text-white/80 bg-white/[0.03] hover:bg-white/[0.06]"
-                  }`}
-                >
-                  <type.icon className="w-3.5 h-3.5" />
-                  {type.label}
-                </button>
-              ))}
-            </div>
+          <div className="flex flex-col items-center gap-2 mb-8">
+            {[row1, row2].map((row, rowIdx) => (
+              <div key={rowIdx} className="flex flex-wrap justify-center gap-2">
+                {row.map((type) => {
+                  const isActive = selected === type.id;
+                  return (
+                    <button
+                      key={type.id}
+                      onClick={() => setSelected(type.id)}
+                      data-testid={`preview-type-${type.id}`}
+                      className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium border transition-all duration-200"
+                      style={isActive ? {
+                        background: "hsl(250 85% 60% / 0.15)",
+                        borderColor: "hsl(250 85% 60% / 0.5)",
+                        color: "hsl(250 85% 80%)",
+                        boxShadow: "0 0 16px hsl(250 85% 60% / 0.15)",
+                      } : {
+                        background: "hsl(250 20% 10% / 0.6)",
+                        borderColor: "hsl(250 20% 22%)",
+                        color: "hsl(250 10% 50%)",
+                      }}
+                    >
+                      <type.icon
+                        className="w-4 h-4 shrink-0"
+                        style={{ color: isActive ? "hsl(250 85% 70%)" : "hsl(250 10% 45%)" }}
+                      />
+                      {type.label}
+                    </button>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </BlurReveal>
 
-        {/* Live demo — full width, in a presentation card */}
+        {/* Live demo */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selected + "-demo"}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="mb-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="mb-8"
           >
-            <div
-              className="rounded-2xl overflow-hidden"
+            <div className="rounded-xl overflow-hidden"
               style={{
-                border: "1px solid hsl(250 30% 22%)",
-                background: "hsl(250 20% 6%)",
-                boxShadow: "0 0 0 1px hsl(250 85% 60% / 0.07), 0 24px 64px -16px hsl(250 20% 4% / 0.7)",
-              }}
-            >
-              {/* Purple accent line at top */}
-              <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent, hsl(250 85% 60% / 0.6) 40%, hsl(270 80% 65% / 0.4) 60%, transparent)" }} />
-              <div className="p-4 sm:p-6">
+                border: "1px solid hsl(250 25% 18%)",
+                background: "hsl(250 20% 5%)",
+                boxShadow: "0 0 0 1px hsl(250 85% 60% / 0.06), 0 20px 60px -12px hsl(250 20% 3% / 0.8)",
+              }}>
+              {/* Accent bar */}
+              <div className="h-px" style={{ background: "linear-gradient(90deg, transparent 10%, hsl(250 85% 60% / 0.5) 40%, hsl(270 75% 65% / 0.35) 60%, transparent 90%)" }} />
+              <div className="p-5 sm:p-8">
                 <DemoPreview projectType={selected} />
               </div>
             </div>
           </motion.div>
         </AnimatePresence>
 
-        {/* Content — below the demo */}
+        {/* Info below demo */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selected + "-info"}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="text-center pt-2"
           >
-            {/* Icon + label */}
-            <div className="flex items-center justify-center gap-2.5 mb-3">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                style={{ background: "hsl(250 85% 60% / 0.15)", border: "1px solid hsl(250 85% 60% / 0.3)" }}
-              >
-                <active.icon className="w-4 h-4 text-primary" />
-              </div>
-              <p className="text-sm font-semibold text-primary uppercase tracking-widest">{active.label}</p>
-            </div>
-
-            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-3 leading-snug">
+            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-2 leading-snug">
               {active.tagline}
             </h3>
-            <p className="text-white/55 max-w-lg mx-auto leading-relaxed mb-7">
+            <p className="text-white/50 max-w-md mx-auto leading-relaxed mb-6 text-sm">
               {active.description}
             </p>
 
-            {/* Bullets — badge-style pills */}
-            <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {/* Feature pills */}
+            <div className="flex flex-wrap justify-center gap-2 mb-7">
               {active.bullets.map((b, i) => (
-                <span key={i} className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium"
-                  style={{ background: "hsl(250 85% 60% / 0.1)", border: "1px solid hsl(250 85% 60% / 0.2)", color: "hsl(250 85% 75%)" }}>
-                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                <span key={i} className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium"
+                  style={{ background: "hsl(250 85% 60% / 0.08)", border: "1px solid hsl(250 85% 60% / 0.18)", color: "hsl(250 60% 72%)" }}>
+                  <CheckCircle2 className="w-3 h-3 shrink-0" />
                   {b}
                 </span>
               ))}
