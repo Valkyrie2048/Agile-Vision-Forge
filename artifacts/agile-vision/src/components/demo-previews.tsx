@@ -97,7 +97,7 @@ export function ChatbotDemo() {
   const [typing, setTyping] = useState(false);
   const [intent, setIntent] = useState("greeting");
   const [csat] = useState(4.9);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const msgsRef = useRef<HTMLDivElement>(null);
 
   const send = (text: string) => {
     if (typing) return;
@@ -113,7 +113,10 @@ export function ChatbotDemo() {
     }, 800);
   };
 
-  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs, typing]);
+  useEffect(() => {
+    const el = msgsRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [msgs, typing]);
 
   const ch = CHANNELS.find(c => c.id === channel)!;
 
@@ -146,7 +149,7 @@ export function ChatbotDemo() {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2.5" style={{ scrollbarWidth: "none" }}>
+        <div ref={msgsRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-2.5" style={{ scrollbarWidth: "none" }}>
           {msgs.map((m, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }}
               className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -166,7 +169,6 @@ export function ChatbotDemo() {
               </div>
             </div>
           )}
-          <div ref={bottomRef} />
         </div>
 
         {/* Quick replies — min-h reserves space, no overflow/scroll container */}
