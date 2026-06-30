@@ -800,14 +800,6 @@ function IndustriesSection() {
 
 const projectTypes = [
   {
-    id: "chatbot",
-    label: "AI Chatbot",
-    icon: MessageSquare,
-    tagline: "Conversations that convert",
-    description: "LLM-powered assistants that understand context, integrate with your systems, and resolve queries without a human in the loop.",
-    bullets: ["Multi-channel (web, Slack, WhatsApp)", "CRM & helpdesk integrations", "Conversation analytics"],
-  },
-  {
     id: "agentic",
     label: "Agentic AI",
     icon: BrainCircuit,
@@ -871,10 +863,18 @@ const projectTypes = [
     description: "Adaptive learning platforms that personalise content, pace, and assessments to each learner in real time.",
     bullets: ["Adaptive content delivery", "AI tutoring & feedback", "Progress analytics dashboard"],
   },
+  {
+    id: "chatbot",
+    label: "AI Chatbot",
+    icon: MessageSquare,
+    tagline: "Conversations that convert",
+    description: "LLM-powered assistants that understand context, integrate with your systems, and resolve queries without a human in the loop.",
+    bullets: ["Multi-channel (web, Slack, WhatsApp)", "CRM & helpdesk integrations", "Conversation analytics"],
+  },
 ];
 
 function GetStartedPreview() {
-  const [selected, setSelected] = useState("chatbot");
+  const [selected, setSelected] = useState("agentic");
   const active = projectTypes.find(t => t.id === selected)!;
 
   const row1 = projectTypes.slice(0, 5);
