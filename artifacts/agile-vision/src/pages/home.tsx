@@ -978,52 +978,37 @@ function GetStartedPreview() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
           >
-            <div className="pt-6 border-t" style={{ borderColor: "hsl(250 20% 18%)" }}>
-
-              {/* Row 1 — label + tagline on left, CTA on right */}
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-3">
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-widest mb-1.5"
-                    style={{ color: "hsl(250 85% 65%)" }}>
-                    {active.label}
-                  </p>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug">
-                    {active.tagline}
-                  </h3>
-                </div>
-                <MagneticButton className="shrink-0 sm:mt-1">
+            <div className="pt-5 border-t" style={{ borderColor: "hsl(250 20% 18%)" }}>
+              {/* Tagline + CTA on same row */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
+                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug">
+                  {active.tagline}
+                </h3>
+                <MagneticButton className="shrink-0">
                   <Link href="/get-started">
-                    <Button data-testid="button-preview-get-started">
+                    <Button size="sm" data-testid="button-preview-get-started">
                       Build your {active.label}
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                     </Button>
                   </Link>
                 </MagneticButton>
               </div>
 
-              {/* Row 2 — description */}
-              <p className="text-white/45 text-sm leading-relaxed mb-5 max-w-2xl">
+              {/* Description */}
+              <p className="text-white/45 text-sm leading-relaxed mb-4">
                 {active.description}
               </p>
 
-              {/* Row 3 — feature cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              {/* Features — inline dot-separated */}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
                 {active.bullets.map((b, i) => (
-                  <div key={i}
-                    className="flex items-center gap-3 px-4 py-3 rounded-lg"
-                    style={{
-                      background: "hsl(250 20% 9%)",
-                      border: "1px solid hsl(250 20% 17%)",
-                    }}>
-                    <div className="w-6 h-6 rounded-md flex items-center justify-center shrink-0"
-                      style={{ background: "hsl(250 85% 60% / 0.15)" }}>
-                      <CheckCircle2 className="w-3.5 h-3.5" style={{ color: "hsl(250 85% 68%)" }} />
-                    </div>
-                    <span className="text-xs font-medium text-white/65 leading-snug">{b}</span>
-                  </div>
+                  <span key={i} className="flex items-center gap-1.5 text-xs text-white/40">
+                    {i > 0 && <span className="text-white/20">·</span>}
+                    <CheckCircle2 className="w-3 h-3 shrink-0" style={{ color: "hsl(250 85% 60% / 0.7)" }} />
+                    {b}
+                  </span>
                 ))}
               </div>
-
             </div>
           </motion.div>
         </AnimatePresence>
