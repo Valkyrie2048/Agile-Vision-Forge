@@ -917,7 +917,7 @@ function GetStartedPreview() {
           </div>
         </BlurReveal>
 
-        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 items-center">
+        <div className="grid lg:grid-cols-[1fr_1.1fr] gap-16 items-start">
           {/* Left — context panel */}
           <motion.div
             key={selected + "-info"}

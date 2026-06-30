@@ -12,12 +12,37 @@ import {
 // Frames
 // ─────────────────────────────────────────────────────────────
 
-function PhoneFrame({ children }: { children: React.ReactNode }) {
+type StatPill = { label: string; value: string; valueClass?: string };
+
+function PhoneFrame({ children, pills }: { children: React.ReactNode; pills?: [StatPill, StatPill] }) {
+  const defaultPills: [StatPill, StatPill] = [
+    { label: "Resolved", value: "94%" },
+    { label: "CSAT", value: "★ 4.9", valueClass: "text-yellow-400" },
+  ];
+  const [p1, p2] = pills ?? defaultPills;
   return (
-    <div className="flex justify-center">
-      <div className="w-[300px] h-[560px] rounded-[2.5rem] border-4 border-white/20 bg-[hsl(250_20%_7%)] overflow-hidden relative shadow-2xl shadow-black/50">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-white/10 rounded-b-2xl z-10" />
-        <div className="h-full overflow-hidden pt-6">{children}</div>
+    <div className="flex justify-center items-center py-4">
+      <div className="relative flex items-center justify-center w-full max-w-sm">
+        {/* Ambient glow */}
+        <div className="absolute inset-x-0 top-8 bottom-8 rounded-3xl pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at center, hsl(250 85% 60% / 0.12) 0%, transparent 70%)" }} />
+        {/* Left floating pill */}
+        <motion.div className="absolute left-0 top-16 rounded-xl border border-white/10 bg-white/[0.07] backdrop-blur-sm px-3 py-2 shadow-lg pointer-events-none"
+          animate={{ y: [0, -5, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}>
+          <div className="text-[9px] text-white/35 mb-0.5 uppercase tracking-widest">{p1.label}</div>
+          <div className={`text-sm font-bold ${p1.valueClass ?? "text-white"}`}>{p1.value}</div>
+        </motion.div>
+        {/* Right floating pill */}
+        <motion.div className="absolute right-0 bottom-24 rounded-xl border border-white/10 bg-white/[0.07] backdrop-blur-sm px-3 py-2 shadow-lg pointer-events-none"
+          animate={{ y: [0, 5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
+          <div className="text-[9px] text-white/35 mb-0.5 uppercase tracking-widest">{p2.label}</div>
+          <div className={`text-sm font-bold ${p2.valueClass ?? "text-white"}`}>{p2.value}</div>
+        </motion.div>
+        {/* Phone body */}
+        <div className="relative w-[290px] h-[560px] rounded-[2.5rem] border-4 border-white/20 bg-[hsl(250_20%_7%)] overflow-hidden shadow-2xl shadow-black/60 z-10">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-white/10 rounded-b-2xl z-10" />
+          <div className="h-full overflow-hidden pt-6">{children}</div>
+        </div>
       </div>
     </div>
   );
@@ -74,15 +99,16 @@ const CHAT_FLOWS: Record<string, { bot: string; chips: string[]; intent: string 
   },
   "Talk to agent": {
     bot: "Connecting you now — average wait is under 90 seconds. 🎧",
-    chips: ["Keep chatting with AI"],
+    chips: ["Keep chatting"],
     intent: "escalation",
   },
-  "Thanks!":         { bot: "Happy to help! Anything else I can do?", chips: ["Order status?", "Track my parcel"], intent: "closing" },
-  "Never mind":      { bot: "No problem — just let me know if you need anything else.", chips: ["Order status?", "Track my parcel"], intent: "closing" },
-  "Cancel order":    { bot: "Cancel order #AV-8821? This can't be undone.", chips: ["Yes, cancel it", "Keep my order"], intent: "cancellation" },
-  "Keep my order":   { bot: "Great, your order stays. Anything else?", chips: ["Track my parcel", "Thanks!"], intent: "retention" },
-  "Yes, cancel it":  { bot: "Done — order cancelled. Refund processing in 3–5 days.", chips: ["Thanks!"], intent: "cancellation" },
-  "Keep chatting with AI": { bot: "Of course! What can I help you with?", chips: ["Order status?", "Track my parcel"], intent: "self_serve" },
+  "Thanks!":      { bot: "Happy to help! Anything else I can do?",         chips: ["Order status?", "Track parcel"], intent: "closing" },
+  "Never mind":   { bot: "No problem — let me know if you need anything.", chips: ["Order status?", "Track parcel"], intent: "closing" },
+  "Cancel order": { bot: "Cancel order #AV-8821? This can't be undone.",   chips: ["Yes, cancel", "Keep order"],     intent: "cancellation" },
+  "Keep order":   { bot: "Great, your order stays. Anything else?",        chips: ["Track parcel", "Thanks!"],       intent: "retention" },
+  "Yes, cancel":  { bot: "Done — order cancelled. Refund in 3–5 days.",    chips: ["Thanks!"],                       intent: "cancellation" },
+  "Keep chatting":{ bot: "Of course! What can I help you with?",           chips: ["Order status?", "Track parcel"], intent: "self_serve" },
+  "Track parcel": { bot: "Your parcel left the sorting facility 2 hours ago — out for delivery. ETA: 2–4pm.", chips: ["Change address", "Thanks!"], intent: "order_tracking" },
 };
 
 export function ChatbotDemo() {
@@ -167,21 +193,26 @@ export function ChatbotDemo() {
           <div ref={bottomRef} />
         </div>
 
-        {/* Quick replies */}
-        <div className="px-3 pb-1 space-y-2">
-          <AnimatePresence>
-            {chips.length > 0 && (
-              <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                className="flex flex-wrap gap-1.5">
-                {chips.map(c => (
-                  <button key={c} onClick={() => send(c)}
-                    className="text-[11px] px-2.5 py-1.5 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 transition-colors">
-                    {c}
-                  </button>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
+        {/* Quick replies — single scrolling row, no wrapping */}
+        <div className="px-3 pb-2 space-y-2">
+          <div className="h-8 overflow-x-auto scrollbar-hide">
+            <AnimatePresence mode="wait">
+              {chips.length > 0 && !typing && (
+                <motion.div
+                  key={chips.join(",")}
+                  initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex gap-1.5 w-max">
+                  {chips.map(c => (
+                    <button key={c} onClick={() => send(c)}
+                      className="text-[11px] px-3 py-1.5 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-all whitespace-nowrap">
+                      {c}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <div className="flex items-center gap-2">
             <div className="flex-1 bg-white/[0.06] border border-white/10 rounded-full px-4 py-2 text-[11px] text-white/25">
               Or type a message…
@@ -549,7 +580,10 @@ export function MobileAppDemo() {
   };
 
   return (
-    <PhoneFrame>
+    <PhoneFrame pills={[
+      { label: "Downloads", value: "28K", valueClass: "text-emerald-400" },
+      { label: "Rating", value: "★ 4.8", valueClass: "text-yellow-400" },
+    ]}>
       <div className="h-full flex flex-col">
         {/* Status bar — surfaces "On-device ML for offline AI" bullet */}
         <div className={`px-4 py-1.5 flex items-center justify-between transition-colors ${
