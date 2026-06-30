@@ -30,6 +30,7 @@ import {
   Factory,
   FileText,
   Truck,
+  Cpu,
   type LucideIcon,
 } from "lucide-react";
 import { DemoPreview } from "@/components/demo-previews";
@@ -1078,41 +1079,75 @@ function ProcessSection() {
 }
 
 function TechPartnersSection() {
-  const technologies = [
-    "OpenAI", "Anthropic", "LangChain", "React", "Python", "AWS",
-    "Node.js", "TensorFlow", "PostgreSQL", "Docker", "Next.js", "Vercel",
-    "TypeScript", "FastAPI", "Redis", "Kubernetes",
+  const aiStack = [
+    "OpenAI", "Anthropic", "Claude", "GPT-4o", "LangChain", "LlamaIndex",
+    "Gemini", "Mistral", "HuggingFace", "Pinecone", "Weaviate", "Cohere",
+  ];
+  const infraStack = [
+    "React", "Next.js", "TypeScript", "Python", "FastAPI", "Node.js",
+    "PostgreSQL", "AWS", "Docker", "Kubernetes", "Redis", "Vercel",
   ];
 
-  const doubled = [...technologies, ...technologies];
+  const row1 = [...aiStack, ...aiStack];
+  const row2 = [...infraStack, ...infraStack];
+
+  const Pill = ({ label, accent }: { label: string; accent: boolean }) => (
+    <div
+      className="flex items-center gap-2.5 px-5 py-2.5 rounded-full shrink-0 border transition-colors"
+      style={{
+        background: accent
+          ? "hsl(250 85% 60% / 0.07)"
+          : "hsl(250 20% 10% / 0.6)",
+        borderColor: accent
+          ? "hsl(250 85% 60% / 0.25)"
+          : "hsl(250 20% 20%)",
+      }}
+    >
+      <span
+        className="w-1.5 h-1.5 rounded-full shrink-0"
+        style={{ background: accent ? "hsl(250 85% 65%)" : "hsl(250 20% 40%)" }}
+      />
+      <span className="text-sm font-medium" style={{ color: accent ? "hsl(250 80% 80%)" : "hsl(250 10% 60%)" }}>
+        {label}
+      </span>
+    </div>
+  );
 
   return (
     <section className="py-24 overflow-hidden" data-testid="section-tech">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
-        <BlurReveal className="text-center">
-          <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-2">Technology Partners</h3>
-          <p className="text-muted-foreground text-sm">Built on best-in-class frameworks and infrastructure</p>
+      {/* Heading */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-14">
+        <BlurReveal>
+          <Badge variant="secondary" className="mb-4">
+            <Cpu className="w-3 h-3 mr-1" />
+            Our Stack
+          </Badge>
+        </BlurReveal>
+        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
+          <TextReveal>Built on the Best</TextReveal>
+        </h2>
+        <BlurReveal delay={0.2}>
+          <p className="text-muted-foreground max-w-lg mx-auto">
+            We build with the leading AI models and infrastructure — so your product is always on the cutting edge.
+          </p>
         </BlurReveal>
       </div>
 
-      <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+      {/* Marquee rows */}
+      <div className="relative space-y-3">
+        <div className="absolute left-0 top-0 bottom-0 w-40 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(to right, hsl(250 18% 7%), transparent)" }} />
+        <div className="absolute right-0 top-0 bottom-0 w-40 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(to left, hsl(250 18% 7%), transparent)" }} />
 
-        <div
-          className="flex gap-4 w-max"
-          style={{ animation: "marquee 30s linear infinite" }}
-        >
-          {doubled.map((tech, i) => (
-            <Badge
-              key={i}
-              variant="outline"
-              className="text-sm py-2 px-5 shrink-0 no-default-hover-elevate no-default-active-elevate"
-              data-testid={`badge-tech-${i}`}
-            >
-              {tech}
-            </Badge>
-          ))}
+        {/* Row 1 — AI models, scrolls left */}
+        <div className="flex gap-3 w-max" style={{ animation: "marquee 35s linear infinite" }}>
+          {row1.map((t, i) => <Pill key={i} label={t} accent={true} />)}
+        </div>
+
+        {/* Row 2 — infrastructure, scrolls right */}
+        <div className="flex gap-3 w-max" style={{ animation: "marquee 28s linear infinite reverse" }}>
+          {row2.map((t, i) => <Pill key={i} label={t} accent={false} />)}
         </div>
       </div>
     </section>
