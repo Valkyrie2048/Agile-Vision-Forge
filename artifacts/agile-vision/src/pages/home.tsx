@@ -969,7 +969,7 @@ function GetStartedPreview() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Info below demo — two-column layout */}
+        {/* Info below demo */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selected + "-info"}
@@ -978,42 +978,52 @@ function GetStartedPreview() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
           >
-            <div className="mt-2 pt-6 border-t flex flex-col sm:flex-row sm:items-start gap-6 sm:gap-10"
-              style={{ borderColor: "hsl(250 20% 18%)" }}>
-              {/* Left — copy */}
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold uppercase tracking-widest mb-2"
-                  style={{ color: "hsl(250 85% 68%)" }}>
-                  {active.label}
-                </p>
-                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug mb-3">
-                  {active.tagline}
-                </h3>
-                <p className="text-white/50 leading-relaxed text-sm">
-                  {active.description}
-                </p>
-              </div>
+            <div className="pt-6 border-t" style={{ borderColor: "hsl(250 20% 18%)" }}>
 
-              {/* Right — bullets + CTA */}
-              <div className="sm:w-64 shrink-0 flex flex-col gap-3">
-                <ul className="space-y-2">
-                  {active.bullets.map((b, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm"
-                      style={{ color: "hsl(250 40% 70%)" }}>
-                      <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: "hsl(250 85% 65%)" }} />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-                <MagneticButton className="block mt-1">
+              {/* Row 1 — label + tagline on left, CTA on right */}
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-3">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-widest mb-1.5"
+                    style={{ color: "hsl(250 85% 65%)" }}>
+                    {active.label}
+                  </p>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug">
+                    {active.tagline}
+                  </h3>
+                </div>
+                <MagneticButton className="shrink-0 sm:mt-1">
                   <Link href="/get-started">
-                    <Button className="w-full" data-testid="button-preview-get-started">
+                    <Button data-testid="button-preview-get-started">
                       Build your {active.label}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
                 </MagneticButton>
               </div>
+
+              {/* Row 2 — description */}
+              <p className="text-white/45 text-sm leading-relaxed mb-5 max-w-2xl">
+                {active.description}
+              </p>
+
+              {/* Row 3 — feature cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                {active.bullets.map((b, i) => (
+                  <div key={i}
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg"
+                    style={{
+                      background: "hsl(250 20% 9%)",
+                      border: "1px solid hsl(250 20% 17%)",
+                    }}>
+                    <div className="w-6 h-6 rounded-md flex items-center justify-center shrink-0"
+                      style={{ background: "hsl(250 85% 60% / 0.15)" }}>
+                      <CheckCircle2 className="w-3.5 h-3.5" style={{ color: "hsl(250 85% 68%)" }} />
+                    </div>
+                    <span className="text-xs font-medium text-white/65 leading-snug">{b}</span>
+                  </div>
+                ))}
+              </div>
+
             </div>
           </motion.div>
         </AnimatePresence>
