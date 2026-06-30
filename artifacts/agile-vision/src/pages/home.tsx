@@ -1087,8 +1087,8 @@ function TechPartnersSection() {
   const doubled = [...technologies, ...technologies];
 
   return (
-    <section className="py-20 overflow-hidden" data-testid="section-tech">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <section className="py-24 overflow-hidden" data-testid="section-tech">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
         <BlurReveal className="text-center">
           <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-widest mb-2">Technology Partners</h3>
           <p className="text-muted-foreground text-sm">Built on best-in-class frameworks and infrastructure</p>
@@ -1252,8 +1252,8 @@ export default function Home() {
       <IndustriesSection />
       <GetStartedPreview />
       <ProcessSection />
-      <TechPartnersSection />
       <TestimonialsSection />
+      <TechPartnersSection />
       <FinalCTASection />
     </div>
   );
