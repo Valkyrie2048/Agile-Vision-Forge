@@ -1082,8 +1082,6 @@ type TechSignal = { id: string; from: string; to: string };
 function TechPartnersSection() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [signals, setSignals] = useState<TechSignal[]>([]);
-  const ctaTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [ctaVisible, setCtaVisible] = useState(false);
 
   const nodes = [
     { id: "openai",      name: "OpenAI",      px: 95,  py: 92,  r: 13, tier: 1, desc: "GPT-4o, o3" },
@@ -1108,19 +1106,28 @@ function TechPartnersSection() {
   ];
 
   const edges: [string, string][] = [
-    ["openai", "anthropic"], ["openai", "langchain"], ["openai", "python"], ["openai", "typescript"],
-    ["anthropic", "gemini"], ["anthropic", "langchain"], ["anthropic", "python"],
-    ["gemini", "mistral"], ["gemini", "llamaindex"], ["gemini", "langchain"],
-    ["mistral", "huggingface"], ["mistral", "aws"],
-    ["python", "fastapi"], ["python", "langchain"], ["python", "llamaindex"],
-    ["python", "postgresql"], ["python", "huggingface"], ["python", "typescript"],
-    ["typescript", "react"], ["typescript", "nextjs"],
-    ["react", "nextjs"], ["react", "vercel"],
-    ["nextjs", "vercel"],
+    // AI model relationships — same generation, comparable capabilities
+    ["openai", "anthropic"], ["openai", "gemini"],
+    ["anthropic", "gemini"], ["gemini", "mistral"],
+    ["mistral", "huggingface"],
+    // LLM framework integrations — each framework supports these model APIs
+    ["openai", "langchain"], ["anthropic", "langchain"],
+    ["gemini", "langchain"], ["openai", "llamaindex"],
+    ["langchain", "llamaindex"], ["langchain", "pinecone"],
+    ["llamaindex", "pinecone"], ["huggingface", "llamaindex"],
+    // Python ecosystem — these are all Python-first libraries
+    ["python", "langchain"], ["python", "llamaindex"],
+    ["python", "fastapi"], ["python", "huggingface"], ["python", "postgresql"],
+    // TypeScript + Frontend — LangChain.js ships a TS-first SDK
+    ["typescript", "react"], ["typescript", "nextjs"], ["typescript", "langchain"],
+    ["react", "nextjs"], ["nextjs", "vercel"], ["react", "vercel"],
+    // Backend + DB — common FastAPI data layer pairings
     ["fastapi", "postgresql"], ["fastapi", "redis"], ["fastapi", "docker"],
+    // Infrastructure — container/cloud orchestration chain
     ["aws", "docker"], ["aws", "kubernetes"], ["aws", "vercel"],
     ["docker", "kubernetes"], ["kubernetes", "redis"], ["redis", "postgresql"],
-    ["langchain", "pinecone"], ["langchain", "llamaindex"], ["llamaindex", "pinecone"],
+    // Cross-cutting
+    ["mistral", "aws"], ["pinecone", "python"],
   ];
 
   const getNode = (id: string) => nodes.find(n => n.id === id)!;
@@ -1132,17 +1139,17 @@ function TechPartnersSection() {
 
   const spawnSignal = (from: string, to: string) => {
     const sig: TechSignal = { id: `${from}-${to}-${Date.now()}-${Math.random()}`, from, to };
-    setSignals(prev => [...prev.slice(-18), sig]);
-    setTimeout(() => setSignals(prev => prev.filter(s => s.id !== sig.id)), 1500);
+    setSignals(prev => [...prev.slice(-20), sig]);
+    setTimeout(() => setSignals(prev => prev.filter(s => s.id !== sig.id)), 1400);
   };
 
   useEffect(() => {
-    const edgesCopy = edges;
+    const edgesSnap = edges;
     const iv = setInterval(() => {
-      const edge = edgesCopy[Math.floor(Math.random() * edgesCopy.length)];
+      const edge = edgesSnap[Math.floor(Math.random() * edgesSnap.length)];
       const fwd = Math.random() > 0.5;
       spawnSignal(fwd ? edge[0] : edge[1], fwd ? edge[1] : edge[0]);
-    }, 650);
+    }, 550);
     return () => clearInterval(iv);
   }, []);
 
@@ -1152,9 +1159,7 @@ function TechPartnersSection() {
       .filter(([a, b]) => a === hovered || b === hovered)
       .map(([a, b]) => (a === hovered ? b : a));
     const timers: ReturnType<typeof setTimeout>[] = [];
-    connected.forEach((tgt, i) => {
-      timers.push(setTimeout(() => spawnSignal(hovered, tgt), i * 90));
-    });
+    connected.forEach((tgt, i) => { timers.push(setTimeout(() => spawnSignal(hovered, tgt), i * 80)); });
     return () => timers.forEach(clearTimeout);
   }, [hovered]);
 
@@ -1181,29 +1186,24 @@ function TechPartnersSection() {
         transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
       />
 
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-2" style={{ zIndex: 2 }}>
+      {/* Centered header */}
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-2" style={{ zIndex: 2 }}>
         <BlurReveal>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 pb-7"
-            style={{ borderBottom: "1px solid hsl(250 30% 16%)" }}>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              The stack behind<br />everything we build.
+          <div className="pb-8" style={{ borderBottom: "1px solid hsl(250 30% 16%)" }}>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white mb-3">
+              The stack behind everything we build.
             </h2>
-            <p className="text-sm leading-relaxed" style={{ color: "hsl(250 15% 48%)", maxWidth: 210, textAlign: "right" }}>
-              Hover any node to explore<br className="hidden sm:block" /> our tech ecosystem.
+            <p className="text-sm" style={{ color: "hsl(250 15% 48%)" }}>
+              Hover any node to explore how our tools connect.
             </p>
           </div>
         </BlurReveal>
       </div>
 
+      {/* Graph */}
       <motion.div className="relative" style={{ zIndex: 2 }}
         initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-80px" }} transition={{ duration: 1.2 }}
-        onMouseEnter={() => {
-          if (!ctaVisible) {
-            ctaTimerRef.current = setTimeout(() => setCtaVisible(true), 1800);
-          }
-        }}
-        onMouseLeave={() => { if (ctaTimerRef.current) clearTimeout(ctaTimerRef.current); }}
       >
         <svg viewBox="0 0 980 510" className="w-full" style={{ overflow: "visible", display: "block" }}>
           <defs>
@@ -1226,8 +1226,8 @@ function TechPartnersSection() {
               <line key={`e-${a}-${b}`}
                 x1={na.px} y1={na.py} x2={nb.px} y2={nb.py}
                 stroke={lit ? "hsl(250 85% 65%)" : "hsl(250 50% 70% / 0.10)"}
-                strokeWidth={lit ? 1.6 : 0.7}
-                opacity={dimmed ? 0.2 : 1}
+                strokeWidth={lit ? 1.8 : 0.7}
+                opacity={dimmed ? 0.15 : 1}
                 style={{ transition: "stroke 0.25s, stroke-width 0.25s, opacity 0.25s" }}
               />
             );
@@ -1242,7 +1242,7 @@ function TechPartnersSection() {
                 fill="hsl(255 90% 78%)" filter="url(#gm)"
                 initial={{ cx: src.px, cy: src.py, opacity: 1 }}
                 animate={{ cx: tgt.px, cy: tgt.py, opacity: [1, 1, 0] }}
-                transition={{ duration: 1.4, ease: "linear" }}
+                transition={{ duration: 1.3, ease: "linear" }}
               />
             );
           })}
@@ -1260,25 +1260,31 @@ function TechPartnersSection() {
                   <motion.circle cx={node.px} cy={node.py} r={node.r} fill="none"
                     stroke="hsl(250 85% 65%)" strokeWidth={1.5} filter="url(#gm)"
                     style={{ transformOrigin: `${node.px}px ${node.py}px` }}
-                    animate={{ scale: [1, 4, 5.5], opacity: [0.9, 0.3, 0] }}
+                    animate={{ scale: [1, 4.5, 6], opacity: [0.85, 0.25, 0] }}
                     transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
                   />
                 )}
-                <motion.circle cx={node.px} cy={node.py}
-                  r={node.r}
+                {isHov && (
+                  <motion.circle cx={node.px} cy={node.py} r={node.r} fill="none"
+                    stroke="hsl(260 85% 70%)" strokeWidth={1} filter="url(#gs)"
+                    style={{ transformOrigin: `${node.px}px ${node.py}px` }}
+                    animate={{ scale: [1, 4.5, 6], opacity: [0.5, 0.15, 0] }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut", delay: 0.9 }}
+                  />
+                )}
+                <motion.circle cx={node.px} cy={node.py} r={node.r}
                   fill={isHov ? "hsl(250 85% 60%)" : isCon ? "hsl(250 65% 46%)" : "hsl(250 28% 20%)"}
                   stroke={isHov ? "hsl(250 85% 80%)" : isCon ? "hsl(250 65% 62%)" : "hsl(250 35% 38%)"}
                   strokeWidth={isHov ? 2 : 1}
                   filter={isHov ? "url(#gl)" : isCon ? "url(#gs)" : "none"}
                   style={{ transformOrigin: `${node.px}px ${node.py}px` }}
-                  animate={{ scale: isHov ? 1.22 : 1, opacity: isDim ? 0.18 : 1 }}
+                  animate={{ scale: isHov ? 1.22 : 1, opacity: isDim ? 0.15 : 1 }}
                   transition={{ duration: 0.2 }}
                 />
-                <circle
-                  cx={node.px - node.r * 0.22} cy={node.py - node.r * 0.22}
+                <circle cx={node.px - node.r * 0.22} cy={node.py - node.r * 0.22}
                   r={node.r * 0.26} fill="white"
                   opacity={isDim ? 0 : isHov ? 0.85 : 0.45}
-                  style={{ transition: "opacity 0.2s" }}
+                  style={{ transition: "opacity 0.2s", pointerEvents: "none" }}
                 />
                 <text
                   x={node.px} y={node.py + node.r + 14}
@@ -1288,7 +1294,7 @@ function TechPartnersSection() {
                   fill={isHov ? "#f0edff" : isCon ? "#c4b5fd" : "#6b6585"}
                   fontFamily="Inter, system-ui, sans-serif"
                   opacity={isDim ? 0.12 : 1}
-                  style={{ transition: "opacity 0.2s, fill 0.2s" }}
+                  style={{ transition: "opacity 0.2s, fill 0.2s", pointerEvents: "none", userSelect: "none" }}
                 >
                   {node.name}
                 </text>
@@ -1300,6 +1306,7 @@ function TechPartnersSection() {
         <AnimatePresence>
           {hovered && (() => {
             const n = getNode(hovered);
+            const count = connectedIds.length;
             return (
               <motion.div key={hovered}
                 className="absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-none"
@@ -1319,46 +1326,15 @@ function TechPartnersSection() {
                   <span className="text-sm font-semibold text-white">{n.name}</span>
                   <span className="text-xs" style={{ color: "hsl(250 18% 54%)" }}>{n.desc}</span>
                   <span style={{ color: "hsl(250 25% 32%)" }}>·</span>
-                  <Link href="/get-started">
-                    <button className="text-xs font-semibold flex items-center gap-1 pointer-events-auto transition-opacity hover:opacity-75"
-                      style={{ color: "hsl(250 85% 72%)" }}>
-                      Build with this <ArrowRight style={{ width: 11, height: 11 }} />
-                    </button>
-                  </Link>
+                  <span className="text-xs font-medium" style={{ color: "hsl(250 60% 68%)" }}>
+                    {count} connection{count !== 1 ? "s" : ""}
+                  </span>
                 </div>
               </motion.div>
             );
           })()}
         </AnimatePresence>
       </motion.div>
-
-      <AnimatePresence>
-        {ctaVisible && (
-          <motion.div className="relative text-center mt-6" style={{ zIndex: 2 }}
-            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }} transition={{ duration: 0.7 }}
-          >
-            <p className="text-sm mb-5" style={{ color: "hsl(250 15% 46%)" }}>
-              19 technologies. One team. Infinite possibilities.
-            </p>
-            <div className="flex items-center justify-center gap-4">
-              <MagneticButton>
-                <Link href="/get-started">
-                  <Button size="lg">Start a Project <ArrowRight className="w-4 h-4 ml-2" /></Button>
-                </Link>
-              </MagneticButton>
-              <MagneticButton>
-                <Link href="/contact">
-                  <Button size="lg" variant="outline"
-                    style={{ borderColor: "hsl(250 30% 28%)", color: "hsl(250 15% 62%)", background: "transparent" }}>
-                    Contact Us
-                  </Button>
-                </Link>
-              </MagneticButton>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
