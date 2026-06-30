@@ -902,19 +902,15 @@ function GetStartedPreview() {
   const [selected, setSelected] = useState("agentic");
   const active = projectTypes.find(t => t.id === selected)!;
 
-  const row1 = projectTypes.slice(0, 5);
-  const row2 = projectTypes.slice(5);
-
   return (
     <section className="py-24 relative overflow-hidden" data-testid="section-get-started-preview"
       style={{ background: "hsl(250 18% 7%)" }}>
-      {/* Subtle radial glow behind the demo */}
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 55%, hsl(250 85% 60% / 0.06) 0%, transparent 70%)" }} />
+        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 55%, hsl(250 85% 60% / 0.07) 0%, transparent 70%)" }} />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Section header */}
+        {/* Header */}
         <div className="text-center mb-10">
           <BlurReveal>
             <Badge variant="secondary" className="mb-4">
@@ -932,61 +928,73 @@ function GetStartedPreview() {
           </BlurReveal>
         </div>
 
-        {/* Tab rows — icon cards, 5 on top + 4 on bottom */}
+        {/* Tab rail — single row, horizontal scroll, spring-animated active indicator */}
         <BlurReveal delay={0.25}>
-          <div className="flex flex-col items-center gap-2 mb-8">
-            {[row1, row2].map((row, rowIdx) => (
-              <div key={rowIdx} className="flex flex-wrap justify-center gap-2">
-                {row.map((type) => {
-                  const isActive = selected === type.id;
-                  return (
-                    <button
-                      key={type.id}
-                      onClick={() => setSelected(type.id)}
-                      data-testid={`preview-type-${type.id}`}
-                      className="flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium border transition-all duration-200"
-                      style={isActive ? {
-                        background: "hsl(250 85% 60% / 0.15)",
-                        borderColor: "hsl(250 85% 60% / 0.5)",
-                        color: "hsl(250 85% 80%)",
-                        boxShadow: "0 0 16px hsl(250 85% 60% / 0.15)",
-                      } : {
-                        background: "hsl(250 20% 10% / 0.6)",
-                        borderColor: "hsl(250 20% 22%)",
-                        color: "hsl(250 10% 50%)",
-                      }}
-                    >
-                      <type.icon
-                        className="w-4 h-4 shrink-0"
-                        style={{ color: isActive ? "hsl(250 85% 70%)" : "hsl(250 10% 45%)" }}
+          <div className="relative mb-8">
+            <div className="flex items-center gap-1 overflow-x-auto pb-1"
+              style={{ scrollbarWidth: "none" }}>
+              {projectTypes.map((type) => {
+                const isActive = selected === type.id;
+                return (
+                  <button
+                    key={type.id}
+                    onClick={() => setSelected(type.id)}
+                    data-testid={`preview-type-${type.id}`}
+                    className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap shrink-0 transition-colors duration-150"
+                    style={{ color: isActive ? "white" : "hsl(250 12% 42%)" }}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="tab-active-bg"
+                        className="absolute inset-0 rounded-xl"
+                        style={{
+                          background: "hsl(250 85% 60% / 0.16)",
+                          border: "1px solid hsl(250 85% 60% / 0.42)",
+                          boxShadow: "0 0 18px hsl(250 85% 60% / 0.12)",
+                        }}
+                        transition={{ type: "spring", stiffness: 420, damping: 32 }}
                       />
-                      {type.label}
-                    </button>
-                  );
-                })}
-              </div>
-            ))}
+                    )}
+                    <type.icon
+                      className="w-4 h-4 shrink-0 relative z-10 transition-colors duration-150"
+                      style={{ color: isActive ? "hsl(250 85% 72%)" : "hsl(250 12% 36%)" }}
+                    />
+                    <span className="relative z-10">{type.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+            {/* Right fade hint for scroll */}
+            <div className="absolute right-0 top-0 bottom-1 w-10 pointer-events-none"
+              style={{ background: "linear-gradient(to right, transparent, hsl(250 18% 7%))" }} />
           </div>
         </BlurReveal>
 
-        {/* Live demo */}
+        {/* Demo frame */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selected + "-demo"}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             className="mb-8"
           >
-            <div className="rounded-xl overflow-hidden"
+            <div className="relative rounded-2xl overflow-hidden"
               style={{
-                border: "1px solid hsl(250 25% 18%)",
+                border: "1px solid hsl(250 28% 20%)",
                 background: "hsl(250 20% 5%)",
-                boxShadow: "0 0 0 1px hsl(250 85% 60% / 0.06), 0 20px 60px -12px hsl(250 20% 3% / 0.8)",
+                boxShadow: "0 0 0 1px hsl(250 85% 60% / 0.07), 0 28px 72px -16px hsl(250 20% 3% / 0.88)",
               }}>
-              {/* Accent bar */}
-              <div className="h-px" style={{ background: "linear-gradient(90deg, transparent 10%, hsl(250 85% 60% / 0.5) 40%, hsl(270 75% 65% / 0.35) 60%, transparent 90%)" }} />
+              {/* Accent stripe */}
+              <div className="h-px" style={{ background: "linear-gradient(90deg, transparent 5%, hsl(250 85% 60% / 0.65) 35%, hsl(270 75% 65% / 0.45) 65%, transparent 95%)" }} />
+              {/* LIVE badge */}
+              <div className="absolute top-3.5 right-4 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full pointer-events-none"
+                style={{ background: "hsl(160 70% 38% / 0.14)", border: "1px solid hsl(160 70% 38% / 0.32)" }}>
+                <motion.div className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                  animate={{ opacity: [1, 0.25, 1] }} transition={{ duration: 1.6, repeat: Infinity }} />
+                <span className="text-[9px] font-bold uppercase tracking-wider text-emerald-400">Live</span>
+              </div>
               <div className="p-5 sm:p-8">
                 <DemoPreview projectType={selected} />
               </div>
@@ -998,22 +1006,32 @@ function GetStartedPreview() {
         <AnimatePresence mode="wait">
           <motion.div
             key={selected + "-info"}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.2 }}
           >
-            <div className="pt-5 border-t flex flex-col items-center text-center" style={{ borderColor: "hsl(250 20% 18%)" }}>
-              {/* Tagline */}
-              <h3 className="font-sans text-2xl sm:text-3xl font-bold text-white leading-snug mb-3 tracking-tight">
+            <div className="pt-6 border-t flex flex-col items-center text-center"
+              style={{ borderColor: "hsl(250 20% 18%)" }}>
+              <h3 className="font-sans text-2xl sm:text-3xl font-bold text-white leading-snug mb-2 tracking-tight">
                 {active.tagline}
               </h3>
-
-              {/* Description */}
-              <p className="text-white/70 text-sm leading-relaxed mb-5 max-w-md">
+              <p className="text-white/55 text-sm leading-relaxed mb-5 max-w-md">
                 {active.description}
               </p>
-
+              {/* Capability pills */}
+              <div className="flex flex-wrap gap-2 justify-center mb-6">
+                {active.bullets.map((b) => (
+                  <span key={b} className="text-xs px-3 py-1 rounded-full font-medium"
+                    style={{
+                      background: "hsl(250 85% 60% / 0.10)",
+                      border: "1px solid hsl(250 85% 60% / 0.24)",
+                      color: "hsl(250 60% 72%)",
+                    }}>
+                    {b}
+                  </span>
+                ))}
+              </div>
               <MagneticButton>
                 <Link href="/get-started">
                   <Button size="default" data-testid="button-preview-get-started">

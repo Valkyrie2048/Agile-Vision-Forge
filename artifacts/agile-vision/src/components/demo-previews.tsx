@@ -118,6 +118,12 @@ export function ChatbotDemo() {
     if (el) el.scrollTop = el.scrollHeight;
   }, [msgs, typing]);
 
+  // Auto-send on mount so the user immediately sees the AI reply
+  useEffect(() => {
+    const t = setTimeout(() => send("Order status?"), 1200);
+    return () => clearTimeout(t);
+  }, []);
+
   const ch = CHANNELS.find(c => c.id === channel)!;
 
   return (
@@ -259,6 +265,12 @@ function AgenticAIDemo() {
     setAwaitingApproval(false);
     setActive(-1);
   };
+
+  // Auto-run on mount — immediately shows the pipeline in action
+  useEffect(() => {
+    const t = setTimeout(() => run(), 700);
+    return () => clearTimeout(t);
+  }, []);
 
   const allDone = done.length === 5 && approved;
   const totalSec = (PIPELINE_STEPS.slice(0,4).reduce((s,x) => s + x.ms, 0) / 1000).toFixed(1);
@@ -656,6 +668,12 @@ export function DataAppDemo() {
     return () => clearInterval(t);
   }, []);
 
+  // Auto-query on mount
+  useEffect(() => {
+    const t = setTimeout(() => query(0), 700);
+    return () => clearTimeout(t);
+  }, []);
+
   const query = (i: number) => {
     if (loading || selected === i) return;
     setLoading(true); setSelected(null);
@@ -769,8 +787,6 @@ export function AutomationDemo() {
     if (running) return;
     setStep(-1); setRunning(true); setRetried(false);
     AUTO_STEPS.forEach((_, i) => {
-      // Simulate a network error-and-retry on step 2 (surfaces "Error recovery" bullet)
-      const delay = 400 + i * 650 + (i >= 2 && !retried ? 0 : 0);
       setTimeout(() => {
         setStep(i);
         if (i === 2) setRetried(true);
@@ -778,6 +794,12 @@ export function AutomationDemo() {
       }, 400 + i * 700);
     });
   };
+
+  // Auto-trigger on mount
+  useEffect(() => {
+    const t = setTimeout(() => trigger(), 600);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <BrowserFrame url="automation.yourbrand.com/ap-workflow">
@@ -1238,7 +1260,7 @@ export function EdTechDemo() {
 // Router
 // ─────────────────────────────────────────────────────────────
 
-const DEMO_MAP: Record<string, () => JSX.Element> = {
+const DEMO_MAP: Record<string, () => React.ReactElement> = {
   chatbot:   ChatbotDemo,
   agentic:   AgenticAIDemo,
   webapp:    WebAppDemo,
