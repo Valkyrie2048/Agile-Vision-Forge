@@ -1078,26 +1078,53 @@ function ProcessSection() {
 }
 
 function TechPartnersSection() {
-  const nodes = [
-    { name: "OpenAI",      x: 6,  y: 8,  cls: "text-xl",   op: 0.82, amp: 10, dur: 7,    del: 0 },
-    { name: "React",       x: 39, y: 14, cls: "text-2xl",  op: 0.88, amp: 8,  dur: 8,    del: 1.2 },
-    { name: "Anthropic",   x: 73, y: 7,  cls: "text-xl",   op: 0.78, amp: 12, dur: 9,    del: 0.5 },
-    { name: "Python",      x: 86, y: 40, cls: "text-xl",   op: 0.72, amp: 9,  dur: 7.5,  del: 2 },
-    { name: "TypeScript",  x: 18, y: 43, cls: "text-lg",   op: 0.58, amp: 11, dur: 10,   del: 0.8 },
-    { name: "LangChain",   x: 53, y: 52, cls: "text-base", op: 0.52, amp: 8,  dur: 8.5,  del: 1.5 },
-    { name: "Next.js",     x: 28, y: 70, cls: "text-lg",   op: 0.55, amp: 14, dur: 11,   del: 0.3 },
-    { name: "Kubernetes",  x: 65, y: 67, cls: "text-base", op: 0.48, amp: 10, dur: 9.5,  del: 2.2 },
-    { name: "AWS",         x: 10, y: 77, cls: "text-base", op: 0.45, amp: 9,  dur: 8,    del: 1 },
-    { name: "Gemini",      x: 48, y: 28, cls: "text-base", op: 0.50, amp: 12, dur: 10.5, del: 1.8 },
-    { name: "PostgreSQL",  x: 88, y: 65, cls: "text-sm",   op: 0.32, amp: 8,  dur: 12,   del: 0.4 },
-    { name: "Docker",      x: 57, y: 82, cls: "text-sm",   op: 0.28, amp: 10, dur: 9,    del: 2.5 },
-    { name: "Redis",       x: 23, y: 89, cls: "text-xs",   op: 0.25, amp: 7,  dur: 11,   del: 0.7 },
-    { name: "Vercel",      x: 79, y: 83, cls: "text-sm",   op: 0.30, amp: 11, dur: 8.5,  del: 1.3 },
-    { name: "FastAPI",     x: 35, y: 54, cls: "text-sm",   op: 0.38, amp: 9,  dur: 10,   del: 0.6 },
-    { name: "LlamaIndex",  x: 71, y: 42, cls: "text-sm",   op: 0.35, amp: 13, dur: 11.5, del: 1.9 },
-    { name: "Pinecone",    x: 91, y: 23, cls: "text-sm",   op: 0.33, amp: 8,  dur: 9.5,  del: 2.8 },
-    { name: "HuggingFace", x: 3,  y: 56, cls: "text-xs",   op: 0.22, amp: 10, dur: 13,   del: 1.1 },
+  const particles = [
+    { x: 14, y: 20, s: 2, op: 0.55, dur: 3.0 }, { x: 25, y: 35, s: 1, op: 0.35, dur: 4.2 },
+    { x: 44, y: 8,  s: 2, op: 0.50, dur: 3.5 }, { x: 60, y: 22, s: 1, op: 0.30, dur: 5.0 },
+    { x: 77, y: 35, s: 3, op: 0.60, dur: 2.8 }, { x: 33, y: 48, s: 1, op: 0.28, dur: 4.5 },
+    { x: 82, y: 55, s: 2, op: 0.42, dur: 3.2 }, { x: 16, y: 62, s: 1, op: 0.22, dur: 5.5 },
+    { x: 50, y: 72, s: 2, op: 0.38, dur: 4.0 }, { x: 68, y: 80, s: 1, op: 0.28, dur: 3.8 },
+    { x: 5,  y: 38, s: 2, op: 0.32, dur: 4.2 }, { x: 94, y: 15, s: 1, op: 0.38, dur: 3.0 },
+    { x: 42, y: 92, s: 2, op: 0.22, dur: 5.0 }, { x: 87, y: 90, s: 1, op: 0.28, dur: 3.5 },
+    { x: 20, y: 15, s: 1, op: 0.42, dur: 4.8 }, { x: 62, y: 40, s: 3, op: 0.55, dur: 2.5 },
+    { x: 76, y: 12, s: 1, op: 0.38, dur: 4.0 }, { x: 38, y: 78, s: 2, op: 0.25, dur: 5.2 },
+    { x: 55, y: 60, s: 1, op: 0.32, dur: 3.8 }, { x: 92, y: 48, s: 2, op: 0.38, dur: 4.5 },
+    { x: 8,  y: 90, s: 1, op: 0.18, dur: 5.0 }, { x: 48, y: 45, s: 3, op: 0.58, dur: 3.2 },
+    { x: 30, y: 25, s: 1, op: 0.48, dur: 4.2 }, { x: 70, y: 58, s: 2, op: 0.35, dur: 3.6 },
   ];
+
+  const nodes = [
+    { name: "OpenAI",      x: 6,  y: 8,  cls: "text-xl",   op: 0.85, amp: 10, dur: 7,    del: 0,   glow: true,  dfBlur: 0 },
+    { name: "React",       x: 39, y: 14, cls: "text-2xl",  op: 0.90, amp: 8,  dur: 8,    del: 1.2, glow: true,  dfBlur: 0 },
+    { name: "Anthropic",   x: 73, y: 7,  cls: "text-xl",   op: 0.80, amp: 12, dur: 9,    del: 0.5, glow: true,  dfBlur: 0 },
+    { name: "Python",      x: 86, y: 40, cls: "text-xl",   op: 0.75, amp: 9,  dur: 7.5,  del: 2,   glow: true,  dfBlur: 0 },
+    { name: "TypeScript",  x: 18, y: 43, cls: "text-lg",   op: 0.60, amp: 11, dur: 10,   del: 0.8, glow: false, dfBlur: 0 },
+    { name: "LangChain",   x: 53, y: 52, cls: "text-base", op: 0.54, amp: 8,  dur: 8.5,  del: 1.5, glow: false, dfBlur: 0 },
+    { name: "Next.js",     x: 28, y: 70, cls: "text-lg",   op: 0.57, amp: 14, dur: 11,   del: 0.3, glow: false, dfBlur: 0 },
+    { name: "Kubernetes",  x: 65, y: 67, cls: "text-base", op: 0.50, amp: 10, dur: 9.5,  del: 2.2, glow: false, dfBlur: 0 },
+    { name: "AWS",         x: 10, y: 77, cls: "text-base", op: 0.47, amp: 9,  dur: 8,    del: 1,   glow: false, dfBlur: 0 },
+    { name: "Gemini",      x: 48, y: 28, cls: "text-base", op: 0.52, amp: 12, dur: 10.5, del: 1.8, glow: false, dfBlur: 0 },
+    { name: "PostgreSQL",  x: 88, y: 65, cls: "text-sm",   op: 0.33, amp: 8,  dur: 12,   del: 0.4, glow: false, dfBlur: 0.5 },
+    { name: "Docker",      x: 57, y: 82, cls: "text-sm",   op: 0.29, amp: 10, dur: 9,    del: 2.5, glow: false, dfBlur: 0.5 },
+    { name: "Redis",       x: 23, y: 89, cls: "text-xs",   op: 0.24, amp: 7,  dur: 11,   del: 0.7, glow: false, dfBlur: 0.8 },
+    { name: "Vercel",      x: 79, y: 83, cls: "text-sm",   op: 0.31, amp: 11, dur: 8.5,  del: 1.3, glow: false, dfBlur: 0.5 },
+    { name: "FastAPI",     x: 35, y: 54, cls: "text-sm",   op: 0.40, amp: 9,  dur: 10,   del: 0.6, glow: false, dfBlur: 0.3 },
+    { name: "LlamaIndex",  x: 71, y: 42, cls: "text-sm",   op: 0.36, amp: 13, dur: 11.5, del: 1.9, glow: false, dfBlur: 0.4 },
+    { name: "Pinecone",    x: 91, y: 23, cls: "text-sm",   op: 0.34, amp: 8,  dur: 9.5,  del: 2.8, glow: false, dfBlur: 0.5 },
+    { name: "HuggingFace", x: 3,  y: 56, cls: "text-xs",   op: 0.21, amp: 10, dur: 13,   del: 1.1, glow: false, dfBlur: 0.8 },
+  ];
+
+  const nodeColor = (op: number) =>
+    op >= 0.72 ? "hsl(255 50% 97%)" :
+    op >= 0.46 ? "hsl(250 20% 84%)" :
+    op >= 0.32 ? "hsl(250 14% 70%)" :
+                 "hsl(250 10% 58%)";
+
+  const nodeGlow = (op: number, glow: boolean) =>
+    !glow ? "none" :
+    op >= 0.82 ? "0 0 28px hsl(250 85% 65% / 0.55), 0 0 70px hsl(250 85% 55% / 0.22)" :
+    op >= 0.72 ? "0 0 20px hsl(250 85% 65% / 0.40), 0 0 50px hsl(250 85% 55% / 0.15)" :
+                 "none";
 
   return (
     <section
@@ -1105,50 +1132,52 @@ function TechPartnersSection() {
       style={{ background: "hsl(250 20% 4%)", paddingTop: "6rem", paddingBottom: "4rem" }}
       data-testid="section-tech"
     >
-      {/* Deep space background */}
+      {/* Deep nebula base */}
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 140% 90% at 50% 60%, hsl(250 35% 8% / 0.8) 0%, transparent 70%)" }} />
+        style={{ background: "radial-gradient(ellipse 160% 100% at 50% 40%, hsl(250 40% 10% / 0.9) 0%, hsl(250 20% 4%) 65%)" }} />
 
-      {/* Aurora 1 — large purple, drifts slowly */}
+      {/* Aurora 1 — large main purple */}
       <motion.div className="absolute rounded-full pointer-events-none"
-        style={{ width: 800, height: 500, left: "5%", top: "-10%",
-          background: "radial-gradient(ellipse, hsl(250 85% 55% / 0.13) 0%, transparent 70%)",
-          filter: "blur(70px)" }}
-        animate={{ x: [0, 100, -40, 0], y: [0, -30, 60, 0] }}
+        style={{ width: 900, height: 600, left: "0%", top: "-20%",
+          background: "radial-gradient(ellipse, hsl(250 85% 55% / 0.16) 0%, transparent 70%)",
+          filter: "blur(80px)" }}
+        animate={{ x: [0, 120, -50, 0], y: [0, -40, 70, 0] }}
         transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Aurora 2 — violet, upper right */}
+      {/* Aurora 2 — violet crown */}
       <motion.div className="absolute rounded-full pointer-events-none"
-        style={{ width: 450, height: 350, right: "2%", top: "5%",
-          background: "radial-gradient(ellipse, hsl(270 70% 60% / 0.10) 0%, transparent 70%)",
-          filter: "blur(55px)" }}
-        animate={{ x: [0, -80, 30, 0], y: [0, 50, -25, 0] }}
+        style={{ width: 550, height: 420, right: "-5%", top: "0%",
+          background: "radial-gradient(ellipse, hsl(270 75% 62% / 0.14) 0%, transparent 70%)",
+          filter: "blur(65px)" }}
+        animate={{ x: [0, -90, 40, 0], y: [0, 60, -30, 0] }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Aurora 3 — ground haze */}
+      {/* Aurora 3 — deep blue ground haze */}
       <motion.div className="absolute rounded-full pointer-events-none"
-        style={{ width: 600, height: 200, left: "25%", bottom: "0%",
-          background: "radial-gradient(ellipse, hsl(240 60% 45% / 0.07) 0%, transparent 70%)",
-          filter: "blur(80px)" }}
-        animate={{ x: [0, 60, -50, 0] }}
+        style={{ width: 700, height: 280, left: "20%", bottom: "-5%",
+          background: "radial-gradient(ellipse, hsl(240 65% 50% / 0.10) 0%, transparent 70%)",
+          filter: "blur(90px)" }}
+        animate={{ x: [0, 70, -60, 0] }}
         transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* Scan sweep */}
+      {/* Dual scan sweeps */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }}>
-        <div style={{
-          position: "absolute", top: 0, bottom: 0, width: "350px",
-          background: "linear-gradient(to right, transparent, hsl(250 80% 70% / 0.05), transparent)",
-          animation: "scanSweep 14s ease-in-out infinite",
-        }} />
+        <div style={{ position: "absolute", top: 0, bottom: 0, width: "400px",
+          background: "linear-gradient(to right, transparent, hsl(250 80% 70% / 0.07) 50%, transparent)",
+          animation: "scanSweep 12s ease-in-out infinite" }} />
+        <div style={{ position: "absolute", top: 0, bottom: 0, width: "250px",
+          background: "linear-gradient(to right, transparent, hsl(270 70% 70% / 0.04) 50%, transparent)",
+          animation: "scanSweep 12s ease-in-out infinite", animationDelay: "6s" }} />
       </div>
 
       {/* Header */}
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-8" style={{ zIndex: 2 }}>
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" style={{ zIndex: 2 }}>
         <BlurReveal>
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 pb-8"
+            style={{ borderBottom: "1px solid hsl(250 30% 18%)" }}>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
               The stack behind<br />everything we build.
             </h2>
@@ -1159,21 +1188,34 @@ function TechPartnersSection() {
         </BlurReveal>
       </div>
 
-      {/* Floating node field */}
-      <div className="relative w-full" style={{ height: 460, zIndex: 2 }}>
+      {/* Field */}
+      <div className="relative w-full" style={{ height: 480, zIndex: 2 }}>
+
+        {/* Particle stars */}
+        {particles.map((p, i) => (
+          <motion.div key={`p${i}`} className="absolute rounded-full pointer-events-none"
+            style={{
+              left: `${p.x}%`, top: `${p.y}%`, width: p.s, height: p.s,
+              background: "hsl(260 70% 85%)", opacity: p.op,
+              boxShadow: p.s >= 2 ? `0 0 ${p.s * 4}px hsl(250 85% 72% / 0.7)` : "none",
+            }}
+            animate={{ opacity: [p.op, p.op * 0.25, p.op] }}
+            transition={{ duration: p.dur, delay: i * 0.11, repeat: Infinity, ease: "easeInOut" }}
+          />
+        ))}
+
+        {/* Tech name nodes */}
         {nodes.map((node, i) => (
-          <motion.div
-            key={node.name}
-            className="absolute"
+          <motion.div key={node.name} className="absolute"
             style={{ left: `${node.x}%`, top: `${node.y}%` }}
-            initial={{ opacity: 0, filter: "blur(8px)" }}
-            whileInView={{ opacity: node.op, filter: "blur(0px)" }}
+            initial={{ opacity: 0, filter: "blur(12px)" }}
+            whileInView={{ opacity: node.op, filter: `blur(${node.dfBlur}px)` }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 1, delay: i * 0.045, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 1.1, delay: i * 0.05, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <motion.span
               className={`select-none font-semibold tracking-wide whitespace-nowrap ${node.cls}`}
-              style={{ color: "hsl(250 25% 88%)" }}
+              style={{ color: nodeColor(node.op), textShadow: nodeGlow(node.op, node.glow) }}
               animate={{ y: [0, -node.amp, 0] }}
               transition={{ duration: node.dur, delay: node.del, repeat: Infinity, ease: "easeInOut" }}
             >
