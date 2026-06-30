@@ -666,7 +666,7 @@ const INDUSTRY_CARDS = [
     tagline: "Clinical AI & Patient Intelligence",
     blurb: "Triage support, outcome prediction, and real-time clinical decision tools that keep clinicians in control.",
     accent: "hsl(160 75% 45%)",
-    glow: "hsla(160,75%,45%,0.12)",
+    stat: "94% triage accuracy",
   },
   {
     icon: TrendingUp,
@@ -674,7 +674,7 @@ const INDUSTRY_CARDS = [
     tagline: "Market Signals & Anomaly Detection",
     blurb: "Flash-crash alerts, portfolio risk models, and NLP-powered earnings analysis at institutional speed.",
     accent: "hsl(250 85% 65%)",
-    glow: "hsla(250,85%,65%,0.12)",
+    stat: "3ms signal latency",
   },
   {
     icon: ShoppingCart,
@@ -682,7 +682,7 @@ const INDUSTRY_CARDS = [
     tagline: "Demand Forecasting & Personalisation",
     blurb: "Dynamic pricing engines, inventory optimisation, and real-time recommendation layers at scale.",
     accent: "hsl(35 90% 55%)",
-    glow: "hsla(35,90%,55%,0.12)",
+    stat: "40% demand lift",
   },
   {
     icon: Factory,
@@ -690,7 +690,7 @@ const INDUSTRY_CARDS = [
     tagline: "Vision-Based Defect Detection",
     blurb: "Computer-vision pipelines that flag solder bridges and missing components before they leave the line.",
     accent: "hsl(200 80% 55%)",
-    glow: "hsla(200,80%,55%,0.12)",
+    stat: "99.2% defect recall",
   },
   {
     icon: FileText,
@@ -698,7 +698,7 @@ const INDUSTRY_CARDS = [
     tagline: "Real-Time Brand Sentiment",
     blurb: "Token-level sentiment scoring, topic clustering, and audience-signal dashboards for content teams.",
     accent: "hsl(280 75% 65%)",
-    glow: "hsla(280,75%,65%,0.12)",
+    stat: "1M tokens/sec",
   },
   {
     icon: Truck,
@@ -706,7 +706,7 @@ const INDUSTRY_CARDS = [
     tagline: "Last-Mile Route Optimisation",
     blurb: "Travelling-salesman solvers, live re-routing, and ETA prediction that cut delivery kilometres.",
     accent: "hsl(15 80% 55%)",
-    glow: "hsla(15,80%,55%,0.12)",
+    stat: "28% fewer km",
   },
 ];
 
@@ -731,50 +731,75 @@ function IndustriesSection() {
           </BlurReveal>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
           {INDUSTRY_CARDS.map((ind, i) => (
             <motion.div
               key={ind.label}
-              initial={{ opacity: 0, y: 36, scale: 0.96 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.55, delay: i * 0.07, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="h-full"
+              initial={{ opacity: 0, y: 48 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.12 }}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Link href="/industries">
+              <Link href="/industries" className="block h-full">
                 <motion.div
-                  className="group relative rounded-xl p-px h-full cursor-pointer"
-                  style={{ background: `linear-gradient(135deg, ${ind.accent}44, transparent 60%)` }}
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.25 }}
+                  className="group relative h-full rounded-2xl overflow-hidden cursor-pointer"
+                  whileHover={{ y: -6, scale: 1.018, boxShadow: `0 8px 40px -8px color-mix(in srgb, ${ind.accent} 35%, transparent), 0 0 0 1px color-mix(in srgb, ${ind.accent} 50%, transparent)` }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
+                  style={{
+                    background: `linear-gradient(145deg, color-mix(in srgb, ${ind.accent} 14%, hsl(250 18% 8%)) 0%, hsl(250 18% 7%) 55%)`,
+                    border: `1px solid color-mix(in srgb, ${ind.accent} 28%, transparent)`,
+                    boxShadow: `0 0 0 0 transparent`,
+                  }}
                 >
+                  {/* Large ambient orb — expands on hover */}
                   <div
-                    className="rounded-xl h-full flex flex-col gap-5 p-7 transition-colors duration-300"
-                    style={{ background: "hsl(250 20% 9%)" }}
-                  >
-                    {/* Hover glow */}
-                    <div
-                      className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                      style={{ background: `radial-gradient(ellipse at 30% 30%, ${ind.glow} 0%, transparent 65%)` }}
-                    />
+                    className="absolute -top-10 -left-10 w-48 h-48 rounded-full pointer-events-none opacity-40 group-hover:opacity-90 group-hover:scale-125 transition-all duration-500"
+                    style={{ background: `radial-gradient(circle, color-mix(in srgb, ${ind.accent} 30%, transparent) 0%, transparent 70%)` }}
+                  />
 
+                  {/* Top accent stripe */}
+                  <div className="absolute top-0 left-0 right-0 h-px pointer-events-none opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: `linear-gradient(90deg, transparent, ${ind.accent}, transparent)` }} />
+
+                  <div className="relative z-10 flex flex-col gap-5 p-7 h-full">
+                    {/* Icon */}
                     <div
-                      className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 relative z-10"
-                      style={{ background: `${ind.accent}20`, border: `1px solid ${ind.accent}50` }}
+                      className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
+                      style={{
+                        background: `color-mix(in srgb, ${ind.accent} 16%, transparent)`,
+                        border: `1px solid color-mix(in srgb, ${ind.accent} 45%, transparent)`,
+                        boxShadow: `0 0 20px color-mix(in srgb, ${ind.accent} 20%, transparent)`,
+                      }}
                     >
                       <ind.icon className="w-7 h-7" style={{ color: ind.accent }} />
                     </div>
 
-                    <div className="relative z-10 flex-1">
+                    {/* Text */}
+                    <div className="flex-1">
                       <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: ind.accent }}>
                         {ind.label}
                       </div>
                       <h3 className="font-semibold text-white text-lg leading-snug mb-3">{ind.tagline}</h3>
-                      <p className="text-sm text-white/60 leading-relaxed">{ind.blurb}</p>
+                      <p className="text-sm leading-relaxed" style={{ color: "hsl(250 15% 55%)" }}>{ind.blurb}</p>
                     </div>
 
-                    <div className="flex items-center gap-1.5 relative z-10">
-                      <span className="text-sm font-semibold" style={{ color: ind.accent }}>See live demo</span>
-                      <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" style={{ color: ind.accent }} />
+                    {/* Footer row */}
+                    <div className="flex items-center justify-between pt-1">
+                      <span
+                        className="text-xs font-bold px-2.5 py-1 rounded-full"
+                        style={{
+                          background: `color-mix(in srgb, ${ind.accent} 14%, transparent)`,
+                          color: ind.accent,
+                          border: `1px solid color-mix(in srgb, ${ind.accent} 30%, transparent)`,
+                        }}
+                      >
+                        {ind.stat}
+                      </span>
+                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <span className="text-xs font-semibold" style={{ color: ind.accent }}>Live demo</span>
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-200" style={{ color: ind.accent }} />
+                      </div>
                     </div>
                   </div>
                 </motion.div>
