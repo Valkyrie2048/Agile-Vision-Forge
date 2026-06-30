@@ -898,11 +898,11 @@ function GetStartedPreview() {
             </Badge>
           </BlurReveal>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <TextReveal>Products We've Shipped</TextReveal>
+            <TextReveal>Lots of Ways to Solve a Problem</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              Interactive demos of real products from our studio — each one built for a client just like you.
+              Pick a product type and see a live demo of what we'd build for your business.
             </p>
           </BlurReveal>
         </div>
