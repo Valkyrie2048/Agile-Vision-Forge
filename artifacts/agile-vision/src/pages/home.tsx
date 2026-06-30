@@ -928,45 +928,43 @@ function GetStartedPreview() {
           </BlurReveal>
         </div>
 
-        {/* Tab rail — single row, horizontal scroll, spring-animated active indicator */}
+        {/* Tab grid — two stacked rows, spring-animated active indicator */}
         <BlurReveal delay={0.25}>
-          <div className="relative mb-8">
-            <div className="flex items-center gap-1 overflow-x-auto pb-1"
-              style={{ scrollbarWidth: "none" }}>
-              {projectTypes.map((type) => {
-                const isActive = selected === type.id;
-                return (
-                  <button
-                    key={type.id}
-                    onClick={() => setSelected(type.id)}
-                    data-testid={`preview-type-${type.id}`}
-                    className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap shrink-0 transition-colors duration-150"
-                    style={{ color: isActive ? "white" : "hsl(250 12% 42%)" }}
-                  >
-                    {isActive && (
-                      <motion.span
-                        layoutId="tab-active-bg"
-                        className="absolute inset-0 rounded-xl"
-                        style={{
-                          background: "hsl(250 85% 60% / 0.16)",
-                          border: "1px solid hsl(250 85% 60% / 0.42)",
-                          boxShadow: "0 0 18px hsl(250 85% 60% / 0.12)",
-                        }}
-                        transition={{ type: "spring", stiffness: 420, damping: 32 }}
+          <div className="flex flex-col items-center gap-2 mb-8">
+            {[projectTypes.slice(0, 5), projectTypes.slice(5)].map((row, rowIdx) => (
+              <div key={rowIdx} className="flex flex-wrap justify-center gap-2">
+                {row.map((type) => {
+                  const isActive = selected === type.id;
+                  return (
+                    <button
+                      key={type.id}
+                      onClick={() => setSelected(type.id)}
+                      data-testid={`preview-type-${type.id}`}
+                      className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap transition-colors duration-150"
+                      style={{ color: isActive ? "white" : "hsl(250 12% 42%)" }}
+                    >
+                      {isActive && (
+                        <motion.span
+                          layoutId="tab-active-bg"
+                          className="absolute inset-0 rounded-xl"
+                          style={{
+                            background: "hsl(250 85% 60% / 0.16)",
+                            border: "1px solid hsl(250 85% 60% / 0.42)",
+                            boxShadow: "0 0 18px hsl(250 85% 60% / 0.12)",
+                          }}
+                          transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                        />
+                      )}
+                      <type.icon
+                        className="w-4 h-4 shrink-0 relative z-10 transition-colors duration-150"
+                        style={{ color: isActive ? "hsl(250 85% 72%)" : "hsl(250 12% 36%)" }}
                       />
-                    )}
-                    <type.icon
-                      className="w-4 h-4 shrink-0 relative z-10 transition-colors duration-150"
-                      style={{ color: isActive ? "hsl(250 85% 72%)" : "hsl(250 12% 36%)" }}
-                    />
-                    <span className="relative z-10">{type.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-            {/* Right fade hint for scroll */}
-            <div className="absolute right-0 top-0 bottom-1 w-10 pointer-events-none"
-              style={{ background: "linear-gradient(to right, transparent, hsl(250 18% 7%))" }} />
+                      <span className="relative z-10">{type.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </BlurReveal>
 
