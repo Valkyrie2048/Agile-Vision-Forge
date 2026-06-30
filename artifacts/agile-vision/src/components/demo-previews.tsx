@@ -98,7 +98,7 @@ export function ChatbotDemo() {
   const [msgs, setMsgs] = useState<Msg[]>([
     { role: "bot", text: "Hi! I'm Aria, your AI support assistant. How can I help you today?" },
   ]);
-  const [chips, setChips] = useState(["Order status?", "Track my parcel", "Talk to agent"]);
+  const [chips, setChips] = useState(["Order status?", "Track my parcel"]);
   const [typing, setTyping] = useState(false);
   const [intent, setIntent] = useState("greeting");
   const [csat] = useState(4.9);
@@ -174,18 +174,16 @@ export function ChatbotDemo() {
           <div ref={bottomRef} />
         </div>
 
-        {/* Quick replies — plain conditional render, no animation complexity */}
-        <div className="px-3 pb-2 space-y-1.5">
-          {chips.length > 0 && !typing && (
-            <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-0.5">
-              {chips.map(c => (
-                <button key={c} onClick={() => send(c)}
-                  className="text-[11px] px-3 py-1 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-colors whitespace-nowrap shrink-0 leading-none">
-                  {c}
-                </button>
-              ))}
-            </div>
-          )}
+        {/* Quick replies — fixed-height slot prevents layout shift */}
+        <div className="px-3 pb-2">
+          <div className="h-7 flex items-center gap-1.5 overflow-x-auto scrollbar-hide mb-1.5">
+            {chips.length > 0 && !typing && chips.map(c => (
+              <button key={c} onClick={() => send(c)}
+                className="text-[11px] px-3 py-1 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-colors whitespace-nowrap shrink-0 leading-none">
+                {c}
+              </button>
+            ))}
+          </div>
           <div className="flex items-center gap-2">
             <div className="flex-1 bg-white/[0.06] border border-white/10 rounded-full px-4 py-2 text-[11px] text-white/25">
               Or type a message…
