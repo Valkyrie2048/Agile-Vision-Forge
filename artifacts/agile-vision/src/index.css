@@ -267,6 +267,11 @@
     100% { transform: translateX(100%); }
   }
 
+  @keyframes scanSweep {
+    0%   { transform: translateX(-350px); }
+    100% { transform: translateX(100vw); }
+  }
+
   .shimmer-sweep-anim {
     animation: shimmer-sweep 2s linear infinite;
   }

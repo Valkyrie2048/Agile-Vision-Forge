@@ -1078,48 +1078,109 @@ function ProcessSection() {
 }
 
 function TechPartnersSection() {
-  const technologies = [
-    "OpenAI", "Anthropic", "LangChain", "React", "Next.js", "Python",
-    "AWS", "TypeScript", "PostgreSQL", "Docker", "Kubernetes", "Vercel",
-    "FastAPI", "Redis", "LlamaIndex", "Gemini", "Pinecone", "HuggingFace",
+  const nodes = [
+    { name: "OpenAI",      x: 6,  y: 8,  cls: "text-xl",   op: 0.82, amp: 10, dur: 7,    del: 0 },
+    { name: "React",       x: 39, y: 14, cls: "text-2xl",  op: 0.88, amp: 8,  dur: 8,    del: 1.2 },
+    { name: "Anthropic",   x: 73, y: 7,  cls: "text-xl",   op: 0.78, amp: 12, dur: 9,    del: 0.5 },
+    { name: "Python",      x: 86, y: 40, cls: "text-xl",   op: 0.72, amp: 9,  dur: 7.5,  del: 2 },
+    { name: "TypeScript",  x: 18, y: 43, cls: "text-lg",   op: 0.58, amp: 11, dur: 10,   del: 0.8 },
+    { name: "LangChain",   x: 53, y: 52, cls: "text-base", op: 0.52, amp: 8,  dur: 8.5,  del: 1.5 },
+    { name: "Next.js",     x: 28, y: 70, cls: "text-lg",   op: 0.55, amp: 14, dur: 11,   del: 0.3 },
+    { name: "Kubernetes",  x: 65, y: 67, cls: "text-base", op: 0.48, amp: 10, dur: 9.5,  del: 2.2 },
+    { name: "AWS",         x: 10, y: 77, cls: "text-base", op: 0.45, amp: 9,  dur: 8,    del: 1 },
+    { name: "Gemini",      x: 48, y: 28, cls: "text-base", op: 0.50, amp: 12, dur: 10.5, del: 1.8 },
+    { name: "PostgreSQL",  x: 88, y: 65, cls: "text-sm",   op: 0.32, amp: 8,  dur: 12,   del: 0.4 },
+    { name: "Docker",      x: 57, y: 82, cls: "text-sm",   op: 0.28, amp: 10, dur: 9,    del: 2.5 },
+    { name: "Redis",       x: 23, y: 89, cls: "text-xs",   op: 0.25, amp: 7,  dur: 11,   del: 0.7 },
+    { name: "Vercel",      x: 79, y: 83, cls: "text-sm",   op: 0.30, amp: 11, dur: 8.5,  del: 1.3 },
+    { name: "FastAPI",     x: 35, y: 54, cls: "text-sm",   op: 0.38, amp: 9,  dur: 10,   del: 0.6 },
+    { name: "LlamaIndex",  x: 71, y: 42, cls: "text-sm",   op: 0.35, amp: 13, dur: 11.5, del: 1.9 },
+    { name: "Pinecone",    x: 91, y: 23, cls: "text-sm",   op: 0.33, amp: 8,  dur: 9.5,  del: 2.8 },
+    { name: "HuggingFace", x: 3,  y: 56, cls: "text-xs",   op: 0.22, amp: 10, dur: 13,   del: 1.1 },
   ];
 
-  const items = [...technologies, ...technologies];
-
   return (
-    <section className="py-24 overflow-hidden" data-testid="section-tech">
+    <section
+      className="relative overflow-hidden"
+      style={{ background: "hsl(250 20% 4%)", paddingTop: "6rem", paddingBottom: "4rem" }}
+      data-testid="section-tech"
+    >
+      {/* Deep space background */}
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 140% 90% at 50% 60%, hsl(250 35% 8% / 0.8) 0%, transparent 70%)" }} />
+
+      {/* Aurora 1 — large purple, drifts slowly */}
+      <motion.div className="absolute rounded-full pointer-events-none"
+        style={{ width: 800, height: 500, left: "5%", top: "-10%",
+          background: "radial-gradient(ellipse, hsl(250 85% 55% / 0.13) 0%, transparent 70%)",
+          filter: "blur(70px)" }}
+        animate={{ x: [0, 100, -40, 0], y: [0, -30, 60, 0] }}
+        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+      />
+
+      {/* Aurora 2 — violet, upper right */}
+      <motion.div className="absolute rounded-full pointer-events-none"
+        style={{ width: 450, height: 350, right: "2%", top: "5%",
+          background: "radial-gradient(ellipse, hsl(270 70% 60% / 0.10) 0%, transparent 70%)",
+          filter: "blur(55px)" }}
+        animate={{ x: [0, -80, 30, 0], y: [0, 50, -25, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
+
+      {/* Aurora 3 — ground haze */}
+      <motion.div className="absolute rounded-full pointer-events-none"
+        style={{ width: 600, height: 200, left: "25%", bottom: "0%",
+          background: "radial-gradient(ellipse, hsl(240 60% 45% / 0.07) 0%, transparent 70%)",
+          filter: "blur(80px)" }}
+        animate={{ x: [0, 60, -50, 0] }}
+        transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+      />
+
+      {/* Scan sweep */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }}>
+        <div style={{
+          position: "absolute", top: 0, bottom: 0, width: "350px",
+          background: "linear-gradient(to right, transparent, hsl(250 80% 70% / 0.05), transparent)",
+          animation: "scanSweep 14s ease-in-out infinite",
+        }} />
+      </div>
+
       {/* Header */}
-      <BlurReveal>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-14">
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight">
-            The stack behind<br />everything we build.
-          </h2>
-          <p className="text-muted-foreground text-sm max-w-xs sm:text-right leading-relaxed">
-            Best-in-class models and infrastructure,<br className="hidden sm:block" /> chosen for reliability and scale.
-          </p>
-        </div>
-      </BlurReveal>
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-8" style={{ zIndex: 2 }}>
+        <BlurReveal>
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
+              The stack behind<br />everything we build.
+            </h2>
+            <p className="text-muted-foreground text-sm max-w-[200px] sm:text-right leading-relaxed">
+              Best-in-class AI and infrastructure,<br className="hidden sm:block" /> chosen for scale.
+            </p>
+          </div>
+        </BlurReveal>
+      </div>
 
-      {/* Single slow ticker */}
-      <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to right, hsl(250 18% 7%) 30%, transparent)" }} />
-        <div className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to left, hsl(250 18% 7%) 30%, transparent)" }} />
-
-        <div className="flex items-center w-max" style={{ animation: "marquee 50s linear infinite" }}>
-          {items.map((tech, i) => (
-            <div key={i} className="flex items-center shrink-0">
-              <span
-                className="text-sm font-medium tracking-wider uppercase px-8"
-                style={{ color: "hsl(250 15% 55%)" }}
-              >
-                {tech}
-              </span>
-              <span style={{ color: "hsl(250 20% 25%)", fontSize: "10px" }}>✦</span>
-            </div>
-          ))}
-        </div>
+      {/* Floating node field */}
+      <div className="relative w-full" style={{ height: 460, zIndex: 2 }}>
+        {nodes.map((node, i) => (
+          <motion.div
+            key={node.name}
+            className="absolute"
+            style={{ left: `${node.x}%`, top: `${node.y}%` }}
+            initial={{ opacity: 0, filter: "blur(8px)" }}
+            whileInView={{ opacity: node.op, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 1, delay: i * 0.045, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <motion.span
+              className={`select-none font-semibold tracking-wide whitespace-nowrap ${node.cls}`}
+              style={{ color: "hsl(250 25% 88%)" }}
+              animate={{ y: [0, -node.amp, 0] }}
+              transition={{ duration: node.dur, delay: node.del, repeat: Infinity, ease: "easeInOut" }}
+            >
+              {node.name}
+            </motion.span>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
