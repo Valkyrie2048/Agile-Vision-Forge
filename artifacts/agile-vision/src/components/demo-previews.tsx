@@ -146,7 +146,7 @@ export function ChatbotDemo() {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2.5 scrollbar-hide">
+        <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2.5" style={{ scrollbarWidth: "none" }}>
           {msgs.map((m, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }}
               className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -171,10 +171,10 @@ export function ChatbotDemo() {
 
         {/* Quick replies — min-h reserves space, no overflow/scroll container */}
         <div className="px-3 pb-2">
-          <div className="min-h-[28px] flex items-center gap-2 mb-1.5">
+          <div className="flex flex-wrap gap-1.5 mb-2 min-h-[26px]">
             {chips.length > 0 && !typing && chips.map(c => (
               <button key={c} onClick={() => send(c)}
-                className="text-[11px] px-3 py-1.5 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-colors whitespace-nowrap">
+                className="text-[11px] px-3 py-1 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-colors">
                 {c}
               </button>
             ))}
