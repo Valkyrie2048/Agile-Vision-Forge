@@ -9,29 +9,31 @@ import {
 
 function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto w-[260px] h-[520px] rounded-[2rem] border-4 border-foreground/20 bg-background overflow-hidden relative">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-foreground/20 rounded-b-xl z-10" />
-      <div className="h-full overflow-hidden pt-5">
-        {children}
+    <div className="flex justify-center">
+      <div className="w-[300px] h-[560px] rounded-[2.5rem] border-4 border-white/20 bg-background overflow-hidden relative shadow-2xl shadow-black/50">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-white/10 rounded-b-2xl z-10" />
+        <div className="h-full overflow-hidden pt-6">
+          {children}
+        </div>
       </div>
     </div>
   );
 }
 
-function BrowserFrame({ children }: { children: React.ReactNode }) {
+function BrowserFrame({ children, url = "app.yourbrand.com" }: { children: React.ReactNode; url?: string }) {
   return (
-    <div className="mx-auto max-w-[600px] rounded-md border overflow-hidden bg-background">
-      <div className="flex items-center gap-2 px-3 py-2 bg-muted border-b">
-        <div className="flex gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-destructive/60" />
-          <div className="w-2.5 h-2.5 rounded-full bg-chart-5/60" />
-          <div className="w-2.5 h-2.5 rounded-full bg-chart-3/60" />
+    <div className="w-full rounded-xl border border-white/10 overflow-hidden bg-background shadow-2xl shadow-black/40">
+      <div className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.04] border-b border-white/8">
+        <div className="flex gap-1.5 shrink-0">
+          <div className="w-3 h-3 rounded-full bg-red-500/60" />
+          <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+          <div className="w-3 h-3 rounded-full bg-green-500/60" />
         </div>
-        <div className="flex-1 bg-background rounded-sm px-3 py-1 text-xs text-muted-foreground truncate">
-          app.yourbrand.com
+        <div className="flex-1 bg-white/[0.06] rounded-md px-3 py-1 text-xs text-white/40 truncate font-mono">
+          {url}
         </div>
       </div>
-      <div className="h-[400px] overflow-hidden">
+      <div className="h-[480px] overflow-hidden">
         {children}
       </div>
     </div>
@@ -106,79 +108,77 @@ export function MobileAppDemo() {
 }
 
 export function WebAppDemo() {
+  const bars = [40, 55, 45, 70, 60, 80, 75, 90, 85, 95, 88, 100];
   return (
-    <BrowserFrame>
-      <div className="h-full flex">
-        <div className="w-44 border-r bg-card p-3 space-y-1 shrink-0">
-          <div className="flex items-center gap-2 px-2 py-1.5 rounded-md bg-primary/10 text-primary">
-            <Home className="w-3.5 h-3.5" />
-            <span className="text-xs font-medium">Dashboard</span>
-          </div>
+    <BrowserFrame url="dashboard.yourbrand.com">
+      <div className="h-full flex" style={{ background: "hsl(250 20% 7%)" }}>
+        <div className="w-40 border-r border-white/8 p-3 space-y-0.5 shrink-0">
+          <div className="text-[9px] font-bold uppercase tracking-widest text-white/25 px-2 pt-2 pb-1.5">Navigation</div>
           {[
-            { icon: User, label: "Users" },
-            { icon: ShoppingCart, label: "Orders" },
-            { icon: BarChart3, label: "Analytics" },
-            { icon: Settings, label: "Settings" },
+            { icon: Home, label: "Dashboard", active: true },
+            { icon: User, label: "Users", active: false },
+            { icon: ShoppingCart, label: "Orders", active: false },
+            { icon: BarChart3, label: "Analytics", active: false },
+            { icon: Settings, label: "Settings", active: false },
           ].map((item, i) => (
-            <div key={i} className="flex items-center gap-2 px-2 py-1.5 text-muted-foreground">
-              <item.icon className="w-3.5 h-3.5" />
-              <span className="text-xs">{item.label}</span>
+            <div key={i} className={`flex items-center gap-2 px-2 py-2 rounded-md text-xs transition-colors ${
+              item.active ? "bg-primary/15 text-primary font-medium" : "text-white/40"
+            }`}>
+              <item.icon className="w-3.5 h-3.5 shrink-0" />
+              {item.label}
             </div>
           ))}
         </div>
         <div className="flex-1 p-4 space-y-3 overflow-hidden">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="text-sm font-semibold">Dashboard</h3>
-            <div className="flex items-center gap-1">
-              <div className="text-xs bg-card border rounded-sm px-2 py-1 text-muted-foreground flex items-center gap-1">
-                <Filter className="w-3 h-3" />
-                Filter
+            <div>
+              <h3 className="text-sm font-semibold text-white">Dashboard</h3>
+              <p className="text-[10px] text-white/35">June 2026 · Live</p>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="text-xs border border-white/10 rounded-md px-2 py-1 text-white/40 flex items-center gap-1">
+                <Filter className="w-3 h-3" />Last 30d
               </div>
-              <div className="text-xs bg-primary text-primary-foreground rounded-sm px-2 py-1">Export</div>
+              <div className="text-xs bg-primary text-white rounded-md px-2.5 py-1 font-medium">Export</div>
             </div>
           </div>
           <div className="grid grid-cols-3 gap-2">
             {[
-              { label: "Revenue", value: "$48.2K", change: "+12%", up: true },
-              { label: "Users", value: "2,847", change: "+8%", up: true },
-              { label: "Conv. Rate", value: "3.2%", change: "-0.4%", up: false },
+              { label: "Revenue", value: "$84.7K", change: "+18%", up: true },
+              { label: "Active Users", value: "6,241", change: "+11%", up: true },
+              { label: "Churn Rate", value: "1.8%", change: "-0.6%", up: false },
             ].map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + i * 0.1 }}
-                className="rounded-md bg-card border p-2.5"
-              >
-                <span className="text-xs text-muted-foreground">{stat.label}</span>
-                <div className="text-lg font-bold mt-0.5">{stat.value}</div>
-                <div className={`text-xs flex items-center gap-0.5 ${stat.up ? "text-chart-3" : "text-destructive"}`}>
+              <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 + i * 0.1 }}
+                className="rounded-lg border border-white/8 bg-white/[0.04] p-3">
+                <span className="text-[10px] text-white/40">{stat.label}</span>
+                <div className="text-xl font-bold text-white mt-0.5">{stat.value}</div>
+                <div className={`text-[10px] flex items-center gap-0.5 font-medium ${stat.up ? "text-emerald-400" : "text-red-400"}`}>
                   {stat.up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                  {stat.change}
+                  {stat.change} vs last month
                 </div>
               </motion.div>
             ))}
           </div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="rounded-md bg-card border p-3"
-          >
-            <div className="flex items-center justify-between gap-2 mb-2">
-              <span className="text-xs font-medium">Revenue Trend</span>
-              <RefreshCw className="w-3 h-3 text-muted-foreground" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
+            className="rounded-lg border border-white/8 bg-white/[0.03] p-3">
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <span className="text-xs font-semibold text-white/80">Monthly Revenue</span>
+              <span className="text-[10px] text-emerald-400 font-medium">↑ 18% YoY</span>
             </div>
-            <div className="flex items-end gap-1 h-16">
-              {[40, 55, 45, 70, 60, 80, 75, 90, 85, 95, 88, 100].map((h, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ height: 0 }}
-                  animate={{ height: `${h}%` }}
-                  transition={{ delay: 0.8 + i * 0.05 }}
-                  className="flex-1 bg-primary/30 rounded-sm"
-                  style={{ minHeight: 2 }}
+            <div className="flex items-end gap-1.5 h-20">
+              {bars.map((h, i) => (
+                <motion.div key={i} className="flex-1 rounded-sm"
+                  initial={{ scaleY: 0 }} animate={{ scaleY: 1 }}
+                  transition={{ delay: 0.6 + i * 0.04, duration: 0.4, ease: "easeOut" }}
+                  style={{ height: `${h}%`, minHeight: 2, transformOrigin: "bottom",
+                    background: i === bars.length - 1 ? "hsl(250 85% 65%)" : "hsl(250 85% 60% / 0.3)" }}
                 />
+              ))}
+            </div>
+            <div className="flex justify-between mt-1">
+              {["Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun"].map((m, i) => (
+                <span key={i} className="text-[8px] text-white/20">{m}</span>
               ))}
             </div>
           </motion.div>
@@ -453,69 +453,55 @@ export function AutomationDemo() {
 
 export function ChatbotDemo() {
   const messages = [
-    { role: "user" as const, text: "How do I reset my password?" },
-    { role: "bot" as const, text: "I can help with that! I've sent a reset link to your email. Check your inbox and click the link within 15 minutes." },
-    { role: "user" as const, text: "Got it, thanks!" },
+    { role: "user" as const, text: "What's the status of order #AV-8821?" },
+    { role: "bot" as const, text: "Order #AV-8821 shipped yesterday via FedEx. Estimated delivery: tomorrow by 8pm. Tracking: FX 4821 0093 2241." },
+    { role: "user" as const, text: "Can I change the delivery address?" },
+    { role: "bot" as const, text: "Yes — the package hasn't reached the local depot yet. I've flagged it for rerouting. What's the new address?" },
   ];
 
   return (
     <PhoneFrame>
       <div className="h-full flex flex-col">
-        <div className="px-4 py-3 border-b flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-            <Brain className="w-4 h-4 text-primary" />
+        <div className="px-4 py-3 border-b border-white/8 flex items-center gap-3">
+          <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: "hsl(250 85% 60% / 0.2)" }}>
+            <Brain className="w-4.5 h-4.5 text-primary" />
           </div>
-          <div>
-            <span className="text-sm font-semibold">AI Assistant</span>
-            <div className="flex items-center gap-1">
-              <div className="w-1.5 h-1.5 rounded-full bg-chart-3" />
-              <span className="text-xs text-muted-foreground">Online</span>
+          <div className="flex-1">
+            <span className="text-sm font-semibold">Aria — Support AI</span>
+            <div className="flex items-center gap-1.5">
+              <motion.div className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                animate={{ opacity: [1, 0.4, 1] }} transition={{ duration: 2, repeat: Infinity }} />
+              <span className="text-xs text-white/40">Online · typically replies instantly</span>
             </div>
           </div>
         </div>
-        <div className="flex-1 overflow-hidden px-4 py-3 space-y-3">
+        <div className="flex-1 overflow-hidden px-4 py-4 space-y-3">
           {messages.map((msg, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + i * 0.4 }}
-              className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-              <div className={`max-w-[85%] rounded-2xl px-3 py-2 text-xs leading-relaxed ${
+            <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + i * 0.45 }}
+              className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed ${
                 msg.role === "user"
-                  ? "bg-primary text-primary-foreground rounded-br-sm"
-                  : "bg-card border rounded-bl-sm"
-              }`}>
-                {msg.text}
-              </div>
+                  ? "bg-primary text-white rounded-br-sm"
+                  : "bg-white/[0.07] border border-white/10 text-white/85 rounded-bl-sm"
+              }`}>{msg.text}</div>
             </motion.div>
           ))}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.8 }}
-            className="flex justify-start"
-          >
-            <div className="bg-card border rounded-2xl rounded-bl-sm px-3 py-2">
-              <motion.div
-                className="flex gap-1"
-                animate={{ opacity: [0.3, 1, 0.3] }}
-                transition={{ duration: 1.2, repeat: Infinity }}
-              >
-                <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
-                <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
-                <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.2 }}
+            className="flex justify-start">
+            <div className="bg-white/[0.07] border border-white/10 rounded-2xl rounded-bl-sm px-3.5 py-2.5">
+              <motion.div className="flex gap-1" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1.2, repeat: Infinity }}>
+                {[0,1,2].map(i => <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/50" />)}
               </motion.div>
             </div>
           </motion.div>
         </div>
-        <div className="border-t px-3 py-2 flex items-center gap-2">
-          <div className="flex-1 bg-muted rounded-full px-3 py-2 text-xs text-muted-foreground">
-            Type a message...
+        <div className="border-t border-white/8 px-3 py-3 flex items-center gap-2">
+          <div className="flex-1 bg-white/[0.06] border border-white/10 rounded-full px-4 py-2 text-xs text-white/30">
+            Reply to Aria...
           </div>
-          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-            <Send className="w-3.5 h-3.5 text-primary-foreground" />
+          <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
+            <Send className="w-3.5 h-3.5 text-white" />
           </div>
         </div>
       </div>
@@ -524,76 +510,77 @@ export function ChatbotDemo() {
 }
 
 function AgenticAIDemo() {
-  const agents = [
-    { name: "Research Agent", task: "Analyzing market data...", status: "active" as const },
-    { name: "Writer Agent", task: "Drafting report summary", status: "waiting" as const },
-    { name: "Review Agent", task: "Pending review", status: "idle" as const },
+  const steps = [
+    { agent: "Planner", action: "Decompose goal into subtasks", status: "done", time: "0.3s" },
+    { agent: "Research", action: "Pull competitor pricing data from 14 sources", status: "done", time: "4.1s" },
+    { agent: "Analyst", action: "Running sentiment + trend models", status: "active", time: "..." },
+    { agent: "Writer", action: "Draft executive summary", status: "queued", time: "" },
+    { agent: "Reviewer", action: "Fact-check and quality gate", status: "queued", time: "" },
   ];
 
   return (
-    <BrowserFrame>
-      <div className="p-4 space-y-3">
-        <div className="flex items-center gap-2 mb-1">
-          <Brain className="w-4 h-4 text-primary" />
-          <span className="text-sm font-semibold">Agent Orchestrator</span>
+    <BrowserFrame url="agents.yourbrand.com/pipeline">
+      <div className="h-full flex flex-col p-5 gap-4" style={{ background: "hsl(250 20% 7%)" }}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Brain className="w-4 h-4 text-primary" />
+            <span className="text-sm font-semibold text-white">Market Intelligence Pipeline</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-medium">
+            <motion.div className="w-2 h-2 rounded-full bg-emerald-400"
+              animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.5, repeat: Infinity }} />
+            Running
+          </div>
         </div>
 
-        <div className="rounded-md bg-card border p-3">
-          <div className="text-xs font-medium mb-2 text-muted-foreground">Active Pipeline</div>
-          <div className="space-y-2">
-            {agents.map((agent, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 + i * 0.3 }}
-                className="flex items-center gap-2"
-              >
-                <div className={`w-2 h-2 rounded-full ${
-                  agent.status === "active" ? "bg-chart-3" :
-                  agent.status === "waiting" ? "bg-chart-5" : "bg-muted-foreground/30"
-                }`} />
-                {agent.status === "active" && (
-                  <motion.div
-                    className="w-2 h-2 rounded-full bg-chart-3 absolute"
-                    animate={{ scale: [1, 1.8, 1], opacity: [1, 0, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  />
-                )}
-                <div className="flex-1 rounded-md bg-muted/50 px-2.5 py-1.5">
-                  <div className="text-xs font-medium">{agent.name}</div>
-                  <div className="text-[10px] text-muted-foreground">{agent.task}</div>
+        <div className="space-y-2">
+          {steps.map((s, i) => (
+            <motion.div key={i} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 + i * 0.2 }}
+              className={`flex items-center gap-3 rounded-lg px-3 py-2.5 border ${
+                s.status === "active"
+                  ? "border-primary/40 bg-primary/8"
+                  : s.status === "done"
+                  ? "border-emerald-500/20 bg-emerald-500/5"
+                  : "border-white/6 bg-white/[0.03]"
+              }`}>
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold ${
+                s.status === "done" ? "bg-emerald-500/20 text-emerald-400" :
+                s.status === "active" ? "bg-primary/20 text-primary" :
+                "bg-white/8 text-white/30"
+              }`}>
+                {s.status === "done" ? "✓" : i + 1}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">{s.agent}</span>
+                  {s.status === "active" && (
+                    <motion.div className="flex gap-0.5" animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 1, repeat: Infinity }}>
+                      {[0,1,2].map(j => <div key={j} className="w-1 h-1 rounded-full bg-primary" />)}
+                    </motion.div>
+                  )}
                 </div>
-                <Zap className={`w-3 h-3 ${agent.status === "active" ? "text-chart-3" : "text-muted-foreground/30"}`} />
-              </motion.div>
-            ))}
-          </div>
+                <div className={`text-xs mt-0.5 ${s.status === "queued" ? "text-white/25" : "text-white/70"}`}>
+                  {s.action}
+                </div>
+              </div>
+              {s.time && <span className="text-[10px] text-white/30 font-mono shrink-0">{s.time}</span>}
+            </motion.div>
+          ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="rounded-md bg-card border p-3"
-        >
-          <div className="flex items-center gap-2 mb-2">
-            <TrendingUp className="w-4 h-4 text-primary" />
-            <span className="text-xs font-medium">Agent Metrics</span>
-          </div>
-          <div className="grid grid-cols-3 gap-2 text-center">
-            <div>
-              <div className="text-lg font-bold">3</div>
-              <span className="text-xs text-muted-foreground">Agents</span>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4 }}
+          className="mt-auto grid grid-cols-3 gap-3">
+          {[
+            { label: "Tasks done", value: "2 / 5" },
+            { label: "Sources read", value: "14" },
+            { label: "Time elapsed", value: "4.4s" },
+          ].map((m, i) => (
+            <div key={i} className="rounded-lg border border-white/8 bg-white/[0.03] p-3 text-center">
+              <div className="text-base font-bold text-white">{m.value}</div>
+              <div className="text-[10px] text-white/35 mt-0.5">{m.label}</div>
             </div>
-            <div>
-              <div className="text-lg font-bold">12</div>
-              <span className="text-xs text-muted-foreground">Tasks done</span>
-            </div>
-            <div>
-              <div className="text-lg font-bold">2.4s</div>
-              <span className="text-xs text-muted-foreground">Avg latency</span>
-            </div>
-          </div>
+          ))}
         </motion.div>
       </div>
     </BrowserFrame>

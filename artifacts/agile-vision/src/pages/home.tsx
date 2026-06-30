@@ -731,7 +731,7 @@ function IndustriesSection() {
           </BlurReveal>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {INDUSTRY_CARDS.map((ind, i) => (
             <motion.div
               key={ind.label}
@@ -742,39 +742,39 @@ function IndustriesSection() {
             >
               <Link href="/industries">
                 <motion.div
-                  className="group relative rounded-md p-px h-full cursor-pointer"
-                  style={{ background: `linear-gradient(135deg, ${ind.accent}33, transparent 60%)` }}
-                  whileHover={{ y: -4 }}
+                  className="group relative rounded-xl p-px h-full cursor-pointer"
+                  style={{ background: `linear-gradient(135deg, ${ind.accent}44, transparent 60%)` }}
+                  whileHover={{ y: -5 }}
                   transition={{ duration: 0.25 }}
                 >
                   <div
-                    className="rounded-md h-full flex flex-col gap-3 p-5 transition-colors duration-300"
-                    style={{ background: "hsl(250 20% 10%)" }}
+                    className="rounded-xl h-full flex flex-col gap-5 p-7 transition-colors duration-300"
+                    style={{ background: "hsl(250 20% 9%)" }}
                   >
                     {/* Hover glow */}
                     <div
-                      className="absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                      style={{ background: `radial-gradient(ellipse at 30% 30%, ${ind.glow} 0%, transparent 70%)` }}
+                      className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                      style={{ background: `radial-gradient(ellipse at 30% 30%, ${ind.glow} 0%, transparent 65%)` }}
                     />
 
                     <div
-                      className="w-10 h-10 rounded-md flex items-center justify-center shrink-0 relative z-10"
-                      style={{ background: `${ind.accent}22`, border: `1px solid ${ind.accent}44` }}
+                      className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 relative z-10"
+                      style={{ background: `${ind.accent}20`, border: `1px solid ${ind.accent}50` }}
                     >
-                      <ind.icon className="w-5 h-5" style={{ color: ind.accent }} />
+                      <ind.icon className="w-7 h-7" style={{ color: ind.accent }} />
                     </div>
 
-                    <div className="relative z-10">
-                      <div className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: ind.accent }}>
+                    <div className="relative z-10 flex-1">
+                      <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: ind.accent }}>
                         {ind.label}
                       </div>
-                      <h3 className="font-semibold text-white text-base leading-snug mb-2">{ind.tagline}</h3>
-                      <p className="text-sm text-white/55 leading-relaxed">{ind.blurb}</p>
+                      <h3 className="font-semibold text-white text-lg leading-snug mb-3">{ind.tagline}</h3>
+                      <p className="text-sm text-white/60 leading-relaxed">{ind.blurb}</p>
                     </div>
 
-                    <div className="mt-auto pt-1 flex items-center gap-1 relative z-10">
-                      <span className="text-sm font-medium" style={{ color: ind.accent }}>See live demo</span>
-                      <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1" style={{ color: ind.accent }} />
+                    <div className="flex items-center gap-1.5 relative z-10">
+                      <span className="text-sm font-semibold" style={{ color: ind.accent }}>See live demo</span>
+                      <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" style={{ color: ind.accent }} />
                     </div>
                   </div>
                 </motion.div>
