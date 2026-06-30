@@ -12,37 +12,12 @@ import {
 // Frames
 // ─────────────────────────────────────────────────────────────
 
-type StatPill = { label: string; value: string; valueClass?: string };
-
-function PhoneFrame({ children, pills }: { children: React.ReactNode; pills?: [StatPill, StatPill] }) {
-  const defaultPills: [StatPill, StatPill] = [
-    { label: "Resolved", value: "94%" },
-    { label: "CSAT", value: "★ 4.9", valueClass: "text-yellow-400" },
-  ];
-  const [p1, p2] = pills ?? defaultPills;
+function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex justify-center items-center py-4">
-      <div className="relative flex items-center justify-center w-full max-w-sm">
-        {/* Ambient glow */}
-        <div className="absolute inset-x-0 top-8 bottom-8 rounded-3xl pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, hsl(250 85% 60% / 0.12) 0%, transparent 70%)" }} />
-        {/* Left floating pill */}
-        <motion.div className="absolute left-0 top-16 rounded-xl border border-white/10 bg-white/[0.07] backdrop-blur-sm px-3 py-2 shadow-lg pointer-events-none"
-          animate={{ y: [0, -5, 0] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}>
-          <div className="text-[9px] text-white/35 mb-0.5 uppercase tracking-widest">{p1.label}</div>
-          <div className={`text-sm font-bold ${p1.valueClass ?? "text-white"}`}>{p1.value}</div>
-        </motion.div>
-        {/* Right floating pill */}
-        <motion.div className="absolute right-0 bottom-24 rounded-xl border border-white/10 bg-white/[0.07] backdrop-blur-sm px-3 py-2 shadow-lg pointer-events-none"
-          animate={{ y: [0, 5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
-          <div className="text-[9px] text-white/35 mb-0.5 uppercase tracking-widest">{p2.label}</div>
-          <div className={`text-sm font-bold ${p2.valueClass ?? "text-white"}`}>{p2.value}</div>
-        </motion.div>
-        {/* Phone body */}
-        <div className="relative w-[290px] h-[560px] rounded-[2.5rem] border-4 border-white/20 bg-[hsl(250_20%_7%)] overflow-hidden shadow-2xl shadow-black/60 z-10">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-white/10 rounded-b-2xl z-10" />
-          <div className="h-full overflow-hidden pt-6">{children}</div>
-        </div>
+    <div className="flex justify-center">
+      <div className="w-[290px] h-[560px] rounded-[2.5rem] border-4 border-white/20 bg-[hsl(250_20%_7%)] overflow-hidden relative shadow-2xl shadow-black/50">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-white/10 rounded-b-2xl z-10" />
+        <div className="h-full overflow-hidden pt-6">{children}</div>
       </div>
     </div>
   );
@@ -580,10 +555,7 @@ export function MobileAppDemo() {
   };
 
   return (
-    <PhoneFrame pills={[
-      { label: "Downloads", value: "28K", valueClass: "text-emerald-400" },
-      { label: "Rating", value: "★ 4.8", valueClass: "text-yellow-400" },
-    ]}>
+    <PhoneFrame>
       <div className="h-full flex flex-col">
         {/* Status bar — surfaces "On-device ML for offline AI" bullet */}
         <div className={`px-4 py-1.5 flex items-center justify-between transition-colors ${
