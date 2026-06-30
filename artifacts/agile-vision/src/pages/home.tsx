@@ -978,25 +978,27 @@ function GetStartedPreview() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
           >
-            <div className="pt-5 border-t" style={{ borderColor: "hsl(250 20% 18%)" }}>
+            <div className="pt-5 border-t text-center" style={{ borderColor: "hsl(250 20% 18%)" }}>
               {/* Tagline */}
               <h3 className="font-sans text-2xl sm:text-3xl font-bold text-white leading-snug mb-3 tracking-tight">
                 {active.tagline}
               </h3>
 
               {/* Description */}
-              <p className="text-white/70 text-sm leading-relaxed mb-5 max-w-md">
+              <p className="text-white/70 text-sm leading-relaxed mb-5 max-w-md mx-auto">
                 {active.description}
               </p>
 
-              <MagneticButton>
-                <Link href="/get-started">
-                  <Button size="default" data-testid="button-preview-get-started">
-                    Build your {active.label}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
-              </MagneticButton>
+              <div className="flex justify-end">
+                <MagneticButton>
+                  <Link href="/get-started">
+                    <Button size="default" data-testid="button-preview-get-started">
+                      Build your {active.label}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
+                </MagneticButton>
+              </div>
             </div>
           </motion.div>
         </AnimatePresence>
