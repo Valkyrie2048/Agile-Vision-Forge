@@ -904,7 +904,7 @@ function GetStartedPreview() {
 
         {/* Tab rows: 5 on top, 4 on bottom */}
         <BlurReveal delay={0.25}>
-          <div className="flex flex-col items-center gap-2 mb-10">
+          <div className="flex flex-col items-center gap-3 mb-10">
             {/* Row 1 — 5 tabs */}
             <div className="flex flex-wrap justify-center gap-2">
               {row1.map((type) => (
@@ -912,16 +912,22 @@ function GetStartedPreview() {
                   key={type.id}
                   onClick={() => setSelected(type.id)}
                   data-testid={`preview-type-${type.id}`}
-                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium border transition-all duration-200 ${
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 ${
                     selected === type.id
-                      ? "bg-primary border-primary text-white shadow-lg shadow-primary/25"
-                      : "border-white/15 text-white/60 hover:border-white/30 hover:text-white/85 bg-white/[0.03]"
+                      ? "bg-primary border-primary text-white shadow-lg shadow-primary/30 scale-105"
+                      : "border-white/12 text-white/55 hover:border-white/25 hover:text-white/80 bg-white/[0.03] hover:bg-white/[0.06]"
                   }`}
                 >
                   <type.icon className="w-3.5 h-3.5" />
                   {type.label}
                 </button>
               ))}
+            </div>
+            {/* Row divider */}
+            <div className="flex items-center gap-3 w-48">
+              <div className="flex-1 h-px bg-white/8" />
+              <span className="text-[10px] text-white/20 uppercase tracking-widest font-medium">more</span>
+              <div className="flex-1 h-px bg-white/8" />
             </div>
             {/* Row 2 — 4 tabs */}
             <div className="flex flex-wrap justify-center gap-2">
@@ -930,10 +936,10 @@ function GetStartedPreview() {
                   key={type.id}
                   onClick={() => setSelected(type.id)}
                   data-testid={`preview-type-${type.id}`}
-                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium border transition-all duration-200 ${
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200 ${
                     selected === type.id
-                      ? "bg-primary border-primary text-white shadow-lg shadow-primary/25"
-                      : "border-white/15 text-white/60 hover:border-white/30 hover:text-white/85 bg-white/[0.03]"
+                      ? "bg-primary border-primary text-white shadow-lg shadow-primary/30 scale-105"
+                      : "border-white/12 text-white/55 hover:border-white/25 hover:text-white/80 bg-white/[0.03] hover:bg-white/[0.06]"
                   }`}
                 >
                   <type.icon className="w-3.5 h-3.5" />
@@ -944,7 +950,7 @@ function GetStartedPreview() {
           </div>
         </BlurReveal>
 
-        {/* Live demo — full width */}
+        {/* Live demo — full width, in a presentation card */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selected + "-demo"}
@@ -954,7 +960,20 @@ function GetStartedPreview() {
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="mb-10"
           >
-            <DemoPreview projectType={selected} />
+            <div
+              className="rounded-2xl overflow-hidden"
+              style={{
+                border: "1px solid hsl(250 30% 22%)",
+                background: "hsl(250 20% 6%)",
+                boxShadow: "0 0 0 1px hsl(250 85% 60% / 0.07), 0 24px 64px -16px hsl(250 20% 4% / 0.7)",
+              }}
+            >
+              {/* Purple accent line at top */}
+              <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent, hsl(250 85% 60% / 0.6) 40%, hsl(270 80% 65% / 0.4) 60%, transparent)" }} />
+              <div className="p-4 sm:p-6">
+                <DemoPreview projectType={selected} />
+              </div>
+            </div>
           </motion.div>
         </AnimatePresence>
 
@@ -971,10 +990,10 @@ function GetStartedPreview() {
             {/* Icon + label */}
             <div className="flex items-center justify-center gap-2.5 mb-3">
               <div
-                className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
                 style={{ background: "hsl(250 85% 60% / 0.15)", border: "1px solid hsl(250 85% 60% / 0.3)" }}
               >
-                <active.icon className="w-4.5 h-4.5 text-primary" />
+                <active.icon className="w-4 h-4 text-primary" />
               </div>
               <p className="text-sm font-semibold text-primary uppercase tracking-widest">{active.label}</p>
             </div>
@@ -982,19 +1001,20 @@ function GetStartedPreview() {
             <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-3 leading-snug">
               {active.tagline}
             </h3>
-            <p className="text-white/60 max-w-xl mx-auto leading-relaxed mb-6">
+            <p className="text-white/55 max-w-lg mx-auto leading-relaxed mb-7">
               {active.description}
             </p>
 
-            {/* Bullets — horizontal row */}
-            <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
+            {/* Bullets — badge-style pills */}
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
               {active.bullets.map((b, i) => (
-                <li key={i} className="flex items-center gap-2 text-sm text-white/70">
-                  <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                <span key={i} className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium"
+                  style={{ background: "hsl(250 85% 60% / 0.1)", border: "1px solid hsl(250 85% 60% / 0.2)", color: "hsl(250 85% 75%)" }}>
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                   {b}
-                </li>
+                </span>
               ))}
-            </ul>
+            </div>
 
             <MagneticButton className="inline-block">
               <Link href="/get-started">

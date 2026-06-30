@@ -14,8 +14,14 @@ import {
 
 function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex justify-center">
-      <div className="w-[290px] h-[560px] rounded-[2.5rem] border-4 border-white/20 bg-[hsl(250_20%_7%)] overflow-hidden relative shadow-2xl shadow-black/50">
+    <div className="flex justify-center py-2">
+      <div
+        className="w-[290px] h-[560px] rounded-[2.5rem] border-4 bg-[hsl(250_20%_7%)] overflow-hidden relative"
+        style={{
+          borderColor: "hsl(250 30% 30%)",
+          boxShadow: "0 0 0 1px hsl(250 85% 60% / 0.12), 0 32px 64px -16px hsl(250 20% 4% / 0.8), inset 0 1px 0 hsl(250 60% 60% / 0.1)",
+        }}
+      >
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-white/10 rounded-b-2xl z-10" />
         <div className="h-full overflow-hidden pt-6">{children}</div>
       </div>
