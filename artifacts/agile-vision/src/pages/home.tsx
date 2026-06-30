@@ -979,11 +979,27 @@ function GetStartedPreview() {
             transition={{ duration: 0.25 }}
           >
             <div className="pt-5 border-t" style={{ borderColor: "hsl(250 20% 18%)" }}>
-              {/* Tagline + CTA on same row */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
-                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug">
-                  {active.tagline}
-                </h3>
+              {/* Tagline */}
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-snug mb-3">
+                {active.tagline}
+              </h3>
+
+              {/* Description */}
+              <p className="text-white/45 text-sm leading-relaxed mb-4">
+                {active.description}
+              </p>
+
+              {/* Features + CTA on same row */}
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                  {active.bullets.map((b, i) => (
+                    <span key={i} className="flex items-center gap-1.5 text-xs text-white/40">
+                      {i > 0 && <span className="text-white/20">·</span>}
+                      <CheckCircle2 className="w-3 h-3 shrink-0" style={{ color: "hsl(250 85% 60% / 0.7)" }} />
+                      {b}
+                    </span>
+                  ))}
+                </div>
                 <MagneticButton className="shrink-0">
                   <Link href="/get-started">
                     <Button size="sm" data-testid="button-preview-get-started">
@@ -992,22 +1008,6 @@ function GetStartedPreview() {
                     </Button>
                   </Link>
                 </MagneticButton>
-              </div>
-
-              {/* Description */}
-              <p className="text-white/45 text-sm leading-relaxed mb-4">
-                {active.description}
-              </p>
-
-              {/* Features — inline dot-separated */}
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-                {active.bullets.map((b, i) => (
-                  <span key={i} className="flex items-center gap-1.5 text-xs text-white/40">
-                    {i > 0 && <span className="text-white/20">·</span>}
-                    <CheckCircle2 className="w-3 h-3 shrink-0" style={{ color: "hsl(250 85% 60% / 0.7)" }} />
-                    {b}
-                  </span>
-                ))}
               </div>
             </div>
           </motion.div>
