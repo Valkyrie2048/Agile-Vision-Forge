@@ -978,7 +978,7 @@ function GetStartedPreview() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
           >
-            <div className="pt-5 border-t" style={{ borderColor: "hsl(250 20% 18%)" }}>
+            <div className="pt-5 border-t flex flex-col items-center text-center" style={{ borderColor: "hsl(250 20% 18%)" }}>
               {/* Tagline */}
               <h3 className="font-sans text-2xl sm:text-3xl font-bold text-white leading-snug mb-3 tracking-tight">
                 {active.tagline}
