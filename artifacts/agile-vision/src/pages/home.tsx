@@ -843,9 +843,9 @@ const projectTypes = [
     id: "automation",
     label: "Automation",
     icon: Cog,
-    tagline: "Kill the busywork",
-    description: "End-to-end process automation combining RPA, AI decision-making, and deep system integrations to free your team.",
-    bullets: ["AI document processing", "API & webhook integration", "Error recovery & monitoring"],
+    tagline: "Reclaim your team's time",
+    description: "End-to-end process automation combining AI document understanding, RPA, and deep system integrations — so your team works on what matters.",
+    bullets: ["AI document processing", "API & webhook integration", "Error recovery & auto-retry"],
   },
   {
     id: "ecommerce",
