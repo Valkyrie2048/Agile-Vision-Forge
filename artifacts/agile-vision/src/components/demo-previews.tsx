@@ -169,12 +169,12 @@ export function ChatbotDemo() {
           <div ref={bottomRef} />
         </div>
 
-        {/* Quick replies — fixed-height slot prevents layout shift */}
+        {/* Quick replies — min-h reserves space, no overflow/scroll container */}
         <div className="px-3 pb-2">
-          <div className="h-7 flex items-center gap-1.5 overflow-x-auto scrollbar-hide mb-1.5">
+          <div className="min-h-[28px] flex items-center gap-2 mb-1.5">
             {chips.length > 0 && !typing && chips.map(c => (
               <button key={c} onClick={() => send(c)}
-                className="text-[11px] px-3 py-1 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-colors whitespace-nowrap shrink-0 leading-none">
+                className="text-[11px] px-3 py-1.5 rounded-full border border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-colors whitespace-nowrap">
                 {c}
               </button>
             ))}
