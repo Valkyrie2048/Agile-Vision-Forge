@@ -65,31 +65,26 @@ const CRM_LABELS: Record<Channel, string> = {
 const CHAT_FLOWS: Record<string, { bot: string; chips: string[]; intent: string }> = {
   "Order status?": {
     bot: "Order #AV-8821 shipped via FedEx — arriving tomorrow by 8pm. Tracking: FX 4821 0093 2241.",
-    chips: ["Change address", "Cancel order", "Talk to agent"],
+    chips: ["Change address", "Cancel order"],
     intent: "order_tracking",
   },
   "Change address": {
     bot: "The package hasn't reached the local depot yet — I can reroute it. What's the new delivery address?",
-    chips: ["123 Main St", "Use saved address", "Never mind"],
+    chips: ["123 Main St", "Never mind"],
     intent: "address_change",
   },
   "Track my parcel": {
     bot: "Your parcel left the sorting facility 2 hours ago and is out for delivery. ETA: 2–4pm today.",
-    chips: ["Get SMS alerts", "Change address", "Thanks!"],
+    chips: ["SMS alerts", "Thanks!"],
     intent: "order_tracking",
   },
-  "Talk to agent": {
-    bot: "Connecting you now — average wait is under 90 seconds. 🎧",
-    chips: ["Keep chatting"],
-    intent: "escalation",
-  },
-  "Thanks!":      { bot: "Happy to help! Anything else I can do?",         chips: ["Order status?", "Track parcel"], intent: "closing" },
-  "Never mind":   { bot: "No problem — let me know if you need anything.", chips: ["Order status?", "Track parcel"], intent: "closing" },
-  "Cancel order": { bot: "Cancel order #AV-8821? This can't be undone.",   chips: ["Yes, cancel", "Keep order"],     intent: "cancellation" },
-  "Keep order":   { bot: "Great, your order stays. Anything else?",        chips: ["Track parcel", "Thanks!"],       intent: "retention" },
-  "Yes, cancel":  { bot: "Done — order cancelled. Refund in 3–5 days.",    chips: ["Thanks!"],                       intent: "cancellation" },
-  "Keep chatting":{ bot: "Of course! What can I help you with?",           chips: ["Order status?", "Track parcel"], intent: "self_serve" },
-  "Track parcel": { bot: "Your parcel left the sorting facility 2 hours ago — out for delivery. ETA: 2–4pm.", chips: ["Change address", "Thanks!"], intent: "order_tracking" },
+  "SMS alerts":   { bot: "Done — you'll get a text when it's 30 min away.", chips: ["Thanks!"],                    intent: "notification" },
+  "Cancel order": { bot: "Cancel order #AV-8821? This can't be undone.",    chips: ["Yes, cancel", "Keep order"],  intent: "cancellation" },
+  "Keep order":   { bot: "Great, your order stays. Anything else?",         chips: ["Order status?", "Thanks!"],   intent: "retention" },
+  "Yes, cancel":  { bot: "Done — order cancelled. Refund in 3–5 days.",     chips: ["Thanks!"],                    intent: "cancellation" },
+  "Never mind":   { bot: "No problem — let me know if you need anything.",  chips: ["Order status?", "Thanks!"],   intent: "closing" },
+  "Thanks!":      { bot: "Happy to help! Anything else I can do?",          chips: ["Order status?", "Track my parcel"], intent: "closing" },
+  "123 Main St":  { bot: "Got it — rerouting to 123 Main St. Done!",        chips: ["Thanks!"],                    intent: "address_change" },
 };
 
 export function ChatbotDemo() {
