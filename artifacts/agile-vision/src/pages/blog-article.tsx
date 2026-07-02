@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useRoute, Link } from "wouter";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { blogArticles, type BlogArticle as BlogArticleType } from "@/data/blog-articles";
@@ -60,7 +60,7 @@ function renderMarkdown(content: string) {
   flushParagraph();
 
   const processInline = (text: string, keyPrefix: number) => {
-    const parts: (string | JSX.Element)[] = [];
+    const parts: (string | React.ReactElement)[] = [];
     const regex = /\*\*(.+?)\*\*/g;
     let lastIndex = 0;
     let match;
@@ -81,7 +81,7 @@ function renderMarkdown(content: string) {
     return parts;
   };
 
-  const result: JSX.Element[] = [];
+  const result: React.ReactElement[] = [];
   let listItems: { text: string; index: number }[] = [];
   let isFirstParagraph = true;
   const flushList = () => {
