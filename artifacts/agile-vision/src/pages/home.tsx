@@ -312,7 +312,7 @@ function HeroSection() {
             data-testid="text-hero-title"
             data-hero-heading
           >
-            <TextReveal delay={0.2}>We Build the</TextReveal>
+            <TextReveal delay={0.2}>Your Vision</TextReveal>
             <br />
             <span className="relative inline-block">
               {/* Pulsing aura behind gradient text */}
@@ -327,7 +327,7 @@ function HeroSection() {
                 }}
               />
               <span className="gradient-text shimmer-text relative">
-                <TextReveal delay={0.35}>Future with AI</TextReveal>
+                <TextReveal delay={0.35}>Works</TextReveal>
               </span>
             </span>
           </h1>
@@ -338,7 +338,7 @@ function HeroSection() {
             className="text-lg sm:text-xl text-white/60 max-w-xl mx-auto mb-10 leading-relaxed"
             data-testid="text-hero-subtitle"
           >
-            From idea to launch — AI products, agentic systems, and intelligent software for ambitious companies.
+            We build it with AI — from idea to launch, agentic systems, and intelligent software for ambitious companies.
           </p>
         </BlurReveal>
 
