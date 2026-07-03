@@ -8,9 +8,12 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <div className="flex items-baseline gap-0.5 mb-4">
-              <span className="text-lg font-bold tracking-tight">Vision</span>
-              <span className="text-lg font-serif font-bold tracking-tight">Works</span>
+            <div className="flex items-baseline gap-4 mb-4">
+              <div className="flex items-baseline gap-2">
+                <span className="text-lg font-bold tracking-tight">Vision</span>
+                <span className="text-lg font-serif font-bold tracking-tight">Works</span>
+              </div>
+              <span className="text-xs text-muted-foreground tracking-wide">yourvisionworks.ai</span>
             </div>
             <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
               We engineer intelligence. From agentic AI systems to production-ready
