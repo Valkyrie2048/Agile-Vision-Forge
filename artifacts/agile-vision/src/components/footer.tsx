@@ -13,7 +13,7 @@ export default function Footer() {
                 <span className="text-lg font-bold tracking-tight">Vision</span>
                 <span className="text-lg font-serif italic font-bold tracking-tight text-primary">Works</span>
               </div>
-              <span className="text-xs text-muted-foreground tracking-wide">yourvisionworks.ai</span>
+              <span className="text-xs text-muted-foreground tracking-wide">Making your vision work.</span>
             </div>
             <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
               We engineer intelligence. From agentic AI systems to production-ready
