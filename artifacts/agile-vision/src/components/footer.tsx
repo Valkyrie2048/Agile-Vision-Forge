@@ -75,7 +75,7 @@ export default function Footer() {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground" data-testid="text-copyright">
-            &copy;2026 Vision Works Technology Inc. All rights reserved.
+            &copy;2026 Agile Vision Technology Inc. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <span className="text-xs text-muted-foreground">Privacy Policy</span>
