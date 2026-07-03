@@ -44,9 +44,15 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4 h-16">
           <Link href="/" data-testid="link-home">
-            <span className="cursor-pointer select-none flex items-baseline gap-2">
-              <span className={`text-2xl font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Vision</span>
-              <span className={`text-2xl font-serif font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Works</span>
+            <span className="cursor-pointer select-none flex items-center gap-2.5">
+              <span
+                className={`w-2 h-2 rounded-full transition-colors ${overHero ? "bg-white" : "bg-primary"}`}
+                aria-hidden="true"
+              />
+              <span className="flex items-baseline gap-1.5">
+                <span className={`text-2xl font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Vision</span>
+                <span className={`text-2xl font-serif italic font-bold tracking-tight transition-colors ${overHero ? "text-white/90" : "text-primary"}`}>Works</span>
+              </span>
             </span>
           </Link>
 
