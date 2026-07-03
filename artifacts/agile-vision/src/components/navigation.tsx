@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Logo } from "@/components/logo";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -45,12 +44,9 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4 h-16">
           <Link href="/" data-testid="link-home">
-            <span className="cursor-pointer select-none flex items-center gap-2.5">
-              <Logo className="w-8 h-8 shrink-0" />
-              <span className="flex items-baseline gap-1.5">
-                <span className={`text-2xl font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Vision</span>
-                <span className={`text-2xl font-serif italic font-bold tracking-tight transition-colors ${overHero ? "text-white/90" : "text-primary"}`}>Works</span>
-              </span>
+            <span className="cursor-pointer select-none flex items-baseline gap-1.5">
+              <span className={`text-2xl font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Vision</span>
+              <span className={`text-2xl font-serif italic font-bold tracking-tight transition-colors ${overHero ? "text-white/90" : "text-primary"}`}>Works</span>
             </span>
           </Link>
 

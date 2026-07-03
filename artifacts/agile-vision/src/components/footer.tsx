@@ -1,7 +1,6 @@
 import { Link } from "wouter";
 import { SiGithub, SiX } from "react-icons/si";
 import { Linkedin } from "lucide-react";
-import { Logo } from "@/components/logo";
 
 export default function Footer() {
   return (
@@ -10,12 +9,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center gap-4 mb-4">
-              <div className="flex items-center gap-2.5">
-                <Logo className="w-7 h-7 shrink-0" />
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-lg font-bold tracking-tight">Vision</span>
-                  <span className="text-lg font-serif italic font-bold tracking-tight text-primary">Works</span>
-                </div>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-lg font-bold tracking-tight">Vision</span>
+                <span className="text-lg font-serif italic font-bold tracking-tight text-primary">Works</span>
               </div>
               <span className="text-xs text-muted-foreground tracking-wide">yourvisionworks.ai</span>
             </div>
