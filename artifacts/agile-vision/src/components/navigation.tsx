@@ -46,7 +46,7 @@ export default function Navigation() {
           <Link href="/" data-testid="link-home">
             <span className="cursor-pointer select-none flex items-center gap-2.5">
               <span
-                className={`w-2 h-2 rounded-full transition-colors ${overHero ? "bg-white" : "bg-primary"}`}
+                className={`w-2 h-2 rotate-45 transition-colors ${overHero ? "bg-white" : "bg-primary"}`}
                 aria-hidden="true"
               />
               <span className="flex items-baseline gap-1.5">
