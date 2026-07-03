@@ -520,12 +520,13 @@ function CapabilitiesSection() {
           {capabilities.map((cap, i) => (
             <motion.div
               key={i}
+              className="h-full"
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
             >
-              <div className="relative">
+              <div className="relative h-full">
                 <div className="absolute -inset-[1px] rounded-md overflow-hidden pointer-events-none z-[2]">
                   <div
                     className="absolute inset-0 rounded-md"
@@ -537,11 +538,11 @@ function CapabilitiesSection() {
                   />
                 </div>
                 <Card
-                  className="relative hover-elevate cursor-pointer overflow-visible"
+                  className="relative h-full flex flex-col hover-elevate cursor-pointer overflow-visible"
                   data-testid={`card-capability-${i}`}
                   onClick={() => setActiveModal(i)}
                 >
-                  <div className="relative overflow-hidden rounded-t-md aspect-[16/10]">
+                  <div className="relative overflow-hidden rounded-t-md aspect-[16/10] shrink-0">
                     <motion.img
                       src={cap.image}
                       alt={cap.title}
@@ -551,7 +552,7 @@ function CapabilitiesSection() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
                   </div>
-                  <div className="relative p-5 pt-0 -mt-6 z-10">
+                  <div className="relative flex-1 p-5 pt-0 -mt-6 z-10">
                     <h3 className="font-semibold text-lg mb-1.5">{cap.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{cap.description}</p>
                   </div>
