@@ -312,7 +312,7 @@ function HeroSection() {
             data-testid="text-hero-title"
             data-hero-heading
           >
-            <TextReveal delay={0.2}>Make Your</TextReveal>
+            <TextReveal delay={0.2}>We Make Your</TextReveal>
             <br />
             <span className="relative inline-block">
               {/* Pulsing aura behind gradient text */}
