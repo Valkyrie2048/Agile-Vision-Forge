@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { SiGithub, SiX } from "react-icons/si";
 import { Linkedin } from "lucide-react";
+import { Logo } from "@/components/logo";
 
 export default function Footer() {
   return (
@@ -10,11 +11,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-4 mb-4">
               <div className="flex items-center gap-2.5">
-                <span
-                  className="w-0 h-0 border-l-[5px] border-r-[5px] border-b-[8px] border-l-transparent border-r-transparent"
-                  style={{ borderBottomColor: "hsl(250 85% 60%)" }}
-                  aria-hidden="true"
-                />
+                <Logo className="w-7 h-7 shrink-0" />
                 <div className="flex items-baseline gap-1.5">
                   <span className="text-lg font-bold tracking-tight">Vision</span>
                   <span className="text-lg font-serif italic font-bold tracking-tight text-primary">Works</span>

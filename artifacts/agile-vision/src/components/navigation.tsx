@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Logo } from "@/components/logo";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -45,11 +46,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between gap-4 h-16">
           <Link href="/" data-testid="link-home">
             <span className="cursor-pointer select-none flex items-center gap-2.5">
-              <span
-                className="w-0 h-0 border-l-[5px] border-r-[5px] border-b-[8px] border-l-transparent border-r-transparent transition-colors"
-                style={{ borderBottomColor: overHero ? "#fff" : "hsl(250 85% 60%)" }}
-                aria-hidden="true"
-              />
+              <Logo className="w-8 h-8 shrink-0" />
               <span className="flex items-baseline gap-1.5">
                 <span className={`text-2xl font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Vision</span>
                 <span className={`text-2xl font-serif italic font-bold tracking-tight transition-colors ${overHero ? "text-white/90" : "text-primary"}`}>Works</span>
