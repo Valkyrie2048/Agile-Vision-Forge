@@ -9,8 +9,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-baseline gap-0.5 mb-4">
-              <span className="text-lg font-bold tracking-tight">Agile</span>
-              <span className="text-lg font-serif font-bold tracking-tight">Vision</span>
+              <span className="text-lg font-bold tracking-tight">Vision</span>
+              <span className="text-lg font-serif font-bold tracking-tight">Works</span>
             </div>
             <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
               We engineer intelligence. From agentic AI systems to production-ready
@@ -72,7 +72,7 @@ export default function Footer() {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-muted-foreground" data-testid="text-copyright">
-            &copy;2026 Agile Vision Technology Inc. All rights reserved.
+            &copy;2026 Vision Works Technology Inc. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <span className="text-xs text-muted-foreground">Privacy Policy</span>
