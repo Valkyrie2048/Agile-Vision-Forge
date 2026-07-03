@@ -756,7 +756,13 @@ export function AINetworkGraph() {
   }, []);
 
   // ── Tour orchestration ───────────────────────────────────
+  // Disabled: the auto-playing stats/tour panel is turned off on load.
+  // The constellation animation itself (canvas draw loop, nodes, edges,
+  // pulses) is untouched above.
   useEffect(() => {
+    // eslint-disable-next-line no-constant-condition
+    if (true) return;
+
     // Check if already seen
     try {
       if (localStorage.getItem(TOUR_STORAGE_KEY)) return;
