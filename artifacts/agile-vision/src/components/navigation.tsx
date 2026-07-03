@@ -45,8 +45,8 @@ export default function Navigation() {
         <div className="flex items-center justify-between gap-4 h-16">
           <Link href="/" data-testid="link-home">
             <span className="cursor-pointer select-none flex items-baseline gap-0.5">
-              <span className={`text-2xl font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Agile</span>
-              <span className={`text-2xl font-serif font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Vision</span>
+              <span className={`text-2xl font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Vision</span>
+              <span className={`text-2xl font-serif font-bold tracking-tight transition-colors ${overHero ? "text-white" : "text-foreground"}`}>Works</span>
             </span>
           </Link>
 
