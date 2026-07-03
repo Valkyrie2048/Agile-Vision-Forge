@@ -1411,9 +1411,9 @@ function FinalCTASection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white mb-6" data-testid="text-final-cta-title">
-            <TextReveal>Let's Make Your</TextReveal>{" "}
+            <TextReveal>Let's Make</TextReveal>{" "}
             <span className="gradient-text">
-              <TextReveal delay={0.3}>Vision Work</TextReveal>
+              <TextReveal delay={0.3}>Your Vision Work</TextReveal>
             </span>
           </h2>
           <BlurReveal delay={0.4}>
