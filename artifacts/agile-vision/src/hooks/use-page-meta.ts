@@ -8,8 +8,8 @@ interface PageMetaOptions {
   type?: "website" | "article";
 }
 
-const SITE_NAME = "Vision Works";
-const DEFAULT_TITLE = "Vision Works - AI-Native Technology Studio";
+const SITE_NAME = "Vision AI Works";
+const DEFAULT_TITLE = "Vision AI Works - AI-Native Technology Studio";
 const DEFAULT_DESC =
   "We build intelligent products powered by AI and Agentic AI. From concept to launch, we help startups and SMBs ship faster.";
 const DEFAULT_IMAGE = "/opengraph.jpg";

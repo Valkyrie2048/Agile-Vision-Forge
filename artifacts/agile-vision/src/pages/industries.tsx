@@ -122,7 +122,7 @@ function TriageDemo() {
   });
 
   return (
-    <DemoCard title="ED Triage Queue — St. Agile Medical Center" description="Adjust AI confidence threshold to control which patients the model auto-prioritizes" onReset={reset}>
+    <DemoCard title="ED Triage Queue · St. Agile Medical Center" description="Adjust AI confidence threshold to control which patients the model auto-prioritizes" onReset={reset}>
       <div className="mb-4 space-y-2">
         <RangeSlider label="AI Confidence Threshold" value={threshold} min={50} max={95}
           onChange={setThreshold} unit="%" />
@@ -251,7 +251,7 @@ function AnomalyChartDemo() {
   const changePct = (change / prices[0]) * 100;
 
   return (
-    <DemoCard title="Real-Time Fraud & Anomaly Monitor" description="Live equity tick stream — inject events to trigger the detection model" onReset={reset}>
+    <DemoCard title="Real-Time Fraud & Anomaly Monitor" description="Live equity tick stream, inject events to trigger the detection model" onReset={reset}>
       <div className="mb-3 flex items-center gap-3">
         <div className="flex-1">
           <div className="flex items-baseline gap-2">
@@ -350,7 +350,7 @@ function DemandForecastDemo() {
   const weeks = ["Wk 1", "Wk 2", "Wk 3", "Wk 4", "Wk 5", "Wk 6", "Wk 7", "Wk 8"];
 
   return (
-    <DemoCard title="Horizon Pro Earbuds — 8-Week Demand Forecast" description="Adjust inputs to see how the model rebalances the forecast in real time">
+    <DemoCard title="Horizon Pro Earbuds · 8-Week Demand Forecast" description="Adjust inputs to see how the model rebalances the forecast in real time">
       <div className="space-y-3 mb-3">
         <RangeSlider label="Seasonal Demand Signal" value={season} min={0} max={100} onChange={setSeason} />
         <RangeSlider label={`Unit Price  $${unitPrice}`} value={priceSlider} min={0} max={100} onChange={setPriceSlider} />
@@ -488,7 +488,7 @@ function DefectScannerDemo() {
   const defectCount = Object.keys(defects).length;
 
   return (
-    <DemoCard title="PCB Vision Inspector — Line 3" description={`Batch ${batchRef.current} · 12 boards queued`} onReset={reset}>
+    <DemoCard title="PCB Vision Inspector · Line 3" description={`Batch ${batchRef.current} · 12 boards queued`} onReset={reset}>
       <div className="relative mb-3">
         <div className="grid grid-cols-4 gap-2 pt-3">
           {TILE_PATTERNS.map(i => (
@@ -536,7 +536,7 @@ const NEG = new Set(["awful","bad","boring","broken","cheap","complex","confusin
 const SENTIMENT_PRESETS = [
   {
     label: "Launch Tweet",
-    text: "Thrilled to announce our newest product! Fast, reliable, and beautifully designed — it's the best we've ever built. Innovation at its finest. Seamless and intuitive from day one.",
+    text: "Thrilled to announce our newest product! Fast, reliable, and beautifully designed. It's the best we've ever built. Innovation at its finest. Seamless and intuitive from day one.",
   },
   {
     label: "1-Star Review",
@@ -567,7 +567,7 @@ function SentimentAnalyzerDemo() {
   const meterPct = Math.min(100, Math.max(0, (polarity + 1) / 2 * 100));
 
   return (
-    <DemoCard title="Brand Sentiment Analyzer" description="Load a preset or type your own copy — every word scores in real time"
+    <DemoCard title="Brand Sentiment Analyzer" description="Load a preset or type your own copy, every word scores in real time"
       onReset={() => { setText(""); setKey(k => k + 1); }}>
       <div className="flex gap-1.5 mb-2.5">
         {SENTIMENT_PRESETS.map(p => (
@@ -717,7 +717,7 @@ function RouteOptimizerDemo() {
   const visibleEdges = route.slice(0, animStep + 1);
 
   return (
-    <DemoCard title="Last-Mile Route Optimizer" description="Drag any stop to reposition it — the algorithm replans the route instantly" onReset={reset}>
+    <DemoCard title="Last-Mile Route Optimizer" description="Drag any stop to reposition it. The algorithm replans the route instantly" onReset={reset}>
       <svg key={key} ref={svgRef} viewBox="0 0 420 280" className="w-full rounded-lg bg-black/20 mb-3 touch-none"
         style={{ height: 200 }} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerLeave={onPointerUp}>
         {visibleEdges.map((_, i) => {
@@ -790,14 +790,14 @@ const INDUSTRIES = [
   {
     id: "healthcare", label: "Healthcare", icon: Activity,
     headline: "AI That Thinks Alongside Clinicians",
-    positioning: "Healthcare decisions happen under time pressure, with incomplete information. We build AI systems that surface the right data at the right moment — helping clinicians prioritize, diagnose, and act with confidence. From triage automation to patient flow optimization, our tools are built to augment expertise, not replace judgment.",
+    positioning: "Healthcare decisions happen under time pressure, with incomplete information. We build AI systems that surface the right data at the right moment, helping clinicians prioritize, diagnose, and act with confidence. From triage automation to patient flow optimization, our tools are built to augment expertise, not replace judgment.",
     useCases: ["Intelligent patient triage and queue prioritization", "Predictive readmission and deterioration alerts", "Clinical documentation automation", "Medical imaging analysis and anomaly flagging", "Operational capacity and staffing optimization"],
     Demo: TriageDemo,
   },
   {
     id: "finance", label: "Finance", icon: TrendingUp,
     headline: "Real-Time Intelligence for High-Stakes Decisions",
-    positioning: "In financial markets, milliseconds and signals matter. We build AI systems that stream, analyze, and flag — detecting anomalies before they become incidents, automating compliance checks, and surfacing insights buried in transaction data. Our models run at the edge, close to the data, where latency is not an option.",
+    positioning: "In financial markets, milliseconds and signals matter. We build AI systems that stream, analyze, and flag: detecting anomalies before they become incidents, automating compliance checks, and surfacing insights buried in transaction data. Our models run at the edge, close to the data, where latency is not an option.",
     useCases: ["Real-time anomaly and fraud detection", "Algorithmic risk scoring and credit modeling", "Regulatory compliance automation", "Portfolio optimization and rebalancing signals", "Sentiment-driven market intelligence"],
     Demo: AnomalyChartDemo,
   },
@@ -811,21 +811,21 @@ const INDUSTRIES = [
   {
     id: "manufacturing", label: "Manufacturing", icon: Cpu,
     headline: "Zero-Defect Production with Computer Vision",
-    positioning: "A single defective batch can cost millions. We build computer vision systems that inspect every unit at line speed — catching surface defects, dimensional anomalies, and assembly errors invisible to human inspectors. Our models run on-premise or at the edge, integrating directly with existing MES and SCADA systems.",
+    positioning: "A single defective batch can cost millions. We build computer vision systems that inspect every unit at line speed: catching surface defects, dimensional anomalies, and assembly errors invisible to human inspectors. Our models run on-premise or at the edge, integrating directly with existing MES and SCADA systems.",
     useCases: ["Automated visual inspection and defect classification", "Predictive maintenance and failure forecasting", "Assembly line throughput optimization", "Energy consumption and yield optimization", "Supply chain risk monitoring and alerting"],
     Demo: DefectScannerDemo,
   },
   {
     id: "media", label: "Media & Content", icon: FileText,
     headline: "Content Intelligence at Scale",
-    positioning: "The attention economy moves faster than any editorial team can. We build AI systems that analyze sentiment, optimize headlines, generate first drafts, and surface trending signals — giving media and content teams an unfair advantage. Every word your audience reads can be scored, refined, and personalized in real time.",
+    positioning: "The attention economy moves faster than any editorial team can. We build AI systems that analyze sentiment, optimize headlines, generate first drafts, and surface trending signals, giving media and content teams an unfair advantage. Every word your audience reads can be scored, refined, and personalized in real time.",
     useCases: ["Real-time sentiment analysis and brand monitoring", "AI-assisted content generation and editing", "Headline optimization and A/B testing automation", "Audience segmentation and personalization", "Content moderation and policy enforcement at scale"],
     Demo: SentimentAnalyzerDemo,
   },
   {
     id: "logistics", label: "Logistics", icon: Package,
     headline: "Route Intelligence That Pays for Itself",
-    positioning: "Logistics networks are optimization problems at scale. We build AI systems that find the best routes, predict delays before they happen, and dynamically replan when reality diverges from the schedule. Drag any node in the demo to watch the optimizer instantly recalculate — that is exactly how our production systems behave.",
+    positioning: "Logistics networks are optimization problems at scale. We build AI systems that find the best routes, predict delays before they happen, and dynamically replan when reality diverges from the schedule. Drag any node in the demo to watch the optimizer instantly recalculate. That is exactly how our production systems behave.",
     useCases: ["Last-mile route optimization with dynamic replanning", "Delivery time prediction and SLA management", "Fleet utilization and load optimization", "Warehouse slotting and pick-path optimization", "Carrier selection and freight cost optimization"],
     Demo: RouteOptimizerDemo,
   },
@@ -836,7 +836,7 @@ const INDUSTRIES = [
 export default function Industries() {
   usePageMeta({
     title: "Industries",
-    description: "AI solutions built for Healthcare, Finance, Retail, Manufacturing, Media, and Logistics — with live interactive demos you can try right now.",
+    description: "AI solutions built for Healthcare, Finance, Retail, Manufacturing, Media, and Logistics, with live interactive demos you can try right now.",
     type: "website",
   });
 
@@ -892,7 +892,7 @@ export default function Industries() {
               <span className="gradient-text">Industry</span>
             </h1>
             <p className="text-lg text-white/75 max-w-2xl mx-auto leading-relaxed">
-              Every sector has its own rhythms, risks, and data. Explore how Agile Vision builds AI tailored to your vertical — and interact with live demos that run entirely in your browser.
+              Every sector has its own rhythms, risks, and data. Explore how Agile Vision builds AI tailored to your vertical, and interact with live demos that run entirely in your browser.
             </p>
           </motion.div>
         </div>

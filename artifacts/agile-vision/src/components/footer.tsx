@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-4 mb-4">
               <div className="flex items-baseline gap-1.5">
-                <span className="text-lg font-bold tracking-tight">Vision</span>
+                <span className="text-lg font-bold tracking-tight">Vision AI</span>
                 <span className="text-lg font-serif italic font-bold tracking-tight text-primary">Works</span>
               </div>
               <span className="text-xs text-muted-foreground tracking-wide">Making your vision work.</span>

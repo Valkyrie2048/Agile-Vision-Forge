@@ -64,12 +64,12 @@ const CRM_LABELS: Record<Channel, string> = {
 
 const CHAT_FLOWS: Record<string, { bot: string; chips: string[]; intent: string }> = {
   "Order status?": {
-    bot: "Order #AV-8821 shipped via FedEx — arriving tomorrow by 8pm. Tracking: FX 4821 0093 2241.",
+    bot: "Order #AV-8821 shipped via FedEx, arriving tomorrow by 8pm. Tracking: FX 4821 0093 2241.",
     chips: ["Change address", "Cancel order"],
     intent: "order_tracking",
   },
   "Change address": {
-    bot: "The package hasn't reached the local depot yet — I can reroute it. What's the new delivery address?",
+    bot: "The package hasn't reached the local depot yet. I can reroute it. What's the new delivery address?",
     chips: ["123 Main St", "Never mind"],
     intent: "address_change",
   },
@@ -78,13 +78,13 @@ const CHAT_FLOWS: Record<string, { bot: string; chips: string[]; intent: string 
     chips: ["SMS alerts", "Thanks!"],
     intent: "order_tracking",
   },
-  "SMS alerts":   { bot: "Done — you'll get a text when it's 30 min away.", chips: ["Thanks!"],                    intent: "notification" },
+  "SMS alerts":   { bot: "Done, you'll get a text when it's 30 min away.", chips: ["Thanks!"],                    intent: "notification" },
   "Cancel order": { bot: "Cancel order #AV-8821? This can't be undone.",    chips: ["Yes, cancel", "Keep order"],  intent: "cancellation" },
   "Keep order":   { bot: "Great, your order stays. Anything else?",         chips: ["Order status?", "Thanks!"],   intent: "retention" },
-  "Yes, cancel":  { bot: "Done — order cancelled. Refund in 3–5 days.",     chips: ["Thanks!"],                    intent: "cancellation" },
-  "Never mind":   { bot: "No problem — let me know if you need anything.",  chips: ["Order status?", "Thanks!"],   intent: "closing" },
+  "Yes, cancel":  { bot: "Done, order cancelled. Refund in 3–5 days.",     chips: ["Thanks!"],                    intent: "cancellation" },
+  "Never mind":   { bot: "No problem, let me know if you need anything.",  chips: ["Order status?", "Thanks!"],   intent: "closing" },
   "Thanks!":      { bot: "Happy to help! Anything else I can do?",          chips: ["Order status?", "Track my parcel"], intent: "closing" },
-  "123 Main St":  { bot: "Got it — rerouting to 123 Main St. Done!",        chips: ["Thanks!"],                    intent: "address_change" },
+  "123 Main St":  { bot: "Got it, rerouting to 123 Main St. Done!",        chips: ["Thanks!"],                    intent: "address_change" },
 };
 
 export function ChatbotDemo() {
@@ -147,7 +147,7 @@ export function ChatbotDemo() {
             <Brain className="w-3.5 h-3.5 text-primary" />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-xs font-semibold text-white">Aria — Support AI</div>
+            <div className="text-xs font-semibold text-white">Aria · Support AI</div>
             <div className="text-[9px] text-white/35 truncate">{CRM_LABELS[channel]}</div>
           </div>
           <motion.div className={`w-2 h-2 rounded-full ${ch.dot}`}
@@ -217,7 +217,7 @@ const PIPELINE_STEPS = [
   { agent: "Research", action: "Web search + scrape 14 competitor pages",     tool: "web_browse",   ms: 3200 },
   { agent: "Memory",   action: "Recall Q2 benchmarks from long-term store",   tool: "memory_store", ms: 800 },
   { agent: "Analyst",  action: "Run pricing trend & sentiment models",         tool: "ml_inference", ms: 1800 },
-  { agent: "Reviewer", action: "Human checkpoint — approve before delivery",  tool: "human_loop",   ms: 0 },
+  { agent: "Reviewer", action: "Human checkpoint: approve before delivery",  tool: "human_loop",   ms: 0 },
 ];
 
 function AgenticAIDemo() {
@@ -350,7 +350,7 @@ function AgenticAIDemo() {
                   {awaitingApproval && isReviewer && (
                     <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }}
                       className="mt-2 pt-2 border-t border-white/8 flex items-center gap-2">
-                      <span className="text-[10px] text-white/40 flex-1">Review complete — approve to deliver?</span>
+                      <span className="text-[10px] text-white/40 flex-1">Review complete, approve to deliver?</span>
                       <button onClick={approve}
                         className="flex items-center gap-1 text-[10px] font-semibold px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 transition-colors">
                         <ThumbsUp className="w-3 h-3" /> Approve
@@ -370,9 +370,9 @@ function AgenticAIDemo() {
         {/* Metrics */}
         <div className="grid grid-cols-3 gap-2">
           {[
-            { label: "Steps done",   value: started ? `${done.length} / 5` : "—" },
-            { label: "Sources read", value: started && done.includes(1) ? "14" : "—" },
-            { label: "Total time",   value: allDone ? `${totalSec}s` : "—" },
+            { label: "Steps done",   value: started ? `${done.length} / 5` : "–" },
+            { label: "Sources read", value: started && done.includes(1) ? "14" : "–" },
+            { label: "Total time",   value: allDone ? `${totalSec}s` : "–" },
           ].map((m, i) => (
             <div key={i} className="rounded-lg border border-white/8 bg-white/[0.03] p-2.5 text-center">
               <div className="text-sm font-bold text-white">{m.value}</div>
@@ -434,7 +434,7 @@ export function WebAppDemo() {
               <Sparkles className="w-3 h-3 text-primary" />
               <span className="text-[9px] font-semibold text-primary">AI Insight</span>
             </div>
-            <p className="text-[9px] text-white/45 leading-snug">Upsell campaign is driving 18% revenue lift — expand to 3 new segments.</p>
+            <p className="text-[9px] text-white/45 leading-snug">Upsell campaign is driving 18% revenue lift, expand to 3 new segments.</p>
           </div>
         </div>
 
@@ -476,7 +476,7 @@ export function WebAppDemo() {
                   <motion.span key={suggestion} initial={{ opacity: 0, y: 3 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -3 }}
                     className="text-primary/80 flex-1 text-left">{AI_SUGGESTIONS[suggestion]}</motion.span>
                 ) : (
-                  <span className="text-white/25 flex-1 text-left">AI search — try "churn risk users"</span>
+                  <span className="text-white/25 flex-1 text-left">AI search: try "churn risk users"</span>
                 )}
               </AnimatePresence>
               {searching && <Sparkles className="w-3 h-3 text-primary shrink-0" />}
@@ -532,7 +532,7 @@ export function WebAppDemo() {
 // ─────────────────────────────────────────────────────────────
 
 const POSTS = [
-  { id: 0, av: "SK", user: "Sarah K.", time: "2m",  text: "Shipped with on-device ML — works fully offline!", tag: "ML", likes: 24 },
+  { id: 0, av: "SK", user: "Sarah K.", time: "2m",  text: "Shipped with on-device ML, works fully offline!", tag: "ML", likes: 24 },
   { id: 1, av: "AR", user: "Alex R.",  time: "18m", text: "App Store review approved in 14 hours. New record.", tag: "Launch", likes: 41 },
 ];
 
@@ -700,7 +700,7 @@ export function DataAppDemo() {
 
         <div>
           <div className="text-sm font-semibold text-white mb-0.5">AI Analytics</div>
-          <div className="text-[10px] text-white/35">Ask in plain English — no SQL required</div>
+          <div className="text-[10px] text-white/35">Ask in plain English, no SQL required</div>
         </div>
 
         <div className="rounded-lg border border-white/10 bg-white/[0.04] flex items-center gap-2 px-3 py-2.5">
@@ -772,8 +772,8 @@ export function DataAppDemo() {
 
 const AUTO_STEPS = [
   { label: "Invoice received",        icon: Mail,          detail: "finance@acme.com → AP inbox",                  webhook: "" },
-  { label: "AI extracts fields",      icon: Brain,         detail: "Vendor · Amount · PO# · Due date — 6 fields",  webhook: "" },
-  { label: "3-way PO match",          icon: CheckCircle2,  detail: "Invoice vs PO vs receipt — ✓ matched",         webhook: "" },
+  { label: "AI extracts fields",      icon: Brain,         detail: "Vendor · Amount · PO# · Due date · 6 fields",  webhook: "" },
+  { label: "3-way PO match",          icon: CheckCircle2,  detail: "Invoice vs PO vs receipt · ✓ matched",         webhook: "" },
   { label: "Routes to approver",      icon: Webhook,       detail: "API webhook → Slack #ap-approvals · Sarah C.", webhook: "webhook" },
   { label: "Payment scheduled",       icon: Zap,           detail: "ACH · Net-30 · ref INV-2024-0391",             webhook: "" },
 ];
@@ -1010,7 +1010,7 @@ export function ECommerceDemo() {
                 <div className="flex-1 min-w-0">
                   <div className="text-xs font-semibold text-yellow-300">Leaving already?</div>
                   <div className="text-[10px] text-white/55 mt-0.5">
-                    Use <span className="font-bold text-yellow-300">SAVE10</span> for 10% off — expires {mins}:{secs}
+                    Use <span className="font-bold text-yellow-300">SAVE10</span> for 10% off, expires {mins}:{secs}
                   </div>
                 </div>
                 <button onClick={() => { setShowAbandonment(false); setDismissed(true); }}
@@ -1148,9 +1148,9 @@ const MODULES = [
 ];
 
 const AI_TIPS = [
-  "You're 2× faster than average on this topic — great momentum!",
-  "Try the practice quiz before moving on — it predicts a 20% score boost.",
-  "Tip: re-watch the backpropagation segment — it's the key concept for Module 2.",
+  "You're 2× faster than average on this topic, great momentum!",
+  "Try the practice quiz before moving on, it predicts a 20% score boost.",
+  "Tip: re-watch the backpropagation segment, it's the key concept for Module 2.",
 ];
 
 export function EdTechDemo() {

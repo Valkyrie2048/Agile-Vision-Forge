@@ -338,7 +338,7 @@ function HeroSection() {
             className="text-lg sm:text-xl text-white/60 max-w-xl mx-auto mb-10 leading-relaxed"
             data-testid="text-hero-subtitle"
           >
-            We build it with AI — from idea to launch, agentic systems, and intelligent software for ambitious companies.
+            We build it with AI, from idea to launch, agentic systems, and intelligent software for ambitious companies.
           </p>
         </BlurReveal>
 
@@ -727,7 +727,7 @@ function IndustriesSection() {
           </h2>
           <BlurReveal delay={0.2}>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Every sector has its own rhythms, risks, and data. We ship AI tailored to the realities of your vertical — not generic templates.
+              Every sector has its own rhythms, risks, and data. We ship AI tailored to the realities of your vertical, not generic templates.
             </p>
           </BlurReveal>
         </div>
@@ -830,7 +830,7 @@ const projectTypes = [
     label: "Agentic AI",
     icon: BrainCircuit,
     tagline: "AI that reasons and acts",
-    description: "Multi-agent architectures that research, plan, and execute complex workflows autonomously — with human checkpoints where it matters.",
+    description: "Multi-agent architectures that research, plan, and execute complex workflows autonomously, with human checkpoints where it matters.",
     bullets: ["Tool use and web browsing", "Long-running memory systems", "Human-in-the-loop controls"],
   },
   {
@@ -838,7 +838,7 @@ const projectTypes = [
     label: "Web App",
     icon: Globe,
     tagline: "Platforms that scale",
-    description: "From MVP to enterprise-scale SaaS — real-time dashboards, AI-powered search, and the infrastructure to grow with you.",
+    description: "From MVP to enterprise-scale SaaS: real-time dashboards, AI-powered search, and the infrastructure to grow with you.",
     bullets: ["React, Next.js, TypeScript", "Real-time collaboration", "AI search & recommendations"],
   },
   {
@@ -846,7 +846,7 @@ const projectTypes = [
     label: "Mobile App",
     icon: Smartphone,
     tagline: "Concept to App Store",
-    description: "Native-quality mobile apps with AI baked in from day one — on-device ML for instant results, cloud AI for complex tasks.",
+    description: "Native-quality mobile apps with AI baked in from day one: on-device ML for instant results, cloud AI for complex tasks.",
     bullets: ["React Native & Swift/Kotlin", "On-device ML for offline AI", "App Store launch strategy"],
   },
   {
@@ -862,7 +862,7 @@ const projectTypes = [
     label: "Automation",
     icon: Cog,
     tagline: "Reclaim your team's time",
-    description: "End-to-end process automation combining AI document understanding, RPA, and deep system integrations — so your team works on what matters.",
+    description: "End-to-end process automation combining AI document understanding, RPA, and deep system integrations, so your team works on what matters.",
     bullets: ["AI document processing", "API & webhook integration", "Error recovery & auto-retry"],
   },
   {
@@ -1448,11 +1448,11 @@ function FinalCTASection() {
 function TestimonialsSection() {
   const testimonials = [
     {
-      quote: "We handed Agile Vision a half-formed idea on a Monday. By Friday we had a working prototype. By the following month we had a product our customers actually use every day. The speed without the corners cut — that's the rare thing.",
+      quote: "We handed Agile Vision a half-formed idea on a Monday. By Friday we had a working prototype. By the following month we had a product our customers actually use every day. The speed without the corners cut, that's the rare thing.",
       company: "GIGAMATIC",
     },
     {
-      quote: "Our research sits at the edge of AI and human consciousness — not an easy brief for any technology partner. Agile Vision understood the nuance immediately and built us tooling that respects both the science and the stakes. Exceptional work.",
+      quote: "Our research sits at the edge of AI and human consciousness, not an easy brief for any technology partner. Agile Vision understood the nuance immediately and built us tooling that respects both the science and the stakes. Exceptional work.",
       company: "The Institute for AI and The Future of Consciousness",
     },
     {
