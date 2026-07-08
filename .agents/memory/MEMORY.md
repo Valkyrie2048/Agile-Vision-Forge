@@ -1,1 +1,1 @@
-- [Mobile overflow guardrail](mobile-overflow.md) — global `overflow-x: hidden` on html/body added after decorative absolute-positioned blobs caused horizontal scroll on mobile.
+- [Mobile overflow guardrail](mobile-overflow.md) — global `overflow-x: hidden` on `html` ONLY (never also on `body` — breaks sticky/scroll animations on mobile) fixes decorative-blob horizontal scroll.
