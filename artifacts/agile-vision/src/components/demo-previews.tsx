@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Brain, Send, Heart, Home, Search, Plus, MessageSquare, User,
   ShoppingCart, Settings, BarChart3, ArrowUpRight, ArrowDownRight,
@@ -13,6 +14,21 @@ import {
 // ─────────────────────────────────────────────────────────────
 
 function PhoneFrame({ children }: { children: React.ReactNode }) {
+  const isMobile = useIsMobile();
+
+  // On real mobile screens a miniature phone-in-a-phone frame just wastes
+  // space and shrinks tap targets, so show the demo content directly.
+  if (isMobile) {
+    return (
+      <div
+        className="w-full h-[440px] rounded-2xl border border-white/10 bg-[hsl(250_20%_7%)] overflow-hidden relative"
+        style={{ boxShadow: "0 0 0 1px hsl(250 85% 60% / 0.12), 0 16px 40px -12px hsl(250 20% 4% / 0.8)" }}
+      >
+        <div className="h-full overflow-hidden">{children}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex justify-center py-2">
       <div
@@ -30,6 +46,18 @@ function PhoneFrame({ children }: { children: React.ReactNode }) {
 }
 
 function BrowserFrame({ children, url = "app.yourbrand.com" }: { children: React.ReactNode; url?: string }) {
+  const isMobile = useIsMobile();
+
+  // Skip the fake browser chrome on mobile — it eats vertical space that's
+  // already scarce, and the toolbar/traffic-lights add no real value there.
+  if (isMobile) {
+    return (
+      <div className="w-full rounded-xl border border-white/10 overflow-hidden shadow-2xl shadow-black/40">
+        <div className="h-[420px] overflow-hidden">{children}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full rounded-xl border border-white/10 overflow-hidden shadow-2xl shadow-black/40">
       <div className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.04] border-b border-white/8">

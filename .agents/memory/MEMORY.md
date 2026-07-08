@@ -1,1 +1,2 @@
 - [Mobile overflow guardrail](mobile-overflow.md) — global `overflow-x: hidden` on `html` ONLY (never also on `body` — breaks sticky/scroll animations on mobile) fixes decorative-blob horizontal scroll.
+- [Mobile demo/effect adaptations](mobile-demo-adaptations.md) — decorative/ambient effects (particles, WebGL) disabled entirely on mobile; functional demos keep chrome-free adapted wrappers instead.

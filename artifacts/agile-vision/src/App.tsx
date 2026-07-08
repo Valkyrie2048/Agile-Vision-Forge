@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ParticleField } from "@/components/particle-field";
 import { WarpDrive, type WarpTrigger } from "@/components/warp-drive";
+import { useIsMobile } from "@/hooks/use-mobile";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import Home from "@/pages/home";
@@ -47,16 +48,18 @@ function AppContent() {
   const [location] = useLocation();
   const isBlogPage = location === "/blog" || location.startsWith("/blog/");
   const isIndustriesPage = location === "/industries";
+  const isMobile = useIsMobile();
 
   const [warp, setWarp] = useState<WarpTrigger | null>(null);
 
   const fireWarp = useCallback((x: number, y: number, target: EventTarget | null) => {
+    if (isMobile) return; // WebGL effect skipped on mobile — perf/reliability risk for a purely decorative touch
     if (warp) return; // already running
     if (!(target instanceof Element)) return;
     if (!target.closest("[data-warp-zone]")) return; // hero section only
     if (target.closest(INTERACTIVE_SELECTOR)) return;
     setWarp({ x, y });
-  }, [warp]);
+  }, [warp, isMobile]);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
     fireWarp(e.clientX, e.clientY, e.target);
@@ -74,7 +77,7 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
-      {!isBlogPage && !isIndustriesPage && <ParticleField />}
+      {!isBlogPage && !isIndustriesPage && !isMobile && <ParticleField />}
       <WarpDrive trigger={warp} onComplete={handleComplete} />
       <div
         className="min-h-[100svh] flex flex-col relative z-[2]"
