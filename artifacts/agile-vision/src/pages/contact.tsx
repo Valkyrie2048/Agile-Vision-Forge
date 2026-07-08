@@ -58,7 +58,7 @@ export default function Contact() {
   });
 
   return (
-    <div className="relative min-h-screen pt-16 overflow-hidden" data-warp-zone="">
+    <div className="relative min-h-[100svh] pt-16 overflow-hidden" data-warp-zone="">
       {/* Ambient background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-primary/10 via-purple-500/5 to-transparent rounded-full blur-3xl" />

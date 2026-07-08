@@ -876,7 +876,7 @@ export default function Industries() {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-[100svh]">
       {/* Hero */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
@@ -900,13 +900,13 @@ export default function Industries() {
 
       {/* Sticky tab bar */}
       <div className="sticky top-16 z-40 border-b border-white/10 bg-background/80 backdrop-blur-xl">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
           <div className="flex gap-0 overflow-x-auto scrollbar-hide">
             {INDUSTRIES.map((ind, i) => {
               const Icon = ind.icon;
               return (
                 <button key={ind.id} onClick={() => scrollTo(i)}
-                  className={`flex items-center gap-2 px-6 py-5 text-base font-semibold whitespace-nowrap border-b-2 transition-colors shrink-0 ${
+                  className={`flex items-center gap-2 px-4 sm:px-6 py-5 text-sm sm:text-base font-semibold whitespace-nowrap border-b-2 transition-colors shrink-0 ${
                     active === i
                       ? "border-primary text-white"
                       : "border-transparent text-white/60 hover:text-white/85"
@@ -917,6 +917,8 @@ export default function Industries() {
               );
             })}
           </div>
+          {/* Scroll-affordance fade on small screens where tabs overflow */}
+          <div className="sm:hidden pointer-events-none absolute top-0 right-4 h-full w-8 bg-gradient-to-l from-background/90 to-transparent" />
         </div>
       </div>
 

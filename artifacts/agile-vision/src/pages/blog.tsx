@@ -23,7 +23,7 @@ export default function Blog() {
   const rest = filtered.slice(1);
 
   return (
-    <div className="min-h-screen pt-24 pb-24">
+    <div className="min-h-[100svh] pt-24 pb-24">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           {...fadeUp}

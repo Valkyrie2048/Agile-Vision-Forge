@@ -130,7 +130,7 @@ export default function GetStarted() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen pt-24 pb-16">
+      <div className="min-h-[100svh] pt-24 pb-16">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -171,7 +171,7 @@ export default function GetStarted() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <div className="min-h-[100svh] pt-24 pb-16">
       <section className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-24" data-testid="section-playground">
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full opacity-20 blur-[120px] pointer-events-none" style={{ background: "radial-gradient(circle, hsl(250 85% 60% / 0.5), transparent)" }} />
 

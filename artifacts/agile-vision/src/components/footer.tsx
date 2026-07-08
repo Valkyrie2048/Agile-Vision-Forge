@@ -5,10 +5,10 @@ import { Linkedin } from "lucide-react";
 export default function Footer() {
   return (
     <footer className="border-t bg-card" data-testid="footer">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-4">
               <div className="flex items-baseline gap-1.5">
                 <span className="text-lg font-bold tracking-tight">Vision AI</span>
                 <span className="text-lg font-serif italic font-bold tracking-tight text-primary">Works</span>

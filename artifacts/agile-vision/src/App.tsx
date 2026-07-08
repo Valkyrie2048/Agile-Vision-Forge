@@ -77,7 +77,7 @@ function AppContent() {
       {!isBlogPage && !isIndustriesPage && <ParticleField />}
       <WarpDrive trigger={warp} onComplete={handleComplete} />
       <div
-        className="min-h-screen flex flex-col relative z-[2]"
+        className="min-h-[100svh] flex flex-col relative z-[2]"
         style={{ pointerEvents: "auto" }}
         onClick={handleClick}
         onTouchEnd={handleTouch}

@@ -608,7 +608,7 @@ export default function Simulator() {
   };
 
   return (
-    <div ref={topRef} className="min-h-screen relative">
+    <div ref={topRef} className="min-h-[100svh] relative">
       <section className="relative pt-28 pb-12 overflow-hidden">
         <GridBackground />
         <GlowOrb size={400} x="10%" y="10%" color="hsla(250,85%,60%,0.06)" delay={0} />

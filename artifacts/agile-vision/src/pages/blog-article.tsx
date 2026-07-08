@@ -493,7 +493,7 @@ export default function BlogArticle() {
 
   if (!article) {
     return (
-      <div className="min-h-screen pt-24 pb-20">
+      <div className="min-h-[100svh] pt-24 pb-20">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold mb-4">Article Not Found</h1>
           <p className="text-muted-foreground mb-6">
@@ -531,7 +531,7 @@ export default function BlogArticle() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-[100svh]">
       <div className="fixed top-0 left-0 right-0 h-[3px] z-[60]" data-testid="reading-progress-track">
         <motion.div
           className="h-full origin-left"

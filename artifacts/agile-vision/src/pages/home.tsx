@@ -221,7 +221,7 @@ function HeroSection() {
     <section
       ref={sectionRef}
       data-warp-zone=""
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -308,7 +308,7 @@ function HeroSection() {
           className="mb-6"
         >
           <h1
-            className="font-serif text-5xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] text-white"
+            className="font-serif text-4xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] text-white"
             data-testid="text-hero-title"
             data-hero-heading
           >
@@ -985,7 +985,7 @@ function GetStartedPreview() {
               animate={{ opacity: [1, 0.25, 1] }} transition={{ duration: 1.6, repeat: Infinity }} />
             <span className="text-[9px] font-bold uppercase tracking-wider text-emerald-400">Live</span>
           </div>
-          <div className="p-5 sm:p-8">
+          <div className="p-3 sm:p-8">
             {/* key forces full remount on every tab switch — auto-play useEffects fire immediately */}
             <DemoPreview key={selected} projectType={selected} />
           </div>
@@ -1222,8 +1222,30 @@ function TechPartnersSection() {
         </BlurReveal>
       </div>
 
-      {/* Graph */}
-      <motion.div className="relative" style={{ zIndex: 2 }}
+      {/* Mobile fallback — the force-graph SVG is unreadable below sm, show a simple tag grid instead */}
+      <div className="relative sm:hidden max-w-md mx-auto px-4" style={{ zIndex: 2 }}>
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {nodes
+            .slice()
+            .sort((a, b) => a.tier - b.tier)
+            .map((node) => (
+              <span
+                key={node.id}
+                className="px-3 py-1.5 rounded-full text-xs font-medium border"
+                style={{
+                  background: node.tier === 1 ? "hsl(250 65% 46% / 0.18)" : "hsl(250 28% 20% / 0.5)",
+                  borderColor: node.tier === 1 ? "hsl(250 65% 62% / 0.5)" : "hsl(250 35% 38% / 0.5)",
+                  color: node.tier === 1 ? "#c4b5fd" : "#8b85a8",
+                }}
+              >
+                {node.name}
+              </span>
+            ))}
+        </div>
+      </div>
+
+      {/* Graph — desktop/tablet only, force-directed SVG needs room to breathe */}
+      <motion.div className="relative hidden sm:block" style={{ zIndex: 2 }}
         initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-80px" }} transition={{ duration: 1.2 }}
       >

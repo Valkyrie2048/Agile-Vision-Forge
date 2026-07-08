@@ -16,7 +16,7 @@ function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex justify-center py-2">
       <div
-        className="w-[290px] h-[560px] rounded-[2.5rem] border-4 bg-[hsl(250_20%_7%)] overflow-hidden relative"
+        className="w-[260px] h-[500px] sm:w-[290px] sm:h-[560px] rounded-[2.5rem] border-4 bg-[hsl(250_20%_7%)] overflow-hidden relative"
         style={{
           borderColor: "hsl(250 30% 30%)",
           boxShadow: "0 0 0 1px hsl(250 85% 60% / 0.12), 0 32px 64px -16px hsl(250 20% 4% / 0.8), inset 0 1px 0 hsl(250 60% 60% / 0.1)",
