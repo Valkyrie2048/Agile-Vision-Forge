@@ -299,7 +299,7 @@ function HeroSection() {
         <BlurReveal delay={0.1}>
           <Badge variant="secondary" className="mb-8 bg-white/10 border-white/20 text-white/90" data-testid="badge-hero">
             <Sparkles className="w-3 h-3 mr-1" />
-            AI-Native Technology Studio
+            AI Technology Studio
           </Badge>
         </BlurReveal>
 
@@ -460,7 +460,7 @@ function CapabilitiesSection() {
     {
       image: capMobile,
       title: "Mobile Apps",
-      description: "Native and cross-platform mobile apps with embedded AI capabilities. Concept to App Store in weeks.",
+      description: "Cross-platform mobile apps with embedded AI capabilities. Concept to App Store in weeks.",
       detailedDescription: "We ship beautiful, high-performance mobile apps with AI baked in from day one. Whether it is on-device ML for instant results or cloud-connected intelligence for complex tasks, our apps feel fast, intuitive, and genuinely smart. We handle everything from UX design to App Store submission.",
       highlights: [
         "React Native and Swift/Kotlin development",
@@ -846,7 +846,7 @@ const projectTypes = [
     label: "Mobile App",
     icon: Smartphone,
     tagline: "Concept to App Store",
-    description: "Native-quality mobile apps with AI baked in from day one: on-device ML for instant results, cloud AI for complex tasks.",
+    description: "High-quality mobile apps with AI baked in from day one: on-device ML for instant results, cloud AI for complex tasks.",
     bullets: ["React Native & Swift/Kotlin", "On-device ML for offline AI", "App Store launch strategy"],
   },
   {

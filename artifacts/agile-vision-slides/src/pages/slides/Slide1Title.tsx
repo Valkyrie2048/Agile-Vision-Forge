@@ -87,7 +87,7 @@ export default function Slide1Title() {
               textTransform: "uppercase",
             }}
           >
-            AI-Native Technology Studio
+            AI Technology Studio
           </span>
           <div style={{ width: "3vw", height: "1px", background: "rgba(123,92,247,0.6)" }} />
         </div>
