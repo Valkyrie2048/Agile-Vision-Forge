@@ -3,10 +3,10 @@ name: SEO canonical/JSON-LD pattern
 description: How canonical URLs and structured data are injected client-side in the Vite SPA
 ---
 
-`use-page-meta.ts` (`artifacts/agile-vision/src/hooks`) sets `<link rel="canonical">` and an `application/ld+json` script tag per page via `usePageMeta({ url, jsonLd })`, cleaning both up on unmount back to site defaults.
+`use-page-meta.ts` (`artifacts/agile-vision/src/hooks`) sets `<link rel="canonical">` and an `application/ld+json` script tag per page via `usePageMeta({ url, jsonLd })`, cleaning both up on unmount back to site defaults. A separate `useRouteCanonical()` hook (wired once in `App.tsx`, keyed off wouter's location) guarantees every route gets a correct absolute canonical even if its page component never calls `usePageMeta` — don't assume canonical coverage requires touching every page file.
 
-**Why:** this is a client-rendered Vite SPA with no SSR, so `index.html` only has static defaults (home page canonical + Organization JSON-LD); per-page values must be set in JS on mount for search engines that execute JS, and there was previously no canonical tag mechanism at all.
+**Why:** this is a client-rendered Vite SPA with no SSR, so `index.html` only has static defaults; per-page values must be set in JS after mount. Relying only on individual pages opting into `usePageMeta` left several routes (home, contact, get-started, simulator, blog list) with no real canonical — the route-level hook closes that gap for free on future new pages too.
 
-**How to apply:** any new page component that wants a distinct canonical URL or structured-data type (e.g. Product, FAQPage) should pass `url` and `jsonLd` into `usePageMeta`, not hand-roll its own `document.head` manipulation.
+**How to apply:** any new page wanting a distinct OG title/description/structured-data type should still use `usePageMeta`; canonical correctness alone is already covered globally.
 
-Also: `public/sitemap.xml` currently lists relative paths (`<loc>/</loc>`) rather than absolute URLs, since no fixed production domain was known at write time — this is spec-non-compliant and should be revisited once a permanent custom domain is set (fill in absolute `<loc>` values then).
+`public/sitemap.xml` lists absolute URLs built from the current `REPLIT_DOMAINS` dev/preview domain (no permanent custom domain configured yet). It is a static file, not regenerated at request time — when a real production domain is set, regenerate it (or move sitemap generation into a build step) to point at that domain instead.

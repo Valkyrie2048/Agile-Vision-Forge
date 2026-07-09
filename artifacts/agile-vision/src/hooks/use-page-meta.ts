@@ -46,7 +46,7 @@ function setMeta(selector: string, content: string) {
   el.setAttribute("content", content);
 }
 
-function setCanonical(href: string) {
+export function setCanonical(href: string) {
   let el = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
   if (!el) {
     el = document.createElement("link");
@@ -56,7 +56,7 @@ function setCanonical(href: string) {
   el.setAttribute("href", href);
 }
 
-function absUrl(path: string): string {
+export function absUrl(path: string): string {
   if (!path) return "";
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
   return `${window.location.origin}${path.startsWith("/") ? "" : "/"}${path}`;

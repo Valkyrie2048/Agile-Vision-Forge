@@ -11,6 +11,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import Home from "@/pages/home";
+import { useRouteCanonical } from "@/hooks/use-route-canonical";
 
 const GetStarted = lazy(() => import("@/pages/get-started"));
 const Contact = lazy(() => import("@/pages/contact"));
@@ -60,6 +61,7 @@ function AppContent() {
   const isBlogPage = location === "/blog" || location.startsWith("/blog/");
   const isIndustriesPage = location === "/industries";
   const isMobile = useIsMobile();
+  useRouteCanonical();
 
   const [warp, setWarp] = useState<WarpTrigger | null>(null);
 

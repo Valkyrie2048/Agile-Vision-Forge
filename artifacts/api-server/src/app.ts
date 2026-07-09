@@ -7,6 +7,11 @@ import { logger } from "./lib/logger";
 
 const app: Express = express();
 
+// The app runs behind Replit's shared reverse proxy, which sets X-Forwarded-For.
+// Trust exactly one hop so express-rate-limit/req.ip reflect the real client IP
+// instead of throwing/misidentifying users behind the proxy.
+app.set("trust proxy", 1);
+
 const allowedOrigins = [
   ...(process.env.REPLIT_DOMAINS?.split(",").map((d) => `https://${d.trim()}`) ?? []),
   ...(process.env.NODE_ENV !== "production"
