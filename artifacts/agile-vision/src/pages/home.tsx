@@ -797,7 +797,7 @@ function IndustriesSection() {
                       >
                         {ind.stat}
                       </span>
-                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      <div className="flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200">
                         <span className="text-xs font-semibold" style={{ color: ind.accent }}>Live demo</span>
                         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform duration-200" style={{ color: ind.accent }} />
                       </div>
