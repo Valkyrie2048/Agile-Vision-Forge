@@ -1,4 +1,4 @@
 - [Mobile overflow guardrail](mobile-overflow.md) — global `overflow-x: hidden` on `html` ONLY (never also on `body` — breaks sticky/scroll animations on mobile) fixes decorative-blob horizontal scroll.
 - [Mobile demo/effect adaptations](mobile-demo-adaptations.md) — decorative/ambient effects (particles, WebGL) disabled entirely on mobile; functional demos keep chrome-free adapted wrappers instead.
 - [API security baseline](api-security-baseline.md) — helmet + CORS allowlist (REPLIT_DOMAINS-based) + rate limiting on public POST routes; extend this pattern for new public mutation endpoints.
-- [SEO canonical/JSON-LD pattern](seo-jsonld-canonical.md) — per-page canonical/JSON-LD set via `usePageMeta({url, jsonLd})`, not hand-rolled; sitemap.xml uses relative URLs pending a fixed prod domain.
+- [SEO canonical/JSON-LD pattern](seo-jsonld-canonical.md) — per-page canonical/JSON-LD set via `usePageMeta({url, jsonLd})`, not hand-rolled; always pass path-relative `url` (never `window.location.href`) so canonical/sitemap resolve against the fixed production origin, not the dev/preview host.

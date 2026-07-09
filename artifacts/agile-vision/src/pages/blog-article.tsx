@@ -454,7 +454,7 @@ export default function BlogArticle() {
     title: article?.title ?? "Article",
     description: article?.excerpt ?? "",
     imageUrl: article?.imagePath,
-    url: typeof window !== "undefined" ? window.location.href : undefined,
+    url: slug ? `/blog/${slug}` : undefined,
     type: "article",
     jsonLd: article
       ? {

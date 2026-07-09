@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "hGwZZnnkg-FKOA8z1b-5T"
+uri = "file://artifacts/agile-vision/public/favicon.png"
+type = "image"
+title = "Logo (from favicon)"

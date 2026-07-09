@@ -9,4 +9,6 @@ description: How canonical URLs and structured data are injected client-side in 
 
 **How to apply:** any new page wanting a distinct OG title/description/structured-data type should still use `usePageMeta`; canonical correctness alone is already covered globally.
 
-`public/sitemap.xml` lists absolute URLs built from the current `REPLIT_DOMAINS` dev/preview domain (no permanent custom domain configured yet). It is a static file, not regenerated at request time — when a real production domain is set, regenerate it (or move sitemap generation into a build step) to point at that domain instead.
+`public/sitemap.xml` and `robots.txt` are static files that must list absolute URLs against the site's real production domain, not the Replit dev/preview host — they are not regenerated at request time, so update them manually if the production domain changes.
+
+`absUrl()` resolves against a fixed production origin rather than `window.location.origin`/`.href`, and canonical composition always runs a path through `absUrl()`. Never pass `window.location.href` as the `url` into `usePageMeta` (it bakes in whatever host — dev/preview/prod — the page happened to load from); pass a path-relative `url` (e.g. `/blog/${slug}`) or omit it so it falls back to the current pathname.

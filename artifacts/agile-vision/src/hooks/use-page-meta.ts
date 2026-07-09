@@ -56,17 +56,19 @@ export function setCanonical(href: string) {
   el.setAttribute("href", href);
 }
 
+const PRODUCTION_ORIGIN = "https://www.yourvisionworks.ai";
+
 export function absUrl(path: string): string {
   if (!path) return "";
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
-  return `${window.location.origin}${path.startsWith("/") ? "" : "/"}${path}`;
+  return `${PRODUCTION_ORIGIN}${path.startsWith("/") ? "" : "/"}${path}`;
 }
 
 export function usePageMeta({ title, description, imageUrl, url, type = "article", jsonLd }: PageMetaOptions) {
   useEffect(() => {
     const fullTitle = `${title} | ${SITE_NAME}`;
     const absImage = absUrl(DEFAULT_IMAGE);
-    const canonicalUrl = url ?? window.location.href;
+    const canonicalUrl = absUrl(url ?? window.location.pathname);
 
     document.title = fullTitle;
     setCanonical(canonicalUrl);
