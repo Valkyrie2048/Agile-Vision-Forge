@@ -1,10 +1,18 @@
 import express, { type Express } from "express";
 import cors from "cors";
+import helmet from "helmet";
 import pinoHttp from "pino-http";
 import router from "./routes";
 import { logger } from "./lib/logger";
 
 const app: Express = express();
+
+const allowedOrigins = [
+  ...(process.env.REPLIT_DOMAINS?.split(",").map((d) => `https://${d.trim()}`) ?? []),
+  ...(process.env.NODE_ENV !== "production"
+    ? [/^http:\/\/localhost:\d+$/, /^https?:\/\/.*\.replit\.dev$/]
+    : []),
+];
 
 app.use(
   pinoHttp({
@@ -25,7 +33,22 @@ app.use(
     },
   }),
 );
-app.use(cors());
+app.use(helmet());
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin) {
+        // Same-origin/non-browser requests (curl, server-to-server) have no Origin header.
+        callback(null, true);
+        return;
+      }
+      const isAllowed = allowedOrigins.some((allowed) =>
+        typeof allowed === "string" ? allowed === origin : allowed.test(origin),
+      );
+      callback(isAllowed ? null : new Error("Not allowed by CORS"), isAllowed);
+    },
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -39,6 +39,8 @@ export default function Navigation() {
           ? "bg-background/70 backdrop-blur-2xl border-b shadow-sm"
           : "bg-transparent"
       }`}
+      role="navigation"
+      aria-label="Main navigation"
       data-testid="navigation"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,6 +99,9 @@ export default function Navigation() {
               variant="ghost"
               className={`md:hidden ${overHero ? "text-white hover:text-white" : ""}`}
               onClick={() => setMobileOpen(!mobileOpen)}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
               data-testid="button-mobile-menu"
             >
               {mobileOpen ? (
@@ -112,6 +117,7 @@ export default function Navigation() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}

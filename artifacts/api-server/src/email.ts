@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-const RECIPIENT_EMAIL = "m.graham@live.ca";
+const RECIPIENT_EMAIL = process.env.CONTACT_NOTIFICATION_EMAIL;
 
 let transporter: nodemailer.Transporter | null = null;
 
@@ -26,7 +26,7 @@ export async function sendContactEmail(data: {
   company?: string | null;
   message: string;
 }) {
-  if (!transporter) {
+  if (!transporter || !RECIPIENT_EMAIL) {
     console.log("Contact submission stored (email delivery not configured):", data.email);
     return;
   }
@@ -60,7 +60,7 @@ export async function sendProjectEmail(data: {
   description: string;
   features: string[];
 }) {
-  if (!transporter) {
+  if (!transporter || !RECIPIENT_EMAIL) {
     console.log("Project submission stored (email delivery not configured):", data.email);
     return;
   }

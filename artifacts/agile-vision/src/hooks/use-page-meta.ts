@@ -6,6 +6,24 @@ interface PageMetaOptions {
   imageUrl?: string;
   url?: string;
   type?: "website" | "article";
+  jsonLd?: Record<string, unknown>;
+}
+
+const JSON_LD_ID = "page-json-ld";
+
+function setJsonLd(data: Record<string, unknown> | undefined) {
+  let el = document.getElementById(JSON_LD_ID) as HTMLScriptElement | null;
+  if (!data) {
+    el?.remove();
+    return;
+  }
+  if (!el) {
+    el = document.createElement("script");
+    el.id = JSON_LD_ID;
+    el.type = "application/ld+json";
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(data);
 }
 
 const SITE_NAME = "Vision AI Works";
@@ -28,19 +46,31 @@ function setMeta(selector: string, content: string) {
   el.setAttribute("content", content);
 }
 
+function setCanonical(href: string) {
+  let el = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement("link");
+    el.setAttribute("rel", "canonical");
+    document.head.appendChild(el);
+  }
+  el.setAttribute("href", href);
+}
+
 function absUrl(path: string): string {
   if (!path) return "";
   if (path.startsWith("http://") || path.startsWith("https://")) return path;
   return `${window.location.origin}${path.startsWith("/") ? "" : "/"}${path}`;
 }
 
-export function usePageMeta({ title, description, imageUrl, url, type = "article" }: PageMetaOptions) {
+export function usePageMeta({ title, description, imageUrl, url, type = "article", jsonLd }: PageMetaOptions) {
   useEffect(() => {
     const fullTitle = `${title} | ${SITE_NAME}`;
     const absImage = absUrl(DEFAULT_IMAGE);
     const canonicalUrl = url ?? window.location.href;
 
     document.title = fullTitle;
+    setCanonical(canonicalUrl);
+    setJsonLd(jsonLd);
 
     setMeta(`meta[property="og:title"]`, fullTitle);
     setMeta(`meta[property="og:description"]`, description);
@@ -60,6 +90,8 @@ export function usePageMeta({ title, description, imageUrl, url, type = "article
 
     return () => {
       document.title = DEFAULT_TITLE;
+      setCanonical(absUrl("/"));
+      setJsonLd(undefined);
       setMeta(`meta[property="og:title"]`, DEFAULT_TITLE);
       setMeta(`meta[property="og:description"]`, DEFAULT_DESC);
       setMeta(`meta[property="og:image"]`, absUrl(DEFAULT_IMAGE));
@@ -72,5 +104,5 @@ export function usePageMeta({ title, description, imageUrl, url, type = "article
       setMeta(`meta[name="twitter:image"]`, absUrl(DEFAULT_IMAGE));
       setMeta(`meta[name="description"]`, DEFAULT_DESC);
     };
-  }, [title, description, imageUrl, url, type]);
+  }, [title, description, imageUrl, url, type, jsonLd]);
 }

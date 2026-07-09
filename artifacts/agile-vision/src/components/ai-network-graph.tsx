@@ -1008,6 +1008,7 @@ export function AINetworkGraph() {
       <canvas
         ref={canvasRef}
         className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
         data-testid="ai-network-graph"
       />
       {/* Transparent interaction overlay — sits above canvas but below hero content (z-10) */}

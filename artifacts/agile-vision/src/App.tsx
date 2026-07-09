@@ -1,5 +1,5 @@
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, Suspense, lazy } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -11,13 +11,22 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import Home from "@/pages/home";
-import GetStarted from "@/pages/get-started";
-import Contact from "@/pages/contact";
-import Blog from "@/pages/blog";
-import BlogArticle from "@/pages/blog-article";
-import Simulator from "@/pages/simulator";
-import Industries from "@/pages/industries";
-import NotFound from "@/pages/not-found";
+
+const GetStarted = lazy(() => import("@/pages/get-started"));
+const Contact = lazy(() => import("@/pages/contact"));
+const Blog = lazy(() => import("@/pages/blog"));
+const BlogArticle = lazy(() => import("@/pages/blog-article"));
+const Simulator = lazy(() => import("@/pages/simulator"));
+const Industries = lazy(() => import("@/pages/industries"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+
+function RouteFallback() {
+  return (
+    <div className="min-h-[60svh] flex items-center justify-center" aria-hidden="true">
+      <div className="w-8 h-8 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
+    </div>
+  );
+}
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -29,16 +38,18 @@ function ScrollToTop() {
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/get-started" component={GetStarted} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/blog" component={Blog} />
-      <Route path="/blog/:slug" component={BlogArticle} />
-      <Route path="/simulator" component={Simulator} />
-      <Route path="/industries" component={Industries} />
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense fallback={<RouteFallback />}>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/get-started" component={GetStarted} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/blog" component={Blog} />
+        <Route path="/blog/:slug" component={BlogArticle} />
+        <Route path="/simulator" component={Simulator} />
+        <Route path="/industries" component={Industries} />
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
 

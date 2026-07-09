@@ -456,6 +456,23 @@ export default function BlogArticle() {
     imageUrl: article?.imagePath,
     url: typeof window !== "undefined" ? window.location.href : undefined,
     type: "article",
+    jsonLd: article
+      ? {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: article.title,
+          description: article.excerpt,
+          datePublished: article.date,
+          author: {
+            "@type": "Person",
+            name: article.author.name,
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "Vision AI Works",
+          },
+        }
+      : undefined,
   });
 
   const [progress, setProgress] = useState(0);
