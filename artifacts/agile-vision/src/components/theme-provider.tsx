@@ -12,10 +12,18 @@ const ThemeContext = createContext<ThemeContextType>({
   toggleTheme: () => {},
 });
 
+function readStoredTheme(): Theme {
+  try {
+    return (localStorage.getItem("theme") as Theme) || "dark";
+  } catch {
+    return "dark";
+  }
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== "undefined") {
-      return (localStorage.getItem("theme") as Theme) || "dark";
+      return readStoredTheme();
     }
     return "dark";
   });
@@ -27,7 +35,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } else {
       root.classList.remove("dark");
     }
-    localStorage.setItem("theme", theme);
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {
+      // ignore – sandboxed iframe or storage quota exceeded
+    }
   }, [theme]);
 
   const toggleTheme = () => {
