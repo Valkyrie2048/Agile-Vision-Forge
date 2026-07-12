@@ -1,139 +1,105 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" font-family="system-ui,-apple-system,sans-serif">
-  <defs>
-    <radialGradient id="bg" cx="60%" cy="35%" r="50%"><stop offset="0%" stop-color="#2B8CEE" stop-opacity="0.12"/><stop offset="100%" stop-color="#2B8CEE" stop-opacity="0"/></radialGradient>
-    <linearGradient id="cf" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2B8CEE" stop-opacity="0.3"/><stop offset="100%" stop-color="#2B8CEE" stop-opacity="0.02"/></linearGradient>
-    <linearGradient id="cf2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2B8CEE" stop-opacity="0.15"/><stop offset="100%" stop-color="#2B8CEE" stop-opacity="0.02"/></linearGradient>
-  </defs>
-  <!-- Browser chrome -->
-  <rect width="1200" height="780" fill="#070612"/>
-  <rect width="1200" height="780" fill="url(#bg)"/>
-  <rect width="1200" height="44" fill="#0c0a1c"/>
-  <circle cx="18" cy="22" r="6" fill="#ff5f57" opacity="0.65"/>
-  <circle cx="38" cy="22" r="6" fill="#febc2e" opacity="0.65"/>
-  <circle cx="58" cy="22" r="6" fill="#28c840" opacity="0.65"/>
-  <rect x="120" y="10" width="380" height="24" rx="5" fill="#111025"/>
-  <text x="310" y="26" font-size="11" fill="rgba(255,255,255,0.25)" text-anchor="middle">gigamatic.finance/dashboard</text>
-  <rect width="1200" height="1" y="44" fill="rgba(255,255,255,0.05)"/>
-  <!-- Sidebar -->
-  <rect x="0" y="44" width="200" height="736" fill="#0c0a1a"/>
-  <rect x="199" y="44" width="1" height="736" fill="rgba(255,255,255,0.05)"/>
-  <text x="20" y="82" font-size="14" font-weight="800" fill="#2B8CEE" font-style="italic">GIGAMATIC</text>
-  <text x="20" y="96" font-size="9" fill="rgba(255,255,255,0.28)" letter-spacing="2.5">FINANCE</text>
-  <rect x="20" y="108" width="160" height="1" fill="rgba(255,255,255,0.05)"/>
-  <rect x="8" y="118" width="184" height="32" rx="6" fill="rgba(43,140,238,0.12)"/>
-  <rect x="8" y="118" width="3" height="32" rx="1.5" fill="#2B8CEE"/>
-  <text x="22" y="138" font-size="12" fill="rgba(255,255,255,0.85)">&#9679; Dashboard</text>
-  <text x="22" y="174" font-size="12" fill="rgba(255,255,255,0.32)">&#9675; Income</text>
-  <text x="22" y="210" font-size="12" fill="rgba(255,255,255,0.32)">&#9675; Products</text>
-  <text x="22" y="246" font-size="12" fill="rgba(255,255,255,0.32)">&#9675; Insights</text>
-  <text x="20" y="310" font-size="9" fill="rgba(255,255,255,0.18)" letter-spacing="1.5">SOURCES</text>
-  <circle cx="28" cy="332" r="4" fill="#2B8CEE" opacity="0.7"/><text x="40" y="336" font-size="11" fill="rgba(255,255,255,0.52)">Freelance  52%</text>
-  <circle cx="28" cy="354" r="4" fill="#2B8CEE" opacity="0.4"/><text x="40" y="358" font-size="11" fill="rgba(255,255,255,0.4)">Platform  28%</text>
-  <circle cx="28" cy="376" r="4" fill="#2B8CEE" opacity="0.22"/><text x="40" y="380" font-size="11" fill="rgba(255,255,255,0.3)">Retainer  20%</text>
-  <!-- Main content -->
-  <text x="220" y="82" font-size="18" font-weight="700" fill="rgba(255,255,255,0.85)">Income Dashboard</text>
-  <text x="220" y="100" font-size="11" fill="rgba(255,255,255,0.25)">July 2026 &#xB7; All sources</text>
-  <!-- Filter tabs -->
-  <rect x="220" y="110" width="72" height="26" rx="6" fill="#2B8CEE" opacity="0.8"/>
-  <text x="256" y="127" font-size="11" fill="white" text-anchor="middle">12 months</text>
-  <rect x="300" y="110" width="64" height="26" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="332" y="127" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">Quarter</text>
-  <rect x="372" y="110" width="54" height="26" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="399" y="127" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">Month</text>
-  <!-- Metric row -->
-  <rect x="220" y="148" width="230" height="96" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <text x="242" y="172" font-size="10" fill="rgba(255,255,255,0.28)" letter-spacing="1.2">INCOME YTD</text>
-  <text x="242" y="204" font-size="26" font-weight="700" fill="rgba(255,255,255,0.88)">&#163;48,240</text>
-  <text x="242" y="228" font-size="11" fill="#2B8CEE" opacity="0.8">+12% vs 2024</text>
-  <rect x="462" y="148" width="230" height="96" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <text x="484" y="172" font-size="10" fill="rgba(255,255,255,0.28)" letter-spacing="1.2">THIS MONTH</text>
-  <text x="484" y="204" font-size="26" font-weight="700" fill="rgba(255,255,255,0.88)">&#163;6,840</text>
-  <text x="484" y="228" font-size="11" fill="rgba(255,255,255,0.32)">4 sources</text>
-  <rect x="704" y="148" width="230" height="96" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <text x="726" y="172" font-size="10" fill="rgba(255,255,255,0.28)" letter-spacing="1.2">READINESS</text>
-  <text x="726" y="204" font-size="26" font-weight="700" fill="#2B8CEE">74/100</text>
-  <text x="726" y="228" font-size="11" fill="rgba(255,255,255,0.32)">Mortgage eligible</text>
-  <rect x="946" y="148" width="230" height="96" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <text x="968" y="172" font-size="10" fill="rgba(255,255,255,0.28)" letter-spacing="1.2">AVG MONTHLY</text>
-  <text x="968" y="204" font-size="26" font-weight="700" fill="rgba(255,255,255,0.88)">&#163;4,020</text>
-  <text x="968" y="228" font-size="11" fill="rgba(255,255,255,0.32)">Rolling 12mo</text>
-  <!-- Chart -->
-  <rect x="220" y="258" width="956" height="296" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="242" y="286" font-size="13" font-weight="600" fill="rgba(255,255,255,0.62)">Monthly Income &#xB7; 2025</text>
-  <text x="1140" y="286" font-size="11" fill="rgba(255,255,255,0.22)" text-anchor="end">All sources combined</text>
-  <!-- Grid lines -->
-  <line x1="250" y1="476" x2="1148" y2="476" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-  <line x1="250" y1="440" x2="1148" y2="440" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-  <line x1="250" y1="404" x2="1148" y2="404" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-  <line x1="250" y1="368" x2="1148" y2="368" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-  <line x1="250" y1="330" x2="1148" y2="330" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-  <text x="244" y="480" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="end">&#163;0</text>
-  <text x="244" y="444" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="end">&#163;2k</text>
-  <text x="244" y="408" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="end">&#163;4k</text>
-  <text x="244" y="372" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="end">&#163;6k</text>
-  <text x="244" y="334" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="end">&#163;8k</text>
-  <!-- Bar chart by source (stacked bars) -->
-  <!-- Month bars -->
-  <rect x="262" y="432" width="50" height="44" rx="3" fill="#2B8CEE" opacity="0.35"/>
-  <rect x="262" y="408" width="50" height="24" rx="3" fill="#2B8CEE" opacity="0.22"/>
-  <rect x="262" y="392" width="50" height="16" rx="3" fill="#2B8CEE" opacity="0.12"/>
-  <rect x="334" y="416" width="50" height="60" rx="3" fill="#2B8CEE" opacity="0.38"/>
-  <rect x="334" y="388" width="50" height="28" rx="3" fill="#2B8CEE" opacity="0.22"/>
-  <rect x="334" y="372" width="50" height="16" rx="3" fill="#2B8CEE" opacity="0.12"/>
-  <rect x="406" y="420" width="50" height="56" rx="3" fill="#2B8CEE" opacity="0.36"/>
-  <rect x="406" y="396" width="50" height="24" rx="3" fill="#2B8CEE" opacity="0.22"/>
-  <rect x="406" y="380" width="50" height="16" rx="3" fill="#2B8CEE" opacity="0.12"/>
-  <rect x="478" y="428" width="50" height="48" rx="3" fill="#2B8CEE" opacity="0.35"/>
-  <rect x="478" y="406" width="50" height="22" rx="3" fill="#2B8CEE" opacity="0.2"/>
-  <rect x="550" y="404" width="50" height="72" rx="3" fill="#2B8CEE" opacity="0.42"/>
-  <rect x="550" y="380" width="50" height="24" rx="3" fill="#2B8CEE" opacity="0.25"/>
-  <rect x="550" y="364" width="50" height="16" rx="3" fill="#2B8CEE" opacity="0.14"/>
-  <rect x="622" y="396" width="50" height="80" rx="3" fill="#2B8CEE" opacity="0.45"/>
-  <rect x="622" y="372" width="50" height="24" rx="3" fill="#2B8CEE" opacity="0.28"/>
-  <rect x="622" y="356" width="50" height="16" rx="3" fill="#2B8CEE" opacity="0.16"/>
-  <rect x="694" y="380" width="50" height="96" rx="3" fill="#2B8CEE" opacity="0.5"/>
-  <rect x="694" y="356" width="50" height="24" rx="3" fill="#2B8CEE" opacity="0.3"/>
-  <rect x="694" y="340" width="50" height="16" rx="3" fill="#2B8CEE" opacity="0.18"/>
-  <rect x="766" y="372" width="50" height="104" rx="3" fill="#2B8CEE" opacity="0.52"/>
-  <rect x="766" y="348" width="50" height="24" rx="3" fill="#2B8CEE" opacity="0.32"/>
-  <rect x="838" y="376" width="50" height="100" rx="3" fill="#2B8CEE" opacity="0.5"/>
-  <rect x="910" y="356" width="50" height="120" rx="3" fill="#2B8CEE" opacity="0.55"/>
-  <rect x="910" y="332" width="50" height="24" rx="3" fill="#2B8CEE" opacity="0.35"/>
-  <rect x="910" y="316" width="50" height="16" rx="3" fill="#2B8CEE" opacity="0.2"/>
-  <rect x="982" y="336" width="50" height="140" rx="3" fill="#2B8CEE" opacity="0.6"/>
-  <rect x="982" y="312" width="50" height="24" rx="3" fill="#2B8CEE" opacity="0.38"/>
-  <rect x="982" y="296" width="50" height="16" rx="3" fill="#2B8CEE" opacity="0.22"/>
-  <!-- Last bar highlighted -->
-  <rect x="1054" y="316" width="50" height="160" rx="3" fill="#2B8CEE" opacity="0.65"/>
-  <rect x="1054" y="292" width="50" height="24" rx="3" fill="#2B8CEE" opacity="0.42"/>
-  <rect x="1054" y="276" width="50" height="16" rx="3" fill="#2B8CEE" opacity="0.28"/>
-  <rect x="1048" y="260" width="62" height="1" fill="rgba(43,140,238,0.4)" stroke-dasharray="4 2"/>
-  <!-- X-axis labels -->
-  <text x="287" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">Jan</text>
-  <text x="359" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">Feb</text>
-  <text x="431" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">Mar</text>
-  <text x="503" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">Apr</text>
-  <text x="575" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">May</text>
-  <text x="647" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">Jun</text>
-  <text x="719" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">Jul</text>
-  <text x="791" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">Aug</text>
-  <text x="863" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">Sep</text>
-  <text x="935" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">Oct</text>
-  <text x="1007" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">Nov</text>
-  <text x="1079" y="497" font-size="9" fill="rgba(255,255,255,0.15)" text-anchor="middle">Dec</text>
-  <!-- Bottom: source legend + readiness -->
-  <rect x="220" y="566" width="470" height="140" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="242" y="592" font-size="13" font-weight="600" fill="rgba(255,255,255,0.62)">Source Breakdown</text>
-  <circle cx="252" cy="620" r="6" fill="#2B8CEE" opacity="0.65"/><text x="266" y="624" font-size="12" fill="rgba(255,255,255,0.62)">Freelance</text><text x="668" y="624" font-size="12" fill="rgba(255,255,255,0.7)" text-anchor="end">&#163;2,840  (41.5%)</text>
-  <circle cx="252" cy="646" r="6" fill="#2B8CEE" opacity="0.4"/><text x="266" y="650" font-size="12" fill="rgba(255,255,255,0.52)">Platform work</text><text x="668" y="650" font-size="12" fill="rgba(255,255,255,0.58)" text-anchor="end">&#163;1,920  (28.1%)</text>
-  <circle cx="252" cy="672" r="6" fill="#2B8CEE" opacity="0.22"/><text x="266" y="676" font-size="12" fill="rgba(255,255,255,0.42)">Retainer</text><text x="668" y="676" font-size="12" fill="rgba(255,255,255,0.48)" text-anchor="end">&#163;1,400  (20.5%)</text>
-  <circle cx="252" cy="698" r="6" fill="#2B8CEE" opacity="0.12"/><text x="266" y="702" font-size="12" fill="rgba(255,255,255,0.32)">Stock assets</text><text x="668" y="702" font-size="12" fill="rgba(255,255,255,0.38)" text-anchor="end">&#163;680  (9.9%)</text>
-  <rect x="706" y="566" width="470" height="140" rx="10" fill="rgba(43,140,238,0.06)" stroke="rgba(43,140,238,0.18)" stroke-width="1"/>
-  <text x="728" y="592" font-size="13" font-weight="600" fill="rgba(255,255,255,0.62)">AI-Generated Insight</text>
-  <rect x="728" y="604" width="420" height="8" rx="3" fill="rgba(255,255,255,0.18)"/>
-  <rect x="728" y="620" width="396" height="7" rx="3" fill="rgba(255,255,255,0.14)"/>
-  <rect x="728" y="635" width="408" height="7" rx="3" fill="rgba(255,255,255,0.12)"/>
-  <rect x="728" y="650" width="360" height="7" rx="3" fill="rgba(255,255,255,0.1)"/>
-  <rect x="728" y="665" width="380" height="7" rx="3" fill="rgba(255,255,255,0.08)"/>
-  <text x="728" y="698" font-size="11" fill="#2B8CEE" opacity="0.72">Q4 income pattern suggests mortgage eligibility window &#x2192;</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="system-ui,-apple-system,sans-serif">
+  <rect width="1600" height="900" fill="#F0F7F3"/>
+  <!-- Nav -->
+  <rect width="1600" height="60" fill="white"/>
+  <rect y="59" width="1600" height="1" fill="#D8EADE"/>
+  <text x="36" y="38" font-size="16" font-weight="800" fill="#0F4027">GIGAMATIC</text>
+  <text x="162" y="37" font-size="13" fill="#1A5C35">Product Comparisons</text>
+  <text x="334" y="37" font-size="13" fill="#4A7A62">Financial Guides</text>
+  <text x="456" y="37" font-size="13" fill="#4A7A62">Market News</text>
+  <text x="558" y="37" font-size="13" fill="#4A7A62">Life Stages</text>
+  <text x="640" y="37" font-size="13" fill="#4A7A62">Blog</text>
+  <text x="684" y="37" font-size="13" fill="#4A7A62">About</text>
+  <rect x="1280" y="17" width="172" height="30" rx="5" fill="#1A5C35"/>
+  <text x="1366" y="36" font-size="12" font-weight="600" fill="white" text-anchor="middle">Find Your Right Product</text>
+  <rect x="1464" y="17" width="100" height="30" rx="5" fill="none" stroke="#1A5C35" stroke-width="1.5"/>
+  <text x="1514" y="36" font-size="12" font-weight="600" fill="#1A5C35" text-anchor="middle">Subscribe</text>
+  <!-- Page header -->
+  <text x="80" y="128" font-size="36" font-weight="800" fill="#0F2D1F" letter-spacing="-1">Product Comparisons</text>
+  <text x="80" y="156" font-size="15" fill="#4A7A62">100% independent · No sponsored results · No paid placement</text>
+  <!-- Category tabs -->
+  <rect x="80" y="180" width="138" height="36" rx="18" fill="#1A5C35"/>
+  <text x="149" y="203" font-size="13" font-weight="600" fill="white" text-anchor="middle">Savings Accounts</text>
+  <rect x="230" y="180" width="116" height="36" rx="18" fill="none" stroke="#C4D8CC" stroke-width="1.5"/>
+  <text x="288" y="203" font-size="13" fill="#4A7A62" text-anchor="middle">Credit Cards</text>
+  <rect x="358" y="180" width="106" height="36" rx="18" fill="none" stroke="#C4D8CC" stroke-width="1.5"/>
+  <text x="411" y="203" font-size="13" fill="#4A7A62" text-anchor="middle">Mortgages</text>
+  <rect x="476" y="180" width="128" height="36" rx="18" fill="none" stroke="#C4D8CC" stroke-width="1.5"/>
+  <text x="540" y="203" font-size="13" fill="#4A7A62" text-anchor="middle">Robo-Advisors</text>
+  <!-- Table header -->
+  <rect x="80" y="238" width="1480" height="44" rx="8" fill="#0F2D1F"/>
+  <text x="110" y="265" font-size="12" font-weight="600" fill="rgba(255,255,255,0.6)" letter-spacing="0.5">PROVIDER</text>
+  <text x="440" y="265" font-size="12" font-weight="600" fill="rgba(255,255,255,0.6)" letter-spacing="0.5">APY RATE</text>
+  <text x="620" y="265" font-size="12" font-weight="600" fill="rgba(255,255,255,0.6)" letter-spacing="0.5">MIN. DEPOSIT</text>
+  <text x="820" y="265" font-size="12" font-weight="600" fill="rgba(255,255,255,0.6)" letter-spacing="0.5">FDIC INSURED</text>
+  <text x="1020" y="265" font-size="12" font-weight="600" fill="rgba(255,255,255,0.6)" letter-spacing="0.5">MONTHLY FEE</text>
+  <text x="1250" y="265" font-size="12" font-weight="600" fill="rgba(255,255,255,0.6)" letter-spacing="0.5">FEATURES</text>
+  <!-- Row 1 - Best rate badge -->
+  <rect x="80" y="282" width="1480" height="72" rx="0" fill="white"/>
+  <rect x="80" y="282" width="3" height="72" fill="#1A5C35"/>
+  <rect x="108" y="300" width="74" height="22" rx="11" fill="#1A5C35" opacity="0.12"/>
+  <text x="145" y="315" font-size="10" fill="#1A5C35" font-weight="700" text-anchor="middle">BEST RATE</text>
+  <text x="110" y="338" font-size="14" font-weight="700" fill="#0F2D1F">Marcus by Goldman Sachs</text>
+  <text x="440" y="322" font-size="22" font-weight="800" fill="#1A5C35">10.00%</text>
+  <text x="440" y="340" font-size="11" fill="#4A7A62">APY</text>
+  <text x="620" y="326" font-size="14" fill="#222">$0</text>
+  <text x="620" y="342" font-size="11" fill="#4A7A62">No minimum</text>
+  <text x="820" y="326" font-size="14" fill="#1A5C35" font-weight="600">✓ Yes</text>
+  <text x="1020" y="326" font-size="14" fill="#1A5C35" font-weight="600">None</text>
+  <text x="1250" y="318" font-size="12" fill="#555">Mobile app · Easy transfers</text>
+  <text x="1250" y="336" font-size="12" fill="#555">No ATM card</text>
+  <rect x="1460" y="298" width="76" height="32" rx="6" fill="#1A5C35"/>
+  <text x="1498" y="318" font-size="12" font-weight="600" fill="white" text-anchor="middle">Compare</text>
+  <rect x="80" y="353" width="1480" height="1" fill="#EDF4F0"/>
+  <!-- Row 2 -->
+  <rect x="80" y="354" width="1480" height="72" rx="0" fill="white"/>
+  <text x="110" y="396" font-size="14" font-weight="700" fill="#0F2D1F">Ally Bank Online Savings</text>
+  <text x="440" y="386" font-size="22" font-weight="800" fill="#2A7A52">4.25%</text>
+  <text x="440" y="404" font-size="11" fill="#4A7A62">APY</text>
+  <text x="620" y="394" font-size="14" fill="#222">$0</text>
+  <text x="820" y="394" font-size="14" fill="#1A5C35" font-weight="600">✓ Yes</text>
+  <text x="1020" y="394" font-size="14" fill="#1A5C35" font-weight="600">None</text>
+  <text x="1250" y="386" font-size="12" fill="#555">Buckets feature · High limits</text>
+  <text x="1250" y="404" font-size="12" fill="#555">ATM card available</text>
+  <rect x="1460" y="366" width="76" height="32" rx="6" fill="none" stroke="#1A5C35" stroke-width="1.5"/>
+  <text x="1498" y="386" font-size="12" font-weight="600" fill="#1A5C35" text-anchor="middle">Compare</text>
+  <rect x="80" y="425" width="1480" height="1" fill="#EDF4F0"/>
+  <!-- Row 3 -->
+  <rect x="80" y="426" width="1480" height="72" fill="white"/>
+  <text x="110" y="468" font-size="14" font-weight="700" fill="#0F2D1F">SoFi Checking and Savings</text>
+  <text x="440" y="458" font-size="22" font-weight="800" fill="#2A7A52">4.60%</text>
+  <text x="440" y="476" font-size="11" fill="#4A7A62">APY</text>
+  <text x="620" y="466" font-size="14" fill="#222">$0</text>
+  <text x="820" y="466" font-size="14" fill="#1A5C35" font-weight="600">✓ Yes</text>
+  <text x="1020" y="466" font-size="14" fill="#1A5C35" font-weight="600">None</text>
+  <text x="1250" y="458" font-size="12" fill="#555">Checking + savings combo</text>
+  <text x="1250" y="476" font-size="12" fill="#555">Direct deposit bonus</text>
+  <rect x="1460" y="438" width="76" height="32" rx="6" fill="none" stroke="#1A5C35" stroke-width="1.5"/>
+  <text x="1498" y="458" font-size="12" font-weight="600" fill="#1A5C35" text-anchor="middle">Compare</text>
+  <rect x="80" y="497" width="1480" height="1" fill="#EDF4F0"/>
+  <!-- Row 4 -->
+  <rect x="80" y="498" width="1480" height="72" fill="white"/>
+  <text x="110" y="540" font-size="14" font-weight="700" fill="#0F2D1F">American Express HYSA</text>
+  <text x="440" y="530" font-size="22" font-weight="800" fill="#2A7A52">4.00%</text>
+  <text x="440" y="548" font-size="11" fill="#4A7A62">APY</text>
+  <text x="620" y="538" font-size="14" fill="#222">$0</text>
+  <text x="820" y="538" font-size="14" fill="#1A5C35" font-weight="600">✓ Yes</text>
+  <text x="1020" y="538" font-size="14" fill="#1A5C35" font-weight="600">None</text>
+  <text x="1250" y="530" font-size="12" fill="#555">Brand trust · Simple UX</text>
+  <text x="1250" y="548" font-size="12" fill="#555">No checking account</text>
+  <rect x="1460" y="510" width="76" height="32" rx="6" fill="none" stroke="#1A5C35" stroke-width="1.5"/>
+  <text x="1498" y="530" font-size="12" font-weight="600" fill="#1A5C35" text-anchor="middle">Compare</text>
+  <rect x="80" y="569" width="1480" height="1" fill="#EDF4F0"/>
+  <!-- Methodology note -->
+  <rect x="80" y="600" width="1480" height="60" rx="8" fill="#EAF5EE" stroke="#C4D8CC" stroke-width="1"/>
+  <text x="108" y="628" font-size="13" fill="#3A6B52">ⓘ Methodology: Rates verified weekly from official provider websites. No providers pay for placement or sponsored ranking.</text>
+  <text x="108" y="648" font-size="12" fill="#5A8A70">Last updated: July 12, 2026 · Rates subject to change without notice</text>
+  <!-- Newsletter CTA -->
+  <rect x="80" y="690" width="1480" height="160" rx="12" fill="white" stroke="#D0E8DA" stroke-width="1"/>
+  <text x="800" y="748" font-size="24" font-weight="700" fill="#0F2D1F" text-anchor="middle">Join 10,000+ Readers</text>
+  <text x="800" y="774" font-size="14" fill="#4A7A62" text-anchor="middle">Get our weekly deep dives and financial insights delivered straight to your inbox. No fluff, just signal.</text>
+  <rect x="560" y="796" width="380" height="38" rx="6" fill="#F5FAF7" stroke="#C4D8CC" stroke-width="1"/>
+  <text x="680" y="820" font-size="13" fill="#AABBAA">you@example.com</text>
+  <rect x="952" y="796" width="100" height="38" rx="6" fill="#1A5C35"/>
+  <text x="1002" y="820" font-size="13" font-weight="600" fill="white" text-anchor="middle">Subscribe</text>
 </svg>

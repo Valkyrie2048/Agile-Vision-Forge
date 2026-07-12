@@ -1,108 +1,77 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="system-ui,-apple-system,sans-serif">
   <defs>
-    <radialGradient id="glow" cx="55%" cy="42%" r="52%"><stop offset="0%" stop-color="#22C38D" stop-opacity="0.13"/><stop offset="100%" stop-color="#22C38D" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g1" cx="30%" cy="55%" r="40%"><stop offset="0%" stop-color="#00C46A" stop-opacity="0.07"/><stop offset="100%" stop-color="#00C46A" stop-opacity="0"/></radialGradient>
   </defs>
-  <rect width="1600" height="900" fill="#060f0c"/>
-  <rect width="1600" height="900" fill="url(#glow)"/>
-  <!-- Top nav -->
-  <rect width="1600" height="64" fill="#0a1310"/>
-  <rect y="64" width="1600" height="1" fill="rgba(255,255,255,0.05)"/>
-  <text x="40" y="36" font-size="17" font-weight="800" fill="#22C38D" font-style="italic" letter-spacing="-0.5">GIGAMATIC</text>
-  <text x="40" y="53" font-size="10" fill="rgba(255,255,255,0.3)" letter-spacing="3">INSURE</text>
-  <text x="700" y="36" font-size="13" fill="rgba(255,255,255,0.5)" text-anchor="middle">Coverage</text>
-  <text x="850" y="36" font-size="13" fill="rgba(255,255,255,0.5)" text-anchor="middle">My Plan</text>
-  <text x="1000" y="36" font-size="13" fill="rgba(255,255,255,0.5)" text-anchor="middle">Providers</text>
-  <rect x="1490" y="20" width="72" height="28" rx="6" fill="rgba(34,195,141,0.15)" stroke="rgba(34,195,141,0.3)" stroke-width="1"/>
-  <text x="1526" y="38" font-size="12" fill="#22C38D" text-anchor="middle">Get Started</text>
-  <!-- Hero section -->
-  <text x="80" y="136" font-size="13" fill="#22C38D" letter-spacing="2">COVERAGE DISCOVERY</text>
-  <text x="80" y="180" font-size="36" font-weight="700" fill="rgba(255,255,255,0.9)" letter-spacing="-1">Find the coverage</text>
-  <text x="80" y="224" font-size="36" font-weight="700" fill="rgba(255,255,255,0.9)" letter-spacing="-1">that fits your work.</text>
-  <text x="80" y="264" font-size="15" fill="rgba(255,255,255,0.4)">Personalised insurance discovery for independent workers.</text>
-  <!-- Progress steps -->
-  <circle cx="80" cy="316" r="12" fill="#22C38D"/>
-  <text x="80" y="321" font-size="11" fill="white" text-anchor="middle" font-weight="700">1</text>
-  <text x="100" y="320" font-size="12" fill="rgba(255,255,255,0.65)">Work type</text>
-  <rect x="160" y="315" width="60" height="2" rx="1" fill="#22C38D" opacity="0.5"/>
-  <circle cx="236" cy="316" r="12" fill="rgba(34,195,141,0.2)" stroke="#22C38D" stroke-width="1.5"/>
-  <text x="236" y="321" font-size="11" fill="#22C38D" text-anchor="middle">2</text>
-  <text x="256" y="320" font-size="12" fill="rgba(255,255,255,0.38)">Coverage needs</text>
-  <rect x="340" y="315" width="60" height="2" rx="1" fill="rgba(255,255,255,0.08)"/>
-  <circle cx="416" cy="316" r="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-  <text x="416" y="321" font-size="11" fill="rgba(255,255,255,0.3)" text-anchor="middle">3</text>
-  <text x="436" y="320" font-size="12" fill="rgba(255,255,255,0.28)">Recommendations</text>
-  <!-- Coverage categories grid -->
-  <!-- Row 1 -->
-  <rect x="80" y="356" width="225" height="130" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.22)" stroke-width="1"/>
-  <circle cx="108" cy="390" r="18" fill="rgba(34,195,141,0.15)"/>
-  <text x="108" y="396" font-size="14" fill="#22C38D" text-anchor="middle">+</text>
-  <text x="136" y="388" font-size="13" font-weight="600" fill="rgba(255,255,255,0.82)">Health</text>
-  <text x="136" y="404" font-size="11" fill="rgba(255,255,255,0.35)">&#38; Wellness</text>
-  <rect x="100" y="426" width="181" height="5" rx="2.5" fill="rgba(255,255,255,0.05)"/><rect x="100" y="426" width="145" height="5" rx="2.5" fill="#22C38D" opacity="0.35"/>
-  <rect x="100" y="438" width="181" height="4" rx="2" fill="rgba(255,255,255,0.04)"/>
-  <text x="256" y="473" font-size="11" fill="#22C38D" text-anchor="end">Explore &#x2192;</text>
-  <rect x="325" y="356" width="225" height="130" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.15)" stroke-width="1"/>
-  <circle cx="353" cy="390" r="18" fill="rgba(34,195,141,0.1)"/>
-  <text x="353" y="396" font-size="14" fill="#22C38D" text-anchor="middle" opacity="0.75">&#9679;</text>
-  <text x="381" y="388" font-size="13" font-weight="600" fill="rgba(255,255,255,0.72)">Income</text>
-  <text x="381" y="404" font-size="11" fill="rgba(255,255,255,0.32)">Protection</text>
-  <rect x="345" y="426" width="181" height="5" rx="2.5" fill="rgba(255,255,255,0.05)"/><rect x="345" y="426" width="110" height="5" rx="2.5" fill="#22C38D" opacity="0.28"/>
-  <rect x="345" y="438" width="181" height="4" rx="2" fill="rgba(255,255,255,0.04)"/>
-  <text x="501" y="473" font-size="11" fill="#22C38D" opacity="0.7" text-anchor="end">Explore &#x2192;</text>
-  <rect x="570" y="356" width="225" height="130" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.12)" stroke-width="1"/>
-  <circle cx="598" cy="390" r="18" fill="rgba(34,195,141,0.08)"/>
-  <text x="626" y="388" font-size="13" font-weight="600" fill="rgba(255,255,255,0.65)">Life Cover</text>
-  <text x="626" y="404" font-size="11" fill="rgba(255,255,255,0.28)">&#38; protection</text>
-  <rect x="590" y="426" width="181" height="5" rx="2.5" fill="rgba(255,255,255,0.05)"/>
-  <rect x="590" y="438" width="181" height="4" rx="2" fill="rgba(255,255,255,0.04)"/>
-  <!-- Row 2 -->
-  <rect x="80" y="506" width="225" height="130" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.1)" stroke-width="1"/>
-  <text x="136" y="538" font-size="13" font-weight="600" fill="rgba(255,255,255,0.58)">Dental</text>
-  <text x="136" y="554" font-size="11" fill="rgba(255,255,255,0.25)">&#38; Optical</text>
-  <rect x="325" y="506" width="225" height="130" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.08)" stroke-width="1"/>
-  <text x="381" y="538" font-size="13" font-weight="600" fill="rgba(255,255,255,0.5)">Critical Illness</text>
-  <rect x="570" y="506" width="225" height="130" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.06)" stroke-width="1"/>
-  <text x="626" y="538" font-size="13" font-weight="600" fill="rgba(255,255,255,0.42)">Professional</text>
-  <text x="626" y="554" font-size="11" fill="rgba(255,255,255,0.22)">Liability</text>
-  <!-- Right panel: profile summary -->
-  <rect x="870" y="90" width="690" height="580" rx="14" fill="rgba(13,30,24,0.9)" stroke="rgba(34,195,141,0.14)" stroke-width="1"/>
-  <text x="920" y="130" font-size="13" font-weight="600" fill="rgba(255,255,255,0.6)">Your Coverage Profile</text>
-  <rect x="920" y="148" width="580" height="1" fill="rgba(255,255,255,0.05)"/>
-  <!-- Work type -->
-  <text x="920" y="178" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1.5">WORK TYPE</text>
-  <rect x="920" y="188" width="162" height="30" rx="6" fill="rgba(34,195,141,0.12)" stroke="rgba(34,195,141,0.25)" stroke-width="1"/>
-  <text x="1001" y="207" font-size="12" fill="#22C38D" text-anchor="middle">Freelance</text>
-  <rect x="1092" y="188" width="162" height="30" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="1173" y="207" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Platform work</text>
-  <!-- Coverage gaps -->
-  <text x="920" y="254" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1.5">COVERAGE GAPS IDENTIFIED</text>
-  <rect x="920" y="268" width="580" height="56" rx="8" fill="rgba(255,120,60,0.06)" stroke="rgba(255,120,60,0.18)" stroke-width="1"/>
-  <circle cx="942" cy="296" r="8" fill="rgba(255,120,60,0.25)"/>
-  <text x="958" y="292" font-size="12" font-weight="600" fill="rgba(255,255,255,0.75)">No income protection cover</text>
-  <text x="958" y="308" font-size="11" fill="rgba(255,255,255,0.35)">High priority for variable income earners</text>
-  <rect x="920" y="338" width="580" height="56" rx="8" fill="rgba(255,200,50,0.04)" stroke="rgba(255,200,50,0.14)" stroke-width="1"/>
-  <circle cx="942" cy="366" r="8" fill="rgba(255,200,50,0.2)"/>
-  <text x="958" y="362" font-size="12" font-weight="600" fill="rgba(255,255,255,0.65)">Limited dental coverage</text>
-  <text x="958" y="378" font-size="11" fill="rgba(255,255,255,0.3)">Consider adding optical</text>
-  <!-- Recommendations -->
-  <text x="920" y="428" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1.5">TOP RECOMMENDATION</text>
-  <rect x="920" y="442" width="580" height="88" rx="10" fill="rgba(34,195,141,0.07)" stroke="rgba(34,195,141,0.2)" stroke-width="1"/>
-  <circle cx="948" cy="478" r="16" fill="rgba(34,195,141,0.15)"/>
-  <text x="948" y="483" font-size="12" fill="#22C38D" text-anchor="middle">IP</text>
-  <text x="974" y="472" font-size="13" font-weight="600" fill="rgba(255,255,255,0.8)">Freelancer Income Shield</text>
-  <text x="974" y="488" font-size="11" fill="rgba(255,255,255,0.38)">&#163;2.4M coverage &#xB7; from &#163;18/mo &#xB7; Eligible</text>
-  <rect x="974" y="498" width="60" height="18" rx="5" fill="rgba(34,195,141,0.18)"/>
-  <text x="1004" y="510" font-size="10" fill="#22C38D" text-anchor="middle">Best match</text>
-  <rect x="1370" y="458" width="106" height="32" rx="7" fill="#22C38D" opacity="0.85"/>
-  <text x="1423" y="478" font-size="12" font-weight="600" fill="white" text-anchor="middle">View details</text>
-  <!-- Eligibility meter -->
-  <text x="920" y="566" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1.5">ELIGIBILITY SCORE</text>
-  <rect x="920" y="578" width="540" height="8" rx="4" fill="rgba(255,255,255,0.05)"/>
-  <rect x="920" y="578" width="390" height="8" rx="4" fill="#22C38D" opacity="0.55"/>
-  <text x="1467" y="588" font-size="12" font-weight="600" fill="#22C38D" text-anchor="end">72%</text>
-  <rect x="920" y="604" width="580" height="36" rx="8" fill="rgba(34,195,141,0.08)"/>
-  <text x="940" y="627" font-size="12" fill="rgba(255,255,255,0.55)">Most standard independent worker products are available to you</text>
-  <!-- Bottom CTA -->
-  <rect x="80" y="672" width="714" height="52" rx="10" fill="#22C38D" opacity="0.85"/>
-  <text x="437" y="702" font-size="15" font-weight="700" fill="white" text-anchor="middle">View My Coverage Recommendations</text>
+  <rect width="1600" height="900" fill="#0A0A0A"/>
+  <rect width="1600" height="900" fill="url(#g1)"/>
+  <rect width="1600" height="58" fill="rgba(18,18,18,0.96)"/>
+  <rect y="57" width="1600" height="1" fill="rgba(255,255,255,0.06)"/>
+  <text x="36" y="36" font-size="18" font-weight="800" fill="white" letter-spacing="1">GIGAMATIC</text>
+  <text x="200" y="37" font-size="13" fill="rgba(255,255,255,0.65)">Home</text>
+  <text x="268" y="37" font-size="13" fill="rgba(255,255,255,0.38)">Get a Quote</text>
+  <text x="374" y="37" font-size="13" fill="rgba(255,255,255,0.38)">My Policies</text>
+  <text x="474" y="37" font-size="13" fill="rgba(255,255,255,0.38)">Learning Hub</text>
+  <text x="578" y="37" font-size="13" fill="rgba(255,255,255,0.38)">Tools</text>
+  <rect x="1470" y="15" width="96" height="28" rx="14" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="1518" y="33" font-size="12" fill="rgba(255,255,255,0.6)" text-anchor="middle">Sign In</text>
+  <rect x="80" y="118" width="218" height="28" rx="14" fill="rgba(0,196,106,0.1)" stroke="rgba(0,196,106,0.3)" stroke-width="1"/>
+  <circle cx="100" cy="132" r="4" fill="#00C46A"/>
+  <text x="114" y="137" font-size="12" fill="rgba(255,255,255,0.55)">Independent Marketplace · 40+ Carriers</text>
+  <text x="80" y="250" font-size="84" font-weight="800" fill="white" letter-spacing="-2.5">Insurance,</text>
+  <text x="80" y="346" font-size="84" font-weight="800" fill="#00C46A" letter-spacing="-2.5">Simplified.</text>
+  <text x="80" y="410" font-size="17" fill="rgba(255,255,255,0.5)">Compare quotes from 40+ top-rated insurers in under 5 minutes.</text>
+  <text x="80" y="434" font-size="17" fill="rgba(255,255,255,0.5)">No paperwork. No hassle. Just better rates.</text>
+  <rect x="80" y="468" width="216" height="50" rx="8" fill="#00C46A"/>
+  <text x="188" y="499" font-size="15" font-weight="700" fill="#040A06" text-anchor="middle">Get Free Quotes →</text>
+  <text x="328" y="497" font-size="14" fill="rgba(255,255,255,0.45)">How It Works →</text>
+  <rect x="80" y="550" width="620" height="1" fill="rgba(255,255,255,0.06)"/>
+  <text x="80" y="592" font-size="32" font-weight="800" fill="white">40+</text>
+  <text x="80" y="614" font-size="11" fill="rgba(255,255,255,0.3)" letter-spacing="1.5">TOP INSURERS</text>
+  <text x="240" y="592" font-size="32" font-weight="800" fill="white">2M+</text>
+  <text x="240" y="614" font-size="11" fill="rgba(255,255,255,0.3)" letter-spacing="1.5">QUOTES COMPARED</text>
+  <text x="420" y="592" font-size="32" font-weight="800" fill="white">$720</text>
+  <text x="420" y="614" font-size="11" fill="rgba(255,255,255,0.3)" letter-spacing="1.5">AVG. SAVINGS/YEAR</text>
+  <text x="80" y="664" font-size="13" fill="rgba(255,255,255,0.28)">🔒 Secure &amp; encrypted</text>
+  <text x="258" y="664" font-size="13" fill="rgba(255,255,255,0.28)">✓ 100% Free</text>
+  <text x="376" y="664" font-size="13" fill="rgba(255,255,255,0.28)">⏱ Under 5 minutes</text>
+  <!-- Quote widget -->
+  <rect x="880" y="88" width="636" height="630" rx="16" fill="#121212" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <circle cx="920" cy="140" r="5" fill="#00C46A"/>
+  <text x="934" y="145" font-size="11" fill="rgba(255,255,255,0.38)" letter-spacing="1.5">LIVE RATES</text>
+  <text x="918" y="184" font-size="24" font-weight="700" fill="white">Get Your Free Quote</text>
+  <text x="918" y="208" font-size="13" fill="rgba(255,255,255,0.38)">Compare 40+ insurers in under 5 minutes</text>
+  <rect x="918" y="228" width="558" height="50" rx="8" fill="#1C1C1C" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="942" y="259" font-size="14" fill="rgba(255,255,255,0.65)">Auto Insurance</text>
+  <text x="1450" y="258" font-size="18" fill="rgba(255,255,255,0.35)" text-anchor="end">⌄</text>
+  <rect x="918" y="294" width="558" height="52" rx="8" fill="#00C46A"/>
+  <text x="1197" y="326" font-size="15" font-weight="700" fill="#040A06" text-anchor="middle">Compare Quotes →</text>
+  <text x="952" y="372" font-size="12" fill="rgba(255,255,255,0.28)">🔒 Secure</text>
+  <text x="1082" y="372" font-size="12" fill="rgba(255,255,255,0.28)">✓ Free</text>
+  <text x="1160" y="372" font-size="12" fill="rgba(255,255,255,0.28)">⏱ 5 min</text>
+  <line x1="918" y1="398" x2="1476" y2="398" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="918" y="430" font-size="10" fill="rgba(255,255,255,0.22)" letter-spacing="1.5">INSURANCE CATEGORIES</text>
+  <rect x="918" y="442" width="88" height="28" rx="14" fill="rgba(0,196,106,0.12)" stroke="rgba(0,196,106,0.35)" stroke-width="1"/>
+  <text x="962" y="460" font-size="12" fill="#00C46A" text-anchor="middle">Auto</text>
+  <rect x="1016" y="442" width="88" height="28" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="1060" y="460" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Home</text>
+  <rect x="1114" y="442" width="72" height="28" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="1150" y="460" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Life</text>
+  <rect x="1196" y="442" width="84" height="28" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="1238" y="460" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Health</text>
+  <rect x="1290" y="442" width="100" height="28" rx="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="1340" y="460" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Business</text>
+  <text x="918" y="514" font-size="10" fill="rgba(255,255,255,0.2)" letter-spacing="1.5">TRUSTED CARRIERS</text>
+  <rect x="918" y="526" width="88" height="36" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="962" y="549" font-size="10" fill="rgba(255,255,255,0.24)" text-anchor="middle">Allstate</text>
+  <rect x="1016" y="526" width="88" height="36" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="1060" y="549" font-size="10" fill="rgba(255,255,255,0.24)" text-anchor="middle">GEICO</text>
+  <rect x="1114" y="526" width="88" height="36" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="1158" y="549" font-size="10" fill="rgba(255,255,255,0.24)" text-anchor="middle">State Farm</text>
+  <rect x="1212" y="526" width="88" height="36" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="1256" y="549" font-size="10" fill="rgba(255,255,255,0.24)" text-anchor="middle">Progressive</text>
+  <rect x="1310" y="526" width="124" height="36" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="1372" y="549" font-size="10" fill="rgba(255,255,255,0.24)" text-anchor="middle">Liberty Mutual</text>
+  <rect x="1362" y="822" width="144" height="42" rx="21" fill="#111" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <circle cx="1386" cy="843" r="6" fill="#00C46A"/>
+  <text x="1400" y="848" font-size="13" fill="white">Ask GIGI</text>
 </svg>

@@ -1,105 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" font-family="system-ui,-apple-system,sans-serif">
-  <defs>
-    <radialGradient id="bg" cx="55%" cy="35%" r="50%"><stop offset="0%" stop-color="#2B8CEE" stop-opacity="0.11"/><stop offset="100%" stop-color="#2B8CEE" stop-opacity="0"/></radialGradient>
-    <linearGradient id="cf" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2B8CEE" stop-opacity="0.25"/><stop offset="100%" stop-color="#2B8CEE" stop-opacity="0.01"/></linearGradient>
-  </defs>
-  <!-- Browser chrome -->
-  <rect width="1200" height="780" fill="#070612"/>
-  <rect width="1200" height="780" fill="url(#bg)"/>
-  <rect width="1200" height="44" fill="#0c0a1c"/>
-  <circle cx="18" cy="22" r="6" fill="#ff5f57" opacity="0.65"/>
-  <circle cx="38" cy="22" r="6" fill="#febc2e" opacity="0.65"/>
-  <circle cx="58" cy="22" r="6" fill="#28c840" opacity="0.65"/>
-  <rect x="120" y="10" width="380" height="24" rx="5" fill="#111025"/>
-  <text x="310" y="26" font-size="11" fill="rgba(255,255,255,0.25)" text-anchor="middle">gigamatic.finance/insights</text>
-  <rect width="1200" height="1" y="44" fill="rgba(255,255,255,0.05)"/>
-  <!-- Sidebar (slim) -->
-  <rect x="0" y="44" width="200" height="736" fill="#0c0a1a"/>
-  <rect x="199" y="44" width="1" height="736" fill="rgba(255,255,255,0.05)"/>
-  <text x="20" y="82" font-size="14" font-weight="800" fill="#2B8CEE" font-style="italic">GIGAMATIC</text>
-  <text x="20" y="96" font-size="9" fill="rgba(255,255,255,0.28)" letter-spacing="2.5">FINANCE</text>
-  <text x="22" y="130" font-size="12" fill="rgba(255,255,255,0.3)">&#9675; Dashboard</text>
-  <text x="22" y="166" font-size="12" fill="rgba(255,255,255,0.3)">&#9675; Income</text>
-  <text x="22" y="202" font-size="12" fill="rgba(255,255,255,0.3)">&#9675; Products</text>
-  <rect x="8" y="210" width="184" height="32" rx="6" fill="rgba(43,140,238,0.12)"/>
-  <rect x="8" y="210" width="3" height="32" rx="1.5" fill="#2B8CEE"/>
-  <text x="22" y="231" font-size="12" fill="rgba(255,255,255,0.85)">&#9679; Insights</text>
-  <!-- Main: header -->
-  <text x="220" y="82" font-size="18" font-weight="700" fill="rgba(255,255,255,0.85)">Income Insights</text>
-  <text x="220" y="100" font-size="11" fill="rgba(255,255,255,0.25)">Patterns, seasonality, and AI-generated analysis</text>
-  <!-- Trend chart (main) -->
-  <rect x="220" y="118" width="660" height="280" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="242" y="146" font-size="13" font-weight="600" fill="rgba(255,255,255,0.62)">Income vs Rolling Average</text>
-  <text x="840" y="146" font-size="11" fill="rgba(43,140,238,0.7)" text-anchor="end">2025 data</text>
-  <!-- Grid -->
-  <line x1="250" y1="340" x2="860" y2="340" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-  <line x1="250" y1="308" x2="860" y2="308" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-  <line x1="250" y1="276" x2="860" y2="276" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-  <line x1="250" y1="244" x2="860" y2="244" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-  <line x1="250" y1="212" x2="860" y2="212" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-  <!-- Area -->
-  <path d="M258,340 L308,326 L358,310 L408,316 L458,298 L508,306 L558,278 L608,260 L658,270 L708,242 L758,228 L808,214 L858,340Z" fill="url(#cf)"/>
-  <!-- Main line -->
-  <path d="M258,340 L308,326 L358,310 L408,316 L458,298 L508,306 L558,278 L608,260 L658,270 L708,242 L758,228 L808,214" fill="none" stroke="#2B8CEE" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-  <!-- Rolling average (dashed) -->
-  <path d="M258,340 L308,332 L358,320 L408,314 L458,308 L508,302 L558,292 L608,280 L658,272 L708,262 L758,250 L808,240" fill="none" stroke="#2B8CEE" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.4"/>
-  <!-- Month labels -->
-  <text x="258" y="358" font-size="9" fill="rgba(255,255,255,0.15)">Jan</text>
-  <text x="308" y="358" font-size="9" fill="rgba(255,255,255,0.15)">Feb</text>
-  <text x="358" y="358" font-size="9" fill="rgba(255,255,255,0.15)">Mar</text>
-  <text x="408" y="358" font-size="9" fill="rgba(255,255,255,0.15)">Apr</text>
-  <text x="458" y="358" font-size="9" fill="rgba(255,255,255,0.15)">May</text>
-  <text x="508" y="358" font-size="9" fill="rgba(255,255,255,0.15)">Jun</text>
-  <text x="558" y="358" font-size="9" fill="rgba(255,255,255,0.15)">Jul</text>
-  <text x="608" y="358" font-size="9" fill="rgba(255,255,255,0.15)">Aug</text>
-  <text x="658" y="358" font-size="9" fill="rgba(255,255,255,0.15)">Sep</text>
-  <text x="708" y="358" font-size="9" fill="rgba(255,255,255,0.15)">Oct</text>
-  <text x="758" y="358" font-size="9" fill="rgba(255,255,255,0.15)">Nov</text>
-  <text x="808" y="358" font-size="9" fill="rgba(255,255,255,0.15)">Dec</text>
-  <!-- Legend -->
-  <line x1="242" y1="376" x2="272" y2="376" stroke="#2B8CEE" stroke-width="2"/>
-  <text x="278" y="380" font-size="10" fill="rgba(255,255,255,0.38)">Monthly income</text>
-  <line x1="384" y1="376" x2="414" y2="376" stroke="#2B8CEE" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.5"/>
-  <text x="420" y="380" font-size="10" fill="rgba(255,255,255,0.3)">12-month rolling avg</text>
-  <!-- Right panel: seasonality + stats -->
-  <rect x="898" y="118" width="282" height="280" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="918" y="146" font-size="13" font-weight="600" fill="rgba(255,255,255,0.62)">Seasonality</text>
-  <text x="918" y="178" font-size="11" fill="rgba(255,255,255,0.28)">Q1 (Jan&#x2013;Mar)</text>
-  <rect x="918" y="184" width="240" height="8" rx="4" fill="rgba(255,255,255,0.05)"/><rect x="918" y="184" width="100" height="8" rx="4" fill="#2B8CEE" opacity="0.3"/>
-  <text x="1166" y="194" font-size="11" fill="rgba(255,255,255,0.3)" text-anchor="end">Weak</text>
-  <text x="918" y="214" font-size="11" fill="rgba(255,255,255,0.28)">Q2 (Apr&#x2013;Jun)</text>
-  <rect x="918" y="220" width="240" height="8" rx="4" fill="rgba(255,255,255,0.05)"/><rect x="918" y="220" width="144" height="8" rx="4" fill="#2B8CEE" opacity="0.4"/>
-  <text x="1166" y="230" font-size="11" fill="rgba(255,255,255,0.3)" text-anchor="end">Average</text>
-  <text x="918" y="250" font-size="11" fill="rgba(255,255,255,0.28)">Q3 (Jul&#x2013;Sep)</text>
-  <rect x="918" y="256" width="240" height="8" rx="4" fill="rgba(255,255,255,0.05)"/><rect x="918" y="256" width="192" height="8" rx="4" fill="#2B8CEE" opacity="0.55"/>
-  <text x="1166" y="266" font-size="11" fill="rgba(255,255,255,0.3)" text-anchor="end">Strong</text>
-  <text x="918" y="286" font-size="11" fill="rgba(255,255,255,0.28)">Q4 (Oct&#x2013;Dec)</text>
-  <rect x="918" y="292" width="240" height="8" rx="4" fill="rgba(255,255,255,0.05)"/><rect x="918" y="292" width="220" height="8" rx="4" fill="#2B8CEE" opacity="0.7"/>
-  <text x="1166" y="302" font-size="11" fill="#2B8CEE" opacity="0.75" text-anchor="end">Best quarter</text>
-  <text x="918" y="338" font-size="11" fill="rgba(255,255,255,0.28)">Year-on-year growth</text>
-  <text x="1166" y="356" font-size="20" font-weight="700" fill="#2B8CEE" text-anchor="end">+12.4%</text>
-  <text x="1166" y="374" font-size="11" fill="rgba(255,255,255,0.28)" text-anchor="end">Consistent growth trend</text>
-  <!-- Bottom: AI insights panel -->
-  <rect x="220" y="412" width="960" height="96" rx="10" fill="rgba(43,140,238,0.06)" stroke="rgba(43,140,238,0.18)" stroke-width="1"/>
-  <text x="242" y="436" font-size="11" fill="#2B8CEE" letter-spacing="1.5">AI INCOME ANALYSIS</text>
-  <rect x="242" y="448" width="900" height="8" rx="3" fill="rgba(255,255,255,0.18)"/>
-  <rect x="242" y="464" width="840" height="7" rx="3" fill="rgba(255,255,255,0.14)"/>
-  <rect x="242" y="479" width="860" height="7" rx="3" fill="rgba(255,255,255,0.12)"/>
-  <text x="1156" y="498" font-size="11" fill="#2B8CEE" opacity="0.7" text-anchor="end">View full analysis &#x2192;</text>
-  <!-- Bottom 3 metric cards -->
-  <rect x="220" y="522" width="300" height="122" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="242" y="548" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1">INCOME VARIANCE</text>
-  <text x="242" y="584" font-size="24" font-weight="700" fill="rgba(255,255,255,0.8)">&#xB1;18%</text>
-  <text x="242" y="608" font-size="11" fill="rgba(255,255,255,0.28)">Monthly variability</text>
-  <text x="242" y="628" font-size="11" fill="rgba(255,255,255,0.22)">Typical for freelancers</text>
-  <rect x="540" y="522" width="300" height="122" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="562" y="548" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1">PEAK MONTH</text>
-  <text x="562" y="584" font-size="24" font-weight="700" fill="rgba(255,255,255,0.8)">December</text>
-  <text x="562" y="608" font-size="11" fill="rgba(255,255,255,0.28)">&#163;7,200 &#xB7; highest 2025</text>
-  <text x="562" y="628" font-size="11" fill="#2B8CEE" opacity="0.65">Beat avg by 79%</text>
-  <rect x="860" y="522" width="320" height="122" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="882" y="548" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1">READINESS TREND</text>
-  <text x="882" y="584" font-size="24" font-weight="700" fill="#2B8CEE">+8 pts</text>
-  <text x="882" y="608" font-size="11" fill="rgba(255,255,255,0.28)">Score improvement YTD</text>
-  <text x="882" y="628" font-size="11" fill="rgba(255,255,255,0.22)">66 &#x2192; 74 since Jan 2025</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="system-ui,-apple-system,sans-serif">
+  <!-- Market news feed page - light theme -->
+  <rect width="1600" height="900" fill="#F5FAF7"/>
+  <rect width="1600" height="58" fill="white"/>
+  <rect y="57" width="1600" height="1" fill="#D8EADE"/>
+  <text x="36" y="36" font-size="16" font-weight="800" fill="#0F4027">GIGAMATIC</text>
+  <text x="162" y="36" font-size="13" fill="#4A7A62">Product Comparisons</text>
+  <text x="280" y="36" font-size="13" fill="#4A7A62">Financial Guides</text>
+  <text x="396" y="36" font-size="13" fill="#1A5C35">Market News</text>
+  <text x="490" y="36" font-size="13" fill="#4A7A62">Life Stages</text>
+  <rect x="1280" y="17" width="172" height="30" rx="5" fill="#1A5C35"/>
+  <text x="1366" y="36" font-size="12" font-weight="600" fill="white" text-anchor="middle">Find Your Right Product</text>
+  <!-- Page header -->
+  <text x="80" y="118" font-size="38" font-weight="800" fill="#0F2D1F" letter-spacing="-1">Market News</text>
+  <text x="80" y="146" font-size="15" fill="#4A7A62">Financial news and rate movements — plain language, no hype</text>
+  <!-- Featured news article (large) -->
+  <rect x="80" y="172" width="840" height="260" rx="10" fill="#0F2D1F"/>
+  <rect x="114" y="200" width="100" height="22" rx="11" fill="rgba(0,196,106,0.2)"/>
+  <text x="164" y="215" font-size="10" font-weight="700" fill="#00C46A" text-anchor="middle" letter-spacing="0.5">BREAKING NEWS</text>
+  <text x="114" y="258" font-size="28" font-weight="800" fill="white" font-family="Georgia,serif">Fed Holds Rates at 5.25–5.50% —</text>
+  <text x="114" y="290" font-size="28" font-weight="800" fill="white" font-family="Georgia,serif">Sixth Consecutive Pause</text>
+  <text x="114" y="334" font-size="14" fill="rgba(255,255,255,0.6)">The Federal Reserve held interest rates unchanged for a sixth consecutive</text>
+  <text x="114" y="354" font-size="14" fill="rgba(255,255,255,0.6)">meeting. Here's what it means for savers, borrowers, and the mortgage market.</text>
+  <text x="114" y="398" font-size="12" fill="rgba(255,255,255,0.35)">July 11, 2026 · 4 min read</text>
+  <!-- News grid right -->
+  <rect x="940" y="172" width="620" height="120" rx="10" fill="white" stroke="#D8EADE" stroke-width="1"/>
+  <rect x="962" y="190" width="80" height="20" rx="10" fill="#EAF5EE"/>
+  <text x="1002" y="204" font-size="10" fill="#1A5C35" text-anchor="middle" font-weight="600">SAVINGS</text>
+  <text x="962" y="234" font-size="17" font-weight="700" fill="#0F2D1F" font-family="Georgia,serif">Marcus Rate Hits 10.00% APY —</text>
+  <text x="962" y="256" font-size="17" font-weight="700" fill="#0F2D1F" font-family="Georgia,serif">A New High for the Account</text>
+  <text x="962" y="278" font-size="12" fill="#888">July 10, 2026 · 2 min read</text>
+  <rect x="940" y="304" width="620" height="120" rx="10" fill="white" stroke="#D8EADE" stroke-width="1"/>
+  <rect x="962" y="322" width="80" height="20" rx="10" fill="#EAF5EE"/>
+  <text x="1002" y="336" font-size="10" fill="#1A5C35" text-anchor="middle" font-weight="600">MORTGAGES</text>
+  <text x="962" y="366" font-size="17" font-weight="700" fill="#0F2D1F" font-family="Georgia,serif">30-Year Mortgage Rates Fall to 6.40%</text>
+  <text x="962" y="388" font-size="17" font-weight="700" fill="#0F2D1F" font-family="Georgia,serif">— Third Week of Declines</text>
+  <text x="962" y="410" font-size="12" fill="#888">July 9, 2026 · 3 min read</text>
+  <!-- News feed list -->
+  <text x="80" y="474" font-size="18" font-weight="700" fill="#0F2D1F" font-family="Georgia,serif">Latest</text>
+  <rect x="80" y="490" width="1480" height="1" fill="#D8EADE"/>
+  <!-- Article rows -->
+  <rect x="80" y="502" width="1480" height="72" fill="white" rx="0"/>
+  <rect x="108" y="516" width="80" height="20" rx="10" fill="#EAF5EE"/>
+  <text x="148" y="530" font-size="10" fill="#1A5C35" text-anchor="middle" font-weight="600">CREDIT CARDS</text>
+  <text x="212" y="523" font-size="16" font-weight="700" fill="#0F2D1F" font-family="Georgia,serif">Best 0% APR Credit Cards Right Now — and What to Watch Out For</text>
+  <text x="212" y="548" font-size="12" fill="#888">July 12, 2026 · 5 min read</text>
+  <text x="1520" y="535" font-size="12" fill="#1A5C35" text-anchor="end" font-weight="600">Read →</text>
+  <rect x="80" y="573" width="1480" height="1" fill="#EAF5EE"/>
+  <rect x="80" y="574" width="1480" height="72" fill="white" rx="0"/>
+  <rect x="108" y="588" width="100" height="20" rx="10" fill="#EAF5EE"/>
+  <text x="158" y="602" font-size="10" fill="#1A5C35" text-anchor="middle" font-weight="600">ROBO-ADVISORS</text>
+  <text x="222" y="595" font-size="16" font-weight="700" fill="#0F2D1F" font-family="Georgia,serif">Betterment vs Wealthfront vs Vanguard Digital — 2026 Comparison</text>
+  <text x="222" y="620" font-size="12" fill="#888">July 8, 2026 · 6 min read</text>
+  <text x="1520" y="607" font-size="12" fill="#1A5C35" text-anchor="end" font-weight="600">Read →</text>
+  <rect x="80" y="645" width="1480" height="1" fill="#EAF5EE"/>
+  <rect x="80" y="646" width="1480" height="72" fill="white" rx="0"/>
+  <rect x="108" y="660" width="72" height="20" rx="10" fill="#EAF5EE"/>
+  <text x="144" y="674" font-size="10" fill="#1A5C35" text-anchor="middle" font-weight="600">MARKETS</text>
+  <text x="194" y="667" font-size="16" font-weight="700" fill="#0F2D1F" font-family="Georgia,serif">Why Inflation Falling to 2.3% Is Good News for Savers — But Not Yet Borrowers</text>
+  <text x="194" y="692" font-size="12" fill="#888">July 7, 2026 · 4 min read</text>
+  <text x="1520" y="679" font-size="12" fill="#1A5C35" text-anchor="end" font-weight="600">Read →</text>
+  <rect x="80" y="717" width="1480" height="1" fill="#EAF5EE"/>
+  <rect x="80" y="718" width="1480" height="72" fill="white" rx="0"/>
+  <rect x="108" y="732" width="80" height="20" rx="10" fill="#EAF5EE"/>
+  <text x="148" y="746" font-size="10" fill="#1A5C35" text-anchor="middle" font-weight="600">LIFE STAGES</text>
+  <text x="202" y="739" font-size="16" font-weight="700" fill="#0F2D1F" font-family="Georgia,serif">First Home in 2026: The Financial Checklist Before You Make an Offer</text>
+  <text x="202" y="764" font-size="12" fill="#888">July 5, 2026 · 7 min read</text>
+  <text x="1520" y="751" font-size="12" fill="#1A5C35" text-anchor="end" font-weight="600">Read →</text>
+  <!-- Newsletter CTA -->
+  <rect x="80" y="808" width="1480" height="62" rx="8" fill="#0F2D1F"/>
+  <text x="400" y="845" font-size="16" font-weight="700" fill="white">Get market news in your inbox — join 10,000+ readers</text>
+  <rect x="960" y="820" width="280" height="34" rx="6" fill="white" opacity="0.1" stroke="white" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="1072" y="841" font-size="13" fill="rgba(255,255,255,0.45)" text-anchor="middle">you@example.com</text>
+  <rect x="1258" y="820" width="100" height="34" rx="6" fill="#1A5C35"/>
+  <text x="1308" y="841" font-size="12" font-weight="600" fill="white" text-anchor="middle">Subscribe</text>
 </svg>

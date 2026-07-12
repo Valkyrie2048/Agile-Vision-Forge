@@ -1,102 +1,112 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" font-family="system-ui,-apple-system,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="system-ui,-apple-system,sans-serif">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="38%" r="52%"><stop offset="0%" stop-color="#5F42F0" stop-opacity="0.13"/><stop offset="100%" stop-color="#5F42F0" stop-opacity="0"/></radialGradient>
+    <linearGradient id="aibg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06060F"/><stop offset="100%" stop-color="#0A071A"/></linearGradient>
+    <radialGradient id="aiGlow2" cx="50%" cy="40%" r="50%"><stop offset="0%" stop-color="#7C3AED" stop-opacity="0.15"/><stop offset="100%" stop-color="#06060F" stop-opacity="0"/></radialGradient>
+    <linearGradient id="ptxt" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#818CF8"/><stop offset="100%" stop-color="#C084FC"/></linearGradient>
   </defs>
-  <rect width="1200" height="780" fill="#060510"/>
-  <rect width="1200" height="780" fill="url(#bg)"/>
-  <!-- Browser chrome -->
-  <rect width="1200" height="44" fill="#0c0b1e"/>
-  <circle cx="18" cy="22" r="6" fill="#ff5f57" opacity="0.65"/>
-  <circle cx="38" cy="22" r="6" fill="#febc2e" opacity="0.65"/>
-  <circle cx="58" cy="22" r="6" fill="#28c840" opacity="0.65"/>
-  <rect x="120" y="10" width="380" height="24" rx="5" fill="#100e20"/>
-  <text x="310" y="26" font-size="11" fill="rgba(255,255,255,0.25)" text-anchor="middle">gigamatic.ai/hub</text>
-  <rect width="1200" height="1" y="44" fill="rgba(255,255,255,0.05)"/>
+  <rect width="1600" height="900" fill="url(#aibg2)"/>
+  <rect width="1600" height="900" fill="url(#aiGlow2)"/>
   <!-- Nav -->
-  <rect x="0" y="44" width="1200" height="56" fill="rgba(6,5,16,0.9)"/>
-  <rect x="0" y="100" width="1200" height="1" fill="rgba(255,255,255,0.05)"/>
-  <text x="40" y="68" font-size="15" font-weight="800" fill="#5F42F0" font-style="italic">GIGAMATIC</text>
-  <text x="40" y="84" font-size="9" fill="rgba(255,255,255,0.28)" letter-spacing="2.5">AI</text>
-  <rect x="180" y="62" width="100" height="26" rx="6" fill="rgba(95,66,240,0.12)"/>
-  <text x="230" y="79" font-size="12" fill="#5F42F0" text-anchor="middle">Intelligence Hub</text>
-  <text x="380" y="79" font-size="12" fill="rgba(255,255,255,0.35)">Permissions</text>
-  <text x="475" y="79" font-size="12" fill="rgba(255,255,255,0.35)">History</text>
-  <!-- Context active indicator -->
-  <rect x="860" y="64" width="220" height="28" rx="6" fill="rgba(95,66,240,0.1)" stroke="rgba(95,66,240,0.22)" stroke-width="1"/>
-  <circle cx="876" cy="78" r="4" fill="#5F42F0" opacity="0.8"/>
-  <text x="888" y="83" font-size="11" fill="rgba(255,255,255,0.55)">Cross-platform context active</text>
-  <!-- Main content -->
-  <text x="40" y="134" font-size="18" font-weight="700" fill="rgba(255,255,255,0.82)">Intelligence Overview</text>
-  <text x="40" y="154" font-size="12" fill="rgba(255,255,255,0.28)">AI-generated analysis &#xB7; Finance, Insure, Careers &#xB7; July 2026</text>
-  <!-- 3 product tiles -->
-  <rect x="40" y="170" width="350" height="134" rx="10" fill="#0d0b1e" stroke="rgba(43,140,238,0.22)" stroke-width="1"/>
-  <rect x="40" y="170" width="350" height="30" rx="10" fill="rgba(43,140,238,0.1)"/>
-  <rect x="40" y="188" width="350" height="12" fill="rgba(43,140,238,0.1)"/>
-  <text x="58" y="190" font-size="10" fill="#2B8CEE" letter-spacing="1.5">FINANCE</text>
-  <text x="58" y="224" font-size="24" font-weight="700" fill="rgba(255,255,255,0.85)">&#163;48,240</text>
-  <text x="58" y="244" font-size="11" fill="rgba(255,255,255,0.3)">YTD &#xB7; 4 sources &#xB7; Readiness 74/100</text>
-  <rect x="58" y="258" width="296" height="5" rx="2.5" fill="rgba(43,140,238,0.08)"/><rect x="58" y="258" width="190" height="5" rx="2.5" fill="#2B8CEE" opacity="0.45"/>
-  <text x="58" y="292" font-size="11" fill="#2B8CEE" opacity="0.7">Mortgage eligible &#x2192;</text>
-  <rect x="424" y="170" width="350" height="134" rx="10" fill="#0d0b1e" stroke="rgba(34,195,141,0.2)" stroke-width="1"/>
-  <rect x="424" y="170" width="350" height="30" rx="10" fill="rgba(34,195,141,0.08)"/>
-  <rect x="424" y="188" width="350" height="12" fill="rgba(34,195,141,0.08)"/>
-  <text x="442" y="190" font-size="10" fill="#22C38D" letter-spacing="1.5">INSURE</text>
-  <text x="442" y="224" font-size="24" font-weight="700" fill="rgba(255,255,255,0.82)">2 gaps</text>
-  <text x="442" y="244" font-size="11" fill="rgba(255,255,255,0.28)">Coverage gaps &#xB7; Income protection</text>
-  <rect x="442" y="258" width="296" height="5" rx="2.5" fill="rgba(34,195,141,0.06)"/><rect x="442" y="258" width="200" height="5" rx="2.5" fill="#22C38D" opacity="0.38"/>
-  <text x="442" y="292" font-size="11" fill="#22C38D" opacity="0.65">View recommendations &#x2192;</text>
-  <rect x="808" y="170" width="352" height="134" rx="10" fill="#0d0b1e" stroke="rgba(178,76,230,0.2)" stroke-width="1"/>
-  <rect x="808" y="170" width="352" height="30" rx="10" fill="rgba(178,76,230,0.08)"/>
-  <rect x="808" y="188" width="352" height="12" fill="rgba(178,76,230,0.08)"/>
-  <text x="826" y="190" font-size="10" fill="#B24CE6" letter-spacing="1.5">CAREERS</text>
-  <text x="826" y="224" font-size="24" font-weight="700" fill="rgba(255,255,255,0.82)">12 matches</text>
-  <text x="826" y="244" font-size="11" fill="rgba(255,255,255,0.28)">Opportunities &#xB7; 84% profile complete</text>
-  <rect x="826" y="258" width="296" height="5" rx="2.5" fill="rgba(178,76,230,0.06)"/><rect x="826" y="258" width="238" height="5" rx="2.5" fill="#B24CE6" opacity="0.35"/>
-  <text x="826" y="292" font-size="11" fill="#B24CE6" opacity="0.65">Top match: 92% &#x2192;</text>
-  <!-- Recommendations section -->
-  <text x="40" y="336" font-size="14" font-weight="600" fill="rgba(255,255,255,0.58)">Recommended Actions</text>
-  <rect x="40" y="350" width="570" height="86" rx="10" fill="rgba(95,66,240,0.07)" stroke="rgba(95,66,240,0.2)" stroke-width="1"/>
-  <circle cx="66" cy="388" r="16" fill="rgba(95,66,240,0.2)"/>
-  <text x="66" y="393" font-size="13" fill="#5F42F0" text-anchor="middle">1</text>
-  <text x="94" y="382" font-size="13" font-weight="600" fill="rgba(255,255,255,0.78)">Add income protection coverage</text>
-  <text x="94" y="398" font-size="11" fill="rgba(255,255,255,0.35)">Improves mortgage readiness score by ~8 points</text>
-  <text x="94" y="414" font-size="11" fill="#5F42F0" opacity="0.7">Opens in Insure &#x2192;</text>
-  <rect x="590" y="350" width="570" height="86" rx="10" fill="rgba(95,66,240,0.05)" stroke="rgba(95,66,240,0.13)" stroke-width="1"/>
-  <circle cx="616" cy="388" r="16" fill="rgba(95,66,240,0.13)"/>
-  <text x="616" y="393" font-size="13" fill="#5F42F0" text-anchor="middle" opacity="0.8">2</text>
-  <text x="644" y="382" font-size="13" font-weight="600" fill="rgba(255,255,255,0.65)">Complete career profile</text>
-  <text x="644" y="398" font-size="11" fill="rgba(255,255,255,0.28)">Add 2 skills to unlock 6 extra opportunity matches</text>
-  <text x="644" y="414" font-size="11" fill="#5F42F0" opacity="0.55">Opens in Careers &#x2192;</text>
-  <!-- Analysis section -->
-  <text x="40" y="468" font-size="14" font-weight="600" fill="rgba(255,255,255,0.52)">Cross-platform Analysis</text>
-  <rect x="40" y="484" width="740" height="72" rx="10" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-  <rect x="56" y="500" width="700" height="8" rx="3" fill="rgba(255,255,255,0.16)"/>
-  <rect x="56" y="516" width="660" height="7" rx="3" fill="rgba(255,255,255,0.12)"/>
-  <rect x="56" y="531" width="680" height="7" rx="3" fill="rgba(255,255,255,0.1)"/>
-  <text x="748" y="550" font-size="11" fill="#5F42F0" opacity="0.55" text-anchor="end">Read full analysis &#x2192;</text>
-  <!-- Permissions panel -->
-  <rect x="800" y="452" width="360" height="104" rx="10" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-  <text x="820" y="476" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1">CONTEXT PERMISSIONS</text>
-  <rect x="820" y="490" width="72" height="22" rx="5" fill="rgba(34,195,141,0.12)" stroke="rgba(34,195,141,0.25)" stroke-width="1"/>
-  <text x="856" y="504" font-size="10" fill="#22C38D" text-anchor="middle">Finance &#x2713;</text>
-  <rect x="902" y="490" width="66" height="22" rx="5" fill="rgba(34,195,141,0.12)" stroke="rgba(34,195,141,0.25)" stroke-width="1"/>
-  <text x="935" y="504" font-size="10" fill="#22C38D" text-anchor="middle">Insure &#x2713;</text>
-  <rect x="978" y="490" width="72" height="22" rx="5" fill="rgba(34,195,141,0.12)" stroke="rgba(34,195,141,0.25)" stroke-width="1"/>
-  <text x="1014" y="504" font-size="10" fill="#22C38D" text-anchor="middle">Careers &#x2713;</text>
-  <text x="1140" y="504" font-size="11" fill="rgba(95,66,240,0.55)" text-anchor="end">Edit</text>
-  <text x="820" y="540" font-size="11" fill="rgba(255,255,255,0.2)">You control what GIGAMATIC AI can see and act on.</text>
-  <!-- Chat quick access -->
-  <rect x="40" y="578" width="740" height="54" rx="10" fill="rgba(95,66,240,0.07)" stroke="rgba(95,66,240,0.18)" stroke-width="1"/>
-  <text x="62" y="608" font-size="12" fill="rgba(255,255,255,0.2)">Ask GIGAMATIC AI anything about your situation...</text>
-  <circle cx="760" cy="605" r="14" fill="#5F42F0" opacity="0.7"/>
-  <rect x="800" y="578" width="360" height="54" rx="10" fill="#5F42F0" opacity="0.8"/>
-  <text x="980" y="608" font-size="12" font-weight="600" fill="white" text-anchor="middle">Open AI Chat</text>
-  <!-- History items -->
-  <text x="40" y="666" font-size="12" font-weight="600" fill="rgba(255,255,255,0.35)">Recent questions</text>
-  <rect x="40" y="680" width="340" height="30" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-  <text x="56" y="699" font-size="11" fill="rgba(255,255,255,0.3)">Am I ready to apply for a mortgage?</text>
-  <rect x="396" y="680" width="340" height="30" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-  <text x="412" y="699" font-size="11" fill="rgba(255,255,255,0.25)">What&#x2019;s my best next career move?</text>
-  <rect x="752" y="680" width="340" height="30" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-  <text x="768" y="699" font-size="11" fill="rgba(255,255,255,0.2)">Should I get income protection?</text>
+  <rect width="1600" height="60" fill="rgba(6,6,15,0.92)"/>
+  <rect y="59" width="1600" height="1" fill="rgba(255,255,255,0.05)"/>
+  <text x="36" y="37" font-size="17" font-weight="800" fill="#A78BFA" letter-spacing="-0.5" font-style="italic">GIGAMATIC</text>
+  <text x="185" y="37" font-size="13" fill="#A78BFA">AI Tools</text>
+  <text x="250" y="37" font-size="13" fill="rgba(255,255,255,0.38)">Learn</text>
+  <text x="304" y="37" font-size="13" fill="rgba(255,255,255,0.38)">Resources</text>
+  <text x="386" y="37" font-size="13" fill="rgba(255,255,255,0.38)">Blog</text>
+  <text x="430" y="37" font-size="13" fill="rgba(255,255,255,0.38)">Events</text>
+  <text x="490" y="37" font-size="13" fill="rgba(255,255,255,0.38)">AI News</text>
+  <text x="556" y="37" font-size="13" fill="rgba(255,255,255,0.38)">My Stack</text>
+  <rect x="1460" y="16" width="100" height="28" rx="14" fill="rgba(124,58,237,0.2)" stroke="rgba(124,58,237,0.4)" stroke-width="1"/>
+  <text x="1510" y="34" font-size="12" fill="#A78BFA" text-anchor="middle">5 in stack</text>
+  <!-- Hero content -->
+  <rect x="80" y="114" width="350" height="28" rx="14" fill="rgba(124,58,237,0.1)" stroke="rgba(124,58,237,0.3)" stroke-width="1"/>
+  <text x="100" y="132" font-size="12" fill="rgba(167,139,250,0.8)">✦ Stanford · MIT · Google · DeepLearning.AI · Hugging Face</text>
+  <text x="80" y="218" font-size="72" font-weight="800" fill="white" letter-spacing="-2">Your AI Journey</text>
+  <text x="80" y="298" font-size="72" font-weight="800" letter-spacing="-2" fill="url(#ptxt)">Starts Here</text>
+  <text x="80" y="354" font-size="16" fill="rgba(255,255,255,0.5)">Discover 220+ verified AI tools. Learn from top institutions.</text>
+  <text x="80" y="376" font-size="16" fill="rgba(255,255,255,0.5)">Build your personal AI stack. All free.</text>
+  <rect x="80" y="410" width="256" height="48" rx="8" fill="#7C3AED"/>
+  <text x="208" y="440" font-size="14" font-weight="600" fill="white" text-anchor="middle">Find Your AI Tool →</text>
+  <rect x="352" y="410" width="192" height="48" rx="8" fill="none" stroke="rgba(124,58,237,0.5)" stroke-width="1.5"/>
+  <text x="448" y="440" font-size="14" font-weight="600" fill="#A78BFA" text-anchor="middle">Start Learning</text>
+  <!-- Stats cards -->
+  <rect x="80" y="490" width="148" height="80" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="154" y="534" font-size="26" font-weight="800" fill="white" text-anchor="middle">220+</text>
+  <text x="154" y="555" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle">AI TOOLS</text>
+  <rect x="244" y="490" width="148" height="80" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="318" y="534" font-size="26" font-weight="800" fill="white" text-anchor="middle">13</text>
+  <text x="318" y="555" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle">CATEGORIES</text>
+  <rect x="408" y="490" width="148" height="80" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="482" y="534" font-size="26" font-weight="800" fill="white" text-anchor="middle">45+</text>
+  <text x="482" y="555" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle">COURSES</text>
+  <rect x="572" y="490" width="148" height="80" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="646" y="534" font-size="26" font-weight="800" fill="white" text-anchor="middle">22</text>
+  <text x="646" y="555" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle">VIDEO SERIES</text>
+  <!-- Right side: featured tools section -->
+  <text x="850" y="130" font-size="13" font-weight="600" fill="rgba(255,255,255,0.35)" letter-spacing="1.5">TRENDING TOOLS</text>
+  <!-- Tool cards 2x3 grid -->
+  <rect x="850" y="148" width="320" height="100" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="874" y="170" width="36" height="36" rx="9" fill="rgba(99,102,241,0.3)"/>
+  <text x="892" y="193" font-size="20" text-anchor="middle" fill="#818CF8">◆</text>
+  <text x="924" y="183" font-size="15" font-weight="600" fill="rgba(255,255,255,0.9)">ChatGPT</text>
+  <text x="924" y="201" font-size="12" fill="rgba(255,255,255,0.38)">General AI Assistant · OpenAI</text>
+  <rect x="874" y="216" width="72" height="18" rx="9" fill="rgba(0,196,106,0.12)" stroke="rgba(0,196,106,0.25)" stroke-width="1"/>
+  <text x="910" y="229" font-size="9" fill="#00C46A" text-anchor="middle">Freemium</text>
+  <rect x="1190" y="148" width="320" height="100" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="1214" y="170" width="36" height="36" rx="9" fill="rgba(59,130,246,0.25)"/>
+  <text x="1232" y="193" font-size="20" text-anchor="middle" fill="#60A5FA">✦</text>
+  <text x="1264" y="183" font-size="15" font-weight="600" fill="rgba(255,255,255,0.9)">Midjourney</text>
+  <text x="1264" y="201" font-size="12" fill="rgba(255,255,255,0.38)">Image Generation</text>
+  <rect x="1214" y="216" width="54" height="18" rx="9" fill="rgba(251,191,36,0.1)" stroke="rgba(251,191,36,0.3)" stroke-width="1"/>
+  <text x="1241" y="229" font-size="9" fill="#FCD34D" text-anchor="middle">Paid</text>
+  <rect x="850" y="264" width="320" height="100" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="874" y="286" width="36" height="36" rx="9" fill="rgba(239,68,68,0.2)"/>
+  <text x="892" y="309" font-size="20" text-anchor="middle" fill="#F87171">◈</text>
+  <text x="924" y="299" font-size="15" font-weight="600" fill="rgba(255,255,255,0.9)">Claude</text>
+  <text x="924" y="317" font-size="12" fill="rgba(255,255,255,0.38)">AI Assistant · Anthropic</text>
+  <rect x="874" y="332" width="72" height="18" rx="9" fill="rgba(0,196,106,0.12)" stroke="rgba(0,196,106,0.25)" stroke-width="1"/>
+  <text x="910" y="345" font-size="9" fill="#00C46A" text-anchor="middle">Freemium</text>
+  <rect x="1190" y="264" width="320" height="100" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="1214" y="286" width="36" height="36" rx="9" fill="rgba(16,185,129,0.2)"/>
+  <text x="1232" y="309" font-size="20" text-anchor="middle" fill="#34D399">⬡</text>
+  <text x="1264" y="299" font-size="15" font-weight="600" fill="rgba(255,255,255,0.9)">Perplexity</text>
+  <text x="1264" y="317" font-size="12" fill="rgba(255,255,255,0.38)">AI Search Engine</text>
+  <rect x="1214" y="332" width="72" height="18" rx="9" fill="rgba(0,196,106,0.12)" stroke="rgba(0,196,106,0.25)" stroke-width="1"/>
+  <text x="1250" y="345" font-size="9" fill="#00C46A" text-anchor="middle">Freemium</text>
+  <rect x="850" y="380" width="320" height="100" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="892" y="418" font-size="15" font-weight="600" fill="rgba(255,255,255,0.7)">Cursor</text>
+  <text x="892" y="436" font-size="12" fill="rgba(255,255,255,0.3)">AI Code Editor</text>
+  <rect x="1190" y="380" width="320" height="100" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="1232" y="418" font-size="15" font-weight="600" fill="rgba(255,255,255,0.7)">ElevenLabs</text>
+  <text x="1232" y="436" font-size="12" fill="rgba(255,255,255,0.3)">AI Voice Generation</text>
+  <!-- View all button -->
+  <rect x="850" y="496" width="660" height="44" rx="8" fill="rgba(124,58,237,0.1)" stroke="rgba(124,58,237,0.3)" stroke-width="1"/>
+  <text x="1180" y="523" font-size="13" font-weight="600" fill="#A78BFA" text-anchor="middle">Browse All 220+ Tools →</text>
+  <!-- Bottom: Popular categories -->
+  <text x="80" y="618" font-size="13" font-weight="600" fill="rgba(255,255,255,0.3)" letter-spacing="1.5">POPULAR CATEGORIES</text>
+  <rect x="80" y="634" width="140" height="32" rx="16" fill="rgba(124,58,237,0.15)" stroke="rgba(124,58,237,0.3)" stroke-width="1"/>
+  <text x="150" y="654" font-size="12" fill="#A78BFA" text-anchor="middle">Writing &amp; Content</text>
+  <rect x="232" y="634" width="120" height="32" rx="16" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="292" y="654" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Image &amp; Video</text>
+  <rect x="364" y="634" width="100" height="32" rx="16" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="414" y="654" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Coding</text>
+  <rect x="476" y="634" width="100" height="32" rx="16" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="526" y="654" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Productivity</text>
+  <rect x="588" y="634" width="90" height="32" rx="16" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="633" y="654" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Research</text>
+  <rect x="690" y="634" width="80" height="32" rx="16" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="730" y="654" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Audio</text>
+  <rect x="782" y="634" width="96" height="32" rx="16" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="830" y="654" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Marketing</text>
+  <!-- Latest AI news -->
+  <text x="80" y="714" font-size="13" font-weight="600" fill="rgba(255,255,255,0.3)" letter-spacing="1.5">LATEST AI NEWS</text>
+  <rect x="80" y="728" width="1480" height="60" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="110" y="766" font-size="15" font-weight="600" fill="rgba(255,255,255,0.7)">OpenAI Releases GPT-5 — What It Can Do and What It Can't</text>
+  <text x="1460" y="760" font-size="12" fill="rgba(255,255,255,0.25)" text-anchor="end">2 hours ago</text>
+  <text x="1460" y="778" font-size="12" fill="#A78BFA" text-anchor="end">Read →</text>
+  <!-- Ask GIGI -->
+  <rect x="1360" y="822" width="148" height="44" rx="22" fill="rgba(10,10,20,0.9)" stroke="rgba(124,58,237,0.4)" stroke-width="1"/>
+  <circle cx="1384" cy="844" r="6" fill="#00C46A"/>
+  <text x="1402" y="849" font-size="13" fill="white">Ask GIGI</text>
 </svg>

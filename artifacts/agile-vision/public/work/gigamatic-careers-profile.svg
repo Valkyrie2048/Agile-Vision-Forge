@@ -1,122 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" font-family="system-ui,-apple-system,sans-serif">
-  <defs>
-    <radialGradient id="bg" cx="50%" cy="38%" r="52%"><stop offset="0%" stop-color="#B24CE6" stop-opacity="0.11"/><stop offset="100%" stop-color="#B24CE6" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect width="1200" height="780" fill="#080610"/>
-  <rect width="1200" height="780" fill="url(#bg)"/>
-  <!-- Browser chrome -->
-  <rect width="1200" height="44" fill="#0e0c1e"/>
-  <circle cx="18" cy="22" r="6" fill="#ff5f57" opacity="0.65"/>
-  <circle cx="38" cy="22" r="6" fill="#febc2e" opacity="0.65"/>
-  <circle cx="58" cy="22" r="6" fill="#28c840" opacity="0.65"/>
-  <rect x="120" y="10" width="380" height="24" rx="5" fill="#13101e"/>
-  <text x="310" y="26" font-size="11" fill="rgba(255,255,255,0.25)" text-anchor="middle">gigamatic.careers/profile/alex-morgan</text>
-  <rect width="1200" height="1" y="44" fill="rgba(255,255,255,0.05)"/>
-  <!-- Nav -->
-  <rect x="0" y="44" width="1200" height="56" fill="#0d0b1e"/>
-  <rect x="0" y="100" width="1200" height="1" fill="rgba(255,255,255,0.05)"/>
-  <text x="40" y="68" font-size="15" font-weight="800" fill="#B24CE6" font-style="italic">GIGAMATIC</text>
-  <text x="40" y="84" font-size="9" fill="rgba(255,255,255,0.28)" letter-spacing="2.5">CAREERS</text>
-  <rect x="260" y="60" width="64" height="26" rx="6" fill="rgba(178,76,230,0.12)"/>
-  <text x="292" y="77" font-size="12" fill="#B24CE6" text-anchor="middle">Profile</text>
-  <text x="390" y="77" font-size="12" fill="rgba(255,255,255,0.35)">Opportunities</text>
-  <text x="490" y="77" font-size="12" fill="rgba(255,255,255,0.35)">Pathways</text>
-  <!-- Profile hero -->
-  <rect x="40" y="118" width="1120" height="140" rx="12" fill="#0d0b1c" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <circle cx="100" cy="188" r="44" fill="rgba(178,76,230,0.15)" stroke="rgba(178,76,230,0.3)" stroke-width="2"/>
-  <text x="100" y="198" font-size="34" fill="#B24CE6" text-anchor="middle" font-weight="700">A</text>
-  <text x="160" y="156" font-size="20" font-weight="700" fill="rgba(255,255,255,0.86)">Alex Morgan</text>
-  <text x="160" y="178" font-size="13" fill="rgba(255,255,255,0.42)">Product Designer &#xB7; 8 years experience &#xB7; London / Remote</text>
-  <rect x="160" y="192" width="80" height="22" rx="5" fill="rgba(178,76,230,0.14)" stroke="rgba(178,76,230,0.28)" stroke-width="1"/>
-  <text x="200" y="207" font-size="11" fill="#B24CE6" text-anchor="middle">Freelance</text>
-  <rect x="250" y="192" width="72" height="22" rx="5" fill="rgba(178,76,230,0.08)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-  <text x="286" y="207" font-size="11" fill="rgba(255,255,255,0.45)" text-anchor="middle">Contract</text>
-  <rect x="160" y="226" width="244" height="4" rx="2" fill="rgba(255,255,255,0.05)"/>
-  <!-- Profile completion -->
-  <rect x="880" y="140" width="240" height="96" rx="10" fill="rgba(178,76,230,0.06)" stroke="rgba(178,76,230,0.16)" stroke-width="1"/>
-  <text x="900" y="162" font-size="11" fill="rgba(255,255,255,0.38)">Profile completion</text>
-  <text x="900" y="194" font-size="28" font-weight="700" fill="#B24CE6">84%</text>
-  <rect x="900" y="206" width="200" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-  <rect x="900" y="206" width="168" height="6" rx="3" fill="#B24CE6" opacity="0.5"/>
-  <text x="900" y="226" font-size="10" fill="rgba(255,255,255,0.22)">Add 2 skills to reach 90%</text>
-  <!-- Skills section -->
-  <text x="40" y="286" font-size="14" font-weight="600" fill="rgba(255,255,255,0.62)">Skill Profile</text>
-  <text x="40" y="306" font-size="12" fill="rgba(255,255,255,0.28)">8 years &#xB7; 3 domains &#xB7; 24 tracked skills</text>
-  <!-- Design skills -->
-  <text x="40" y="334" font-size="10" fill="#B24CE6" letter-spacing="2">DESIGN</text>
-  <rect x="40" y="342" width="114" height="26" rx="6" fill="rgba(178,76,230,0.14)" stroke="rgba(178,76,230,0.28)" stroke-width="1"/>
-  <text x="97" y="358" font-size="11" fill="rgba(255,255,255,0.78)" text-anchor="middle">Product Design</text>
-  <rect x="162" y="342" width="90" height="26" rx="6" fill="rgba(178,76,230,0.1)" stroke="rgba(178,76,230,0.2)" stroke-width="1"/>
-  <text x="207" y="358" font-size="11" fill="rgba(255,255,255,0.65)" text-anchor="middle">UX Research</text>
-  <rect x="260" y="342" width="72" height="26" rx="6" fill="rgba(178,76,230,0.08)" stroke="rgba(178,76,230,0.15)" stroke-width="1"/>
-  <text x="296" y="358" font-size="11" fill="rgba(255,255,255,0.55)" text-anchor="middle">Figma</text>
-  <rect x="340" y="342" width="94" height="26" rx="6" fill="rgba(178,76,230,0.06)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="387" y="358" font-size="11" fill="rgba(255,255,255,0.48)" text-anchor="middle">Prototyping</text>
-  <rect x="442" y="342" width="96" height="26" rx="6" fill="rgba(178,76,230,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <text x="490" y="358" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">Motion Design</text>
-  <rect x="546" y="342" width="108" height="26" rx="6" fill="rgba(178,76,230,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="600" y="358" font-size="11" fill="rgba(255,255,255,0.34)" text-anchor="middle">Design Systems</text>
-  <!-- Strategy -->
-  <text x="40" y="392" font-size="10" fill="rgba(178,76,230,0.65)" letter-spacing="2">STRATEGY</text>
-  <rect x="40" y="400" width="100" height="26" rx="6" fill="rgba(178,76,230,0.1)" stroke="rgba(178,76,230,0.2)" stroke-width="1"/>
-  <text x="90" y="416" font-size="11" fill="rgba(255,255,255,0.7)" text-anchor="middle">Product Strategy</text>
-  <rect x="148" y="400" width="90" height="26" rx="6" fill="rgba(178,76,230,0.07)" stroke="rgba(178,76,230,0.13)" stroke-width="1"/>
-  <text x="193" y="416" font-size="11" fill="rgba(255,255,255,0.58)" text-anchor="middle">Roadmapping</text>
-  <rect x="246" y="400" width="72" height="26" rx="6" fill="rgba(178,76,230,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <text x="282" y="416" font-size="11" fill="rgba(255,255,255,0.46)" text-anchor="middle">OKRs</text>
-  <rect x="326" y="400" width="86" height="26" rx="6" fill="rgba(178,76,230,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="369" y="416" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Stakeholders</text>
-  <!-- Tech -->
-  <text x="40" y="450" font-size="10" fill="rgba(178,76,230,0.5)" letter-spacing="2">TECHNOLOGY</text>
-  <rect x="40" y="458" width="72" height="26" rx="6" fill="rgba(178,76,230,0.07)" stroke="rgba(178,76,230,0.15)" stroke-width="1"/>
-  <text x="76" y="474" font-size="11" fill="rgba(255,255,255,0.6)" text-anchor="middle">React</text>
-  <rect x="120" y="458" width="90" height="26" rx="6" fill="rgba(178,76,230,0.05)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="165" y="474" font-size="11" fill="rgba(255,255,255,0.5)" text-anchor="middle">TypeScript</text>
-  <rect x="218" y="458" width="60" height="26" rx="6" fill="rgba(178,76,230,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="248" y="474" font-size="11" fill="rgba(255,255,255,0.42)" text-anchor="middle">CSS</text>
-  <!-- Work history -->
-  <text x="40" y="514" font-size="14" font-weight="600" fill="rgba(255,255,255,0.55)">Work History</text>
-  <rect x="40" y="530" width="680" height="64" rx="10" fill="rgba(178,76,230,0.07)" stroke="rgba(178,76,230,0.18)" stroke-width="1"/>
-  <circle cx="64" cy="562" r="14" fill="rgba(178,76,230,0.2)"/>
-  <text x="64" y="567" font-size="11" fill="#B24CE6" text-anchor="middle">T</text>
-  <text x="88" y="556" font-size="13" font-weight="600" fill="rgba(255,255,255,0.78)">Senior UX Lead &#x2014; TechCorp (contract)</text>
-  <text x="88" y="572" font-size="11" fill="rgba(255,255,255,0.32)">2023 &#x2013; present &#xB7; 2yr 4mo &#xB7; London</text>
-  <rect x="88" y="580" width="200" height="4" rx="2" fill="rgba(178,76,230,0.3)"/>
-  <rect x="40" y="606" width="680" height="60" rx="10" fill="rgba(178,76,230,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <circle cx="64" cy="636" r="14" fill="rgba(178,76,230,0.12)"/>
-  <text x="64" y="641" font-size="11" fill="#B24CE6" text-anchor="middle" opacity="0.7">F</text>
-  <text x="88" y="630" font-size="13" font-weight="600" fill="rgba(255,255,255,0.62)">Product Designer &#x2014; Freelance</text>
-  <text x="88" y="646" font-size="11" fill="rgba(255,255,255,0.26)">2021 &#x2013; 2023 &#xB7; 2yr</text>
-  <rect x="40" y="678" width="680" height="60" rx="10" fill="rgba(178,76,230,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-  <circle cx="64" cy="708" r="14" fill="rgba(178,76,230,0.07)"/>
-  <text x="64" y="713" font-size="11" fill="#B24CE6" text-anchor="middle" opacity="0.5">S</text>
-  <text x="88" y="702" font-size="13" font-weight="600" fill="rgba(255,255,255,0.48)">UX Designer &#x2014; StartupXYZ</text>
-  <text x="88" y="718" font-size="11" fill="rgba(255,255,255,0.2)">2018 &#x2013; 2021 &#xB7; 3yr</text>
-  <!-- Right: Quick stats -->
-  <rect x="760" y="278" width="400" height="460" rx="12" fill="#0d0b1c" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="780" y="306" font-size="13" font-weight="600" fill="rgba(255,255,255,0.58)">Career Health</text>
-  <text x="780" y="334" font-size="11" fill="rgba(255,255,255,0.25)">Skill breadth</text>
-  <rect x="780" y="340" width="360" height="8" rx="4" fill="rgba(255,255,255,0.05)"/><rect x="780" y="340" width="288" height="8" rx="4" fill="#B24CE6" opacity="0.45"/>
-  <text x="1148" y="350" font-size="11" fill="#B24CE6" text-anchor="end">80%</text>
-  <text x="780" y="370" font-size="11" fill="rgba(255,255,255,0.25)">Market demand match</text>
-  <rect x="780" y="376" width="360" height="8" rx="4" fill="rgba(255,255,255,0.05)"/><rect x="780" y="376" width="252" height="8" rx="4" fill="#B24CE6" opacity="0.35"/>
-  <text x="1148" y="386" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="end">70%</text>
-  <text x="780" y="406" font-size="11" fill="rgba(255,255,255,0.25)">Profile completeness</text>
-  <rect x="780" y="412" width="360" height="8" rx="4" fill="rgba(255,255,255,0.05)"/><rect x="780" y="412" width="302" height="8" rx="4" fill="#B24CE6" opacity="0.55"/>
-  <text x="1148" y="422" font-size="11" fill="#B24CE6" text-anchor="end">84%</text>
-  <text x="780" y="452" font-size="11" fill="rgba(255,255,255,0.25)">Opportunity matches</text>
-  <text x="780" y="478" font-size="24" font-weight="700" fill="rgba(255,255,255,0.75)">12</text>
-  <text x="816" y="478" font-size="14" fill="rgba(255,255,255,0.28)">available now</text>
-  <rect x="780" y="494" width="360" height="40" rx="8" fill="rgba(178,76,230,0.1)" stroke="rgba(178,76,230,0.22)" stroke-width="1"/>
-  <text x="960" y="518" font-size="12" fill="#B24CE6" text-anchor="middle">View opportunities &#x2192;</text>
-  <text x="780" y="556" font-size="11" fill="rgba(255,255,255,0.22)">Top match score</text>
-  <text x="780" y="582" font-size="24" font-weight="700" fill="#B24CE6">92%</text>
-  <text x="820" y="582" font-size="14" fill="rgba(255,255,255,0.28)">Lead Product Designer</text>
-  <rect x="780" y="596" width="360" height="4" rx="2" fill="rgba(255,255,255,0.04)"/>
-  <rect x="780" y="614" width="360" height="7" rx="3" fill="rgba(255,255,255,0.08)"/>
-  <rect x="780" y="629" width="320" height="7" rx="3" fill="rgba(255,255,255,0.06)"/>
-  <rect x="780" y="644" width="340" height="7" rx="3" fill="rgba(255,255,255,0.05)"/>
-  <rect x="780" y="678" width="360" height="36" rx="8" fill="#B24CE6" opacity="0.8"/>
-  <text x="960" y="700" font-size="12" font-weight="600" fill="white" text-anchor="middle">Explore Pathways</text>
-  <rect x="780" y="722" width="360" height="4" rx="2" fill="rgba(255,255,255,0.04)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="Georgia,'Times New Roman',serif">
+  <!-- Editorial homepage - light, large article cards -->
+  <rect width="1600" height="900" fill="#FAFAF8"/>
+  <rect width="1600" height="60" fill="#FAFAF8"/>
+  <rect y="59" width="1600" height="1" fill="#E0E0DC"/>
+  <text x="36" y="38" font-size="16" font-weight="700" fill="#111" font-family="system-ui,sans-serif" letter-spacing="0.5">GIGAMATIC</text>
+  <text x="180" y="37" font-size="13" fill="#111" font-family="system-ui,sans-serif">Articles</text>
+  <text x="250" y="37" font-size="13" fill="#888" font-family="system-ui,sans-serif">Tools</text>
+  <text x="306" y="37" font-size="13" fill="#888" font-family="system-ui,sans-serif">Learning</text>
+  <text x="378" y="37" font-size="13" fill="#888" font-family="system-ui,sans-serif">News</text>
+  <text x="432" y="37" font-size="13" fill="#888" font-family="system-ui,sans-serif">Job Listings</text>
+  <!-- Section label -->
+  <text x="80" y="108" font-size="11" fill="#AAAAAA" letter-spacing="3" font-family="system-ui,sans-serif">FEATURED THIS WEEK</text>
+  <!-- Hero article - large full-width -->
+  <rect x="80" y="120" width="960" height="510" rx="6" fill="#1A2012"/>
+  <!-- Article overlay -->
+  <rect x="80" y="120" width="960" height="510" rx="6" fill="rgba(0,0,0,0.3)"/>
+  <!-- Subtle texture lines -->
+  <line x1="80" y1="200" x2="1040" y2="200" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  <line x1="80" y1="300" x2="1040" y2="300" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  <line x1="80" y1="400" x2="1040" y2="400" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  <!-- Article meta -->
+  <rect x="116" y="156" width="120" height="22" rx="11" fill="rgba(255,255,255,0.12)"/>
+  <text x="176" y="171" font-size="10" fill="rgba(255,255,255,0.8)" text-anchor="middle" letter-spacing="1" font-family="system-ui,sans-serif">LEADERSHIP</text>
+  <!-- Article title -->
+  <text x="116" y="444" font-size="36" font-weight="700" fill="white" letter-spacing="-0.5">The Art of the Lateral Move:</text>
+  <text x="116" y="486" font-size="36" font-weight="700" fill="white" letter-spacing="-0.5">How Top Performers Build</text>
+  <text x="116" y="528" font-size="36" font-weight="700" fill="white" letter-spacing="-0.5">Real Leverage</text>
+  <text x="116" y="570" font-size="14" fill="rgba(255,255,255,0.55)" font-family="system-ui,sans-serif">8 min read · Career Transitions</text>
+  <text x="116" y="592" font-size="14" fill="rgba(255,255,255,0.55)" font-family="system-ui,sans-serif">By Sarah Chen · July 10, 2026</text>
+  <!-- Right column - 3 article cards stacked -->
+  <!-- Card A -->
+  <rect x="1056" y="120" width="464" height="156" rx="6" fill="#0D1520"/>
+  <text x="1084" y="160" font-size="10" fill="rgba(255,255,255,0.4)" letter-spacing="1.5" font-family="system-ui,sans-serif">MANAGEMENT</text>
+  <text x="1084" y="196" font-size="20" font-weight="700" fill="white">Your First 90 Days</text>
+  <text x="1084" y="222" font-size="20" font-weight="700" fill="white">as a New Manager</text>
+  <text x="1084" y="258" font-size="12" fill="rgba(255,255,255,0.35)" font-family="system-ui,sans-serif">10 min read · July 8, 2026</text>
+  <!-- Card B -->
+  <rect x="1056" y="288" width="464" height="156" rx="6" fill="#1E0F08"/>
+  <text x="1084" y="328" font-size="10" fill="rgba(255,255,255,0.4)" letter-spacing="1.5" font-family="system-ui,sans-serif">CAREER PIVOT</text>
+  <text x="1084" y="364" font-size="20" font-weight="700" fill="white">When to Leave a Company</text>
+  <text x="1084" y="390" font-size="20" font-weight="700" fill="white">You Love</text>
+  <text x="1084" y="426" font-size="12" fill="rgba(255,255,255,0.35)" font-family="system-ui,sans-serif">6 min read · July 5, 2026</text>
+  <!-- Card C -->
+  <rect x="1056" y="456" width="464" height="174" rx="6" fill="#160816"/>
+  <text x="1084" y="496" font-size="10" fill="rgba(255,255,255,0.4)" letter-spacing="1.5" font-family="system-ui,sans-serif">NEGOTIATION</text>
+  <text x="1084" y="536" font-size="20" font-weight="700" fill="white">The Salary Conversation</text>
+  <text x="1084" y="562" font-size="20" font-weight="700" fill="white">Nobody Teaches You</text>
+  <text x="1084" y="604" font-size="12" fill="rgba(255,255,255,0.35)" font-family="system-ui,sans-serif">7 min read · July 3, 2026</text>
+  <!-- Bottom row - category section -->
+  <text x="80" y="676" font-size="11" fill="#AAAAAA" letter-spacing="3" font-family="system-ui,sans-serif">EXPLORE BY TOPIC</text>
+  <!-- Category pills -->
+  <rect x="80" y="692" width="140" height="36" rx="18" fill="#111" />
+  <text x="150" y="715" font-size="13" fill="white" text-anchor="middle" font-family="system-ui,sans-serif">Career Path</text>
+  <rect x="234" y="692" width="120" height="36" rx="18" fill="none" stroke="#CCC" stroke-width="1.5"/>
+  <text x="294" y="715" font-size="13" fill="#333" text-anchor="middle" font-family="system-ui,sans-serif">Leadership</text>
+  <rect x="368" y="692" width="120" height="36" rx="18" fill="none" stroke="#CCC" stroke-width="1.5"/>
+  <text x="428" y="715" font-size="13" fill="#333" text-anchor="middle" font-family="system-ui,sans-serif">Management</text>
+  <rect x="502" y="692" width="130" height="36" rx="18" fill="none" stroke="#CCC" stroke-width="1.5"/>
+  <text x="567" y="715" font-size="13" fill="#333" text-anchor="middle" font-family="system-ui,sans-serif">Transitions</text>
+  <rect x="646" y="692" width="120" height="36" rx="18" fill="none" stroke="#CCC" stroke-width="1.5"/>
+  <text x="706" y="715" font-size="13" fill="#333" text-anchor="middle" font-family="system-ui,sans-serif">Negotiation</text>
+  <rect x="780" y="692" width="100" height="36" rx="18" fill="none" stroke="#CCC" stroke-width="1.5"/>
+  <text x="830" y="715" font-size="13" fill="#333" text-anchor="middle" font-family="system-ui,sans-serif">Job Search</text>
+  <!-- Latest grid -->
+  <text x="80" y="780" font-size="11" fill="#AAAAAA" letter-spacing="3" font-family="system-ui,sans-serif">LATEST</text>
+  <line x1="80" y1="792" x2="1520" y2="792" stroke="#E0E0DC" stroke-width="1"/>
+  <text x="80" y="824" font-size="16" font-weight="700" fill="#111">Managing Up Without Losing Yourself</text>
+  <text x="80" y="848" font-size="13" fill="#888" font-family="system-ui,sans-serif">Leadership · 5 min read · July 12, 2026</text>
+  <text x="920" y="824" font-size="16" font-weight="700" fill="#111">The IC-to-Manager Transition No One Prepares You For</text>
+  <text x="920" y="848" font-size="13" fill="#888" font-family="system-ui,sans-serif">Management · 9 min read · July 11, 2026</text>
 </svg>

@@ -1,103 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" font-family="system-ui,-apple-system,sans-serif">
-  <defs>
-    <radialGradient id="bg" cx="50%" cy="38%" r="52%"><stop offset="0%" stop-color="#22C38D" stop-opacity="0.1"/><stop offset="100%" stop-color="#22C38D" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect width="1200" height="780" fill="#060f0c"/>
-  <rect width="1200" height="780" fill="url(#bg)"/>
-  <!-- Browser chrome -->
-  <rect width="1200" height="44" fill="#0c1a14"/>
-  <circle cx="18" cy="22" r="6" fill="#ff5f57" opacity="0.65"/>
-  <circle cx="38" cy="22" r="6" fill="#febc2e" opacity="0.65"/>
-  <circle cx="58" cy="22" r="6" fill="#28c840" opacity="0.65"/>
-  <rect x="120" y="10" width="380" height="24" rx="5" fill="#0d1e18"/>
-  <text x="310" y="26" font-size="11" fill="rgba(255,255,255,0.25)" text-anchor="middle">gigamatic.insure/coverage</text>
-  <rect width="1200" height="1" y="44" fill="rgba(255,255,255,0.05)"/>
-  <!-- Top nav within app -->
-  <rect x="0" y="44" width="1200" height="64" fill="#0a1a14"/>
-  <rect x="0" y="108" width="1200" height="1" fill="rgba(255,255,255,0.05)"/>
-  <text x="40" y="72" font-size="15" font-weight="800" fill="#22C38D" font-style="italic">GIGAMATIC</text>
-  <text x="40" y="88" font-size="9" fill="rgba(255,255,255,0.28)" letter-spacing="2.5">INSURE</text>
-  <rect x="300" y="60" width="76" height="28" rx="6" fill="rgba(34,195,141,0.12)"/>
-  <text x="338" y="78" font-size="12" fill="#22C38D" text-anchor="middle">Coverage</text>
-  <text x="440" y="78" font-size="12" fill="rgba(255,255,255,0.38)">My Plan</text>
-  <text x="530" y="78" font-size="12" fill="rgba(255,255,255,0.38)">Providers</text>
-  <text x="620" y="78" font-size="12" fill="rgba(255,255,255,0.38)">Claims</text>
-  <!-- Search bar -->
-  <rect x="40" y="124" width="520" height="36" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="64" y="146" font-size="12" fill="rgba(255,255,255,0.22)">Search coverage types, providers...</text>
-  <!-- Filter chips -->
-  <rect x="40" y="174" width="48" height="26" rx="5" fill="#22C38D" opacity="0.8"/>
-  <text x="64" y="191" font-size="11" fill="white" text-anchor="middle">All</text>
-  <rect x="96" y="174" width="56" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="124" y="191" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Health</text>
-  <rect x="160" y="174" width="80" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="200" y="191" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Protection</text>
-  <rect x="248" y="174" width="48" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="272" y="191" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Life</text>
-  <rect x="304" y="174" width="60" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="334" y="191" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Dental</text>
-  <!-- Main grid: coverage cards -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="system-ui,-apple-system,sans-serif">
+  <!-- Insurance categories grid - dark theme -->
+  <rect width="1600" height="900" fill="#0A0A0A"/>
+  <rect width="1600" height="58" fill="rgba(14,14,14,0.97)"/>
+  <rect y="57" width="1600" height="1" fill="rgba(255,255,255,0.06)"/>
+  <text x="36" y="36" font-size="17" font-weight="800" fill="white" letter-spacing="1">GIGAMATIC</text>
+  <text x="196" y="36" font-size="13" fill="rgba(255,255,255,0.38)">Home</text>
+  <text x="252" y="36" font-size="13" fill="#00C46A">Get a Quote</text>
+  <text x="354" y="36" font-size="13" fill="rgba(255,255,255,0.38)">My Policies</text>
+  <text x="454" y="36" font-size="13" fill="rgba(255,255,255,0.38)">Learning Hub</text>
+  <text x="554" y="36" font-size="13" fill="rgba(255,255,255,0.38)">Tools</text>
+  <!-- Page header -->
+  <text x="80" y="116" font-size="36" font-weight="800" fill="white">What Would You Like to Insure?</text>
+  <text x="80" y="144" font-size="15" fill="rgba(255,255,255,0.4)">Select a category to compare quotes from 40+ top-rated carriers</text>
+  <!-- Category cards grid 3x2 -->
   <!-- Row 1 -->
-  <rect x="40" y="214" width="270" height="184" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.25)" stroke-width="1.5"/>
-  <rect x="40" y="214" width="270" height="3" rx="1.5" fill="#22C38D" opacity="0.6"/>
-  <circle cx="64" cy="252" r="18" fill="rgba(34,195,141,0.15)"/>
-  <text x="64" y="258" font-size="14" fill="#22C38D" text-anchor="middle">+</text>
-  <rect x="88" y="248" width="60" height="18" rx="4" fill="rgba(34,195,141,0.18)"/>
-  <text x="118" y="260" font-size="10" fill="#22C38D" text-anchor="middle">Recommended</text>
-  <text x="56" y="294" font-size="15" font-weight="700" fill="rgba(255,255,255,0.82)">Income Protection</text>
-  <text x="56" y="314" font-size="11" fill="rgba(255,255,255,0.35)">Replace up to 70% of income</text>
-  <text x="56" y="334" font-size="11" fill="rgba(255,255,255,0.28)">From &#163;18/month &#xB7; 9 providers</text>
-  <rect x="56" y="348" width="180" height="5" rx="2.5" fill="rgba(255,255,255,0.06)"/>
-  <text x="286" y="384" font-size="11" fill="#22C38D" text-anchor="end">Explore &#x2192;</text>
-  <rect x="326" y="214" width="270" height="184" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.14)" stroke-width="1"/>
-  <circle cx="350" cy="252" r="18" fill="rgba(34,195,141,0.1)"/>
-  <text x="372" y="294" font-size="15" font-weight="700" fill="rgba(255,255,255,0.7)">Health Insurance</text>
-  <text x="372" y="314" font-size="11" fill="rgba(255,255,255,0.3)">Private healthcare access</text>
-  <text x="372" y="334" font-size="11" fill="rgba(255,255,255,0.22)">From &#163;35/month &#xB7; 12 providers</text>
-  <text x="572" y="384" font-size="11" fill="#22C38D" opacity="0.7" text-anchor="end">Explore &#x2192;</text>
-  <rect x="612" y="214" width="270" height="184" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.1)" stroke-width="1"/>
-  <text x="658" y="294" font-size="15" font-weight="700" fill="rgba(255,255,255,0.6)">Life Cover</text>
-  <text x="658" y="314" font-size="11" fill="rgba(255,255,255,0.26)">Family financial security</text>
-  <text x="658" y="334" font-size="11" fill="rgba(255,255,255,0.2)">From &#163;12/month &#xB7; 8 providers</text>
-  <text x="858" y="384" font-size="11" fill="#22C38D" opacity="0.55" text-anchor="end">Explore &#x2192;</text>
-  <rect x="898" y="214" width="262" height="184" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.07)" stroke-width="1"/>
-  <text x="940" y="294" font-size="15" font-weight="700" fill="rgba(255,255,255,0.5)">Critical Illness</text>
-  <text x="940" y="314" font-size="11" fill="rgba(255,255,255,0.22)">Lump sum on diagnosis</text>
-  <text x="940" y="334" font-size="11" fill="rgba(255,255,255,0.16)">From &#163;20/month &#xB7; 6 providers</text>
+  <!-- Auto card (highlighted) -->
+  <rect x="80" y="172" width="460" height="200" rx="12" fill="#111C14" stroke="#00C46A" stroke-width="1.5"/>
+  <rect x="80" y="172" width="460" height="5" rx="3" fill="#00C46A"/>
+  <text x="120" y="232" font-size="36">🚗</text>
+  <text x="176" y="224" font-size="20" font-weight="700" fill="white">Auto Insurance</text>
+  <text x="176" y="246" font-size="13" fill="rgba(255,255,255,0.45)">Compare car insurance quotes</text>
+  <text x="176" y="264" font-size="13" fill="rgba(255,255,255,0.45)">from top-rated carriers</text>
+  <text x="120" y="336" font-size="12" fill="rgba(255,255,255,0.28)">Most popular · Avg. savings $540/yr</text>
+  <rect x="366" y="318" width="140" height="34" rx="6" fill="#00C46A"/>
+  <text x="436" y="340" font-size="12" font-weight="700" fill="#040A06" text-anchor="middle">Get Quotes →</text>
+  <!-- Home card -->
+  <rect x="560" y="172" width="460" height="200" rx="12" fill="#161616" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="600" y="232" font-size="36">🏠</text>
+  <text x="656" y="224" font-size="20" font-weight="700" fill="white">Home Insurance</text>
+  <text x="656" y="246" font-size="13" fill="rgba(255,255,255,0.45)">Protect your home and</text>
+  <text x="656" y="264" font-size="13" fill="rgba(255,255,255,0.45)">belongings from damage</text>
+  <text x="600" y="336" font-size="12" fill="rgba(255,255,255,0.28)">Avg. savings $680/yr</text>
+  <rect x="846" y="318" width="140" height="34" rx="6" fill="rgba(0,196,106,0.12)" stroke="rgba(0,196,106,0.3)" stroke-width="1"/>
+  <text x="916" y="340" font-size="12" font-weight="600" fill="#00C46A" text-anchor="middle">Get Quotes →</text>
+  <!-- Life card -->
+  <rect x="1040" y="172" width="460" height="200" rx="12" fill="#161616" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="1080" y="232" font-size="36">❤️</text>
+  <text x="1136" y="224" font-size="20" font-weight="700" fill="white">Life Insurance</text>
+  <text x="1136" y="246" font-size="13" fill="rgba(255,255,255,0.45)">Term and whole life policies</text>
+  <text x="1136" y="264" font-size="13" fill="rgba(255,255,255,0.45)">to protect your loved ones</text>
+  <text x="1080" y="336" font-size="12" fill="rgba(255,255,255,0.28)">From $15/month</text>
+  <rect x="1326" y="318" width="140" height="34" rx="6" fill="rgba(0,196,106,0.12)" stroke="rgba(0,196,106,0.3)" stroke-width="1"/>
+  <text x="1396" y="340" font-size="12" font-weight="600" fill="#00C46A" text-anchor="middle">Get Quotes →</text>
   <!-- Row 2 -->
-  <rect x="40" y="412" width="270" height="160" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.07)" stroke-width="1"/>
-  <text x="56" y="456" font-size="15" font-weight="700" fill="rgba(255,255,255,0.45)">Dental &#38; Optical</text>
-  <text x="56" y="476" font-size="11" fill="rgba(255,255,255,0.2)">Routine &#38; emergency dental</text>
-  <text x="56" y="496" font-size="11" fill="rgba(255,255,255,0.15)">From &#163;8/month &#xB7; 7 providers</text>
-  <rect x="326" y="412" width="270" height="160" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.06)" stroke-width="1"/>
-  <text x="342" y="456" font-size="15" font-weight="700" fill="rgba(255,255,255,0.42)">Professional Liability</text>
-  <text x="342" y="476" font-size="11" fill="rgba(255,255,255,0.18)">Client dispute protection</text>
-  <rect x="612" y="412" width="270" height="160" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.05)" stroke-width="1"/>
-  <text x="628" y="456" font-size="15" font-weight="700" fill="rgba(255,255,255,0.36)">Travel Insurance</text>
-  <text x="628" y="476" font-size="11" fill="rgba(255,255,255,0.15)">For frequent travellers</text>
-  <rect x="898" y="412" width="262" height="160" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.04)" stroke-width="1"/>
-  <text x="914" y="456" font-size="15" font-weight="700" fill="rgba(255,255,255,0.3)">Equipment Cover</text>
-  <text x="914" y="476" font-size="11" fill="rgba(255,255,255,0.13)">Kit &#38; tools protection</text>
-  <!-- Side panel: your coverage -->
-  <rect x="40" y="588" width="1120" height="72" rx="10" fill="rgba(34,195,141,0.06)" stroke="rgba(34,195,141,0.18)" stroke-width="1"/>
-  <text x="62" y="614" font-size="13" font-weight="600" fill="rgba(255,255,255,0.7)">Your Coverage Profile</text>
-  <text x="62" y="634" font-size="11" fill="rgba(255,255,255,0.32)">2 gaps identified based on your profile &#xB7; Income protection and dental not yet covered</text>
-  <rect x="984" y="604" width="152" height="36" rx="8" fill="#22C38D" opacity="0.8"/>
-  <text x="1060" y="626" font-size="12" font-weight="600" fill="white" text-anchor="middle">View my plan</text>
-  <!-- Bottom summary stats -->
-  <rect x="40" y="676" width="260" height="72" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="62" y="700" font-size="10" fill="rgba(255,255,255,0.25)">PROVIDERS</text>
-  <text x="62" y="726" font-size="22" font-weight="700" fill="rgba(255,255,255,0.7)">32</text>
-  <text x="92" y="726" font-size="13" fill="rgba(255,255,255,0.28)">available</text>
-  <rect x="320" y="676" width="260" height="72" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="342" y="700" font-size="10" fill="rgba(255,255,255,0.25)">YOUR GAPS</text>
-  <text x="342" y="726" font-size="22" font-weight="700" fill="rgba(255,150,50,0.8)">2</text>
-  <text x="372" y="726" font-size="13" fill="rgba(255,255,255,0.28)">to address</text>
-  <rect x="600" y="676" width="260" height="72" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="622" y="700" font-size="10" fill="rgba(255,255,255,0.25)">ELIGIBILITY</text>
-  <text x="622" y="726" font-size="22" font-weight="700" fill="#22C38D">72%</text>
-  <text x="666" y="726" font-size="13" fill="rgba(255,255,255,0.28)">score</text>
-  <rect x="880" y="676" width="280" height="72" rx="10" fill="rgba(34,195,141,0.07)" stroke="rgba(34,195,141,0.2)" stroke-width="1"/>
-  <text x="902" y="700" font-size="10" fill="#22C38D" opacity="0.7">TOP RECOMMENDATION</text>
-  <text x="902" y="726" font-size="15" font-weight="700" fill="rgba(255,255,255,0.7)">Income Protection</text>
+  <!-- Health card -->
+  <rect x="80" y="392" width="460" height="200" rx="12" fill="#161616" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="120" y="452" font-size="36">🏥</text>
+  <text x="176" y="444" font-size="20" font-weight="700" fill="white">Health Insurance</text>
+  <text x="176" y="466" font-size="13" fill="rgba(255,255,255,0.45)">Individual and family</text>
+  <text x="176" y="484" font-size="13" fill="rgba(255,255,255,0.45)">health coverage options</text>
+  <text x="120" y="556" font-size="12" fill="rgba(255,255,255,0.28)">ACA marketplace plans available</text>
+  <rect x="366" y="538" width="140" height="34" rx="6" fill="rgba(0,196,106,0.12)" stroke="rgba(0,196,106,0.3)" stroke-width="1"/>
+  <text x="436" y="560" font-size="12" font-weight="600" fill="#00C46A" text-anchor="middle">Get Quotes →</text>
+  <!-- Business card -->
+  <rect x="560" y="392" width="460" height="200" rx="12" fill="#161616" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="600" y="452" font-size="36">💼</text>
+  <text x="656" y="444" font-size="20" font-weight="700" fill="white">Business Insurance</text>
+  <text x="656" y="466" font-size="13" fill="rgba(255,255,255,0.45)">General liability, BOP,</text>
+  <text x="656" y="484" font-size="13" fill="rgba(255,255,255,0.45)">and professional coverage</text>
+  <text x="600" y="556" font-size="12" fill="rgba(255,255,255,0.28)">For sole traders and SMEs</text>
+  <rect x="846" y="538" width="140" height="34" rx="6" fill="rgba(0,196,106,0.12)" stroke="rgba(0,196,106,0.3)" stroke-width="1"/>
+  <text x="916" y="560" font-size="12" font-weight="600" fill="#00C46A" text-anchor="middle">Get Quotes →</text>
+  <!-- Renters card -->
+  <rect x="1040" y="392" width="460" height="200" rx="12" fill="#161616" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="1080" y="452" font-size="36">🏢</text>
+  <text x="1136" y="444" font-size="20" font-weight="700" fill="white">Renters Insurance</text>
+  <text x="1136" y="466" font-size="13" fill="rgba(255,255,255,0.45)">Protect your personal</text>
+  <text x="1136" y="484" font-size="13" fill="rgba(255,255,255,0.45)">belongings as a renter</text>
+  <text x="1080" y="556" font-size="12" fill="rgba(255,255,255,0.28)">From $5/month · Instant coverage</text>
+  <rect x="1326" y="538" width="140" height="34" rx="6" fill="rgba(0,196,106,0.12)" stroke="rgba(0,196,106,0.3)" stroke-width="1"/>
+  <text x="1396" y="560" font-size="12" font-weight="600" fill="#00C46A" text-anchor="middle">Get Quotes →</text>
+  <!-- Finance section separator -->
+  <line x1="80" y1="622" x2="1520" y2="622" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="80" y="656" font-size="14" font-weight="700" fill="rgba(255,255,255,0.5)" letter-spacing="1">FINANCE PRODUCTS</text>
+  <!-- Finance cards row -->
+  <rect x="80" y="676" width="330" height="90" rx="10" fill="#161616" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="110" y="716" font-size="16" font-weight="600" fill="white">Auto Refinance</text>
+  <text x="110" y="738" font-size="13" fill="rgba(255,255,255,0.38)">Lower your monthly payments</text>
+  <rect x="430" y="676" width="330" height="90" rx="10" fill="#161616" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="460" y="716" font-size="16" font-weight="600" fill="white">Mortgage Rates</text>
+  <text x="460" y="738" font-size="13" fill="rgba(255,255,255,0.38)">Compare 30-year and 15-year rates</text>
+  <rect x="780" y="676" width="330" height="90" rx="10" fill="#161616" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="810" y="716" font-size="16" font-weight="600" fill="white">Credit Cards</text>
+  <text x="810" y="738" font-size="13" fill="rgba(255,255,255,0.38)">0% APR and cash back cards</text>
+  <rect x="1130" y="676" width="330" height="90" rx="10" fill="#161616" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="1160" y="716" font-size="16" font-weight="600" fill="white">Personal Loans</text>
+  <text x="1160" y="738" font-size="13" fill="rgba(255,255,255,0.38)">Low APR options from $1k–$100k</text>
+  <!-- Footer stats -->
+  <text x="80" y="816" font-size="13" fill="rgba(255,255,255,0.25)">🔒 Secure &amp; encrypted · ✓ 100% free · ⏱ Under 5 minutes · © 2026 WaterBalanced Technology Inc.</text>
 </svg>

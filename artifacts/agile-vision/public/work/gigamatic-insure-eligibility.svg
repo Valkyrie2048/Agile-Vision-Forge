@@ -1,72 +1,77 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 860" font-family="system-ui,-apple-system,sans-serif">
-  <defs>
-    <radialGradient id="bg" cx="50%" cy="40%" r="50%"><stop offset="0%" stop-color="#22C38D" stop-opacity="0.11"/><stop offset="100%" stop-color="#22C38D" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect width="500" height="860" fill="#060f0c"/>
-  <rect width="500" height="860" fill="url(#bg)"/>
-  <rect x="20" y="20" width="460" height="820" rx="44" fill="#0e1c18" stroke="rgba(255,255,255,0.09)" stroke-width="2"/>
-  <rect x="26" y="26" width="448" height="808" rx="40" fill="#060f0c"/>
-  <rect x="172" y="28" width="156" height="30" rx="15" fill="#0e1c18"/>
-  <text x="50" y="48" font-size="11" fill="rgba(255,255,255,0.5)">9:41</text>
-  <text x="450" y="48" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="end">&#x25A6; 100%</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="system-ui,-apple-system,sans-serif">
+  <!-- My Policies dashboard - dark theme -->
+  <rect width="1600" height="900" fill="#0A0A0A"/>
+  <rect width="1600" height="58" fill="rgba(14,14,14,0.97)"/>
+  <rect y="57" width="1600" height="1" fill="rgba(255,255,255,0.06)"/>
+  <text x="36" y="36" font-size="17" font-weight="800" fill="white" letter-spacing="1">GIGAMATIC</text>
+  <text x="196" y="36" font-size="13" fill="rgba(255,255,255,0.38)">Home</text>
+  <text x="254" y="36" font-size="13" fill="rgba(255,255,255,0.38)">Get a Quote</text>
+  <text x="356" y="36" font-size="13" fill="#00C46A">My Policies</text>
+  <text x="458" y="36" font-size="13" fill="rgba(255,255,255,0.38)">Learning Hub</text>
   <!-- Header -->
-  <rect x="26" y="56" width="448" height="70" fill="rgba(6,15,12,0.8)"/>
-  <text x="250" y="84" font-size="14" font-weight="800" fill="#22C38D" font-style="italic" text-anchor="middle">GIGAMATIC Insure</text>
-  <text x="250" y="104" font-size="11" fill="rgba(255,255,255,0.3)" text-anchor="middle">Eligibility check</text>
-  <rect x="26" y="126" width="448" height="1" fill="rgba(255,255,255,0.05)"/>
-  <!-- Eligibility score circle -->
-  <circle cx="250" cy="212" r="62" fill="none" stroke="rgba(34,195,141,0.1)" stroke-width="8"/>
-  <path d="M250,150 A62,62 0 0,1 306,243" fill="none" stroke="#22C38D" stroke-width="8" stroke-linecap="round" opacity="0.85"/>
-  <text x="250" y="204" font-size="30" font-weight="700" fill="#22C38D" text-anchor="middle">72</text>
-  <text x="250" y="222" font-size="12" fill="rgba(255,255,255,0.35)" text-anchor="middle">Eligibility score</text>
-  <!-- Status badge -->
-  <rect x="170" y="290" width="160" height="30" rx="8" fill="rgba(34,195,141,0.15)" stroke="rgba(34,195,141,0.35)" stroke-width="1"/>
-  <text x="250" y="309" font-size="13" font-weight="600" fill="#22C38D" text-anchor="middle">Eligible for 8 products</text>
-  <!-- Factors section -->
-  <text x="60" y="346" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1.5">ELIGIBILITY FACTORS</text>
-  <!-- Positive factors -->
-  <rect x="44" y="360" width="412" height="54" rx="8" fill="rgba(34,195,141,0.06)" stroke="rgba(34,195,141,0.14)" stroke-width="1"/>
-  <circle cx="66" cy="387" r="12" fill="rgba(34,195,141,0.2)"/>
-  <text x="66" y="392" font-size="11" fill="#22C38D" text-anchor="middle">&#x2713;</text>
-  <text x="88" y="382" font-size="12" font-weight="600" fill="rgba(255,255,255,0.72)">Income documentation</text>
-  <text x="88" y="398" font-size="11" fill="rgba(255,255,255,0.32)">3 months of statements available</text>
-  <text x="432" y="392" font-size="12" fill="#22C38D" text-anchor="end">Pass</text>
-  <rect x="44" y="424" width="412" height="54" rx="8" fill="rgba(34,195,141,0.04)" stroke="rgba(34,195,141,0.1)" stroke-width="1"/>
-  <circle cx="66" cy="451" r="12" fill="rgba(34,195,141,0.15)"/>
-  <text x="66" y="456" font-size="11" fill="#22C38D" text-anchor="middle">&#x2713;</text>
-  <text x="88" y="446" font-size="12" font-weight="600" fill="rgba(255,255,255,0.65)">Work history</text>
-  <text x="88" y="462" font-size="11" fill="rgba(255,255,255,0.28)">8 years self-employment</text>
-  <text x="432" y="456" font-size="12" fill="#22C38D" text-anchor="end">Pass</text>
-  <rect x="44" y="488" width="412" height="54" rx="8" fill="rgba(34,195,141,0.04)" stroke="rgba(34,195,141,0.1)" stroke-width="1"/>
-  <circle cx="66" cy="515" r="12" fill="rgba(34,195,141,0.15)"/>
-  <text x="66" y="520" font-size="11" fill="#22C38D" text-anchor="middle">&#x2713;</text>
-  <text x="88" y="510" font-size="12" font-weight="600" fill="rgba(255,255,255,0.62)">Age eligibility</text>
-  <text x="88" y="526" font-size="11" fill="rgba(255,255,255,0.25)">Within 18&#x2013;64 range</text>
-  <text x="432" y="520" font-size="12" fill="#22C38D" text-anchor="end">Pass</text>
-  <!-- Mixed factor -->
-  <rect x="44" y="552" width="412" height="54" rx="8" fill="rgba(255,200,50,0.04)" stroke="rgba(255,200,50,0.18)" stroke-width="1"/>
-  <circle cx="66" cy="579" r="12" fill="rgba(255,200,50,0.18)"/>
-  <text x="66" y="584" font-size="13" fill="rgba(255,200,50,0.8)" text-anchor="middle">!</text>
-  <text x="88" y="574" font-size="12" font-weight="600" fill="rgba(255,255,255,0.58)">Income variability</text>
-  <text x="88" y="590" font-size="11" fill="rgba(255,255,255,0.25)">High variance &#x2014; may affect premium</text>
-  <text x="432" y="584" font-size="12" fill="rgba(255,200,50,0.65)" text-anchor="end">Note</text>
-  <!-- Failing factor -->
-  <rect x="44" y="616" width="412" height="54" rx="8" fill="rgba(255,80,80,0.04)" stroke="rgba(255,80,80,0.14)" stroke-width="1"/>
-  <circle cx="66" cy="643" r="12" fill="rgba(255,80,80,0.15)"/>
-  <text x="66" y="648" font-size="13" fill="rgba(255,100,100,0.75)" text-anchor="middle">&#x2715;</text>
-  <text x="88" y="638" font-size="12" font-weight="600" fill="rgba(255,255,255,0.5)">Previous income protection</text>
-  <text x="88" y="654" font-size="11" fill="rgba(255,255,255,0.22)">No existing cover &#x2014; excluded products apply</text>
-  <text x="432" y="648" font-size="12" fill="rgba(255,100,100,0.6)" text-anchor="end">Limit</text>
-  <!-- CTA -->
-  <rect x="44" y="688" width="412" height="52" rx="10" fill="#22C38D" opacity="0.85"/>
-  <text x="250" y="718" font-size="14" font-weight="700" fill="white" text-anchor="middle">View matched products</text>
-  <!-- Bottom nav -->
-  <rect x="26" y="756" width="448" height="76" rx="0" fill="#0a1a14"/>
-  <rect x="26" y="756" width="448" height="1" fill="rgba(255,255,255,0.06)"/>
-  <circle cx="120" cy="794" r="4" fill="rgba(255,255,255,0.2)"/>
-  <circle cx="250" cy="794" r="4" fill="#22C38D"/>
-  <circle cx="380" cy="794" r="4" fill="rgba(255,255,255,0.2)"/>
-  <text x="120" y="810" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">Coverage</text>
-  <text x="250" y="810" font-size="9" fill="#22C38D" text-anchor="middle">My Plan</text>
-  <text x="380" y="810" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">Providers</text>
+  <text x="80" y="116" font-size="32" font-weight="800" fill="white">My Policies</text>
+  <text x="80" y="144" font-size="14" fill="rgba(255,255,255,0.4)">Your active coverage at a glance</text>
+  <!-- Summary stats -->
+  <rect x="80" y="164" width="340" height="90" rx="10" fill="#111111" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="110" y="196" font-size="11" fill="rgba(255,255,255,0.3)" letter-spacing="1.5">ACTIVE POLICIES</text>
+  <text x="110" y="234" font-size="40" font-weight="800" fill="white">3</text>
+  <rect x="440" y="164" width="340" height="90" rx="10" fill="#111111" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="470" y="196" font-size="11" fill="rgba(255,255,255,0.3)" letter-spacing="1.5">MONTHLY TOTAL</text>
+  <text x="470" y="234" font-size="40" font-weight="800" fill="white">$287</text>
+  <rect x="800" y="164" width="340" height="90" rx="10" fill="#111C14" stroke="rgba(0,196,106,0.2)" stroke-width="1"/>
+  <text x="830" y="196" font-size="11" fill="rgba(0,196,106,0.6)" letter-spacing="1.5">TOTAL SAVINGS</text>
+  <text x="830" y="234" font-size="40" font-weight="800" fill="#00C46A">$720</text>
+  <text x="870" y="248" font-size="12" fill="rgba(255,255,255,0.3)">/year vs. old plan</text>
+  <!-- Policy cards -->
+  <!-- Auto policy -->
+  <rect x="80" y="278" width="1480" height="130" rx="10" fill="#111111" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="80" y="278" width="4" height="130" fill="#00C46A" rx="2"/>
+  <text x="116" y="310" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1.5">AUTO INSURANCE</text>
+  <text x="116" y="342" font-size="20" font-weight="700" fill="white">GEICO Auto — Full Coverage</text>
+  <text x="116" y="366" font-size="13" fill="rgba(255,255,255,0.45)">Policy #GEI-2026-4471289 · 2026 Honda Accord · California</text>
+  <!-- Renewal date -->
+  <rect x="116" y="384" width="180" height="22" rx="11" fill="rgba(255,255,255,0.06)"/>
+  <text x="136" y="399" font-size="11" fill="rgba(255,255,255,0.4)">Renews: Jan 12, 2027</text>
+  <text x="850" y="332" font-size="28" font-weight="800" fill="white">$94</text>
+  <text x="850" y="352" font-size="12" fill="rgba(255,255,255,0.35)">/month</text>
+  <text x="1050" y="332" font-size="14" fill="#00C46A" font-weight="600">✓ Active</text>
+  <rect x="1350" y="298" width="180" height="36" rx="6" fill="rgba(0,196,106,0.1)" stroke="rgba(0,196,106,0.3)" stroke-width="1"/>
+  <text x="1440" y="320" font-size="12" font-weight="600" fill="#00C46A" text-anchor="middle">View Details →</text>
+  <rect x="1350" y="344" width="180" height="36" rx="6" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="1440" y="366" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Compare Rates →</text>
+  <!-- Home policy -->
+  <rect x="80" y="424" width="1480" height="130" rx="10" fill="#111111" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="80" y="424" width="4" height="130" fill="#00C46A" rx="2"/>
+  <text x="116" y="456" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1.5">HOME INSURANCE</text>
+  <text x="116" y="488" font-size="20" font-weight="700" fill="white">State Farm Homeowners</text>
+  <text x="116" y="512" font-size="13" fill="rgba(255,255,255,0.45)">Policy #STF-2025-8829104 · 1247 Maple Drive, Sacramento CA</text>
+  <rect x="116" y="530" width="180" height="22" rx="11" fill="rgba(255,255,255,0.06)"/>
+  <text x="136" y="545" font-size="11" fill="rgba(255,255,255,0.4)">Renews: Mar 3, 2027</text>
+  <text x="850" y="478" font-size="28" font-weight="800" fill="white">$134</text>
+  <text x="850" y="498" font-size="12" fill="rgba(255,255,255,0.35)">/month</text>
+  <text x="1050" y="478" font-size="14" fill="#00C46A" font-weight="600">✓ Active</text>
+  <rect x="1350" y="444" width="180" height="36" rx="6" fill="rgba(0,196,106,0.1)" stroke="rgba(0,196,106,0.3)" stroke-width="1"/>
+  <text x="1440" y="466" font-size="12" font-weight="600" fill="#00C46A" text-anchor="middle">View Details →</text>
+  <!-- Life policy -->
+  <rect x="80" y="570" width="1480" height="130" rx="10" fill="#111111" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="80" y="570" width="4" height="130" fill="#00C46A" rx="2"/>
+  <text x="116" y="602" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1.5">LIFE INSURANCE</text>
+  <text x="116" y="634" font-size="20" font-weight="700" fill="white">Banner Life — 20-Year Term</text>
+  <text x="116" y="658" font-size="13" fill="rgba(255,255,255,0.45)">Policy #BNR-2024-2203847 · $500,000 coverage · 20-year term</text>
+  <rect x="116" y="676" width="210" height="22" rx="11" fill="rgba(255,255,255,0.06)"/>
+  <text x="136" y="691" font-size="11" fill="rgba(255,255,255,0.4)">Renews: Oct 17, 2044</text>
+  <text x="850" y="624" font-size="28" font-weight="800" fill="white">$59</text>
+  <text x="850" y="644" font-size="12" fill="rgba(255,255,255,0.35)">/month</text>
+  <text x="1050" y="624" font-size="14" fill="#00C46A" font-weight="600">✓ Active</text>
+  <rect x="1350" y="590" width="180" height="36" rx="6" fill="rgba(0,196,106,0.1)" stroke="rgba(0,196,106,0.3)" stroke-width="1"/>
+  <text x="1440" y="612" font-size="12" font-weight="600" fill="#00C46A" text-anchor="middle">View Details →</text>
+  <!-- Add new policy CTA -->
+  <rect x="80" y="720" width="1480" height="78" rx="10" fill="rgba(0,196,106,0.05)" stroke="rgba(0,196,106,0.15)" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="700" y="760" font-size="15" fill="rgba(255,255,255,0.35)" text-anchor="middle">+ Add another policy — compare 40+ insurers across 6 categories</text>
+  <rect x="1260" y="732" width="180" height="36" rx="6" fill="#00C46A"/>
+  <text x="1350" y="754" font-size="13" font-weight="700" fill="#040A06" text-anchor="middle">Get a Quote →</text>
+  <!-- Ask GIGI -->
+  <rect x="1360" y="826" width="148" height="44" rx="22" fill="#111" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <circle cx="1384" cy="848" r="6" fill="#00C46A"/>
+  <text x="1402" y="853" font-size="13" fill="white">Ask GIGI</text>
 </svg>

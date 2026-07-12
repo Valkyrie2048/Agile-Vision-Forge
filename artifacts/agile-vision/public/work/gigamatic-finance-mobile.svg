@@ -1,94 +1,100 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 860" font-family="system-ui,-apple-system,sans-serif">
-  <defs>
-    <radialGradient id="bg" cx="50%" cy="35%" r="55%"><stop offset="0%" stop-color="#2B8CEE" stop-opacity="0.12"/><stop offset="100%" stop-color="#2B8CEE" stop-opacity="0"/></radialGradient>
-    <linearGradient id="cf" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2B8CEE" stop-opacity="0.28"/><stop offset="100%" stop-color="#2B8CEE" stop-opacity="0.02"/></linearGradient>
-  </defs>
-  <rect width="500" height="860" fill="#060610"/>
-  <rect width="500" height="860" fill="url(#bg)"/>
-  <!-- Phone frame -->
-  <rect x="20" y="20" width="460" height="820" rx="44" fill="#0e0c20" stroke="rgba(255,255,255,0.09)" stroke-width="2"/>
-  <rect x="26" y="26" width="448" height="808" rx="40" fill="#070612"/>
-  <!-- Notch -->
-  <rect x="172" y="28" width="156" height="30" rx="15" fill="#0e0c20"/>
-  <!-- Status bar -->
-  <text x="50" y="48" font-size="11" fill="rgba(255,255,255,0.5)">9:41</text>
-  <text x="450" y="48" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="end">&#x25A6; 100%</text>
-  <!-- Header -->
-  <rect x="26" y="56" width="448" height="80" fill="rgba(7,6,18,0.8)"/>
-  <text x="250" y="88" font-size="14" font-weight="800" fill="#2B8CEE" font-style="italic" text-anchor="middle">GIGAMATIC Finance</text>
-  <text x="250" y="108" font-size="11" fill="rgba(255,255,255,0.32)" text-anchor="middle">Weekly overview</text>
-  <rect x="26" y="136" width="448" height="1" fill="rgba(255,255,255,0.05)"/>
-  <!-- Week selector -->
-  <text x="80" y="164" font-size="13" fill="rgba(255,255,255,0.25)">&#x276E;</text>
-  <text x="250" y="166" font-size="13" font-weight="600" fill="rgba(255,255,255,0.7)" text-anchor="middle">July 7&#x2013;14, 2026</text>
-  <text x="420" y="164" font-size="13" fill="rgba(255,255,255,0.25)">&#x276F;</text>
-  <!-- Big earnings number -->
-  <text x="250" y="220" font-size="44" font-weight="700" fill="rgba(255,255,255,0.9)" text-anchor="middle">&#163;3,240</text>
-  <text x="250" y="244" font-size="12" fill="rgba(255,255,255,0.3)" text-anchor="middle">This week &#xB7; +8% vs last</text>
-  <!-- Mini bar chart (7 day) -->
-  <rect x="60" y="264" width="380" height="90" rx="10" fill="rgba(13,11,28,0.6)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-  <!-- Bars for each day -->
-  <rect x="80" y="330" width="32" height="20" rx="3" fill="#2B8CEE" opacity="0.25"/>
-  <text x="96" y="350" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">Mon</text>
-  <rect x="126" y="318" width="32" height="32" rx="3" fill="#2B8CEE" opacity="0.35"/>
-  <text x="142" y="358" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">Tue</text>
-  <rect x="172" y="298" width="32" height="52" rx="3" fill="#2B8CEE" opacity="0.5"/>
-  <text x="188" y="358" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">Wed</text>
-  <rect x="218" y="310" width="32" height="40" rx="3" fill="#2B8CEE" opacity="0.4"/>
-  <text x="234" y="358" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">Thu</text>
-  <rect x="264" y="282" width="32" height="68" rx="3" fill="#2B8CEE" opacity="0.65"/>
-  <circle cx="280" cy="278" r="4" fill="#2B8CEE"/>
-  <text x="280" y="358" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">Fri</text>
-  <rect x="310" y="336" width="32" height="14" rx="3" fill="#2B8CEE" opacity="0.18"/>
-  <text x="326" y="358" font-size="9" fill="rgba(255,255,255,0.2)" text-anchor="middle">Sat</text>
-  <rect x="356" y="340" width="32" height="10" rx="3" fill="#2B8CEE" opacity="0.12"/>
-  <text x="372" y="358" font-size="9" fill="rgba(255,255,255,0.18)" text-anchor="middle">Sun</text>
-  <!-- Source breakdown -->
-  <text x="60" y="392" font-size="11" fill="rgba(255,255,255,0.3)" letter-spacing="1.5">BREAKDOWN</text>
-  <!-- Freelance row -->
-  <rect x="60" y="404" width="380" height="54" rx="8" fill="rgba(43,140,238,0.08)" stroke="rgba(43,140,238,0.16)" stroke-width="1"/>
-  <circle cx="82" cy="431" r="14" fill="rgba(43,140,238,0.18)"/>
-  <text x="82" y="436" font-size="11" fill="#2B8CEE" text-anchor="middle">F</text>
-  <text x="106" y="426" font-size="12" font-weight="600" fill="rgba(255,255,255,0.75)">Freelance</text>
-  <text x="106" y="442" font-size="11" fill="rgba(255,255,255,0.3)">2 invoices paid</text>
-  <text x="420" y="432" font-size="14" font-weight="700" fill="rgba(255,255,255,0.8)" text-anchor="end">&#163;1,840</text>
-  <!-- Platform row -->
-  <rect x="60" y="468" width="380" height="54" rx="8" fill="rgba(43,140,238,0.05)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <circle cx="82" cy="495" r="14" fill="rgba(43,140,238,0.1)"/>
-  <text x="82" y="500" font-size="11" fill="#2B8CEE" text-anchor="middle" opacity="0.7">P</text>
-  <text x="106" y="490" font-size="12" font-weight="600" fill="rgba(255,255,255,0.62)">Platform</text>
-  <text x="106" y="506" font-size="11" fill="rgba(255,255,255,0.25)">Deliveroo + Uber</text>
-  <text x="420" y="496" font-size="14" font-weight="700" fill="rgba(255,255,255,0.65)" text-anchor="end">&#163;920</text>
-  <!-- Retainer -->
-  <rect x="60" y="532" width="380" height="54" rx="8" fill="rgba(43,140,238,0.03)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-  <circle cx="82" cy="559" r="14" fill="rgba(43,140,238,0.06)"/>
-  <text x="82" y="564" font-size="11" fill="#2B8CEE" text-anchor="middle" opacity="0.45">R</text>
-  <text x="106" y="554" font-size="12" font-weight="600" fill="rgba(255,255,255,0.5)">Retainer</text>
-  <text x="106" y="570" font-size="11" fill="rgba(255,255,255,0.2)">Studio</text>
-  <text x="420" y="560" font-size="14" font-weight="700" fill="rgba(255,255,255,0.52)" text-anchor="end">&#163;480</text>
-  <!-- AI insight -->
-  <rect x="60" y="602" width="380" height="60" rx="10" fill="rgba(43,140,238,0.06)" stroke="rgba(43,140,238,0.18)" stroke-width="1"/>
-  <text x="80" y="624" font-size="10" fill="#2B8CEE" letter-spacing="1.5">AI INSIGHT</text>
-  <text x="80" y="642" font-size="11" fill="rgba(255,255,255,0.52)">Strong week. Friday was your</text>
-  <text x="80" y="656" font-size="11" fill="rgba(255,255,255,0.52)">best income day. Q4 on track.</text>
-  <!-- Readiness quick view -->
-  <rect x="60" y="678" width="180" height="68" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="80" y="700" font-size="10" fill="rgba(255,255,255,0.28)">Readiness</text>
-  <text x="80" y="724" font-size="22" font-weight="700" fill="#2B8CEE">74</text>
-  <text x="106" y="724" font-size="12" fill="rgba(255,255,255,0.22)">/100</text>
-  <rect x="80" y="730" width="140" height="4" rx="2" fill="rgba(255,255,255,0.05)"/>
-  <rect x="80" y="730" width="104" height="4" rx="2" fill="#2B8CEE" opacity="0.5"/>
-  <rect x="260" y="678" width="180" height="68" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <text x="280" y="700" font-size="10" fill="rgba(255,255,255,0.28)">Products</text>
-  <text x="280" y="724" font-size="22" font-weight="700" fill="rgba(255,255,255,0.7)">12</text>
-  <text x="304" y="724" font-size="12" fill="rgba(255,255,255,0.22)">available</text>
-  <!-- Bottom nav -->
-  <rect x="26" y="758" width="448" height="76" rx="0" fill="#0c0a1c"/>
-  <rect x="26" y="758" width="448" height="1" fill="rgba(255,255,255,0.07)"/>
-  <circle cx="120" cy="796" r="4" fill="#2B8CEE"/>
-  <circle cx="250" cy="796" r="4" fill="rgba(255,255,255,0.2)"/>
-  <circle cx="380" cy="796" r="4" fill="rgba(255,255,255,0.2)"/>
-  <text x="120" y="812" font-size="9" fill="#2B8CEE" text-anchor="middle">Home</text>
-  <text x="250" y="812" font-size="9" fill="rgba(255,255,255,0.28)" text-anchor="middle">Income</text>
-  <text x="380" y="812" font-size="9" fill="rgba(255,255,255,0.28)" text-anchor="middle">Products</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="system-ui,-apple-system,sans-serif">
+  <!-- Finance comparison table - browser desktop view -->
+  <rect width="1600" height="900" fill="#F0F7F3"/>
+  <rect width="1600" height="60" fill="white"/>
+  <rect y="59" width="1600" height="1" fill="#D8EADE"/>
+  <text x="36" y="38" font-size="16" font-weight="800" fill="#0F4027">GIGAMATIC</text>
+  <text x="162" y="37" font-size="13" fill="#1A5C35">Product Comparisons</text>
+  <text x="334" y="37" font-size="13" fill="#4A7A62">Financial Guides</text>
+  <text x="456" y="37" font-size="13" fill="#4A7A62">Market News</text>
+  <text x="558" y="37" font-size="13" fill="#4A7A62">Life Stages</text>
+  <rect x="1280" y="17" width="172" height="30" rx="5" fill="#1A5C35"/>
+  <text x="1366" y="36" font-size="12" font-weight="600" fill="white" text-anchor="middle">Find Your Right Product</text>
+  <rect x="1464" y="17" width="100" height="30" rx="5" fill="none" stroke="#1A5C35" stroke-width="1.5"/>
+  <text x="1514" y="36" font-size="12" font-weight="600" fill="#1A5C35" text-anchor="middle">Subscribe</text>
+  <!-- Breadcrumb + page title -->
+  <text x="80" y="110" font-size="12" fill="#7A9A88">Product Comparisons → Savings Accounts</text>
+  <text x="80" y="152" font-size="38" font-weight="800" fill="#0F2D1F" letter-spacing="-1">Best High-Yield Savings Accounts</text>
+  <text x="80" y="178" font-size="15" fill="#4A7A62">Comparing 14 accounts · Rates verified July 12, 2026 · 100% independent</text>
+  <!-- Filter bar -->
+  <rect x="80" y="198" width="1480" height="50" rx="8" fill="white" stroke="#D8EADE" stroke-width="1"/>
+  <text x="108" y="229" font-size="13" fill="#4A7A62">Filter by:</text>
+  <rect x="188" y="210" width="110" height="28" rx="14" fill="#1A5C35" opacity="0.08"/>
+  <text x="243" y="228" font-size="12" fill="#1A5C35" text-anchor="middle" font-weight="600">No minimum</text>
+  <rect x="308" y="210" width="90" height="28" rx="14" fill="rgba(0,0,0,0.04)" stroke="#D0D8D4" stroke-width="1"/>
+  <text x="353" y="228" font-size="12" fill="#555" text-anchor="middle">FDIC insured</text>
+  <rect x="408" y="210" width="80" height="28" rx="14" fill="rgba(0,0,0,0.04)" stroke="#D0D8D4" stroke-width="1"/>
+  <text x="448" y="228" font-size="12" fill="#555" text-anchor="middle">No fees</text>
+  <rect x="498" y="210" width="96" height="28" rx="14" fill="rgba(0,0,0,0.04)" stroke="#D0D8D4" stroke-width="1"/>
+  <text x="546" y="228" font-size="12" fill="#555" text-anchor="middle">Has mobile app</text>
+  <!-- Comparison cards grid -->
+  <!-- Card 1 - Best rate (highlighted) -->
+  <rect x="80" y="268" width="330" height="210" rx="10" fill="white" stroke="#1A5C35" stroke-width="2"/>
+  <rect x="80" y="268" width="330" height="5" rx="2" fill="#1A5C35"/>
+  <rect x="96" y="286" width="90" height="22" rx="11" fill="#1A5C35"/>
+  <text x="141" y="301" font-size="11" font-weight="700" fill="white" text-anchor="middle">✦ BEST RATE</text>
+  <text x="96" y="340" font-size="16" font-weight="700" fill="#0F2D1F">Marcus by Goldman Sachs</text>
+  <text x="96" y="370" font-size="36" font-weight="800" fill="#1A5C35">10.00%</text>
+  <text x="240" y="395" font-size="13" fill="#4A7A62">APY</text>
+  <text x="96" y="410" font-size="13" fill="#4A7A62">Min. deposit: None · No monthly fee</text>
+  <text x="96" y="430" font-size="12" fill="#5A8A70">FDIC insured · Mobile app</text>
+  <rect x="96" y="448" width="298" height="14" rx="7" fill="#E8F5EE"/>
+  <rect x="96" y="448" width="298" height="14" rx="7" fill="#1A5C35" opacity="0.8"/>
+  <!-- Card 2 -->
+  <rect x="430" y="268" width="330" height="210" rx="10" fill="white" stroke="#D8EADE" stroke-width="1"/>
+  <text x="446" y="310" font-size="16" font-weight="700" fill="#0F2D1F">SoFi Bank</text>
+  <text x="446" y="356" font-size="36" font-weight="800" fill="#2A7A52">4.60%</text>
+  <text x="590" y="381" font-size="13" fill="#4A7A62">APY</text>
+  <text x="446" y="396" font-size="13" fill="#4A7A62">Min. deposit: None · No monthly fee</text>
+  <text x="446" y="416" font-size="12" fill="#5A8A70">FDIC insured · Bonus with direct deposit</text>
+  <rect x="446" y="448" width="298" height="14" rx="7" fill="#E8F5EE"/>
+  <rect x="446" y="448" width="230" height="14" rx="7" fill="#2A7A52" opacity="0.7"/>
+  <!-- Card 3 -->
+  <rect x="780" y="268" width="330" height="210" rx="10" fill="white" stroke="#D8EADE" stroke-width="1"/>
+  <text x="796" y="310" font-size="16" font-weight="700" fill="#0F2D1F">Ally Bank</text>
+  <text x="796" y="356" font-size="36" font-weight="800" fill="#2A7A52">4.25%</text>
+  <text x="940" y="381" font-size="13" fill="#4A7A62">APY</text>
+  <text x="796" y="396" font-size="13" fill="#4A7A62">Min. deposit: None · No monthly fee</text>
+  <text x="796" y="416" font-size="12" fill="#5A8A70">FDIC insured · Buckets feature</text>
+  <rect x="796" y="448" width="298" height="14" rx="7" fill="#E8F5EE"/>
+  <rect x="796" y="448" width="210" height="14" rx="7" fill="#2A7A52" opacity="0.6"/>
+  <!-- Card 4 -->
+  <rect x="1130" y="268" width="330" height="210" rx="10" fill="white" stroke="#D8EADE" stroke-width="1"/>
+  <text x="1146" y="310" font-size="16" font-weight="700" fill="#0F2D1F">American Express</text>
+  <text x="1146" y="356" font-size="36" font-weight="800" fill="#2A7A52">4.00%</text>
+  <text x="1290" y="381" font-size="13" fill="#4A7A62">APY</text>
+  <text x="1146" y="396" font-size="13" fill="#4A7A62">Min. deposit: None · No monthly fee</text>
+  <text x="1146" y="416" font-size="12" fill="#5A8A70">FDIC insured · Simple UX</text>
+  <rect x="1146" y="448" width="298" height="14" rx="7" fill="#E8F5EE"/>
+  <rect x="1146" y="448" width="195" height="14" rx="7" fill="#2A7A52" opacity="0.5"/>
+  <!-- Action row -->
+  <rect x="80" y="498" width="330" height="42" rx="7" fill="#1A5C35"/>
+  <text x="245" y="524" font-size="13" font-weight="600" fill="white" text-anchor="middle">Open Account →</text>
+  <rect x="430" y="498" width="330" height="42" rx="7" fill="none" stroke="#1A5C35" stroke-width="1.5"/>
+  <text x="595" y="524" font-size="13" font-weight="600" fill="#1A5C35" text-anchor="middle">Open Account →</text>
+  <rect x="780" y="498" width="330" height="42" rx="7" fill="none" stroke="#1A5C35" stroke-width="1.5"/>
+  <text x="945" y="524" font-size="13" font-weight="600" fill="#1A5C35" text-anchor="middle">Open Account →</text>
+  <rect x="1130" y="498" width="330" height="42" rx="7" fill="none" stroke="#1A5C35" stroke-width="1.5"/>
+  <text x="1295" y="524" font-size="13" font-weight="600" fill="#1A5C35" text-anchor="middle">Open Account →</text>
+  <!-- Compare all banner -->
+  <rect x="80" y="564" width="1480" height="54" rx="8" fill="#EAF5EE" stroke="#C4D8CC" stroke-width="1"/>
+  <text x="110" y="596" font-size="14" fill="#2A6B47">Showing top 4 of 14 savings accounts · See all in our full comparison</text>
+  <rect x="1390" y="576" width="140" height="30" rx="6" fill="#1A5C35"/>
+  <text x="1460" y="596" font-size="12" font-weight="600" fill="white" text-anchor="middle">View All 14 →</text>
+  <!-- Methodology -->
+  <rect x="80" y="640" width="1480" height="54" rx="8" fill="white" stroke="#D8EADE" stroke-width="1"/>
+  <text x="110" y="671" font-size="13" fill="#4A7A62">ⓘ Our methodology: APYs sourced weekly from official provider sites. No providers pay for placement or ranking. We earn no referral commission.</text>
+  <!-- Guide cross-link -->
+  <rect x="80" y="720" width="710" height="130" rx="10" fill="white" stroke="#D8EADE" stroke-width="1"/>
+  <rect x="80" y="720" width="710" height="5" rx="2" fill="#1A5C35" opacity="0.5"/>
+  <text x="104" y="754" font-size="11" fill="#1A5C35" letter-spacing="1" font-weight="600">RELATED GUIDE</text>
+  <text x="104" y="782" font-size="18" font-weight="700" fill="#0F2D1F">How to Choose a High-Yield Savings Account</text>
+  <text x="104" y="804" font-size="13" fill="#4A7A62">What to look for beyond APY: FDIC coverage, access methods, and fee structures explained.</text>
+  <text x="104" y="828" font-size="12" fill="#1A5C35" font-weight="600">Read the guide →</text>
+  <rect x="806" y="720" width="754" height="130" rx="10" fill="white" stroke="#D8EADE" stroke-width="1"/>
+  <rect x="806" y="720" width="754" height="5" rx="2" fill="#1A5C35" opacity="0.3"/>
+  <text x="830" y="754" font-size="11" fill="#1A5C35" letter-spacing="1" font-weight="600">MARKET NEWS</text>
+  <text x="830" y="782" font-size="18" font-weight="700" fill="#0F2D1F">Fed Holds Rates — What It Means for Savers</text>
+  <text x="830" y="804" font-size="13" fill="#4A7A62">With rates holding, high-yield savings accounts remain the best short-term option for idle cash.</text>
+  <text x="830" y="828" font-size="12" fill="#1A5C35" font-weight="600">Read more →</text>
 </svg>

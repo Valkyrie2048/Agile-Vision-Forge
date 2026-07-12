@@ -1,78 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" font-family="system-ui,-apple-system,sans-serif">
-  <defs>
-    <radialGradient id="bg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#2B8CEE" stop-opacity="0.1"/><stop offset="100%" stop-color="#2B8CEE" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect width="1200" height="650" fill="#070612"/>
-  <rect width="1200" height="650" fill="url(#bg)"/>
-  <!-- Header -->
-  <text x="60" y="52" font-size="22" font-weight="700" fill="rgba(255,255,255,0.85)">Financial Products</text>
-  <text x="60" y="74" font-size="12" fill="rgba(255,255,255,0.3)">12 products matched to your profile &#xB7; Readiness: 74/100</text>
-  <!-- Filter chips -->
-  <rect x="60" y="90" width="40" height="26" rx="5" fill="#2B8CEE" opacity="0.8"/>
-  <text x="80" y="107" font-size="11" fill="white" text-anchor="middle">All</text>
-  <rect x="108" y="90" width="80" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="148" y="107" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">Mortgages</text>
-  <rect x="196" y="90" width="70" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="231" y="107" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">Banking</text>
-  <rect x="274" y="90" width="76" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="312" y="107" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">Investment</text>
-  <rect x="358" y="90" width="54" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="385" y="107" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">Credit</text>
-  <!-- Sort -->
-  <text x="1120" y="107" font-size="11" fill="rgba(255,255,255,0.28)" text-anchor="end">Sort: Best match</text>
-  <!-- Product cards grid (3 columns x 2 rows) -->
-  <!-- Card 1 (featured / best match) -->
-  <rect x="60" y="132" width="348" height="192" rx="12" fill="#0d0b1e" stroke="rgba(43,140,238,0.3)" stroke-width="1.5"/>
-  <rect x="60" y="132" width="348" height="3" rx="1.5" fill="#2B8CEE" opacity="0.6"/>
-  <rect x="76" y="148" width="76" height="22" rx="5" fill="rgba(43,140,238,0.2)"/>
-  <text x="114" y="163" font-size="11" fill="#2B8CEE" text-anchor="middle" font-weight="600">92% match</text>
-  <text x="268" y="163" font-size="10" fill="rgba(43,140,238,0.65)">Best for your profile</text>
-  <text x="76" y="196" font-size="16" font-weight="700" fill="rgba(255,255,255,0.85)">Self-Employed</text>
-  <text x="76" y="216" font-size="16" font-weight="700" fill="rgba(255,255,255,0.85)">Mortgage</text>
-  <text x="76" y="238" font-size="11" fill="rgba(255,255,255,0.35)">Nationwide &#xB7; 5yr fixed &#xB7; 4.2% APR</text>
-  <rect x="76" y="252" width="268" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-  <rect x="76" y="266" width="230" height="5" rx="2.5" fill="rgba(255,255,255,0.04)"/>
-  <text x="76" y="298" font-size="11" fill="#2B8CEE" opacity="0.75">View eligibility &#x2192;</text>
-  <rect x="300" y="280" width="88" height="32" rx="7" fill="#2B8CEE" opacity="0.8"/>
-  <text x="344" y="300" font-size="12" fill="white" text-anchor="middle" font-weight="600">Apply</text>
-  <!-- Card 2 -->
-  <rect x="426" y="132" width="348" height="192" rx="12" fill="#0d0b1e" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <rect x="442" y="148" width="64" height="22" rx="5" fill="rgba(43,140,238,0.12)"/>
-  <text x="474" y="163" font-size="11" fill="#2B8CEE" text-anchor="middle">84% match</text>
-  <text x="442" y="196" font-size="16" font-weight="700" fill="rgba(255,255,255,0.72)">Business Current</text>
-  <text x="442" y="216" font-size="16" font-weight="700" fill="rgba(255,255,255,0.72)">Account</text>
-  <text x="442" y="238" font-size="11" fill="rgba(255,255,255,0.3)">Starling &#xB7; No monthly fee &#xB7; Instant</text>
-  <rect x="442" y="252" width="268" height="6" rx="3" fill="rgba(255,255,255,0.05)"/>
-  <text x="442" y="290" font-size="11" fill="#2B8CEE" opacity="0.6">View details &#x2192;</text>
-  <!-- Card 3 -->
-  <rect x="792" y="132" width="348" height="192" rx="12" fill="#0d0b1e" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <rect x="808" y="148" width="60" height="22" rx="5" fill="rgba(43,140,238,0.1)"/>
-  <text x="838" y="163" font-size="11" fill="#2B8CEE" text-anchor="middle" opacity="0.8">78% match</text>
-  <text x="808" y="196" font-size="16" font-weight="700" fill="rgba(255,255,255,0.62)">Freelancer ISA</text>
-  <text x="808" y="216" font-size="14" fill="rgba(255,255,255,0.45)">Tax-efficient savings</text>
-  <text x="808" y="238" font-size="11" fill="rgba(255,255,255,0.25)">Monzo &#xB7; Up to &#163;20k/yr &#xB7; 4.8% AER</text>
-  <rect x="808" y="252" width="268" height="6" rx="3" fill="rgba(255,255,255,0.04)"/>
-  <text x="808" y="290" font-size="11" fill="#2B8CEE" opacity="0.5">View details &#x2192;</text>
-  <!-- Row 2 -->
-  <rect x="60" y="340" width="348" height="180" rx="12" fill="#0d0b1e" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <rect x="76" y="356" width="56" height="22" rx="5" fill="rgba(43,140,238,0.08)"/>
-  <text x="104" y="371" font-size="11" fill="#2B8CEE" text-anchor="middle" opacity="0.7">74% match</text>
-  <text x="76" y="400" font-size="15" font-weight="700" fill="rgba(255,255,255,0.58)">Buy-to-Let Mortgage</text>
-  <text x="76" y="420" font-size="11" fill="rgba(255,255,255,0.24)">Barclays &#xB7; Variable &#xB7; 3.8% APR</text>
-  <rect x="76" y="438" width="268" height="6" rx="3" fill="rgba(255,255,255,0.04)"/>
-  <text x="76" y="498" font-size="11" fill="#2B8CEE" opacity="0.45">View details &#x2192;</text>
-  <rect x="426" y="340" width="348" height="180" rx="12" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  <rect x="442" y="356" width="56" height="22" rx="5" fill="rgba(43,140,238,0.06)"/>
-  <text x="470" y="371" font-size="11" fill="#2B8CEE" text-anchor="middle" opacity="0.6">68% match</text>
-  <text x="442" y="400" font-size="15" font-weight="700" fill="rgba(255,255,255,0.5)">Business Credit Card</text>
-  <text x="442" y="420" font-size="11" fill="rgba(255,255,255,0.2)">Amex &#xB7; 0% for 12mo &#xB7; Cashback</text>
-  <rect x="792" y="340" width="348" height="180" rx="12" fill="#0d0b1e" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-  <rect x="808" y="356" width="50" height="22" rx="5" fill="rgba(43,140,238,0.05)"/>
-  <text x="833" y="371" font-size="11" fill="#2B8CEE" text-anchor="middle" opacity="0.5">61% match</text>
-  <text x="808" y="400" font-size="15" font-weight="700" fill="rgba(255,255,255,0.42)">Pension Top-up</text>
-  <text x="808" y="420" font-size="11" fill="rgba(255,255,255,0.18)">SIPP &#xB7; Self-invested &#xB7; Tax relief</text>
-  <!-- Bottom -->
-  <rect x="60" y="540" width="1080" height="48" rx="10" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-  <text x="80" y="568" font-size="12" fill="rgba(255,255,255,0.3)">Showing 6 of 12 products. Sorted by match score &#xB7; Based on your income profile, readiness score, and platform data.</text>
-  <text x="1116" y="568" font-size="11" fill="#2B8CEE" text-anchor="end">Load more &#x2192;</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="Georgia,'Times New Roman',serif">
+  <!-- Expert guide article layout -->
+  <rect width="1600" height="900" fill="#FAFAFA"/>
+  <rect width="1600" height="58" fill="white" font-family="system-ui,sans-serif"/>
+  <rect y="57" width="1600" height="1" fill="#D8EADE"/>
+  <text x="36" y="36" font-size="16" font-weight="800" fill="#0F4027" font-family="system-ui,sans-serif">GIGAMATIC</text>
+  <text x="162" y="36" font-size="13" fill="#4A7A62" font-family="system-ui,sans-serif">Product Comparisons</text>
+  <text x="284" y="36" font-size="13" fill="#1A5C35" font-family="system-ui,sans-serif">Financial Guides</text>
+  <text x="400" y="36" font-size="13" fill="#4A7A62" font-family="system-ui,sans-serif">Market News</text>
+  <text x="498" y="36" font-size="13" fill="#4A7A62" font-family="system-ui,sans-serif">Life Stages</text>
+  <!-- Article layout: left sidebar + main + right rail -->
+  <!-- Breadcrumb -->
+  <text x="80" y="106" font-size="12" fill="#7A9A88" font-family="system-ui,sans-serif">Financial Guides → Savings Accounts</text>
+  <!-- Article category badge -->
+  <rect x="80" y="120" width="136" height="26" rx="13" fill="#E8F5EE" font-family="system-ui,sans-serif"/>
+  <text x="148" y="137" font-size="11" font-weight="700" fill="#1A5C35" text-anchor="middle" font-family="system-ui,sans-serif">EXPERT GUIDE</text>
+  <!-- Article title -->
+  <text x="80" y="200" font-size="42" font-weight="700" fill="#0F1F14" letter-spacing="-1">How to Choose a High-Yield</text>
+  <text x="80" y="250" font-size="42" font-weight="700" fill="#0F1F14" letter-spacing="-1">Savings Account in 2026</text>
+  <!-- Subhead -->
+  <text x="80" y="296" font-size="17" fill="#4A7A62" font-family="system-ui,sans-serif">What to look for beyond APY — FDIC coverage, access methods, fee structures,</text>
+  <text x="80" y="316" font-size="17" fill="#4A7A62" font-family="system-ui,sans-serif">and when a high-yield account is actually the wrong product for your money.</text>
+  <!-- Byline row -->
+  <line x1="80" y1="334" x2="1000" y2="334" stroke="#E0EAE4" stroke-width="1"/>
+  <text x="80" y="358" font-size="12" fill="#888" font-family="system-ui,sans-serif">By GIGAMATIC Editorial · Updated July 2026 · 8 min read · 100% independent, no sponsored content</text>
+  <line x1="80" y1="372" x2="1000" y2="372" stroke="#E0EAE4" stroke-width="1"/>
+  <!-- Article body text (left column, main) -->
+  <rect x="80" y="392" width="680" height="7" rx="3" fill="#2A2A2A" opacity="0.72"/>
+  <rect x="80" y="408" width="640" height="7" rx="3" fill="#2A2A2A" opacity="0.65"/>
+  <rect x="80" y="424" width="660" height="7" rx="3" fill="#2A2A2A" opacity="0.68"/>
+  <rect x="80" y="440" width="620" height="7" rx="3" fill="#2A2A2A" opacity="0.62"/>
+  <rect x="80" y="464" width="680" height="7" rx="3" fill="#2A2A2A" opacity="0.72"/>
+  <rect x="80" y="480" width="580" height="7" rx="3" fill="#2A2A2A" opacity="0.65"/>
+  <!-- Subheading -->
+  <text x="80" y="532" font-size="22" font-weight="700" fill="#0F1F14">1. The APY Isn't Everything</text>
+  <rect x="80" y="554" width="680" height="7" rx="3" fill="#2A2A2A" opacity="0.65"/>
+  <rect x="80" y="570" width="650" height="7" rx="3" fill="#2A2A2A" opacity="0.6"/>
+  <rect x="80" y="586" width="670" height="7" rx="3" fill="#2A2A2A" opacity="0.62"/>
+  <rect x="80" y="602" width="590" height="7" rx="3" fill="#2A2A2A" opacity="0.58"/>
+  <!-- Pull quote / callout -->
+  <rect x="80" y="634" width="680" height="80" rx="8" fill="#EAF5EE" stroke="#B8DCC4" stroke-width="1"/>
+  <rect x="80" y="634" width="4" height="80" fill="#1A5C35" rx="2"/>
+  <text x="110" y="670" font-size="18" font-weight="700" fill="#0F2D1F">10.00% APY is meaningless if the account</text>
+  <text x="110" y="694" font-size="18" font-weight="700" fill="#0F2D1F">has a $10,000 minimum you don't meet.</text>
+  <rect x="80" y="730" width="680" height="7" rx="3" fill="#2A2A2A" opacity="0.65"/>
+  <rect x="80" y="746" width="640" height="7" rx="3" fill="#2A2A2A" opacity="0.6"/>
+  <rect x="80" y="762" width="660" height="7" rx="3" fill="#2A2A2A" opacity="0.62"/>
+  <rect x="80" y="778" width="600" height="7" rx="3" fill="#2A2A2A" opacity="0.58"/>
+  <!-- Right sidebar -->
+  <rect x="820" y="392" width="360" height="200" rx="10" fill="white" stroke="#D8EADE" stroke-width="1"/>
+  <text x="844" y="418" font-size="11" font-weight="700" fill="#1A5C35" font-family="system-ui,sans-serif" letter-spacing="1">QUICK COMPARISON</text>
+  <rect x="844" y="428" width="312" height="1" fill="#E8F0EC"/>
+  <!-- Mini comparison table in sidebar -->
+  <text x="844" y="452" font-size="12" font-weight="600" fill="#0F2D1F" font-family="system-ui,sans-serif">Marcus by Goldman</text>
+  <text x="1136" y="452" font-size="14" font-weight="800" fill="#1A5C35" text-anchor="end" font-family="system-ui,sans-serif">10.00%</text>
+  <rect x="844" y="462" width="312" height="1" fill="#F0F5F2"/>
+  <text x="844" y="480" font-size="12" fill="#333" font-family="system-ui,sans-serif">SoFi Bank</text>
+  <text x="1136" y="480" font-size="14" font-weight="700" fill="#2A7A52" text-anchor="end" font-family="system-ui,sans-serif">4.60%</text>
+  <rect x="844" y="490" width="312" height="1" fill="#F0F5F2"/>
+  <text x="844" y="508" font-size="12" fill="#333" font-family="system-ui,sans-serif">Ally Bank</text>
+  <text x="1136" y="508" font-size="14" font-weight="700" fill="#2A7A52" text-anchor="end" font-family="system-ui,sans-serif">4.25%</text>
+  <rect x="844" y="518" width="312" height="1" fill="#F0F5F2"/>
+  <text x="844" y="536" font-size="12" fill="#333" font-family="system-ui,sans-serif">American Express</text>
+  <text x="1136" y="536" font-size="14" font-weight="700" fill="#2A7A52" text-anchor="end" font-family="system-ui,sans-serif">4.00%</text>
+  <rect x="844" y="558" width="312" height="30" rx="6" fill="#1A5C35"/>
+  <text x="1000" y="578" font-size="12" font-weight="600" fill="white" text-anchor="middle" font-family="system-ui,sans-serif">See Full Comparison →</text>
+  <!-- Table of contents sidebar -->
+  <rect x="820" y="612" width="360" height="240" rx="10" fill="white" stroke="#D8EADE" stroke-width="1"/>
+  <text x="844" y="638" font-size="11" font-weight="700" fill="#1A5C35" font-family="system-ui,sans-serif" letter-spacing="1">IN THIS GUIDE</text>
+  <rect x="844" y="648" width="312" height="1" fill="#E8F0EC"/>
+  <text x="858" y="672" font-size="13" fill="#4A7A62" font-family="system-ui,sans-serif">1. The APY Isn't Everything</text>
+  <text x="858" y="696" font-size="13" fill="#888" font-family="system-ui,sans-serif">2. FDIC Insurance: What It Covers</text>
+  <text x="858" y="720" font-size="13" fill="#888" font-family="system-ui,sans-serif">3. Access and Withdrawal Limits</text>
+  <text x="858" y="744" font-size="13" fill="#888" font-family="system-ui,sans-serif">4. Fee Structures to Watch</text>
+  <text x="858" y="768" font-size="13" fill="#888" font-family="system-ui,sans-serif">5. When to Choose a CD Instead</text>
+  <text x="858" y="792" font-size="13" fill="#888" font-family="system-ui,sans-serif">6. Our Top Picks for 2026</text>
+  <!-- Related guides -->
+  <rect x="820" y="870" width="360" height="1" fill="#D8EADE"/>
 </svg>
