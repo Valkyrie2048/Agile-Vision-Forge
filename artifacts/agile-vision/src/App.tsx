@@ -19,6 +19,8 @@ const Blog = lazy(() => import("@/pages/blog"));
 const BlogArticle = lazy(() => import("@/pages/blog-article"));
 const Simulator = lazy(() => import("@/pages/simulator"));
 const Industries = lazy(() => import("@/pages/industries"));
+const Work = lazy(() => import("@/pages/work"));
+const WorkCaseStudy = lazy(() => import("@/pages/work-case-study"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function RouteFallback() {
@@ -48,6 +50,8 @@ function Router() {
         <Route path="/blog/:slug" component={BlogArticle} />
         <Route path="/simulator" component={Simulator} />
         <Route path="/industries" component={Industries} />
+        <Route path="/work" component={Work} />
+        <Route path="/work/:slug" component={WorkCaseStudy} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
@@ -60,6 +64,7 @@ function AppContent() {
   const [location] = useLocation();
   const isBlogPage = location === "/blog" || location.startsWith("/blog/");
   const isIndustriesPage = location === "/industries";
+  const isWorkPage = location === "/work" || location.startsWith("/work/");
   const isMobile = useIsMobile();
   useRouteCanonical();
 
@@ -90,7 +95,7 @@ function AppContent() {
   return (
     <>
       <ScrollToTop />
-      {!isBlogPage && !isIndustriesPage && !isMobile && <ParticleField />}
+      {!isBlogPage && !isIndustriesPage && !isWorkPage && !isMobile && <ParticleField />}
       <WarpDrive trigger={warp} onComplete={handleComplete} />
       <div
         className="min-h-[100svh] flex flex-col relative z-[2]"
