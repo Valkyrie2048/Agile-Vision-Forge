@@ -1,0 +1,561 @@
+Build a premium, production-ready Client Work Showcase section for the Vision AI Works website.
+
+The showcase should present six distinct digital products and organizations:
+
+1. GIGAMATIC Finance
+    Domain: gigamatic.finance
+    Category: Fintech / Financial Wellness
+2. GIGAMATIC Insure
+    Domain: gigamatic.insure
+    Category: Insurtech / Benefits
+3. GIGAMATIC Careers
+    Domain: gigamatic.careers
+    Category: Career Technology / Future of Work
+4. GIGAMATIC AI
+    Domain: gigamatic.ai
+    Category: Artificial Intelligence / Digital Platform
+5. The Institute for AI and the Future of Consciousness
+    Category: Nonprofit / AI Research / Human Flourishing
+6. Hudson Navigation
+    Category: Travel Technology / Agentic AI / iOS Application
+
+Primary Objective
+
+Create a visually exceptional portfolio experience that demonstrates strategic thinking, UX design, product design, artificial intelligence, technical execution, and business value.
+
+The result should feel like the work of a top-tier digital product studio, comparable in quality to leading agencies and technology consultancies.
+
+Avoid a generic portfolio template. Each project should feel like a meaningful product story.
+
+Experience Structure
+
+Create:
+
+* A premium portfolio landing page
+* A featured-project grid
+* Individual case-study pages for all six projects
+* Smooth transitions between the project grid and case studies
+* Previous-project and next-project navigation
+* Strong calls to action throughout the experience
+* Responsive layouts for desktop, tablet, and mobile
+
+Portfolio Landing Page
+
+Begin with a strong introductory section:
+
+Eyebrow:
+Selected Work
+
+Headline:
+Digital products designed for a more intelligent future.
+
+Supporting copy:
+A collection of platforms, applications, and digital experiences created across financial technology, artificial intelligence, travel, career development, insurance, research, and human flourishing.
+
+Include a filter system with the following categories:
+
+* All
+* Artificial Intelligence
+* Fintech
+* Insurtech
+* Travel
+* Future of Work
+* Research and Nonprofit
+
+Display the six projects as large editorial-style project cards.
+
+Each card should include:
+
+* Project name
+* Industry or category
+* One-sentence product description
+* Services provided
+* Large visual preview or product mockup
+* Subtle animated interaction
+* “View Case Study” call to action
+
+Use alternating layouts and visual rhythms rather than six identical cards.
+
+Case Study Template
+
+Each project should have a dedicated case-study page using the following structure.
+
+1. Hero
+
+Include:
+
+* Project name
+* Product category
+* Concise positioning statement
+* Role or services provided
+* Large product visualization
+* Website link where applicable
+
+2. Project Snapshot
+
+Present a compact information panel containing:
+
+* Client or initiative
+* Industry
+* Platform
+* Role
+* Services
+* Project status
+
+Suggested services may include:
+
+* Product Strategy
+* UX Strategy
+* User Experience Design
+* User Interface Design
+* Brand Direction
+* Design Systems
+* AI Product Design
+* Prototyping
+* Front-End Development
+* Product Architecture
+
+3. The Opportunity
+
+Explain the user, market, organizational, or technological problem the product addresses.
+
+4. The Product Vision
+
+Describe the central idea and intended value of the product.
+
+5. Experience Strategy
+
+Explain:
+
+* Target users
+* Key user needs
+* Product principles
+* Information architecture
+* Important user journeys
+* Trust, accessibility, and usability considerations
+
+6. Key Product Capabilities
+
+Present major capabilities as a visual grid with icons, interface previews, or diagrams.
+
+7. Design Approach
+
+Show:
+
+* UX decisions
+* Interface patterns
+* Navigation model
+* Brand and visual direction
+* Responsive behaviour
+* Design-system considerations
+
+8. Artificial Intelligence
+
+Where relevant, explain how AI or agentic systems support the experience.
+
+Do not make unsupported claims that AI capabilities are currently live. Clearly distinguish among:
+
+* Current functionality
+* Prototype functionality
+* Product vision
+* Planned capabilities
+
+9. Product Gallery
+
+Include a premium product gallery with:
+
+* Desktop mockups
+* Mobile mockups
+* Interface detail views
+* Full-width screens
+* Before-and-after comparisons where appropriate
+* Optional horizontal scrolling gallery
+* Optional lightbox view
+
+Use tasteful placeholder interfaces when final screenshots are not available. Make all placeholder media easy to replace through a centralized project data file.
+
+10. Outcome
+
+Describe the value delivered without fabricating statistics.
+
+Use qualitative outcomes such as:
+
+* Established a clear product vision
+* Simplified a complex service ecosystem
+* Created a scalable digital foundation
+* Improved the clarity of the user journey
+* Unified multiple capabilities within one experience
+* Positioned the organization for future product development
+* Demonstrated the potential of agentic AI
+
+Do not invent conversion rates, revenue, customer counts, adoption metrics, or user-research findings.
+
+11. Reflection
+
+Include a brief section describing the most important product insight or lesson from the project.
+
+12. Call to Action
+
+End each case study with:
+
+Headline:
+Have a complex idea that deserves a better digital experience?
+
+Supporting copy:
+Vision AI Works helps organizations turn ambitious ideas into intelligent, usable, and compelling digital products.
+
+Button:
+Start a Conversation
+
+Project-Specific Content
+
+GIGAMATIC Finance
+
+Positioning statement:
+A financial platform designed around the realities of independent and nontraditional work.
+
+Product vision:
+Help gig workers, freelancers, contractors, and people with multiple sources of income understand their finances and access more appropriate financial products.
+
+Potential capabilities:
+
+* Consolidated income visibility
+* Connected bank and employment information
+* Income trends and financial insights
+* Financial-product discovery
+* Personalized recommendations
+* Financial-readiness indicators
+* Lending and mortgage pathways
+* User-controlled financial data
+
+Design considerations:
+
+* Financial trust
+* Clear explanations
+* Data transparency
+* Complex income patterns
+* Mobile-first accessibility
+* Avoiding judgmental financial language
+
+Clearly describe future or conceptual functionality as product vision where it is not currently operational.
+
+GIGAMATIC Insure
+
+Positioning statement:
+Insurance and benefits designed for people whose careers do not follow a traditional employment model.
+
+Product vision:
+Make it easier for independent workers to discover and understand insurance, health benefits, income protection, and related services.
+
+Potential capabilities:
+
+* Personalized insurance discovery
+* Coverage-category exploration
+* Simplified policy explanations
+* Health and wellness benefits
+* Income-protection options
+* Life and disability insurance pathways
+* Comparison and recommendation experiences
+* Connections to relevant providers
+
+Design considerations:
+
+* Reducing insurance complexity
+* Clear eligibility communication
+* Trust and privacy
+* Plain-language explanations
+* Supporting informed decisions without presenting the platform as a licensed insurance advisor
+
+GIGAMATIC Careers
+
+Positioning statement:
+A career platform built for modern, flexible, and multidimensional working lives.
+
+Product vision:
+Help people understand their work history, transferable capabilities, income opportunities, and potential career paths across traditional employment, contract work, and the gig economy.
+
+Potential capabilities:
+
+* Career profile
+* Skills and experience mapping
+* Transferable-skills discovery
+* Personalized career pathways
+* Job and contract opportunity matching
+* Income-opportunity exploration
+* AI-supported career guidance
+* Learning and development recommendations
+* Portfolio and work-history support
+
+Design considerations:
+
+* Inclusive career language
+* Multiple employment types
+* Skills beyond traditional job titles
+* Explainable recommendations
+* User agency and control
+* Avoiding deterministic AI career predictions
+
+GIGAMATIC AI
+
+Positioning statement:
+An intelligent layer connecting work, income, financial health, protection, and opportunity.
+
+Present GIGAMATIC AI as the broader intelligence and product ecosystem behind the GIGAMATIC platform.
+
+Potential capabilities:
+
+* Personalized insights across GIGAMATIC products
+* Conversational product navigation
+* Intelligent recommendations
+* Cross-platform user context
+* Goal-oriented financial and career guidance
+* Agent-assisted workflows
+* Explainable recommendation logic
+* User-controlled memory and permissions
+* Proactive identification of opportunities or risks
+
+Design considerations:
+
+* Explainability
+* Consent
+* Privacy
+* User control
+* Responsible automation
+* Clear distinction between guidance and regulated professional advice
+* Human review for consequential decisions
+
+Do not imply that every described AI capability is already deployed. Present advanced features as a strategic product vision or prototype where appropriate.
+
+The Institute for AI and the Future of Consciousness
+
+Positioning statement:
+A research and public-interest initiative exploring how artificial intelligence may shape consciousness, human agency, flourishing, society, and the future of intelligent life.
+
+Product vision:
+Create an intellectually credible yet accessible digital platform for research, publishing, public dialogue, collaboration, and responsible inquiry.
+
+Potential capabilities:
+
+* Research articles
+* Essays and opinion pieces
+* Research-library organization
+* Topic and theme navigation
+* Contributor profiles
+* Public events and initiatives
+* Newsletter and community engagement
+* Calls for participation
+* Partnership and speaking information
+* Educational resources
+* Responsible AI and human-flourishing content
+
+Design considerations:
+
+* Academic credibility without institutional coldness
+* Serious editorial presentation
+* Clear hierarchy for long-form writing
+* Accessibility and readability
+* Philosophical depth
+* Human-centred visual language
+* No generic robot imagery
+* No stock photographs of people looking at holograms
+
+The visual direction should feel like a contemporary research institution or premium intellectual publication, combining scientific precision with restrained mystery.
+
+Hudson Navigation
+
+Positioning statement:
+An agentic iOS travel companion designed to help people explore, plan, navigate, and adapt throughout a journey.
+
+Product vision:
+Move beyond static itinerary planning by creating an intelligent travel assistant that understands context, location, preferences, timing, and changing circumstances.
+
+Potential capabilities:
+
+* Conversational trip planning
+* Personalized destination discovery
+* Intelligent itinerary creation
+* Real-time itinerary adaptation
+* Location-aware recommendations
+* Flight, hotel, and activity research
+* Calendar and reservation awareness
+* Navigation assistance
+* Voice interaction
+* Proactive travel alerts
+* Collaborative trip planning
+* Preference and memory controls
+* Human approval before bookings or consequential actions
+
+Present the product as an iOS application.
+
+Include iPhone mockups throughout the case study.
+
+Design considerations:
+
+* Native iOS interaction patterns
+* Voice and touch interaction
+* Calm, glanceable information
+* Trust in agentic actions
+* Clear confirmation before purchases or bookings
+* Location privacy
+* Interruption management
+* Travel disruptions and offline conditions
+
+Visual Direction
+
+The entire experience should feel:
+
+* Premium
+* Editorial
+* Modern
+* Strategic
+* Technically sophisticated
+* Minimal but not empty
+* Confident without becoming corporate or generic
+
+Use:
+
+* Strong typography
+* Spacious layouts
+* Large visual moments
+* Deep navy, charcoal, warm white, muted blue, and restrained gold accents
+* Soft gradients
+* Subtle glow effects
+* Fine grid structures
+* Layered interface mockups
+* Controlled use of glass-like surfaces
+* Gentle scroll-based motion
+* Elegant hover states
+* High-quality device framing
+
+Avoid:
+
+* Generic SaaS gradients
+* Overuse of rounded cards
+* Excessive glassmorphism
+* Cartoon icons
+* Stock photography
+* Fake testimonials
+* Fabricated client quotes
+* Fake metrics
+* Neon cyberpunk styling
+* Large blocks of vague marketing language
+* Excessive animations that reduce usability
+
+Technical Requirements
+
+Use a modern, maintainable implementation.
+
+Preferred stack:
+
+* React
+* TypeScript
+* Vite or Next.js
+* Tailwind CSS
+* Framer Motion
+* Lucide icons
+
+Requirements:
+
+* Reusable project-card component
+* Reusable case-study template
+* Centralized project data
+* Dynamic routes for each project
+* Responsive design
+* Semantic HTML
+* Accessible keyboard navigation
+* Accessible colour contrast
+* Reduced-motion support
+* Optimized images
+* Lazy-loaded media
+* SEO metadata for every project
+* Open Graph metadata
+* Custom 404 page
+* Smooth but restrained page transitions
+
+Store project content in a structured file such as:
+
+src/data/projects.ts
+
+Each project object should support:
+
+* slug
+* name
+* category
+* tagline
+* summary
+* website
+* heroImage
+* services
+* platform
+* status
+* opportunity
+* vision
+* users
+* capabilities
+* designPrinciples
+* aiRole
+* gallery
+* outcomes
+* reflection
+* accentTheme
+
+The content and imagery must be editable without changing the core page components.
+
+Content Accuracy
+
+Do not invent:
+
+* User-research studies
+* Client endorsements
+* Revenue
+* Conversion improvements
+* Customer numbers
+* Downloads
+* Engagement statistics
+* Awards
+* Partnerships
+* Technical integrations
+* Production AI capabilities
+
+Where detailed information is unavailable, use carefully worded and clearly labelled language such as:
+
+* Product concept
+* Strategic vision
+* Prototype
+* Proposed capability
+* Future-state experience
+* Design exploration
+* In development
+
+Final Deliverable
+
+Produce a complete functioning website experience, not only a static mockup.
+
+The final result must include:
+
+* Finished portfolio landing page
+* Six complete case-study pages
+* Responsive navigation
+* Functional project filtering
+* Functional project links
+* Mobile and desktop layouts
+* Replaceable visual placeholders
+* Refined motion and interactions
+* Professional written case-study content
+* Clean, organized production-quality code
+
+Before completing the build, review every page for:
+
+* Visual consistency
+* Accurate project naming
+* Spelling and grammar
+* Responsive behaviour
+* Accessibility
+* Unsupported claims
+* Repetitive content
+* Broken links
+* Placeholder text
+* Layout overflow
+* Animation performance
+
+Do not leave lorem ipsum, unfinished sections, generic template copy, or visible developer notes in the final interface.
