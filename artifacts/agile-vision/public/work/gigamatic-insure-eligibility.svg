@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 860" font-family="system-ui,-apple-system,sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="50%"><stop offset="0%" stop-color="#22C38D" stop-opacity="0.11"/><stop offset="100%" stop-color="#22C38D" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="500" height="860" fill="#060f0c"/>
+  <rect width="500" height="860" fill="url(#bg)"/>
+  <rect x="20" y="20" width="460" height="820" rx="44" fill="#0e1c18" stroke="rgba(255,255,255,0.09)" stroke-width="2"/>
+  <rect x="26" y="26" width="448" height="808" rx="40" fill="#060f0c"/>
+  <rect x="172" y="28" width="156" height="30" rx="15" fill="#0e1c18"/>
+  <text x="50" y="48" font-size="11" fill="rgba(255,255,255,0.5)">9:41</text>
+  <text x="450" y="48" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="end">&#x25A6; 100%</text>
+  <!-- Header -->
+  <rect x="26" y="56" width="448" height="70" fill="rgba(6,15,12,0.8)"/>
+  <text x="250" y="84" font-size="14" font-weight="800" fill="#22C38D" font-style="italic" text-anchor="middle">GIGAMATIC Insure</text>
+  <text x="250" y="104" font-size="11" fill="rgba(255,255,255,0.3)" text-anchor="middle">Eligibility check</text>
+  <rect x="26" y="126" width="448" height="1" fill="rgba(255,255,255,0.05)"/>
+  <!-- Eligibility score circle -->
+  <circle cx="250" cy="212" r="62" fill="none" stroke="rgba(34,195,141,0.1)" stroke-width="8"/>
+  <path d="M250,150 A62,62 0 0,1 306,243" fill="none" stroke="#22C38D" stroke-width="8" stroke-linecap="round" opacity="0.85"/>
+  <text x="250" y="204" font-size="30" font-weight="700" fill="#22C38D" text-anchor="middle">72</text>
+  <text x="250" y="222" font-size="12" fill="rgba(255,255,255,0.35)" text-anchor="middle">Eligibility score</text>
+  <!-- Status badge -->
+  <rect x="170" y="290" width="160" height="30" rx="8" fill="rgba(34,195,141,0.15)" stroke="rgba(34,195,141,0.35)" stroke-width="1"/>
+  <text x="250" y="309" font-size="13" font-weight="600" fill="#22C38D" text-anchor="middle">Eligible for 8 products</text>
+  <!-- Factors section -->
+  <text x="60" y="346" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1.5">ELIGIBILITY FACTORS</text>
+  <!-- Positive factors -->
+  <rect x="44" y="360" width="412" height="54" rx="8" fill="rgba(34,195,141,0.06)" stroke="rgba(34,195,141,0.14)" stroke-width="1"/>
+  <circle cx="66" cy="387" r="12" fill="rgba(34,195,141,0.2)"/>
+  <text x="66" y="392" font-size="11" fill="#22C38D" text-anchor="middle">&#x2713;</text>
+  <text x="88" y="382" font-size="12" font-weight="600" fill="rgba(255,255,255,0.72)">Income documentation</text>
+  <text x="88" y="398" font-size="11" fill="rgba(255,255,255,0.32)">3 months of statements available</text>
+  <text x="432" y="392" font-size="12" fill="#22C38D" text-anchor="end">Pass</text>
+  <rect x="44" y="424" width="412" height="54" rx="8" fill="rgba(34,195,141,0.04)" stroke="rgba(34,195,141,0.1)" stroke-width="1"/>
+  <circle cx="66" cy="451" r="12" fill="rgba(34,195,141,0.15)"/>
+  <text x="66" y="456" font-size="11" fill="#22C38D" text-anchor="middle">&#x2713;</text>
+  <text x="88" y="446" font-size="12" font-weight="600" fill="rgba(255,255,255,0.65)">Work history</text>
+  <text x="88" y="462" font-size="11" fill="rgba(255,255,255,0.28)">8 years self-employment</text>
+  <text x="432" y="456" font-size="12" fill="#22C38D" text-anchor="end">Pass</text>
+  <rect x="44" y="488" width="412" height="54" rx="8" fill="rgba(34,195,141,0.04)" stroke="rgba(34,195,141,0.1)" stroke-width="1"/>
+  <circle cx="66" cy="515" r="12" fill="rgba(34,195,141,0.15)"/>
+  <text x="66" y="520" font-size="11" fill="#22C38D" text-anchor="middle">&#x2713;</text>
+  <text x="88" y="510" font-size="12" font-weight="600" fill="rgba(255,255,255,0.62)">Age eligibility</text>
+  <text x="88" y="526" font-size="11" fill="rgba(255,255,255,0.25)">Within 18&#x2013;64 range</text>
+  <text x="432" y="520" font-size="12" fill="#22C38D" text-anchor="end">Pass</text>
+  <!-- Mixed factor -->
+  <rect x="44" y="552" width="412" height="54" rx="8" fill="rgba(255,200,50,0.04)" stroke="rgba(255,200,50,0.18)" stroke-width="1"/>
+  <circle cx="66" cy="579" r="12" fill="rgba(255,200,50,0.18)"/>
+  <text x="66" y="584" font-size="13" fill="rgba(255,200,50,0.8)" text-anchor="middle">!</text>
+  <text x="88" y="574" font-size="12" font-weight="600" fill="rgba(255,255,255,0.58)">Income variability</text>
+  <text x="88" y="590" font-size="11" fill="rgba(255,255,255,0.25)">High variance &#x2014; may affect premium</text>
+  <text x="432" y="584" font-size="12" fill="rgba(255,200,50,0.65)" text-anchor="end">Note</text>
+  <!-- Failing factor -->
+  <rect x="44" y="616" width="412" height="54" rx="8" fill="rgba(255,80,80,0.04)" stroke="rgba(255,80,80,0.14)" stroke-width="1"/>
+  <circle cx="66" cy="643" r="12" fill="rgba(255,80,80,0.15)"/>
+  <text x="66" y="648" font-size="13" fill="rgba(255,100,100,0.75)" text-anchor="middle">&#x2715;</text>
+  <text x="88" y="638" font-size="12" font-weight="600" fill="rgba(255,255,255,0.5)">Previous income protection</text>
+  <text x="88" y="654" font-size="11" fill="rgba(255,255,255,0.22)">No existing cover &#x2014; excluded products apply</text>
+  <text x="432" y="648" font-size="12" fill="rgba(255,100,100,0.6)" text-anchor="end">Limit</text>
+  <!-- CTA -->
+  <rect x="44" y="688" width="412" height="52" rx="10" fill="#22C38D" opacity="0.85"/>
+  <text x="250" y="718" font-size="14" font-weight="700" fill="white" text-anchor="middle">View matched products</text>
+  <!-- Bottom nav -->
+  <rect x="26" y="756" width="448" height="76" rx="0" fill="#0a1a14"/>
+  <rect x="26" y="756" width="448" height="1" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="120" cy="794" r="4" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="250" cy="794" r="4" fill="#22C38D"/>
+  <circle cx="380" cy="794" r="4" fill="rgba(255,255,255,0.2)"/>
+  <text x="120" y="810" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">Coverage</text>
+  <text x="250" y="810" font-size="9" fill="#22C38D" text-anchor="middle">My Plan</text>
+  <text x="380" y="810" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">Providers</text>
+</svg>

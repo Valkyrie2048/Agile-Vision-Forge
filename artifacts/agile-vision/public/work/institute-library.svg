@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070612"/>
+      <stop offset="100%" stop-color="#0d0b1e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7070DC"/>
+      <stop offset="100%" stop-color="#9090f0"/>
+    </linearGradient>
+    <linearGradient id="card1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7070DC" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#9090f0" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="650" fill="url(#bg)"/>
+
+  <!-- Left sidebar -->
+  <rect x="0" y="0" width="260" height="650" fill="rgba(255,255,255,0.02)"/>
+  <rect x="0" y="0" width="260" height="650" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+  <!-- Sidebar header -->
+  <text x="24" y="36" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" font-weight="600" letter-spacing="1.5">LIBRARY</text>
+  <rect x="24" y="48" width="212" height="1" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- Sidebar filters -->
+  <text x="24" y="78" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" letter-spacing="1">COLLECTIONS</text>
+  
+  <!-- Active filter -->
+  <rect x="16" y="88" width="228" height="34" rx="6" fill="#7070DC" fill-opacity="0.15"/>
+  <rect x="16" y="88" width="3" height="34" rx="1.5" fill="#7070DC"/>
+  <text x="36" y="110" font-family="system-ui,sans-serif" font-size="13" fill="white">All Research</text>
+  <rect x="210" y="97" width="24" height="16" rx="8" fill="#7070DC" fill-opacity="0.3"/>
+  <text x="222" y="109" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle">84</text>
+
+  <!-- Filter items -->
+  <text x="36" y="144" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Peer Reviewed</text>
+  <text x="36" y="172" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Case Studies</text>
+  <text x="36" y="200" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Reports</text>
+  <text x="36" y="228" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">White Papers</text>
+  <text x="36" y="256" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Datasets</text>
+
+  <rect x="24" y="272" width="212" height="1" fill="rgba(255,255,255,0.06)"/>
+  <text x="24" y="294" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" letter-spacing="1">TOPICS</text>
+  
+  <text x="36" y="320" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">AI Ethics</text>
+  <text x="36" y="348" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Climate</text>
+  <text x="36" y="376" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Governance</text>
+  <text x="36" y="404" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Technology</text>
+  <text x="36" y="432" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Society</text>
+
+  <!-- Main content area -->
+  <!-- Search bar -->
+  <rect x="280" y="20" width="620" height="42" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <circle cx="308" cy="41" r="8" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+  <line x1="314" y1="47" x2="318" y2="51" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="328" y="46" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.3)">Search research library...</text>
+
+  <!-- Sort controls -->
+  <text x="280" y="90" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.4)">84 results</text>
+  <rect x="830" y="76" width="70" height="26" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="865" y="93" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.5)" text-anchor="middle">Newest</text>
+
+  <!-- Featured article card -->
+  <rect x="280" y="108" width="600" height="140" rx="10" fill="url(#card1)" stroke="rgba(112,112,220,0.25)" stroke-width="1"/>
+  <rect x="280" y="108" width="4" height="140" rx="2" fill="#7070DC"/>
+  <rect x="296" y="120" width="48" height="18" rx="9" fill="#7070DC" fill-opacity="0.2"/>
+  <text x="320" y="133" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle" font-weight="600">FEATURED</text>
+  <text x="356" y="133" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">Peer Reviewed • AI Ethics</text>
+  <text x="296" y="158" font-family="system-ui,sans-serif" font-size="16" fill="white" font-weight="600">Algorithmic Accountability in Public Decision Systems</text>
+  <text x="296" y="178" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">A comprehensive analysis of transparency requirements and audit frameworks</text>
+  <text x="296" y="198" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">for AI systems used in government and public services.</text>
+  <text x="296" y="228" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">Dr. Sarah Chen, Prof. Marcus Webb • 2024 • 42 pages</text>
+
+  <!-- Grid of research cards -->
+  <!-- Row 1 -->
+  <rect x="280" y="266" width="190" height="160" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="292" y="278" width="44" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
+  <text x="314" y="289" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">REPORT</text>
+  <text x="292" y="312" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Climate Policy</text>
+  <text x="292" y="328" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Effectiveness</text>
+  <text x="292" y="348" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">2024 global analysis</text>
+  <text x="292" y="364" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">across 40 countries</text>
+  <text x="292" y="412" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">28 pages</text>
+
+  <rect x="486" y="266" width="190" height="160" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="498" y="278" width="58" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
+  <text x="527" y="289" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">CASE STUDY</text>
+  <text x="498" y="312" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Digital Governance</text>
+  <text x="498" y="328" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">in Smart Cities</text>
+  <text x="498" y="348" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">Infrastructure and</text>
+  <text x="498" y="364" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">public engagement</text>
+  <text x="498" y="412" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">35 pages</text>
+
+  <rect x="692" y="266" width="190" height="160" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="704" y="278" width="52" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
+  <text x="730" y="289" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">DATASET</text>
+  <text x="704" y="312" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Social Media</text>
+  <text x="704" y="328" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Discourse Index</text>
+  <text x="704" y="348" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">2.4M annotated</text>
+  <text x="704" y="364" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">public posts, 2019–24</text>
+  <text x="704" y="412" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">Open access</text>
+
+  <!-- Row 2 -->
+  <rect x="280" y="440" width="190" height="155" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="292" y="452" width="68" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
+  <text x="326" y="463" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">WHITE PAPER</text>
+  <text x="292" y="488" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Ethical AI in</text>
+  <text x="292" y="504" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Healthcare</text>
+  <text x="292" y="576" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">18 pages</text>
+
+  <rect x="486" y="440" width="190" height="155" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="498" y="452" width="68" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
+  <text x="532" y="463" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">PEER REVIEW</text>
+  <text x="498" y="488" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Technology &amp;</text>
+  <text x="498" y="504" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Labor Markets</text>
+  <text x="498" y="576" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">54 pages</text>
+
+  <rect x="692" y="440" width="190" height="155" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="704" y="452" width="52" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
+  <text x="730" y="463" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">REPORT</text>
+  <text x="704" y="488" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Democracy &amp;</text>
+  <text x="704" y="504" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Digital Media</text>
+  <text x="704" y="576" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">31 pages</text>
+
+  <!-- Right panel - reading preview -->
+  <rect x="900" y="0" width="300" height="650" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="920" y="36" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" font-weight="600" letter-spacing="1.5">PREVIEW</text>
+  <rect x="920" y="48" width="260" height="1" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- Article preview -->
+  <rect x="920" y="64" width="80" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
+  <text x="960" y="75" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">FEATURED</text>
+  <text x="920" y="104" font-family="system-ui,sans-serif" font-size="13" fill="white" font-weight="700">Algorithmic</text>
+  <text x="920" y="122" font-family="system-ui,sans-serif" font-size="13" fill="white" font-weight="700">Accountability</text>
+  <text x="920" y="152" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">Dr. Sarah Chen</text>
+  <text x="920" y="168" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">Prof. Marcus Webb</text>
+
+  <rect x="920" y="184" width="260" height="1" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- Abstract -->
+  <text x="920" y="206" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" letter-spacing="1">ABSTRACT</text>
+  <text x="920" y="224" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.5)">As AI systems are deployed in</text>
+  <text x="920" y="240" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.5)">public sector decision-making,</text>
+  <text x="920" y="256" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.5)">questions of accountability and</text>
+  <text x="920" y="272" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.5)">transparency become critical...</text>
+
+  <!-- Stats -->
+  <rect x="920" y="296" width="120" height="60" rx="6" fill="rgba(112,112,220,0.08)" stroke="rgba(112,112,220,0.15)" stroke-width="1"/>
+  <text x="980" y="322" font-family="system-ui,sans-serif" font-size="20" fill="#7070DC" font-weight="700" text-anchor="middle">42</text>
+  <text x="980" y="340" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle">pages</text>
+
+  <rect x="1058" y="296" width="120" height="60" rx="6" fill="rgba(112,112,220,0.08)" stroke="rgba(112,112,220,0.15)" stroke-width="1"/>
+  <text x="1118" y="322" font-family="system-ui,sans-serif" font-size="20" fill="#7070DC" font-weight="700" text-anchor="middle">156</text>
+  <text x="1118" y="340" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle">citations</text>
+
+  <!-- CTA -->
+  <rect x="920" y="376" width="260" height="36" rx="8" fill="#7070DC"/>
+  <text x="1050" y="399" font-family="system-ui,sans-serif" font-size="13" fill="white" text-anchor="middle" font-weight="600">Read Full Paper</text>
+
+  <rect x="920" y="422" width="260" height="36" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="1050" y="445" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.6)" text-anchor="middle">Download PDF</text>
+
+  <!-- Tags -->
+  <text x="920" y="484" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" letter-spacing="1">TAGS</text>
+  <rect x="920" y="494" width="56" height="20" rx="10" fill="rgba(112,112,220,0.1)" stroke="rgba(112,112,220,0.2)" stroke-width="1"/>
+  <text x="948" y="508" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle">AI Ethics</text>
+  <rect x="986" y="494" width="76" height="20" rx="10" fill="rgba(112,112,220,0.1)" stroke="rgba(112,112,220,0.2)" stroke-width="1"/>
+  <text x="1024" y="508" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle">Governance</text>
+  <rect x="920" y="524" width="56" height="20" rx="10" fill="rgba(112,112,220,0.1)" stroke="rgba(112,112,220,0.2)" stroke-width="1"/>
+  <text x="948" y="538" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle">Policy</text>
+  <rect x="986" y="524" width="56" height="20" rx="10" fill="rgba(112,112,220,0.1)" stroke="rgba(112,112,220,0.2)" stroke-width="1"/>
+  <text x="1014" y="538" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle">Public</text>
+</svg>

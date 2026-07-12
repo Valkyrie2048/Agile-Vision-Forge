@@ -9,11 +9,13 @@ export interface GalleryItem {
   label: string;
   description: string;
   screens: string[];
+  imagePath?: string;
 }
 
 export interface Project {
   slug: string;
   name: string;
+  coverImage?: string;
   category: string;
   filterCategory: string;
   tagline: string;
@@ -87,11 +89,12 @@ export const projects: Project[] = [
       { title: "Product matching (design exploration)", description: "The product vision includes an intelligent matching model that aligns users with financial products whose eligibility criteria fit nontraditional income profiles." },
       { title: "Readiness indicators (prototype)", description: "Prototype work has explored AI-generated readiness signals — presenting a holistic view of financial health rather than a single credit score." },
     ],
+    coverImage: "/work/gigamatic-finance-cover.svg",
     gallery: [
-      { type: "browser", label: "Dashboard overview", description: "Income summary, connected sources, and financial readiness at a glance", screens: ["income-summary", "connected-sources", "readiness-gauge"] },
-      { type: "phone", label: "Mobile income view", description: "Weekly earnings breakdown across active income streams", screens: ["weekly-earnings", "stream-list"] },
-      { type: "detail", label: "Product discovery", description: "Browsing mortgages and loans filtered by independent worker eligibility", screens: ["product-filter", "eligibility-card"] },
-      { type: "browser", label: "Insights dashboard", description: "Twelve-month income trends with seasonality markers", screens: ["trend-chart", "seasonality-flags"] },
+      { type: "browser", label: "Dashboard overview", description: "Income summary, connected sources, and financial readiness at a glance", screens: ["income-summary", "connected-sources", "readiness-gauge"], imagePath: "/work/gigamatic-finance-dashboard.svg" },
+      { type: "phone", label: "Mobile income view", description: "Weekly earnings breakdown across active income streams", screens: ["weekly-earnings", "stream-list"], imagePath: "/work/gigamatic-finance-mobile.svg" },
+      { type: "detail", label: "Product discovery", description: "Browsing mortgages and loans filtered by independent worker eligibility", screens: ["product-filter", "eligibility-card"], imagePath: "/work/gigamatic-finance-products.svg" },
+      { type: "browser", label: "Insights dashboard", description: "Twelve-month income trends with seasonality markers", screens: ["trend-chart", "seasonality-flags"], imagePath: "/work/gigamatic-finance-insights.svg" },
     ],
     outcomes: [
       "Established a clear product vision for a financial platform serving an underserved worker demographic",
@@ -153,11 +156,12 @@ export const projects: Project[] = [
       { title: "Policy comparison summarization (design exploration)", description: "Prototype work has explored using language models to generate plain-language summaries of policy documentation for comparison purposes." },
       { title: "Discovery personalization (future vision)", description: "The long-term product vision includes intelligent discovery that improves with usage — learning which types of products are most relevant to individual circumstances over time." },
     ],
+    coverImage: "/work/gigamatic-insure-cover.svg",
     gallery: [
-      { type: "phone", label: "Discovery onboarding", description: "Guided questions to surface relevant coverage categories", screens: ["onboarding-q1", "onboarding-q2", "coverage-suggestions"] },
-      { type: "browser", label: "Coverage explorer", description: "Browsing insurance categories with plain-language summaries", screens: ["category-grid", "product-detail"] },
-      { type: "detail", label: "Policy card comparison", description: "Side-by-side comparison of two income protection products", screens: ["compare-view"] },
-      { type: "phone", label: "Eligibility check", description: "Clear communication of product availability based on work type", screens: ["eligibility-screen"] },
+      { type: "phone", label: "Discovery onboarding", description: "Guided questions to surface relevant coverage categories", screens: ["onboarding-q1", "onboarding-q2", "coverage-suggestions"], imagePath: "/work/gigamatic-insure-onboarding.svg" },
+      { type: "browser", label: "Coverage explorer", description: "Browsing insurance categories with plain-language summaries", screens: ["category-grid", "product-detail"], imagePath: "/work/gigamatic-insure-coverage.svg" },
+      { type: "detail", label: "Policy card comparison", description: "Side-by-side comparison of two income protection products", screens: ["compare-view"], imagePath: "/work/gigamatic-insure-comparison.svg" },
+      { type: "phone", label: "Eligibility check", description: "Clear communication of product availability based on work type", screens: ["eligibility-screen"], imagePath: "/work/gigamatic-insure-eligibility.svg" },
     ],
     outcomes: [
       "Designed an insurance discovery experience that respects user intelligence without requiring prior insurance literacy",
@@ -219,11 +223,12 @@ export const projects: Project[] = [
       { title: "Pathway modelling (future vision)", description: "The product vision includes AI-assisted career pathway modelling — presenting a range of plausible directions based on profile data without reducing choice to a single predicted outcome." },
       { title: "Opportunity relevance scoring (proposed)", description: "A proposed matching layer that scores opportunity relevance based on the full capability profile rather than title-to-title keyword matching." },
     ],
+    coverImage: "/work/gigamatic-careers-cover.svg",
     gallery: [
-      { type: "browser", label: "Career profile", description: "Dynamic work history with skills, projects, and capability tags", screens: ["profile-overview", "skills-grid"] },
-      { type: "phone", label: "Skills mapping", description: "Interactive exploration of transferable skills across domains", screens: ["skills-mobile", "transferable-view"] },
-      { type: "browser", label: "Opportunity matching", description: "Relevant opportunities matched by capability profile", screens: ["opportunity-list", "match-reasoning"] },
-      { type: "detail", label: "Pathway explorer", description: "Visualizing possible career directions from current profile", screens: ["pathway-map"] },
+      { type: "browser", label: "Career profile", description: "Dynamic work history with skills, projects, and capability tags", screens: ["profile-overview", "skills-grid"], imagePath: "/work/gigamatic-careers-profile.svg" },
+      { type: "phone", label: "Skills mapping", description: "Interactive exploration of transferable skills across domains", screens: ["skills-mobile", "transferable-view"], imagePath: "/work/gigamatic-careers-skills.svg" },
+      { type: "browser", label: "Opportunity matching", description: "Relevant opportunities matched by capability profile", screens: ["opportunity-list", "match-reasoning"], imagePath: "/work/gigamatic-careers-opportunities.svg" },
+      { type: "detail", label: "Pathway explorer", description: "Visualizing possible career directions from current profile", screens: ["pathway-map"], imagePath: "/work/gigamatic-careers-pathway.svg" },
     ],
     outcomes: [
       "Established a product vision for a career platform that treats nontraditional work history as an asset, not an exception",
@@ -285,11 +290,12 @@ export const projects: Project[] = [
       { title: "Conversational interface (prototype)", description: "Prototype work has explored a conversational AI interface that allows users to ask questions about their financial and career situation in natural language and receive contextually relevant responses." },
       { title: "Agentic workflow assistance (design exploration)", description: "Design exploration has considered agentic AI that can assist with multi-step tasks — researching options, comparing products, preparing applications — under explicit user direction and with confirmation checkpoints throughout." },
     ],
+    coverImage: "/work/gigamatic-ai-cover.svg",
     gallery: [
-      { type: "browser", label: "AI intelligence hub", description: "Cross-platform insights dashboard with personalized recommendations", screens: ["insights-hub", "recommendation-cards"] },
-      { type: "phone", label: "Conversational assistant", description: "Natural language guidance interface for navigating complex decisions", screens: ["chat-interface", "recommendation-response"] },
-      { type: "detail", label: "Explainability panel", description: "Transparent reasoning behind AI-generated recommendations", screens: ["reasoning-view"] },
-      { type: "browser", label: "Consent and memory controls", description: "User-controlled AI context and permission management", screens: ["permissions-panel", "memory-controls"] },
+      { type: "browser", label: "AI intelligence hub", description: "Cross-platform insights dashboard with personalized recommendations", screens: ["insights-hub", "recommendation-cards"], imagePath: "/work/gigamatic-ai-hub.svg" },
+      { type: "phone", label: "Conversational assistant", description: "Natural language guidance interface for navigating complex decisions", screens: ["chat-interface", "recommendation-response"], imagePath: "/work/gigamatic-ai-chat.svg" },
+      { type: "detail", label: "Explainability panel", description: "Transparent reasoning behind AI-generated recommendations", screens: ["reasoning-view"], imagePath: "/work/gigamatic-ai-explainability.svg" },
+      { type: "browser", label: "Consent and memory controls", description: "User-controlled AI context and permission management", screens: ["permissions-panel", "memory-controls"], imagePath: "/work/gigamatic-ai-consent.svg" },
     ],
     outcomes: [
       "Established a clear strategic vision for AI as a cross-platform intelligence layer rather than a feature added within individual products",
@@ -350,11 +356,12 @@ export const projects: Project[] = [
       { title: "Research synthesis (design exploration)", description: "Design exploration has considered tools that help researchers identify thematic connections across the institute's growing body of work." },
       { title: "Public engagement tools (future vision)", description: "The long-term vision includes AI-assisted tools for public engagement — helping general readers access difficult ideas through guided reading, contextual explanation, and structured dialogue." },
     ],
+    coverImage: "/work/institute-cover.svg",
     gallery: [
-      { type: "fullwidth", label: "Institute homepage", description: "Editorial homepage with featured research and clear intellectual positioning", screens: ["homepage-hero", "featured-research"] },
-      { type: "browser", label: "Article reading experience", description: "Long-form article layout with structured typography and related content", screens: ["article-body", "related-articles"] },
-      { type: "detail", label: "Research library", description: "Navigable collection of publications organized by theme and discipline", screens: ["library-grid", "filter-system"] },
-      { type: "browser", label: "Contributor profile", description: "Rich academic profile connecting researcher to their body of work", screens: ["contributor-page"] },
+      { type: "fullwidth", label: "Institute homepage", description: "Editorial homepage with featured research and clear intellectual positioning", screens: ["homepage-hero", "featured-research"], imagePath: "/work/institute-homepage.svg" },
+      { type: "browser", label: "Article reading experience", description: "Long-form article layout with structured typography and related content", screens: ["article-body", "related-articles"], imagePath: "/work/institute-article.svg" },
+      { type: "detail", label: "Research library", description: "Navigable collection of publications organized by theme and discipline", screens: ["library-grid", "filter-system"], imagePath: "/work/institute-library.svg" },
+      { type: "browser", label: "Contributor profile", description: "Rich academic profile connecting researcher to their body of work", screens: ["contributor-page"], imagePath: "/work/institute-contributor.svg" },
     ],
     outcomes: [
       "Established a product vision and digital identity for a research initiative with no precedent in its specific combination of scope and perspective",
@@ -415,11 +422,12 @@ export const projects: Project[] = [
       { title: "Contextual recommendation engine (design exploration)", description: "Design exploration has considered a recommendation layer that combines location, time, preferences, and real-time data to surface suggestions that feel genuinely relevant rather than algorithmically generic." },
       { title: "Agentic disruption management (future vision)", description: "The long-term product vision includes an agentic capability that can detect travel disruptions, research alternatives, and prepare a replanning recommendation — requiring explicit human approval before any rebooking or consequential action is taken." },
     ],
+    coverImage: "/work/hudson-cover.svg",
     gallery: [
-      { type: "phone", label: "Conversational planning", description: "Natural language trip planning with iterative refinement", screens: ["planning-chat", "itinerary-preview"] },
-      { type: "phone", label: "Live itinerary view", description: "Day-by-day view adapting to current time, location, and preferences", screens: ["itinerary-today", "next-up-card"] },
-      { type: "detail", label: "Location-aware suggestions", description: "Contextual recommendations surfaced near current location", screens: ["nearby-suggestions", "detail-card"] },
-      { type: "phone", label: "Disruption handling", description: "Agent-assisted replanning with human confirmation checkpoint", screens: ["alert-screen", "replan-options", "confirm-action"] },
+      { type: "phone", label: "Conversational planning", description: "Natural language trip planning with iterative refinement", screens: ["planning-chat", "itinerary-preview"], imagePath: "/work/hudson-planning.svg" },
+      { type: "phone", label: "Live itinerary view", description: "Day-by-day view adapting to current time, location, and preferences", screens: ["itinerary-today", "next-up-card"], imagePath: "/work/hudson-itinerary.svg" },
+      { type: "detail", label: "Location-aware suggestions", description: "Contextual recommendations surfaced near current location", screens: ["nearby-suggestions", "detail-card"], imagePath: "/work/hudson-nearby.svg" },
+      { type: "phone", label: "Disruption handling", description: "Agent-assisted replanning with human confirmation checkpoint", screens: ["alert-screen", "replan-options", "confirm-action"], imagePath: "/work/hudson-disruption.svg" },
     ],
     outcomes: [
       "Established a product vision for an iOS travel application that treats contextual intelligence as the core value proposition rather than an added feature",

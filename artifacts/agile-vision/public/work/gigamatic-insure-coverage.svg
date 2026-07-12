@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" font-family="system-ui,-apple-system,sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="52%"><stop offset="0%" stop-color="#22C38D" stop-opacity="0.1"/><stop offset="100%" stop-color="#22C38D" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="780" fill="#060f0c"/>
+  <rect width="1200" height="780" fill="url(#bg)"/>
+  <!-- Browser chrome -->
+  <rect width="1200" height="44" fill="#0c1a14"/>
+  <circle cx="18" cy="22" r="6" fill="#ff5f57" opacity="0.65"/>
+  <circle cx="38" cy="22" r="6" fill="#febc2e" opacity="0.65"/>
+  <circle cx="58" cy="22" r="6" fill="#28c840" opacity="0.65"/>
+  <rect x="120" y="10" width="380" height="24" rx="5" fill="#0d1e18"/>
+  <text x="310" y="26" font-size="11" fill="rgba(255,255,255,0.25)" text-anchor="middle">gigamatic.insure/coverage</text>
+  <rect width="1200" height="1" y="44" fill="rgba(255,255,255,0.05)"/>
+  <!-- Top nav within app -->
+  <rect x="0" y="44" width="1200" height="64" fill="#0a1a14"/>
+  <rect x="0" y="108" width="1200" height="1" fill="rgba(255,255,255,0.05)"/>
+  <text x="40" y="72" font-size="15" font-weight="800" fill="#22C38D" font-style="italic">GIGAMATIC</text>
+  <text x="40" y="88" font-size="9" fill="rgba(255,255,255,0.28)" letter-spacing="2.5">INSURE</text>
+  <rect x="300" y="60" width="76" height="28" rx="6" fill="rgba(34,195,141,0.12)"/>
+  <text x="338" y="78" font-size="12" fill="#22C38D" text-anchor="middle">Coverage</text>
+  <text x="440" y="78" font-size="12" fill="rgba(255,255,255,0.38)">My Plan</text>
+  <text x="530" y="78" font-size="12" fill="rgba(255,255,255,0.38)">Providers</text>
+  <text x="620" y="78" font-size="12" fill="rgba(255,255,255,0.38)">Claims</text>
+  <!-- Search bar -->
+  <rect x="40" y="124" width="520" height="36" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="64" y="146" font-size="12" fill="rgba(255,255,255,0.22)">Search coverage types, providers...</text>
+  <!-- Filter chips -->
+  <rect x="40" y="174" width="48" height="26" rx="5" fill="#22C38D" opacity="0.8"/>
+  <text x="64" y="191" font-size="11" fill="white" text-anchor="middle">All</text>
+  <rect x="96" y="174" width="56" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="124" y="191" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Health</text>
+  <rect x="160" y="174" width="80" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="200" y="191" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Protection</text>
+  <rect x="248" y="174" width="48" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="272" y="191" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Life</text>
+  <rect x="304" y="174" width="60" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="334" y="191" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Dental</text>
+  <!-- Main grid: coverage cards -->
+  <!-- Row 1 -->
+  <rect x="40" y="214" width="270" height="184" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.25)" stroke-width="1.5"/>
+  <rect x="40" y="214" width="270" height="3" rx="1.5" fill="#22C38D" opacity="0.6"/>
+  <circle cx="64" cy="252" r="18" fill="rgba(34,195,141,0.15)"/>
+  <text x="64" y="258" font-size="14" fill="#22C38D" text-anchor="middle">+</text>
+  <rect x="88" y="248" width="60" height="18" rx="4" fill="rgba(34,195,141,0.18)"/>
+  <text x="118" y="260" font-size="10" fill="#22C38D" text-anchor="middle">Recommended</text>
+  <text x="56" y="294" font-size="15" font-weight="700" fill="rgba(255,255,255,0.82)">Income Protection</text>
+  <text x="56" y="314" font-size="11" fill="rgba(255,255,255,0.35)">Replace up to 70% of income</text>
+  <text x="56" y="334" font-size="11" fill="rgba(255,255,255,0.28)">From &#163;18/month &#xB7; 9 providers</text>
+  <rect x="56" y="348" width="180" height="5" rx="2.5" fill="rgba(255,255,255,0.06)"/>
+  <text x="286" y="384" font-size="11" fill="#22C38D" text-anchor="end">Explore &#x2192;</text>
+  <rect x="326" y="214" width="270" height="184" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.14)" stroke-width="1"/>
+  <circle cx="350" cy="252" r="18" fill="rgba(34,195,141,0.1)"/>
+  <text x="372" y="294" font-size="15" font-weight="700" fill="rgba(255,255,255,0.7)">Health Insurance</text>
+  <text x="372" y="314" font-size="11" fill="rgba(255,255,255,0.3)">Private healthcare access</text>
+  <text x="372" y="334" font-size="11" fill="rgba(255,255,255,0.22)">From &#163;35/month &#xB7; 12 providers</text>
+  <text x="572" y="384" font-size="11" fill="#22C38D" opacity="0.7" text-anchor="end">Explore &#x2192;</text>
+  <rect x="612" y="214" width="270" height="184" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.1)" stroke-width="1"/>
+  <text x="658" y="294" font-size="15" font-weight="700" fill="rgba(255,255,255,0.6)">Life Cover</text>
+  <text x="658" y="314" font-size="11" fill="rgba(255,255,255,0.26)">Family financial security</text>
+  <text x="658" y="334" font-size="11" fill="rgba(255,255,255,0.2)">From &#163;12/month &#xB7; 8 providers</text>
+  <text x="858" y="384" font-size="11" fill="#22C38D" opacity="0.55" text-anchor="end">Explore &#x2192;</text>
+  <rect x="898" y="214" width="262" height="184" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.07)" stroke-width="1"/>
+  <text x="940" y="294" font-size="15" font-weight="700" fill="rgba(255,255,255,0.5)">Critical Illness</text>
+  <text x="940" y="314" font-size="11" fill="rgba(255,255,255,0.22)">Lump sum on diagnosis</text>
+  <text x="940" y="334" font-size="11" fill="rgba(255,255,255,0.16)">From &#163;20/month &#xB7; 6 providers</text>
+  <!-- Row 2 -->
+  <rect x="40" y="412" width="270" height="160" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.07)" stroke-width="1"/>
+  <text x="56" y="456" font-size="15" font-weight="700" fill="rgba(255,255,255,0.45)">Dental &#38; Optical</text>
+  <text x="56" y="476" font-size="11" fill="rgba(255,255,255,0.2)">Routine &#38; emergency dental</text>
+  <text x="56" y="496" font-size="11" fill="rgba(255,255,255,0.15)">From &#163;8/month &#xB7; 7 providers</text>
+  <rect x="326" y="412" width="270" height="160" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.06)" stroke-width="1"/>
+  <text x="342" y="456" font-size="15" font-weight="700" fill="rgba(255,255,255,0.42)">Professional Liability</text>
+  <text x="342" y="476" font-size="11" fill="rgba(255,255,255,0.18)">Client dispute protection</text>
+  <rect x="612" y="412" width="270" height="160" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.05)" stroke-width="1"/>
+  <text x="628" y="456" font-size="15" font-weight="700" fill="rgba(255,255,255,0.36)">Travel Insurance</text>
+  <text x="628" y="476" font-size="11" fill="rgba(255,255,255,0.15)">For frequent travellers</text>
+  <rect x="898" y="412" width="262" height="160" rx="12" fill="#0d1e18" stroke="rgba(34,195,141,0.04)" stroke-width="1"/>
+  <text x="914" y="456" font-size="15" font-weight="700" fill="rgba(255,255,255,0.3)">Equipment Cover</text>
+  <text x="914" y="476" font-size="11" fill="rgba(255,255,255,0.13)">Kit &#38; tools protection</text>
+  <!-- Side panel: your coverage -->
+  <rect x="40" y="588" width="1120" height="72" rx="10" fill="rgba(34,195,141,0.06)" stroke="rgba(34,195,141,0.18)" stroke-width="1"/>
+  <text x="62" y="614" font-size="13" font-weight="600" fill="rgba(255,255,255,0.7)">Your Coverage Profile</text>
+  <text x="62" y="634" font-size="11" fill="rgba(255,255,255,0.32)">2 gaps identified based on your profile &#xB7; Income protection and dental not yet covered</text>
+  <rect x="984" y="604" width="152" height="36" rx="8" fill="#22C38D" opacity="0.8"/>
+  <text x="1060" y="626" font-size="12" font-weight="600" fill="white" text-anchor="middle">View my plan</text>
+  <!-- Bottom summary stats -->
+  <rect x="40" y="676" width="260" height="72" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="62" y="700" font-size="10" fill="rgba(255,255,255,0.25)">PROVIDERS</text>
+  <text x="62" y="726" font-size="22" font-weight="700" fill="rgba(255,255,255,0.7)">32</text>
+  <text x="92" y="726" font-size="13" fill="rgba(255,255,255,0.28)">available</text>
+  <rect x="320" y="676" width="260" height="72" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="342" y="700" font-size="10" fill="rgba(255,255,255,0.25)">YOUR GAPS</text>
+  <text x="342" y="726" font-size="22" font-weight="700" fill="rgba(255,150,50,0.8)">2</text>
+  <text x="372" y="726" font-size="13" fill="rgba(255,255,255,0.28)">to address</text>
+  <rect x="600" y="676" width="260" height="72" rx="10" fill="#0d0b1e" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="622" y="700" font-size="10" fill="rgba(255,255,255,0.25)">ELIGIBILITY</text>
+  <text x="622" y="726" font-size="22" font-weight="700" fill="#22C38D">72%</text>
+  <text x="666" y="726" font-size="13" fill="rgba(255,255,255,0.28)">score</text>
+  <rect x="880" y="676" width="280" height="72" rx="10" fill="rgba(34,195,141,0.07)" stroke="rgba(34,195,141,0.2)" stroke-width="1"/>
+  <text x="902" y="700" font-size="10" fill="#22C38D" opacity="0.7">TOP RECOMMENDATION</text>
+  <text x="902" y="726" font-size="15" font-weight="700" fill="rgba(255,255,255,0.7)">Income Protection</text>
+</svg>

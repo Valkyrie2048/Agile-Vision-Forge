@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="system-ui,-apple-system,sans-serif">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#13B5EC" stop-opacity="0.13"/><stop offset="100%" stop-color="#13B5EC" stop-opacity="0"/></radialGradient>
+    <radialGradient id="mapglow" cx="50%" cy="50%" r="40%"><stop offset="0%" stop-color="#13B5EC" stop-opacity="0.08"/><stop offset="100%" stop-color="#13B5EC" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#060910"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <!-- Subtle map grid texture -->
+  <line x1="0" y1="150" x2="1600" y2="150" stroke="rgba(19,181,236,0.04)" stroke-width="1"/>
+  <line x1="0" y1="300" x2="1600" y2="300" stroke="rgba(19,181,236,0.04)" stroke-width="1"/>
+  <line x1="0" y1="450" x2="1600" y2="450" stroke="rgba(19,181,236,0.04)" stroke-width="1"/>
+  <line x1="0" y1="600" x2="1600" y2="600" stroke="rgba(19,181,236,0.04)" stroke-width="1"/>
+  <line x1="0" y1="750" x2="1600" y2="750" stroke="rgba(19,181,236,0.04)" stroke-width="1"/>
+  <line x1="200" y1="0" x2="200" y2="900" stroke="rgba(19,181,236,0.03)" stroke-width="1"/>
+  <line x1="400" y1="0" x2="400" y2="900" stroke="rgba(19,181,236,0.03)" stroke-width="1"/>
+  <line x1="600" y1="0" x2="600" y2="900" stroke="rgba(19,181,236,0.03)" stroke-width="1"/>
+  <line x1="800" y1="0" x2="800" y2="900" stroke="rgba(19,181,236,0.03)" stroke-width="1"/>
+  <line x1="1000" y1="0" x2="1000" y2="900" stroke="rgba(19,181,236,0.03)" stroke-width="1"/>
+  <line x1="1200" y1="0" x2="1200" y2="900" stroke="rgba(19,181,236,0.03)" stroke-width="1"/>
+  <line x1="1400" y1="0" x2="1400" y2="900" stroke="rgba(19,181,236,0.03)" stroke-width="1"/>
+  <!-- Brand name center top -->
+  <text x="800" y="56" font-size="22" font-weight="800" fill="rgba(255,255,255,0.6)" text-anchor="middle" letter-spacing="4">HUDSON NAVIGATION</text>
+  <rect x="680" y="66" width="240" height="1" fill="rgba(19,181,236,0.3)"/>
+  <!-- Left phone mockup -->
+  <rect x="220" y="90" width="360" height="720" rx="36" fill="#0e1420" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+  <rect x="228" y="98" width="344" height="704" rx="30" fill="#08111d"/>
+  <!-- Status bar -->
+  <rect x="228" y="98" width="344" height="44" rx="30" fill="rgba(14,20,32,0.9)"/>
+  <rect x="228" y="118" width="344" height="24" fill="rgba(14,20,32,0.9)"/>
+  <text x="400" y="124" font-size="12" fill="rgba(255,255,255,0.5)" text-anchor="middle">Tokyo &#xB7; 10:42 AM</text>
+  <!-- Camera notch area -->
+  <rect x="336" y="104" width="128" height="24" rx="12" fill="#0e1420"/>
+  <!-- Map area (top portion of phone) -->
+  <rect x="228" y="142" width="344" height="220" fill="#0d1825"/>
+  <!-- Map dots (simulating location pins) -->
+  <circle cx="340" cy="210" r="5" fill="#13B5EC"/>
+  <circle cx="340" cy="210" r="10" fill="#13B5EC" opacity="0.2"/>
+  <rect x="320" y="182" width="80" height="22" rx="5" fill="rgba(19,181,236,0.2)" stroke="rgba(19,181,236,0.4)" stroke-width="1"/>
+  <text x="360" y="197" font-size="10" fill="rgba(255,255,255,0.8)" text-anchor="middle">Senso-ji</text>
+  <circle cx="440" cy="248" r="4" fill="rgba(19,181,236,0.6)"/>
+  <circle cx="278" cy="280" r="4" fill="rgba(19,181,236,0.4)"/>
+  <!-- Map roads (simplified) -->
+  <line x1="228" y1="220" x2="572" y2="220" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
+  <line x1="340" y1="142" x2="340" y2="362" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+  <line x1="400" y1="142" x2="400" y2="362" stroke="rgba(255,255,255,0.04)" stroke-width="1.5"/>
+  <line x1="228" y1="270" x2="572" y2="270" stroke="rgba(255,255,255,0.04)" stroke-width="1.5"/>
+  <!-- Today label -->
+  <rect x="236" y="150" width="80" height="24" rx="6" fill="rgba(14,20,32,0.9)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="276" y="165" font-size="11" fill="rgba(255,255,255,0.65)" text-anchor="middle">Today</text>
+  <!-- Itinerary panel -->
+  <rect x="228" y="362" width="344" height="440" rx="0" fill="#0c1520"/>
+  <rect x="228" y="362" width="344" height="440" rx="0" fill="rgba(0,0,0,0.2)"/>
+  <!-- Drag handle -->
+  <rect x="384" y="374" width="64" height="4" rx="2" fill="rgba(255,255,255,0.15)"/>
+  <text x="248" y="406" font-size="13" font-weight="700" fill="rgba(255,255,255,0.8)">Today in Tokyo</text>
+  <text x="248" y="424" font-size="11" fill="rgba(255,255,255,0.35)">Tuesday, July 14 &#xB7; 3 stops</text>
+  <!-- Itinerary item 1 (current) -->
+  <rect x="236" y="438" width="320" height="72" rx="8" fill="rgba(19,181,236,0.1)" stroke="rgba(19,181,236,0.25)" stroke-width="1"/>
+  <circle cx="258" cy="472" r="14" fill="rgba(19,181,236,0.2)"/>
+  <text x="258" y="477" font-size="11" fill="#13B5EC" text-anchor="middle">Now</text>
+  <text x="282" y="464" font-size="12" font-weight="600" fill="rgba(255,255,255,0.82)">Senso-ji Temple</text>
+  <text x="282" y="480" font-size="11" fill="rgba(255,255,255,0.35)">Asakusa &#xB7; 45 min remaining</text>
+  <rect x="282" y="490" width="60" height="14" rx="4" fill="rgba(19,181,236,0.15)"/>
+  <text x="312" y="500" font-size="9" fill="#13B5EC" text-anchor="middle">&#x2022; Current</text>
+  <!-- Itinerary item 2 -->
+  <rect x="236" y="522" width="320" height="60" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <circle cx="258" cy="552" r="12" fill="rgba(255,255,255,0.06)"/>
+  <text x="258" y="557" font-size="11" fill="rgba(255,255,255,0.35)" text-anchor="middle">2</text>
+  <text x="280" y="546" font-size="12" font-weight="600" fill="rgba(255,255,255,0.62)">Nakamise Shopping St</text>
+  <text x="280" y="562" font-size="11" fill="rgba(255,255,255,0.28)">12:30 PM &#xB7; 10 min walk</text>
+  <!-- Itinerary item 3 -->
+  <rect x="236" y="594" width="320" height="60" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <circle cx="258" cy="624" r="12" fill="rgba(255,255,255,0.04)"/>
+  <text x="258" y="629" font-size="11" fill="rgba(255,255,255,0.25)" text-anchor="middle">3</text>
+  <text x="280" y="618" font-size="12" font-weight="600" fill="rgba(255,255,255,0.5)">Tsukiji Outer Market</text>
+  <text x="280" y="634" font-size="11" fill="rgba(255,255,255,0.22)">2:00 PM &#xB7; 20 min walk</text>
+  <!-- AI suggestion card -->
+  <rect x="236" y="668" width="320" height="64" rx="8" fill="rgba(19,181,236,0.06)" stroke="rgba(19,181,236,0.18)" stroke-width="1"/>
+  <text x="256" y="688" font-size="10" fill="#13B5EC" letter-spacing="1">AI SUGGESTS</text>
+  <text x="256" y="706" font-size="11" fill="rgba(255,255,255,0.55)">Nearby: Ame-Yoko Market</text>
+  <text x="256" y="720" font-size="10" fill="rgba(255,255,255,0.3)">5 min away &#xB7; 2,000 reviews</text>
+  <!-- Bottom nav -->
+  <rect x="228" y="756" width="344" height="86" rx="0" fill="rgba(14,20,32,0.95)"/>
+  <rect x="228" y="756" width="344" height="86" rx="0" fill="rgba(14,20,32,0.2)"/>
+  <rect x="228" y="823" width="344" height="15" rx="0" fill="rgba(14,20,32,0.95)"/>
+  <rect x="228" y="756" width="344" height="1" fill="rgba(255,255,255,0.08)"/>
+  <circle cx="314" cy="785" r="4" fill="#13B5EC"/>
+  <circle cx="400" cy="785" r="4" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="486" cy="785" r="4" fill="rgba(255,255,255,0.2)"/>
+  <text x="314" y="802" font-size="9" fill="#13B5EC" text-anchor="middle">Today</text>
+  <text x="400" y="802" font-size="9" fill="rgba(255,255,255,0.3)" text-anchor="middle">Plan</text>
+  <text x="486" y="802" font-size="9" fill="rgba(255,255,255,0.3)" text-anchor="middle">Assistant</text>
+  <!-- Right phone mockup (chat interface) -->
+  <rect x="1020" y="90" width="360" height="720" rx="36" fill="#0e1420" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+  <rect x="1028" y="98" width="344" height="704" rx="30" fill="#08111d"/>
+  <!-- Status bar -->
+  <rect x="1028" y="98" width="344" height="44" rx="30" fill="rgba(14,20,32,0.9)"/>
+  <rect x="1028" y="118" width="344" height="24" fill="rgba(14,20,32,0.9)"/>
+  <text x="1200" y="124" font-size="12" fill="rgba(255,255,255,0.5)" text-anchor="middle">Hudson AI &#xB7; Planning</text>
+  <rect x="1136" y="104" width="128" height="24" rx="12" fill="#0e1420"/>
+  <!-- Chat interface -->
+  <rect x="1028" y="142" width="344" height="660" fill="#08111d"/>
+  <!-- AI header -->
+  <rect x="1028" y="142" width="344" height="56" fill="rgba(14,20,32,0.9)"/>
+  <circle cx="1056" cy="170" r="18" fill="rgba(19,181,236,0.15)" stroke="rgba(19,181,236,0.3)" stroke-width="1.5"/>
+  <text x="1056" y="175" font-size="13" fill="#13B5EC" text-anchor="middle">H</text>
+  <text x="1084" y="165" font-size="13" font-weight="600" fill="rgba(255,255,255,0.75)">Hudson</text>
+  <text x="1084" y="181" font-size="11" fill="rgba(19,181,236,0.65)">&#x2022; Active &#xB7; Tokyo mode</text>
+  <rect x="1028" y="198" width="344" height="1" fill="rgba(255,255,255,0.06)"/>
+  <!-- Chat messages -->
+  <rect x="1044" y="216" width="270" height="48" rx="8" fill="rgba(19,181,236,0.1)" stroke="rgba(19,181,236,0.18)" stroke-width="1"/>
+  <text x="1060" y="236" font-size="11" fill="rgba(255,255,255,0.65)">Good morning! You&#x2019;re at Senso-ji.</text>
+  <text x="1060" y="252" font-size="11" fill="rgba(255,255,255,0.65)">Weather is 24&#xB0;C, clear skies.</text>
+  <rect x="1180" y="280" width="176" height="40" rx="8" fill="rgba(19,181,236,0.2)" stroke="rgba(19,181,236,0.3)" stroke-width="1"/>
+  <text x="1198" y="296" font-size="11" fill="rgba(255,255,255,0.8)">Any lunch spots</text>
+  <text x="1198" y="312" font-size="11" fill="rgba(255,255,255,0.8)">near here?</text>
+  <rect x="1044" y="336" width="295" height="92" rx="8" fill="rgba(19,181,236,0.08)" stroke="rgba(19,181,236,0.14)" stroke-width="1"/>
+  <text x="1060" y="356" font-size="11" font-weight="600" fill="rgba(255,255,255,0.7)">Nearby (5&#x2013;12 min walk):</text>
+  <text x="1060" y="376" font-size="11" fill="rgba(255,255,255,0.55)">&#x2022; Nakamise noodles &#xB7; &#xA5;1,400</text>
+  <text x="1060" y="394" font-size="11" fill="rgba(255,255,255,0.55)">&#x2022; Kappabashi ramen &#xB7; &#xA5;1,800</text>
+  <text x="1060" y="412" font-size="11" fill="#13B5EC" opacity="0.75">Add to itinerary &#x2192;</text>
+  <rect x="1180" y="444" width="168" height="28" rx="8" fill="rgba(19,181,236,0.2)" stroke="rgba(19,181,236,0.3)" stroke-width="1"/>
+  <text x="1264" y="462" font-size="11" fill="rgba(255,255,255,0.8)" text-anchor="middle">Add the ramen place</text>
+  <rect x="1044" y="488" width="280" height="52" rx="8" fill="rgba(19,181,236,0.07)" stroke="rgba(19,181,236,0.12)" stroke-width="1"/>
+  <text x="1060" y="508" font-size="11" fill="rgba(255,255,255,0.6)">Done! Kappabashi added at 1:15 PM.</text>
+  <text x="1060" y="526" font-size="11" fill="rgba(255,255,255,0.6)">I&#x2019;ll remind you at 12:55 PM.</text>
+  <!-- Confirmation chip -->
+  <rect x="1044" y="552" width="200" height="28" rx="8" fill="rgba(34,195,141,0.1)" stroke="rgba(34,195,141,0.25)" stroke-width="1"/>
+  <text x="1060" y="570" font-size="11" fill="#22C38D">&#x2713; Itinerary updated</text>
+  <!-- Input bar -->
+  <rect x="1036" y="730" width="320" height="40" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="1056" y="754" font-size="11" fill="rgba(255,255,255,0.2)">Ask Hudson anything...</text>
+  <circle cx="1340" cy="750" r="12" fill="#13B5EC" opacity="0.7"/>
+  <!-- Center branding text -->
+  <text x="800" y="470" font-size="14" fill="rgba(255,255,255,0.2)" text-anchor="middle" letter-spacing="1">iOS travel companion</text>
+  <text x="800" y="500" font-size="13" fill="rgba(19,181,236,0.4)" text-anchor="middle">Conversational &#xB7; Contextual &#xB7; Calm</text>
+</svg>

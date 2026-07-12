@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="860" viewBox="0 0 500 860">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070612"/>
+      <stop offset="100%" stop-color="#0a0f1e"/>
+    </linearGradient>
+    <linearGradient id="alert" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EC6013" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#EC8013" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="resolved" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#13B5EC" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#40d0ff" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Phone body -->
+  <rect x="0" y="0" width="500" height="860" rx="40" fill="url(#bg)"/>
+
+  <!-- Status bar -->
+  <rect x="0" y="0" width="500" height="50" rx="40" fill="rgba(255,255,255,0.03)"/>
+  <text x="40" y="32" font-family="system-ui,sans-serif" font-size="13" fill="white" font-weight="600">9:41</text>
+  <rect x="400" y="20" width="36" height="16" rx="4" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+  <rect x="402" y="22" width="28" height="12" rx="2" fill="#EC6013"/>
+  <rect x="438" y="24" width="4" height="8" rx="1" fill="rgba(255,255,255,0.4)"/>
+
+  <!-- Alert banner -->
+  <rect x="0" y="50" width="500" height="80" fill="rgba(236,96,19,0.12)" stroke="rgba(236,96,19,0.25)" stroke-width="1"/>
+  <!-- Warning icon -->
+  <polygon points="250,60 280,108 220,108" fill="none" stroke="#EC6013" stroke-width="2" stroke-linejoin="round"/>
+  <text x="250" y="96" font-family="system-ui,sans-serif" font-size="14" fill="#EC6013" text-anchor="middle" font-weight="700">!</text>
+  <text x="294" y="78" font-family="system-ui,sans-serif" font-size="14" fill="white" font-weight="700">Flight Disruption</text>
+  <text x="294" y="96" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.6)">NH207 cancelled · March 18</text>
+  <!-- Close icon removed, replaced with simple X -->
+  <text x="472" y="90" font-family="system-ui,sans-serif" font-size="18" fill="rgba(255,255,255,0.4)" text-anchor="middle">×</text>
+
+  <!-- Disrupted flight card -->
+  <rect x="20" y="148" width="460" height="90" rx="10" fill="url(#alert)" stroke="rgba(236,96,19,0.3)" stroke-width="1"/>
+  <rect x="20" y="148" width="4" height="90" rx="2" fill="#EC6013"/>
+  <text x="36" y="170" font-family="system-ui,sans-serif" font-size="11" fill="#EC6013" font-weight="600">CANCELLED</text>
+  <text x="36" y="190" font-family="system-ui,sans-serif" font-size="15" fill="white" font-weight="700">NH207 · Tokyo → London</text>
+  <text x="36" y="210" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">Was: 11:45 AM  Narita Terminal 1</text>
+  <text x="36" y="228" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">Reason: Severe weather · 3 passengers</text>
+
+  <!-- Hudson working indicator -->
+  <rect x="20" y="254" width="460" height="56" rx="10" fill="rgba(19,181,236,0.08)" stroke="rgba(19,181,236,0.2)" stroke-width="1"/>
+  <circle cx="48" cy="282" r="14" fill="rgba(19,181,236,0.2)"/>
+  <text x="48" y="287" font-family="system-ui,sans-serif" font-size="14" text-anchor="middle">✦</text>
+  <text x="72" y="276" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Hudson is searching for alternatives...</text>
+  <text x="72" y="294" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.45)">Checking 12 airlines · Protecting connections</text>
+  <!-- Loading dots -->
+  <circle cx="396" cy="282" r="4" fill="#13B5EC" fill-opacity="0.6"/>
+  <circle cx="410" cy="282" r="4" fill="#13B5EC" fill-opacity="0.8"/>
+  <circle cx="424" cy="282" r="4" fill="#13B5EC"/>
+
+  <!-- Options header -->
+  <text x="20" y="336" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" font-weight="600" letter-spacing="1">REBOOKING OPTIONS</text>
+
+  <!-- Option 1 - Best pick -->
+  <rect x="20" y="348" width="460" height="110" rx="10" fill="url(#resolved)" stroke="rgba(19,181,236,0.25)" stroke-width="1"/>
+  <rect x="20" y="348" width="4" height="110" rx="2" fill="#13B5EC"/>
+  <rect x="380" y="356" width="88" height="20" rx="10" fill="rgba(19,181,236,0.2)"/>
+  <text x="424" y="370" font-family="system-ui,sans-serif" font-size="10" fill="#13B5EC" text-anchor="middle" font-weight="600">BEST OPTION</text>
+  <text x="36" y="374" font-family="system-ui,sans-serif" font-size="14" fill="white" font-weight="700">BA8 · Tokyo → London</text>
+  <text x="36" y="394" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.6)">2:15 PM → 6:45 PM (next day) · 14h 30m</text>
+  <text x="36" y="412" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">British Airways · Same class · No fee</text>
+  <text x="36" y="430" font-family="system-ui,sans-serif" font-size="11" fill="#13B5EC">Arrives 2h earlier · Hotel credit available</text>
+  <rect x="340" y="436" width="128" height="34" rx="8" fill="#13B5EC"/>
+  <text x="404" y="457" font-family="system-ui,sans-serif" font-size="13" fill="white" text-anchor="middle" font-weight="600">Select &amp; Rebook</text>
+
+  <!-- Option 2 -->
+  <rect x="20" y="472" width="460" height="98" rx="10" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="36" y="494" font-family="system-ui,sans-serif" font-size="14" fill="white" font-weight="600">JL43 · Tokyo → London</text>
+  <text x="36" y="512" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">4:30 PM → 8:55 PM (next day) · 16h 25m</text>
+  <text x="36" y="530" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">Japan Airlines · Upgrade available · +¥18,000</text>
+  <text x="36" y="548" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">Arrives 30m later than original</text>
+  <rect x="340" y="542" width="128" height="30" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="404" y="561" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)" text-anchor="middle">View Details</text>
+
+  <!-- Option 3 -->
+  <rect x="20" y="584" width="460" height="98" rx="10" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="36" y="606" font-family="system-ui,sans-serif" font-size="14" fill="white" font-weight="600">AA170 via JFK · Tokyo → London</text>
+  <text x="36" y="624" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">6:00 PM → 11:20 AM (next day) · 21h 20m</text>
+  <text x="36" y="642" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">American Airlines · 1 stop · No extra fee</text>
+  <text x="36" y="660" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">Connection: JFK 2h layover</text>
+  <rect x="340" y="654" width="128" height="30" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="404" y="673" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)" text-anchor="middle">View Details</text>
+
+  <!-- Compensation notice -->
+  <rect x="20" y="696" width="460" height="52" rx="10" fill="rgba(19,181,236,0.06)" stroke="rgba(19,181,236,0.12)" stroke-width="1"/>
+  <text x="44" y="718" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.7)" font-weight="600">EU261 Compensation eligible</text>
+  <text x="44" y="736" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">Up to €600 · Hudson can submit claim for you →</text>
+
+  <!-- Bottom nav -->
+  <rect x="0" y="762" width="500" height="78" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="80" y="802" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle">Plan</text>
+  <text x="180" y="802" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle">Itinerary</text>
+  <text x="280" y="802" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle">Nearby</text>
+  <text x="380" y="802" font-family="system-ui,sans-serif" font-size="10" fill="#EC6013" text-anchor="middle">Bookings !</text>
+  <rect x="360" y="788" width="40" height="2" rx="1" fill="#EC6013"/>
+
+  <!-- Home indicator -->
+  <rect x="180" y="834" width="140" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
+</svg>

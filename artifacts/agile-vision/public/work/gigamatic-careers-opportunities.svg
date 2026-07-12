@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" font-family="system-ui,-apple-system,sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="52%"><stop offset="0%" stop-color="#B24CE6" stop-opacity="0.1"/><stop offset="100%" stop-color="#B24CE6" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="780" fill="#080610"/>
+  <rect width="1200" height="780" fill="url(#bg)"/>
+  <!-- Browser chrome -->
+  <rect width="1200" height="44" fill="#0e0c1e"/>
+  <circle cx="18" cy="22" r="6" fill="#ff5f57" opacity="0.65"/>
+  <circle cx="38" cy="22" r="6" fill="#febc2e" opacity="0.65"/>
+  <circle cx="58" cy="22" r="6" fill="#28c840" opacity="0.65"/>
+  <rect x="120" y="10" width="380" height="24" rx="5" fill="#13101e"/>
+  <text x="310" y="26" font-size="11" fill="rgba(255,255,255,0.25)" text-anchor="middle">gigamatic.careers/opportunities</text>
+  <rect width="1200" height="1" y="44" fill="rgba(255,255,255,0.05)"/>
+  <!-- Nav -->
+  <rect x="0" y="44" width="1200" height="56" fill="#0d0b1e"/>
+  <rect x="0" y="100" width="1200" height="1" fill="rgba(255,255,255,0.05)"/>
+  <text x="40" y="75" font-size="15" font-weight="800" fill="#B24CE6" font-style="italic">GIGAMATIC</text>
+  <text x="40" y="91" font-size="9" fill="rgba(255,255,255,0.28)" letter-spacing="2.5">CAREERS</text>
+  <text x="280" y="80" font-size="12" fill="rgba(255,255,255,0.35)">Profile</text>
+  <rect x="340" y="62" width="100" height="26" rx="6" fill="rgba(178,76,230,0.12)"/>
+  <text x="390" y="79" font-size="12" fill="#B24CE6" text-anchor="middle">Opportunities</text>
+  <text x="490" y="80" font-size="12" fill="rgba(255,255,255,0.35)">Pathways</text>
+  <!-- Header -->
+  <text x="40" y="134" font-size="18" font-weight="700" fill="rgba(255,255,255,0.82)">Matched Opportunities</text>
+  <text x="40" y="154" font-size="12" fill="rgba(255,255,255,0.28)">12 opportunities &#xB7; Based on your skills, work type preferences, and career goals</text>
+  <!-- Filters -->
+  <rect x="40" y="166" width="48" height="26" rx="5" fill="#B24CE6" opacity="0.8"/>
+  <text x="64" y="183" font-size="11" fill="white" text-anchor="middle">All</text>
+  <rect x="96" y="166" width="80" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="136" y="183" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Contract</text>
+  <rect x="184" y="166" width="76" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="222" y="183" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Freelance</text>
+  <rect x="268" y="166" width="62" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="299" y="183" font-size="11" fill="rgba(255,255,255,0.38)" text-anchor="middle">Remote</text>
+  <text x="1120" y="183" font-size="11" fill="rgba(255,255,255,0.25)" text-anchor="end">Sort: Best match</text>
+  <!-- Opportunity list + right panel -->
+  <!-- Left: opportunities list -->
+  <!-- Item 1 (highlighted) -->
+  <rect x="40" y="206" width="680" height="108" rx="10" fill="rgba(178,76,230,0.08)" stroke="rgba(178,76,230,0.28)" stroke-width="1.5"/>
+  <rect x="40" y="206" width="680" height="3" rx="1.5" fill="#B24CE6" opacity="0.5"/>
+  <rect x="56" y="222" width="72" height="20" rx="4" fill="rgba(178,76,230,0.2)"/>
+  <text x="92" y="235" font-size="10" fill="#B24CE6" text-anchor="middle" font-weight="600">92% match</text>
+  <rect x="138" y="222" width="68" height="20" rx="4" fill="rgba(255,255,255,0.05)"/>
+  <text x="172" y="235" font-size="10" fill="rgba(255,255,255,0.38)" text-anchor="middle">Contract</text>
+  <rect x="216" y="222" width="60" height="20" rx="4" fill="rgba(255,255,255,0.05)"/>
+  <text x="246" y="235" font-size="10" fill="rgba(255,255,255,0.38)" text-anchor="middle">6 months</text>
+  <text x="56" y="262" font-size="15" font-weight="700" fill="rgba(255,255,255,0.85)">Lead Product Designer &#x2014; Fintech Startup</text>
+  <text x="56" y="280" font-size="11" fill="rgba(255,255,255,0.38)">Series B &#xB7; London / Hybrid &#xB7; &#163;550&#x2013;700/day</text>
+  <text x="56" y="298" font-size="11" fill="rgba(255,255,255,0.25)">Product Design &#xB7; Figma &#xB7; Product Strategy &#xB7; +3</text>
+  <text x="680" y="295" font-size="11" fill="#B24CE6" text-anchor="end">View &#x2192;</text>
+  <!-- Item 2 -->
+  <rect x="40" y="326" width="680" height="100" rx="10" fill="rgba(178,76,230,0.05)" stroke="rgba(178,76,230,0.14)" stroke-width="1"/>
+  <rect x="56" y="342" width="66" height="20" rx="4" fill="rgba(178,76,230,0.12)"/>
+  <text x="89" y="355" font-size="10" fill="#B24CE6" text-anchor="middle" opacity="0.8">87% match</text>
+  <rect x="132" y="342" width="66" height="20" rx="4" fill="rgba(255,255,255,0.04)"/>
+  <text x="165" y="355" font-size="10" fill="rgba(255,255,255,0.32)" text-anchor="middle">Freelance</text>
+  <text x="56" y="380" font-size="14" font-weight="700" fill="rgba(255,255,255,0.72)">UX Strategy Lead &#x2014; HealthTech</text>
+  <text x="56" y="398" font-size="11" fill="rgba(255,255,255,0.32)">Scale-up &#xB7; Remote &#xB7; &#163;8,000&#x2013;12,000/project</text>
+  <text x="56" y="414" font-size="11" fill="rgba(255,255,255,0.2)">UX Research &#xB7; Product Strategy &#xB7; Stakeholders</text>
+  <text x="680" y="412" font-size="11" fill="#B24CE6" opacity="0.7" text-anchor="end">View &#x2192;</text>
+  <!-- Item 3 -->
+  <rect x="40" y="438" width="680" height="100" rx="10" fill="rgba(178,76,230,0.04)" stroke="rgba(178,76,230,0.1)" stroke-width="1"/>
+  <rect x="56" y="454" width="60" height="20" rx="4" fill="rgba(178,76,230,0.08)"/>
+  <text x="86" y="467" font-size="10" fill="#B24CE6" text-anchor="middle" opacity="0.65">78% match</text>
+  <text x="56" y="492" font-size="14" font-weight="700" fill="rgba(255,255,255,0.6)">Senior Product Designer &#x2014; Enterprise SaaS</text>
+  <text x="56" y="510" font-size="11" fill="rgba(255,255,255,0.27)">Large corp &#xB7; Hybrid &#xB7; &#163;420&#x2013;520/day</text>
+  <!-- Item 4 -->
+  <rect x="40" y="550" width="680" height="96" rx="10" fill="rgba(178,76,230,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <rect x="56" y="566" width="56" height="20" rx="4" fill="rgba(178,76,230,0.06)"/>
+  <text x="84" y="579" font-size="10" fill="#B24CE6" text-anchor="middle" opacity="0.52">71% match</text>
+  <text x="56" y="604" font-size="14" font-weight="700" fill="rgba(255,255,255,0.5)">Design Lead &#x2014; EdTech Platform</text>
+  <text x="56" y="622" font-size="11" fill="rgba(255,255,255,0.22)">Startup &#xB7; Remote &#xB7; &#163;380&#x2013;450/day</text>
+  <!-- Right panel: selected opportunity detail -->
+  <rect x="760" y="206" width="400" height="560" rx="12" fill="#0d0b1c" stroke="rgba(178,76,230,0.2)" stroke-width="1"/>
+  <rect x="760" y="206" width="400" height="3" rx="1.5" fill="#B24CE6" opacity="0.4"/>
+  <rect x="780" y="222" width="72" height="20" rx="4" fill="rgba(178,76,230,0.2)"/>
+  <text x="816" y="235" font-size="10" fill="#B24CE6" text-anchor="middle" font-weight="600">92% match</text>
+  <text x="780" y="264" font-size="16" font-weight="700" fill="rgba(255,255,255,0.82)">Lead Product Designer</text>
+  <text x="780" y="284" font-size="13" fill="rgba(255,255,255,0.42)">Fintech Startup &#xB7; Series B</text>
+  <text x="780" y="308" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1">DETAILS</text>
+  <text x="780" y="330" font-size="12" fill="rgba(255,255,255,0.55)">Duration</text><text x="1140" y="330" font-size="12" fill="rgba(255,255,255,0.7)" text-anchor="end">6 months</text>
+  <text x="780" y="350" font-size="12" fill="rgba(255,255,255,0.55)">Location</text><text x="1140" y="350" font-size="12" fill="rgba(255,255,255,0.7)" text-anchor="end">London / Hybrid</text>
+  <text x="780" y="370" font-size="12" fill="rgba(255,255,255,0.55)">Rate</text><text x="1140" y="370" font-size="12" fill="rgba(255,255,255,0.7)" text-anchor="end">&#163;550&#x2013;700/day</text>
+  <text x="780" y="390" font-size="12" fill="rgba(255,255,255,0.55)">Work type</text><text x="1140" y="390" font-size="12" fill="rgba(255,255,255,0.7)" text-anchor="end">Contract</text>
+  <rect x="780" y="402" width="360" height="1" fill="rgba(255,255,255,0.05)"/>
+  <text x="780" y="424" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1">MATCHED SKILLS</text>
+  <rect x="780" y="434" width="100" height="22" rx="5" fill="rgba(178,76,230,0.14)" stroke="rgba(178,76,230,0.28)" stroke-width="1"/>
+  <text x="830" y="448" font-size="10" fill="#B24CE6" text-anchor="middle">Product Design</text>
+  <rect x="890" y="434" width="64" height="22" rx="5" fill="rgba(178,76,230,0.1)" stroke="rgba(178,76,230,0.2)" stroke-width="1"/>
+  <text x="922" y="448" font-size="10" fill="#B24CE6" text-anchor="middle">Figma</text>
+  <rect x="964" y="434" width="96" height="22" rx="5" fill="rgba(178,76,230,0.08)" stroke="rgba(178,76,230,0.15)" stroke-width="1"/>
+  <text x="1012" y="448" font-size="10" fill="#B24CE6" text-anchor="middle">Product Strategy</text>
+  <rect x="780" y="464" width="96" height="22" rx="5" fill="rgba(178,76,230,0.06)" stroke="rgba(178,76,230,0.12)" stroke-width="1"/>
+  <text x="828" y="478" font-size="10" fill="#B24CE6" text-anchor="middle">UX Research</text>
+  <text x="780" y="508" font-size="11" fill="rgba(255,255,255,0.28)" letter-spacing="1">ROLE OVERVIEW</text>
+  <rect x="780" y="518" width="360" height="8" rx="3" fill="rgba(255,255,255,0.12)"/>
+  <rect x="780" y="534" width="338" height="7" rx="3" fill="rgba(255,255,255,0.09)"/>
+  <rect x="780" y="549" width="350" height="7" rx="3" fill="rgba(255,255,255,0.08)"/>
+  <rect x="780" y="564" width="310" height="7" rx="3" fill="rgba(255,255,255,0.07)"/>
+  <rect x="780" y="638" width="360" height="40" rx="8" fill="#B24CE6" opacity="0.8"/>
+  <text x="960" y="662" font-size="12" font-weight="600" fill="white" text-anchor="middle">Apply via GIGAMATIC Careers</text>
+  <rect x="780" y="690" width="360" height="36" rx="8" fill="rgba(178,76,230,0.1)" stroke="rgba(178,76,230,0.22)" stroke-width="1"/>
+  <text x="960" y="712" font-size="11" fill="#B24CE6" text-anchor="middle">Save opportunity</text>
+  <text x="780" y="752" font-size="10" fill="rgba(255,255,255,0.18)" text-anchor="middle">Applies to 3 matching products via your profile</text>
+</svg>

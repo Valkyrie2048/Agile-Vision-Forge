@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="860" viewBox="0 0 500 860">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070612"/>
+      <stop offset="100%" stop-color="#0a0f1e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#13B5EC"/>
+      <stop offset="100%" stop-color="#40d0ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Phone body -->
+  <rect x="0" y="0" width="500" height="860" rx="40" fill="url(#bg)"/>
+
+  <!-- Status bar -->
+  <rect x="0" y="0" width="500" height="50" rx="40" fill="rgba(255,255,255,0.03)"/>
+  <text x="40" y="32" font-family="system-ui,sans-serif" font-size="13" fill="white" font-weight="600">9:41</text>
+  <rect x="400" y="20" width="36" height="16" rx="4" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+  <rect x="402" y="22" width="28" height="12" rx="2" fill="#13B5EC"/>
+  <rect x="438" y="24" width="4" height="8" rx="1" fill="rgba(255,255,255,0.4)"/>
+
+  <!-- Header -->
+  <rect x="0" y="50" width="500" height="70" fill="rgba(255,255,255,0.02)"/>
+  <!-- Back arrow -->
+  <text x="24" y="92" font-family="system-ui,sans-serif" font-size="22" fill="rgba(255,255,255,0.6)">‹</text>
+  <text x="250" y="86" font-family="system-ui,sans-serif" font-size="17" fill="white" font-weight="700" text-anchor="middle">Day 3 · Tokyo</text>
+  <text x="250" y="106" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.4)" text-anchor="middle">Wednesday, March 16</text>
+
+  <!-- Day selector -->
+  <rect x="20" y="136" width="460" height="50" rx="25" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <!-- Day pills -->
+  <rect x="26" y="140" width="52" height="42" rx="21" fill="rgba(255,255,255,0.04)"/>
+  <text x="52" y="159" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle">Mon</text>
+  <text x="52" y="173" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)" text-anchor="middle">14</text>
+
+  <rect x="84" y="140" width="52" height="42" rx="21" fill="rgba(255,255,255,0.04)"/>
+  <text x="110" y="159" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle">Tue</text>
+  <text x="110" y="173" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)" text-anchor="middle">15</text>
+
+  <!-- Active day -->
+  <rect x="142" y="140" width="52" height="42" rx="21" fill="#13B5EC"/>
+  <text x="168" y="159" font-family="system-ui,sans-serif" font-size="10" fill="white" text-anchor="middle">Wed</text>
+  <text x="168" y="173" font-family="system-ui,sans-serif" font-size="12" fill="white" text-anchor="middle" font-weight="700">16</text>
+
+  <rect x="200" y="140" width="52" height="42" rx="21" fill="rgba(255,255,255,0.04)"/>
+  <text x="226" y="159" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle">Thu</text>
+  <text x="226" y="173" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)" text-anchor="middle">17</text>
+
+  <rect x="258" y="140" width="52" height="42" rx="21" fill="rgba(255,255,255,0.04)"/>
+  <text x="284" y="159" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle">Fri</text>
+  <text x="284" y="173" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)" text-anchor="middle">18</text>
+
+  <rect x="316" y="140" width="52" height="42" rx="21" fill="rgba(255,255,255,0.04)"/>
+  <text x="342" y="159" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle">Sat</text>
+  <text x="342" y="173" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)" text-anchor="middle">19</text>
+
+  <rect x="374" y="140" width="52" height="42" rx="21" fill="rgba(255,255,255,0.04)"/>
+  <text x="400" y="159" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle">Sun</text>
+  <text x="400" y="173" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)" text-anchor="middle">20</text>
+
+  <!-- Timeline -->
+  <!-- Vertical line -->
+  <line x1="56" y1="210" x2="56" y2="800" stroke="rgba(19,181,236,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Event 1: Morning -->
+  <circle cx="56" cy="226" r="8" fill="#13B5EC"/>
+  <rect x="80" y="210" width="380" height="80" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="96" y="232" font-family="system-ui,sans-serif" font-size="10" fill="#13B5EC">7:30 AM · BREAKFAST</text>
+  <text x="96" y="250" font-family="system-ui,sans-serif" font-size="14" fill="white" font-weight="600">Tsukiji Outer Market</text>
+  <text x="96" y="268" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">Fresh sushi breakfast, tamagoyaki</text>
+  <text x="96" y="282" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">≈ 1.5 hrs · ¥2,000/person</text>
+
+  <!-- Event 2 -->
+  <circle cx="56" cy="320" r="8" fill="rgba(19,181,236,0.5)" stroke="#13B5EC" stroke-width="2"/>
+  <rect x="80" y="304" width="380" height="80" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="96" y="326" font-family="system-ui,sans-serif" font-size="10" fill="rgba(19,181,236,0.8)">9:30 AM · SIGHTSEEING</text>
+  <text x="96" y="344" font-family="system-ui,sans-serif" font-size="14" fill="white" font-weight="600">Senso-ji Temple</text>
+  <text x="96" y="362" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">Asakusa district, Nakamise shopping</text>
+  <text x="96" y="376" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">≈ 2 hrs · Free entry</text>
+
+  <!-- Event 3 -->
+  <circle cx="56" cy="414" r="8" fill="rgba(19,181,236,0.5)" stroke="#13B5EC" stroke-width="2"/>
+  <rect x="80" y="398" width="380" height="80" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="96" y="420" font-family="system-ui,sans-serif" font-size="10" fill="rgba(19,181,236,0.8)">12:00 PM · LUNCH</text>
+  <text x="96" y="438" font-family="system-ui,sans-serif" font-size="14" fill="white" font-weight="600">Yanaka Ginza</text>
+  <text x="96" y="456" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">Old Tokyo neighborhood stroll &amp; lunch</text>
+  <text x="96" y="470" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">≈ 2 hrs · ¥1,500/person</text>
+
+  <!-- Event 4 -->
+  <circle cx="56" cy="508" r="8" fill="rgba(19,181,236,0.5)" stroke="#13B5EC" stroke-width="2"/>
+  <rect x="80" y="492" width="380" height="80" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="96" y="514" font-family="system-ui,sans-serif" font-size="10" fill="rgba(19,181,236,0.8)">3:00 PM · ACTIVITY</text>
+  <text x="96" y="532" font-family="system-ui,sans-serif" font-size="14" fill="white" font-weight="600">TeamLab Borderless</text>
+  <text x="96" y="550" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">Digital art museum · Tickets reserved</text>
+  <text x="96" y="564" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">≈ 2.5 hrs · ¥3,200/person · Booked</text>
+
+  <!-- Event 5 -->
+  <circle cx="56" cy="602" r="8" fill="rgba(19,181,236,0.5)" stroke="#13B5EC" stroke-width="2"/>
+  <rect x="80" y="586" width="380" height="80" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="96" y="608" font-family="system-ui,sans-serif" font-size="10" fill="rgba(19,181,236,0.8)">7:00 PM · DINNER</text>
+  <text x="96" y="626" font-family="system-ui,sans-serif" font-size="14" fill="white" font-weight="600">Izakaya Torikizoku</text>
+  <text x="96" y="644" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">Authentic yakitori &amp; sake tasting</text>
+  <text x="96" y="658" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">≈ 2 hrs · ¥3,500/person</text>
+
+  <!-- Day budget -->
+  <rect x="20" y="690" width="460" height="60" rx="12" fill="rgba(19,181,236,0.08)" stroke="rgba(19,181,236,0.15)" stroke-width="1"/>
+  <text x="40" y="716" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.6)">Day 3 Budget</text>
+  <text x="40" y="738" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">Meals ¥7,000 · Activities ¥6,400 · Transport ¥1,200</text>
+  <text x="450" y="724" font-family="system-ui,sans-serif" font-size="18" fill="#13B5EC" text-anchor="end" font-weight="700">¥14,600</text>
+
+  <!-- Bottom nav -->
+  <rect x="0" y="762" width="500" height="78" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="80" y="802" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle">Plan</text>
+  <text x="180" y="802" font-family="system-ui,sans-serif" font-size="10" fill="#13B5EC" text-anchor="middle">Itinerary</text>
+  <text x="280" y="802" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle">Nearby</text>
+  <text x="380" y="802" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.35)" text-anchor="middle">Bookings</text>
+  <rect x="160" y="788" width="40" height="2" rx="1" fill="#13B5EC"/>
+
+  <!-- Home indicator -->
+  <rect x="180" y="834" width="140" height="4" rx="2" fill="rgba(255,255,255,0.2)"/>
+</svg>

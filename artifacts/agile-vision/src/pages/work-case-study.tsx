@@ -54,6 +54,18 @@ function reveal(delay = 0) {
 }
 
 function HeroVisual({ project }: { project: Project }) {
+  if (project.coverImage) {
+    return (
+      <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/8">
+        <img
+          src={project.coverImage}
+          alt={`${project.name} product screenshot`}
+          className="w-full h-full object-cover object-top"
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className="relative w-full h-full rounded-2xl overflow-hidden border border-white/8"
@@ -101,6 +113,19 @@ function HeroVisual({ project }: { project: Project }) {
 }
 
 function GalleryMockup({ item, project }: { item: Project["gallery"][0]; project: Project }) {
+  if (item.imagePath) {
+    return (
+      <div className="w-full rounded-xl overflow-hidden border border-white/10">
+        <img
+          src={item.imagePath}
+          alt={item.label}
+          className="w-full h-auto block"
+          style={{ display: "block" }}
+        />
+      </div>
+    );
+  }
+
   const screenCount = item.screens.length;
 
   if (item.type === "phone") {

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" font-family="system-ui,-apple-system,sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="55%"><stop offset="0%" stop-color="#B24CE6" stop-opacity="0.1"/><stop offset="100%" stop-color="#B24CE6" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="650" fill="#080610"/>
+  <rect width="1200" height="650" fill="url(#bg)"/>
+  <text x="60" y="50" font-size="20" font-weight="700" fill="rgba(255,255,255,0.82)">Pathway Explorer</text>
+  <text x="60" y="72" font-size="12" fill="rgba(255,255,255,0.28)">Based on your profile: 8yr Product Designer &#xB7; Freelance &#xB7; Currently: Lead UX contract</text>
+  <!-- Current position -->
+  <rect x="60" y="90" width="220" height="88" rx="10" fill="rgba(178,76,230,0.12)" stroke="rgba(178,76,230,0.35)" stroke-width="2"/>
+  <rect x="60" y="90" width="220" height="3" rx="1.5" fill="#B24CE6" opacity="0.7"/>
+  <text x="72" y="114" font-size="11" fill="#B24CE6" opacity="0.8" letter-spacing="1">YOU ARE HERE</text>
+  <text x="72" y="138" font-size="14" font-weight="700" fill="rgba(255,255,255,0.85)">Lead UX &#x2014; Contract</text>
+  <text x="72" y="158" font-size="11" fill="rgba(255,255,255,0.4)">&#163;550/day &#xB7; 8yr exp</text>
+  <!-- Arrows -->
+  <line x1="280" y1="134" x2="340" y2="134" stroke="#B24CE6" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.4"/>
+  <text x="330" y="130" font-size="12" fill="#B24CE6" opacity="0.4">&#x276F;</text>
+  <!-- Pathway 1: Stay freelance → senior -->
+  <rect x="350" y="54" width="220" height="88" rx="10" fill="rgba(178,76,230,0.08)" stroke="rgba(178,76,230,0.2)" stroke-width="1"/>
+  <text x="362" y="78" font-size="10" fill="#B24CE6" opacity="0.65" letter-spacing="1">PATH A</text>
+  <text x="362" y="100" font-size="13" font-weight="600" fill="rgba(255,255,255,0.7)">Principal Designer</text>
+  <text x="362" y="118" font-size="11" fill="rgba(255,255,255,0.35)">Freelance senior</text>
+  <text x="362" y="132" font-size="11" fill="rgba(255,255,255,0.25)">&#163;700&#x2013;900/day</text>
+  <!-- Arrow from Pathway 1 -->
+  <line x1="570" y1="98" x2="630" y2="98" stroke="#B24CE6" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.3"/>
+  <text x="620" y="94" font-size="12" fill="#B24CE6" opacity="0.3">&#x276F;</text>
+  <rect x="640" y="54" width="220" height="88" rx="10" fill="rgba(178,76,230,0.05)" stroke="rgba(178,76,230,0.12)" stroke-width="1"/>
+  <text x="652" y="78" font-size="10" fill="#B24CE6" opacity="0.45" letter-spacing="1">PATH A2</text>
+  <text x="652" y="100" font-size="13" font-weight="600" fill="rgba(255,255,255,0.55)">Design Consultant</text>
+  <text x="652" y="118" font-size="11" fill="rgba(255,255,255,0.28)">Portfolio clients</text>
+  <text x="652" y="132" font-size="11" fill="rgba(255,255,255,0.2)">High autonomy</text>
+  <!-- Pathway 2: Perm role -->
+  <line x1="280" y1="134" x2="340" y2="176" stroke="#B24CE6" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.35"/>
+  <rect x="350" y="152" width="220" height="88" rx="10" fill="rgba(178,76,230,0.07)" stroke="rgba(178,76,230,0.16)" stroke-width="1"/>
+  <text x="362" y="176" font-size="10" fill="#B24CE6" opacity="0.58" letter-spacing="1">PATH B</text>
+  <text x="362" y="198" font-size="13" font-weight="600" fill="rgba(255,255,255,0.65)">Design Director</text>
+  <text x="362" y="216" font-size="11" fill="rgba(255,255,255,0.3)">Perm &#xB7; team lead</text>
+  <text x="362" y="230" font-size="11" fill="rgba(255,255,255,0.22)">&#163;95k&#x2013;130k/yr</text>
+  <line x1="570" y1="196" x2="630" y2="196" stroke="#B24CE6" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.25"/>
+  <rect x="640" y="152" width="220" height="88" rx="10" fill="rgba(178,76,230,0.04)" stroke="rgba(178,76,230,0.1)" stroke-width="1"/>
+  <text x="652" y="198" font-size="13" font-weight="600" fill="rgba(255,255,255,0.48)">VP of Design</text>
+  <text x="652" y="216" font-size="11" fill="rgba(255,255,255,0.22)">Executive level</text>
+  <!-- Pathway 3: Pivot -->
+  <line x1="280" y1="134" x2="340" y2="268" stroke="#B24CE6" stroke-width="1.5" stroke-dasharray="6 3" opacity="0.28"/>
+  <rect x="350" y="250" width="220" height="88" rx="10" fill="rgba(178,76,230,0.05)" stroke="rgba(178,76,230,0.12)" stroke-width="1"/>
+  <text x="362" y="274" font-size="10" fill="#B24CE6" opacity="0.45" letter-spacing="1">PATH C</text>
+  <text x="362" y="296" font-size="13" font-weight="600" fill="rgba(255,255,255,0.55)">Product Manager</text>
+  <text x="362" y="314" font-size="11" fill="rgba(255,255,255,0.25)">Adjacent pivot</text>
+  <text x="362" y="328" font-size="11" fill="rgba(255,255,255,0.18)">Skills transfer: 72%</text>
+  <!-- Skill gap panel -->
+  <rect x="60" y="374" width="510" height="148" rx="10" fill="#0d0b1c" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="82" y="400" font-size="13" font-weight="600" fill="rgba(255,255,255,0.6)">To reach Path A: Principal Designer</text>
+  <text x="82" y="424" font-size="11" fill="rgba(255,255,255,0.25)">Skills to strengthen</text>
+  <rect x="82" y="434" width="116" height="22" rx="5" fill="rgba(178,76,230,0.08)" stroke="rgba(178,76,230,0.18)" stroke-width="1"/>
+  <text x="140" y="448" font-size="10" fill="#B24CE6" text-anchor="middle">Design Systems &#x25B2;</text>
+  <rect x="206" y="434" width="80" height="22" rx="5" fill="rgba(178,76,230,0.06)" stroke="rgba(178,76,230,0.14)" stroke-width="1"/>
+  <text x="246" y="448" font-size="10" fill="#B24CE6" text-anchor="middle">Mentoring</text>
+  <rect x="294" y="434" width="80" height="22" rx="5" fill="rgba(178,76,230,0.05)" stroke="rgba(178,76,230,0.12)" stroke-width="1"/>
+  <text x="334" y="448" font-size="10" fill="#B24CE6" text-anchor="middle">Leadership</text>
+  <text x="82" y="478" font-size="11" fill="rgba(255,255,255,0.22)">Estimated path: 12&#x2013;18 months at current trajectory</text>
+  <rect x="82" y="492" width="460" height="5" rx="2.5" fill="rgba(255,255,255,0.05)"/>
+  <rect x="82" y="492" width="276" height="5" rx="2.5" fill="#B24CE6" opacity="0.35"/>
+  <text x="82" y="514" font-size="11" fill="rgba(255,255,255,0.18)">60% of requirements met based on current experience</text>
+  <!-- Opportunities for path -->
+  <rect x="600" y="374" width="540" height="148" rx="10" fill="rgba(178,76,230,0.05)" stroke="rgba(178,76,230,0.14)" stroke-width="1"/>
+  <text x="620" y="400" font-size="13" font-weight="600" fill="rgba(255,255,255,0.6)">Opportunities on this pathway</text>
+  <rect x="620" y="416" width="500" height="48" rx="8" fill="rgba(178,76,230,0.08)" stroke="rgba(178,76,230,0.18)" stroke-width="1"/>
+  <text x="636" y="438" font-size="12" font-weight="600" fill="rgba(255,255,255,0.72)">Lead Product Designer &#x2014; Fintech</text>
+  <text x="636" y="454" font-size="11" fill="rgba(255,255,255,0.3)">92% match &#xB7; Contract &#xB7; &#163;550&#x2013;700/day</text>
+  <text x="1096" y="448" font-size="11" fill="#B24CE6" text-anchor="end">View &#x2192;</text>
+  <rect x="620" y="472" width="500" height="40" rx="8" fill="rgba(178,76,230,0.04)" stroke="rgba(178,76,230,0.1)" stroke-width="1"/>
+  <text x="636" y="496" font-size="12" font-weight="600" fill="rgba(255,255,255,0.58)">Principal UX &#x2014; Scale-up</text>
+  <text x="1096" y="496" font-size="11" fill="#B24CE6" opacity="0.7" text-anchor="end">View &#x2192;</text>
+  <!-- Bottom CTA -->
+  <rect x="60" y="546" width="242" height="44" rx="8" fill="#B24CE6" opacity="0.8"/>
+  <text x="181" y="572" font-size="12" font-weight="600" fill="white" text-anchor="middle">Explore Path A in detail</text>
+  <rect x="318" y="546" width="232" height="44" rx="8" fill="rgba(178,76,230,0.1)" stroke="rgba(178,76,230,0.22)" stroke-width="1"/>
+  <text x="434" y="572" font-size="12" fill="#B24CE6" text-anchor="middle">Compare all paths</text>
+</svg>

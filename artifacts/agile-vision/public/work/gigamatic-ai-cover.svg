@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="system-ui,-apple-system,sans-serif">
+  <defs>
+    <radialGradient id="glow" cx="48%" cy="42%" r="55%"><stop offset="0%" stop-color="#5F42F0" stop-opacity="0.16"/><stop offset="100%" stop-color="#5F42F0" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#060510"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <!-- Top nav -->
+  <rect width="1600" height="64" fill="rgba(6,5,16,0.9)"/>
+  <rect y="64" width="1600" height="1" fill="rgba(255,255,255,0.05)"/>
+  <text x="40" y="36" font-size="17" font-weight="800" fill="#5F42F0" font-style="italic" letter-spacing="-0.5">GIGAMATIC</text>
+  <text x="40" y="53" font-size="10" fill="rgba(255,255,255,0.3)" letter-spacing="3">AI</text>
+  <rect x="700" y="28" width="200" height="28" rx="6" fill="rgba(95,66,240,0.1)" stroke="rgba(95,66,240,0.2)" stroke-width="1"/>
+  <text x="800" y="46" font-size="12" fill="rgba(255,255,255,0.6)" text-anchor="middle">Cross-platform context active</text>
+  <circle cx="690" cy="42" r="4" fill="#5F42F0" opacity="0.8"/>
+  <!-- Left panel: Chat interface -->
+  <rect x="40" y="86" width="440" height="790" rx="14" fill="#0c0a1c" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <rect x="40" y="86" width="440" height="56" rx="14" fill="#100e20"/>
+  <rect x="40" y="126" width="440" height="16" fill="#100e20"/>
+  <text x="60" y="116" font-size="13" font-weight="600" fill="rgba(255,255,255,0.65)">GIGAMATIC AI</text>
+  <circle cx="460" cy="114" r="6" fill="#5F42F0" opacity="0.6"/>
+  <rect x="40" y="142" width="440" height="1" fill="rgba(255,255,255,0.05)"/>
+  <!-- Chat messages -->
+  <!-- System message -->
+  <rect x="56" y="156" width="300" height="52" rx="8" fill="rgba(95,66,240,0.1)" stroke="rgba(95,66,240,0.18)" stroke-width="1"/>
+  <text x="72" y="178" font-size="12" fill="rgba(255,255,255,0.65)">Hello, Alex. I have insights</text>
+  <text x="72" y="196" font-size="12" fill="rgba(255,255,255,0.65)">across all three products.</text>
+  <!-- User message -->
+  <rect x="200" y="224" width="264" height="40" rx="8" fill="rgba(95,66,240,0.2)" stroke="rgba(95,66,240,0.3)" stroke-width="1"/>
+  <text x="220" y="242" font-size="12" fill="rgba(255,255,255,0.8)">Am I ready to apply for</text>
+  <text x="220" y="258" font-size="12" fill="rgba(255,255,255,0.8)">a mortgage?</text>
+  <!-- AI response -->
+  <rect x="56" y="280" width="340" height="116" rx="8" fill="rgba(95,66,240,0.08)" stroke="rgba(95,66,240,0.15)" stroke-width="1"/>
+  <text x="72" y="302" font-size="12" font-weight="600" fill="rgba(255,255,255,0.7)">Based on your full picture:</text>
+  <text x="72" y="324" font-size="11" fill="rgba(255,255,255,0.5)">&#x2022; Income readiness: 74/100</text>
+  <text x="72" y="342" font-size="11" fill="rgba(255,255,255,0.5)">&#x2022; 3 lenders match your profile</text>
+  <text x="72" y="360" font-size="11" fill="rgba(255,255,255,0.5)">&#x2022; Cover gap may affect eligibility</text>
+  <text x="72" y="378" font-size="11" fill="#5F42F0" opacity="0.8">See full readiness breakdown &#x2192;</text>
+  <!-- User message 2 -->
+  <rect x="200" y="412" width="264" height="28" rx="8" fill="rgba(95,66,240,0.2)" stroke="rgba(95,66,240,0.3)" stroke-width="1"/>
+  <text x="220" y="430" font-size="12" fill="rgba(255,255,255,0.8)">What&#x2019;s the cover gap?</text>
+  <!-- AI response 2 -->
+  <rect x="56" y="456" width="340" height="88" rx="8" fill="rgba(95,66,240,0.08)" stroke="rgba(95,66,240,0.15)" stroke-width="1"/>
+  <text x="72" y="476" font-size="12" fill="rgba(255,255,255,0.62)">Your Insure profile shows no</text>
+  <text x="72" y="494" font-size="12" fill="rgba(255,255,255,0.62)">income protection. Some lenders</text>
+  <text x="72" y="512" font-size="12" fill="rgba(255,255,255,0.62)">factor this into risk scoring.</text>
+  <rect x="72" y="524" width="148" height="22" rx="6" fill="rgba(95,66,240,0.18)" stroke="rgba(95,66,240,0.3)" stroke-width="1"/>
+  <text x="146" y="539" font-size="11" fill="#5F42F0" text-anchor="middle">View in Insure &#x2192;</text>
+  <!-- Input area -->
+  <rect x="56" y="832" width="408" height="40" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="76" y="856" font-size="12" fill="rgba(255,255,255,0.2)">Ask anything about your situation...</text>
+  <circle cx="444" cy="852" r="12" fill="#5F42F0" opacity="0.7"/>
+  <!-- Right panel: Insights hub -->
+  <rect x="504" y="86" width="1056" height="790" rx="14" fill="rgba(10,8,20,0.6)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="544" y="126" font-size="18" font-weight="700" fill="rgba(255,255,255,0.82)">Intelligence Overview</text>
+  <text x="544" y="148" font-size="12" fill="rgba(255,255,255,0.3)">Cross-platform context &#x2014; Finance, Insure, Careers</text>
+  <!-- 3 product summary tiles -->
+  <rect x="544" y="166" width="316" height="140" rx="12" fill="#0d0b1e" stroke="rgba(43,140,238,0.2)" stroke-width="1"/>
+  <rect x="544" y="166" width="316" height="36" rx="12" fill="rgba(43,140,238,0.1)"/>
+  <rect x="544" y="190" width="316" height="12" fill="rgba(43,140,238,0.1)"/>
+  <text x="560" y="190" font-size="11" fill="#2B8CEE" letter-spacing="1.5">FINANCE</text>
+  <text x="560" y="222" font-size="22" font-weight="700" fill="rgba(255,255,255,0.82)">&#163;48,240</text>
+  <text x="560" y="240" font-size="11" fill="rgba(255,255,255,0.35)">YTD income &#xB7; 4 sources</text>
+  <rect x="560" y="254" width="280" height="5" rx="2.5" fill="rgba(43,140,238,0.08)"/><rect x="560" y="254" width="190" height="5" rx="2.5" fill="#2B8CEE" opacity="0.45"/>
+  <text x="560" y="286" font-size="11" fill="#2B8CEE" opacity="0.75">Readiness: 74/100 &#xB7; Mortgage eligible</text>
+  <rect x="880" y="166" width="316" height="140" rx="12" fill="#0d0b1e" stroke="rgba(34,195,141,0.18)" stroke-width="1"/>
+  <rect x="880" y="166" width="316" height="36" rx="12" fill="rgba(34,195,141,0.08)"/>
+  <rect x="880" y="190" width="316" height="12" fill="rgba(34,195,141,0.08)"/>
+  <text x="896" y="190" font-size="11" fill="#22C38D" letter-spacing="1.5">INSURE</text>
+  <text x="896" y="222" font-size="22" font-weight="700" fill="rgba(255,255,255,0.82)">2 gaps</text>
+  <text x="896" y="240" font-size="11" fill="rgba(255,255,255,0.35)">Coverage gaps identified</text>
+  <rect x="896" y="254" width="280" height="5" rx="2.5" fill="rgba(34,195,141,0.08)"/><rect x="896" y="254" width="200" height="5" rx="2.5" fill="#22C38D" opacity="0.4"/>
+  <text x="896" y="286" font-size="11" fill="#22C38D" opacity="0.7">Income protection: not covered</text>
+  <rect x="1216" y="166" width="316" height="140" rx="12" fill="#0d0b1e" stroke="rgba(178,76,230,0.18)" stroke-width="1"/>
+  <rect x="1216" y="166" width="316" height="36" rx="12" fill="rgba(178,76,230,0.08)"/>
+  <rect x="1216" y="190" width="316" height="12" fill="rgba(178,76,230,0.08)"/>
+  <text x="1232" y="190" font-size="11" fill="#B24CE6" letter-spacing="1.5">CAREERS</text>
+  <text x="1232" y="222" font-size="22" font-weight="700" fill="rgba(255,255,255,0.82)">12 matches</text>
+  <text x="1232" y="240" font-size="11" fill="rgba(255,255,255,0.35)">Opportunities &#xB7; 84% profile complete</text>
+  <rect x="1232" y="254" width="280" height="5" rx="2.5" fill="rgba(178,76,230,0.08)"/><rect x="1232" y="254" width="238" height="5" rx="2.5" fill="#B24CE6" opacity="0.38"/>
+  <text x="1232" y="286" font-size="11" fill="#B24CE6" opacity="0.7">Top match: 92% &#xB7; Lead Product Designer</text>
+  <!-- AI recommendations -->
+  <text x="544" y="342" font-size="13" font-weight="600" fill="rgba(255,255,255,0.6)">Recommended Actions</text>
+  <rect x="544" y="358" width="480" height="88" rx="10" fill="rgba(95,66,240,0.07)" stroke="rgba(95,66,240,0.18)" stroke-width="1"/>
+  <circle cx="568" cy="394" r="16" fill="rgba(95,66,240,0.2)"/>
+  <text x="568" y="399" font-size="13" fill="#5F42F0" text-anchor="middle">1</text>
+  <text x="594" y="390" font-size="13" font-weight="600" fill="rgba(255,255,255,0.78)">Add income protection coverage</text>
+  <text x="594" y="408" font-size="11" fill="rgba(255,255,255,0.38)">Improves mortgage readiness by ~8 points</text>
+  <text x="594" y="424" font-size="11" fill="#5F42F0" opacity="0.75">Opens in GIGAMATIC Insure &#x2192;</text>
+  <text x="834" y="390" font-size="11" fill="rgba(95,66,240,0.6)" font-weight="600">Priority: High</text>
+  <rect x="1044" y="358" width="480" height="88" rx="10" fill="rgba(95,66,240,0.05)" stroke="rgba(95,66,240,0.12)" stroke-width="1"/>
+  <circle cx="1068" cy="394" r="16" fill="rgba(95,66,240,0.13)"/>
+  <text x="1068" y="399" font-size="13" fill="#5F42F0" text-anchor="middle" opacity="0.8">2</text>
+  <text x="1094" y="390" font-size="13" font-weight="600" fill="rgba(255,255,255,0.65)">Complete career profile</text>
+  <text x="1094" y="408" font-size="11" fill="rgba(255,255,255,0.3)">Add 2 more skills to unlock 6 extra matches</text>
+  <text x="1094" y="424" font-size="11" fill="#5F42F0" opacity="0.6">Opens in GIGAMATIC Careers &#x2192;</text>
+  <!-- Explainability section -->
+  <text x="544" y="482" font-size="13" font-weight="600" fill="rgba(255,255,255,0.55)">Why these recommendations?</text>
+  <rect x="544" y="498" width="980" height="68" rx="10" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="562" y="522" font-size="12" fill="rgba(255,255,255,0.45)">These insights draw from your Finance readiness score (74/100), your Insure coverage gaps, and your</text>
+  <text x="562" y="540" font-size="12" fill="rgba(255,255,255,0.45)">Careers mortgage readiness flag. GIGAMATIC AI connects these domains &#x2014; none sees the full picture alone.</text>
+  <text x="562" y="556" font-size="11" fill="#5F42F0" opacity="0.55">View reasoning in detail &#x2192;</text>
+  <!-- Consent controls snippet -->
+  <rect x="544" y="592" width="980" height="56" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="562" y="616" font-size="11" fill="rgba(255,255,255,0.3)" letter-spacing="1">CONTEXT PERMISSIONS</text>
+  <rect x="562" y="626" width="64" height="18" rx="4" fill="rgba(34,195,141,0.12)" stroke="rgba(34,195,141,0.25)" stroke-width="1"/>
+  <text x="594" y="638" font-size="10" fill="#22C38D" text-anchor="middle">Finance &#x2713;</text>
+  <rect x="636" y="626" width="60" height="18" rx="4" fill="rgba(34,195,141,0.12)" stroke="rgba(34,195,141,0.25)" stroke-width="1"/>
+  <text x="666" y="638" font-size="10" fill="#22C38D" text-anchor="middle">Insure &#x2713;</text>
+  <rect x="706" y="626" width="64" height="18" rx="4" fill="rgba(34,195,141,0.12)" stroke="rgba(34,195,141,0.25)" stroke-width="1"/>
+  <text x="738" y="638" font-size="10" fill="#22C38D" text-anchor="middle">Careers &#x2713;</text>
+  <text x="1480" y="638" font-size="11" fill="rgba(95,66,240,0.55)" text-anchor="end">Manage permissions &#x2192;</text>
+</svg>

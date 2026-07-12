@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" font-family="Georgia,serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="35%" r="50%"><stop offset="0%" stop-color="#7070DC" stop-opacity="0.09"/><stop offset="100%" stop-color="#7070DC" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="780" fill="#06060e"/>
+  <rect width="1200" height="780" fill="url(#bg)"/>
+  <!-- Browser chrome -->
+  <rect width="1200" height="44" fill="#0b0b18"/>
+  <circle cx="18" cy="22" r="6" fill="#ff5f57" opacity="0.65"/>
+  <circle cx="38" cy="22" r="6" fill="#febc2e" opacity="0.65"/>
+  <circle cx="58" cy="22" r="6" fill="#28c840" opacity="0.65"/>
+  <rect x="120" y="10" width="380" height="24" rx="5" fill="#100f20"/>
+  <text x="310" y="26" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.25)" text-anchor="middle">instituteai.org/essays/machine-consciousness</text>
+  <rect width="1200" height="1" y="44" fill="rgba(255,255,255,0.05)"/>
+  <!-- Top nav -->
+  <rect x="0" y="44" width="1200" height="50" fill="rgba(6,6,14,0.95)"/>
+  <rect x="0" y="94" width="1200" height="1" fill="rgba(255,255,255,0.05)"/>
+  <text x="50" y="72" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.55)" font-style="italic">The Institute for AI &#38; Consciousness</text>
+  <text x="800" y="72" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.32)" text-anchor="middle">Research</text>
+  <text x="880" y="72" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.32)" text-anchor="middle">Library</text>
+  <text x="960" y="72" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.32)" text-anchor="middle">Events</text>
+  <!-- Article body (main column) -->
+  <rect x="50" y="110" width="750" height="650" fill="rgba(0,0,0,0)"/>
+  <!-- Breadcrumb -->
+  <text x="50" y="130" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.25)">Research &#x2192; Philosophy of Mind &#x2192;</text>
+  <!-- Category -->
+  <text x="50" y="160" font-size="10" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.7)" letter-spacing="2">PHILOSOPHY OF MIND</text>
+  <!-- Title -->
+  <text x="50" y="206" font-size="32" font-weight="700" fill="rgba(255,255,255,0.88)" letter-spacing="-0.8">The Question of Machine</text>
+  <text x="50" y="246" font-size="32" font-weight="700" fill="rgba(255,255,255,0.88)" letter-spacing="-0.8">Consciousness</text>
+  <!-- Subtitle -->
+  <text x="50" y="280" font-size="15" fill="rgba(255,255,255,0.4)" font-style="italic">How should we think about experience in systems that process information?</text>
+  <!-- Byline -->
+  <rect x="50" y="296" width="700" height="1" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="68" cy="326" r="14" fill="rgba(112,112,220,0.18)"/>
+  <text x="68" y="332" font-size="11" font-family="system-ui,sans-serif" fill="#7070DC" text-anchor="middle">SC</text>
+  <text x="92" y="320" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.6)">Dr. Sarah Chen &#xB7; Professor of Philosophy of Mind</text>
+  <text x="92" y="336" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.28)">July 2026 &#xB7; 22 min read</text>
+  <rect x="50" y="352" width="700" height="1" fill="rgba(255,255,255,0.06)"/>
+  <!-- Article body text (represented as text-like rect blocks) -->
+  <!-- Lead paragraph (larger) -->
+  <rect x="50" y="368" width="700" height="10" rx="3" fill="rgba(255,255,255,0.18)"/>
+  <rect x="50" y="386" width="680" height="10" rx="3" fill="rgba(255,255,255,0.16)"/>
+  <rect x="50" y="404" width="692" height="10" rx="3" fill="rgba(255,255,255,0.16)"/>
+  <rect x="50" y="422" width="660" height="10" rx="3" fill="rgba(255,255,255,0.15)"/>
+  <!-- Second paragraph -->
+  <rect x="50" y="450" width="700" height="8" rx="3" fill="rgba(255,255,255,0.11)"/>
+  <rect x="50" y="466" width="684" height="8" rx="3" fill="rgba(255,255,255,0.1)"/>
+  <rect x="50" y="482" width="692" height="8" rx="3" fill="rgba(255,255,255,0.1)"/>
+  <rect x="50" y="498" width="640" height="8" rx="3" fill="rgba(255,255,255,0.09)"/>
+  <!-- Pull quote -->
+  <rect x="50" y="526" width="700" height="72" rx="0" fill="rgba(112,112,220,0.05)" stroke-left="rgba(112,112,220,0.5)"/>
+  <rect x="50" y="526" width="3" height="72" fill="#7070DC" opacity="0.5"/>
+  <text x="66" y="552" font-size="15" fill="rgba(255,255,255,0.62)" font-style="italic">The hard problem is not whether machines can think.</text>
+  <text x="66" y="574" font-size="15" fill="rgba(255,255,255,0.62)" font-style="italic">It is whether they can experience anything at all.</text>
+  <text x="66" y="592" font-size="11" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.55)">&#x2014; Dr. Sarah Chen</text>
+  <!-- Third paragraph -->
+  <rect x="50" y="618" width="700" height="8" rx="3" fill="rgba(255,255,255,0.1)"/>
+  <rect x="50" y="634" width="680" height="8" rx="3" fill="rgba(255,255,255,0.09)"/>
+  <rect x="50" y="650" width="696" height="8" rx="3" fill="rgba(255,255,255,0.09)"/>
+  <rect x="50" y="666" width="652" height="8" rx="3" fill="rgba(255,255,255,0.08)"/>
+  <!-- Sidebar -->
+  <rect x="840" y="110" width="310" height="650" rx="0" fill="rgba(0,0,0,0)"/>
+  <text x="840" y="136" font-size="10" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.2)" letter-spacing="2">IN THIS COLLECTION</text>
+  <!-- Related article 1 -->
+  <rect x="840" y="150" width="310" height="80" rx="8" fill="rgba(112,112,220,0.06)" stroke="rgba(112,112,220,0.14)" stroke-width="1"/>
+  <text x="858" y="172" font-size="10" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.55)" letter-spacing="1">AI ETHICS</text>
+  <text x="858" y="192" font-size="13" font-weight="700" fill="rgba(255,255,255,0.62)">The Alignment Problem</text>
+  <text x="858" y="210" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.28)">Priya Acharya &#xB7; 11 min</text>
+  <text x="858" y="224" font-size="11" font-family="system-ui,sans-serif" fill="#7070DC" opacity="0.6">Read &#x2192;</text>
+  <!-- Related article 2 -->
+  <rect x="840" y="242" width="310" height="80" rx="8" fill="rgba(112,112,220,0.04)" stroke="rgba(112,112,220,0.1)" stroke-width="1"/>
+  <text x="858" y="264" font-size="10" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.42)" letter-spacing="1">COGNITIVE SCIENCE</text>
+  <text x="858" y="284" font-size="13" font-weight="700" fill="rgba(255,255,255,0.52)">Attention and Experience</text>
+  <text x="858" y="302" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.22)">James Kwon &#xB7; 18 min</text>
+  <text x="858" y="316" font-size="11" font-family="system-ui,sans-serif" fill="#7070DC" opacity="0.45">Read &#x2192;</text>
+  <!-- Author bio -->
+  <rect x="840" y="348" width="310" height="1" fill="rgba(255,255,255,0.05)"/>
+  <text x="840" y="374" font-size="10" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.18)" letter-spacing="2">ABOUT THE AUTHOR</text>
+  <circle cx="858" cy="406" r="20" fill="rgba(112,112,220,0.15)" stroke="rgba(112,112,220,0.25)" stroke-width="1.5"/>
+  <text x="858" y="412" font-size="14" font-family="system-ui,sans-serif" fill="#7070DC" text-anchor="middle">SC</text>
+  <text x="888" y="398" font-size="12" font-weight="700" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.65)">Dr. Sarah Chen</text>
+  <text x="888" y="414" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.28)">Professor of Philosophy</text>
+  <rect x="840" y="438" width="310" height="7" rx="3" fill="rgba(255,255,255,0.07)"/>
+  <rect x="840" y="453" width="286" height="7" rx="3" fill="rgba(255,255,255,0.06)"/>
+  <rect x="840" y="468" width="300" height="7" rx="3" fill="rgba(255,255,255,0.05)"/>
+  <text x="840" y="496" font-size="11" font-family="system-ui,sans-serif" fill="#7070DC" opacity="0.5">View profile &#x2192;</text>
+  <!-- Newsletter sign-up -->
+  <rect x="840" y="530" width="310" height="84" rx="8" fill="rgba(112,112,220,0.06)" stroke="rgba(112,112,220,0.14)" stroke-width="1"/>
+  <text x="858" y="554" font-size="12" font-weight="700" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.6)">Institute Newsletter</text>
+  <rect x="858" y="564" width="274" height="6" rx="3" fill="rgba(255,255,255,0.07)"/>
+  <rect x="858" y="578" width="258" height="6" rx="3" fill="rgba(255,255,255,0.05)"/>
+  <rect x="858" y="596" width="274" height="28" rx="6" fill="#7070DC" opacity="0.7"/>
+  <text x="995" y="614" font-size="12" font-family="system-ui,sans-serif" fill="white" text-anchor="middle" font-weight="600">Subscribe</text>
+</svg>

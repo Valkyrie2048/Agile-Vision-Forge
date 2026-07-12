@@ -8,6 +8,18 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 function ProjectVisual({ project, index }: { project: Project; index: number }) {
+  if (project.coverImage) {
+    return (
+      <div className="w-full h-full overflow-hidden">
+        <img
+          src={project.coverImage}
+          alt={`${project.name} screenshot`}
+          className="w-full h-full object-cover object-top"
+        />
+      </div>
+    );
+  }
+
   const seed = index * 137 + 31;
   const cols = 3 + (seed % 3);
   const rows = 2 + (seed % 2);
