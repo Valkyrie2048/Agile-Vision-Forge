@@ -1,77 +1,148 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="Georgia,serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="42%" r="50%"><stop offset="0%" stop-color="#7070DC" stop-opacity="0.1"/><stop offset="100%" stop-color="#7070DC" stop-opacity="0"/></radialGradient>
+    <radialGradient id="bg-hp" cx="70%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#131828"/><stop offset="100%" stop-color="#060912"/>
+    </radialGradient>
+    <radialGradient id="head-hp" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.13"/><stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow-hp"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="gold-hp" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9A84C"/><stop offset="100%" stop-color="#E2C97E"/>
+    </linearGradient>
   </defs>
-  <rect width="1600" height="900" fill="#06060e"/>
-  <rect width="1600" height="900" fill="url(#bg)"/>
+
+  <!-- Browser chrome -->
+  <rect width="1600" height="900" rx="8" fill="#1C1C1E"/>
+  <rect x="0" y="0" width="1600" height="42" rx="8" fill="#2A2A2D"/>
+  <rect x="0" y="30" width="1600" height="12" fill="#2A2A2D"/>
+  <circle cx="24" cy="21" r="6" fill="#FF5F57"/><circle cx="44" cy="21" r="6" fill="#FEBC2E"/><circle cx="64" cy="21" r="6" fill="#28C840"/>
+  <rect x="200" y="11" width="840" height="20" rx="5" fill="#3A3A3D"/>
+  <text x="620" y="25" font-family="system-ui,sans-serif" font-size="11" fill="#8A8A8E" text-anchor="middle">futureofconsciousness.global</text>
+
+  <!-- Site content -->
+  <rect x="0" y="42" width="1600" height="858" fill="url(#bg-hp)"/>
+
+  <!-- Particles -->
+  <g opacity="0.18" fill="#C9A84C">
+    <circle cx="110" cy="90" r="1.5"/><circle cx="360" cy="65" r="1"/><circle cx="590" cy="150" r="1.5"/>
+    <circle cx="195" cy="250" r="1"/><circle cx="470" cy="200" r="1.5"/><circle cx="78" cy="400" r="1"/>
+    <circle cx="320" cy="840" r="1.5"/><circle cx="610" cy="870" r="1"/><circle cx="150" cy="775" r="1.5"/>
+    <circle cx="1490" cy="130" r="1.5"/><circle cx="1545" cy="310" r="1"/><circle cx="1510" cy="820" r="1.5"/>
+    <circle cx="810" cy="72" r="1"/><circle cx="980" cy="55" r="1.5"/>
+  </g>
+
   <!-- Nav -->
-  <rect width="1600" height="64" fill="rgba(6,6,14,0.95)"/>
-  <rect y="64" width="1600" height="1" fill="rgba(255,255,255,0.06)"/>
-  <text x="60" y="40" font-size="13" fill="rgba(255,255,255,0.8)" font-style="italic">The Institute for AI and the Future of Consciousness</text>
-  <text x="1050" y="38" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.38)" text-anchor="middle">Research</text>
-  <text x="1140" y="38" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.38)" text-anchor="middle">Library</text>
-  <text x="1230" y="38" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.38)" text-anchor="middle">Events</text>
-  <text x="1330" y="38" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.38)" text-anchor="middle">About</text>
-  <rect x="1450" y="20" width="96" height="28" rx="5" fill="rgba(112,112,220,0.12)" stroke="rgba(112,112,220,0.28)" stroke-width="1"/>
-  <text x="1498" y="38" font-size="12" font-family="system-ui,sans-serif" fill="#7070DC" text-anchor="middle">Subscribe</text>
-  <!-- Featured article (large left) -->
-  <rect x="60" y="84" width="920" height="500" rx="0" fill="rgba(15,14,28,0.0)"/>
-  <text x="60" y="124" font-size="11" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.65)" letter-spacing="2">PHILOSOPHY OF MIND</text>
-  <text x="60" y="178" font-size="46" font-weight="700" fill="rgba(255,255,255,0.88)" letter-spacing="-1.5">The Question of</text>
-  <text x="60" y="234" font-size="46" font-weight="700" fill="rgba(255,255,255,0.88)" letter-spacing="-1.5">Machine Consciousness</text>
-  <text x="60" y="278" font-size="17" fill="rgba(255,255,255,0.42)" font-style="italic">How should we think about experience in systems that process information?</text>
-  <rect x="60" y="302" width="800" height="1" fill="rgba(255,255,255,0.06)"/>
-  <text x="60" y="328" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.3)">Dr. Sarah Chen &#xB7; Philosophy of Mind &#xB7; 22 min read &#xB7; July 2026</text>
-  <rect x="60" y="344" width="840" height="7" rx="3" fill="rgba(255,255,255,0.08)"/>
-  <rect x="60" y="359" width="800" height="7" rx="3" fill="rgba(255,255,255,0.07)"/>
-  <rect x="60" y="374" width="820" height="7" rx="3" fill="rgba(255,255,255,0.06)"/>
-  <rect x="60" y="389" width="760" height="7" rx="3" fill="rgba(255,255,255,0.06)"/>
-  <rect x="60" y="404" width="800" height="7" rx="3" fill="rgba(255,255,255,0.05)"/>
-  <text x="60" y="440" font-size="13" font-family="system-ui,sans-serif" fill="#7070DC">Read essay &#x2192;</text>
-  <!-- Right: 3 recent articles -->
-  <rect x="1020" y="84" width="520" height="1" fill="rgba(255,255,255,0.05)"/>
-  <text x="1020" y="108" font-size="10" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.22)" letter-spacing="2">RECENT PUBLICATIONS</text>
-  <!-- Article 1 -->
-  <rect x="1020" y="118" width="520" height="112" rx="0" fill="rgba(0,0,0,0)"/>
-  <text x="1020" y="138" font-size="10" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.55)" letter-spacing="1.5">AI ETHICS</text>
-  <text x="1020" y="162" font-size="18" font-weight="700" fill="rgba(255,255,255,0.72)" letter-spacing="-0.5">The Alignment Problem</text>
-  <text x="1020" y="184" font-size="18" font-weight="700" fill="rgba(255,255,255,0.72)" letter-spacing="-0.5">as a Design Challenge</text>
-  <text x="1020" y="208" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.28)">Dr. Priya Acharya &#xB7; 11 min</text>
-  <text x="1516" y="162" font-size="12" font-family="system-ui,sans-serif" fill="#7070DC" text-anchor="end" opacity="0.7">Read &#x2192;</text>
-  <rect x="1020" y="236" width="520" height="1" fill="rgba(255,255,255,0.05)"/>
-  <!-- Article 2 -->
-  <text x="1020" y="264" font-size="10" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.45)" letter-spacing="1.5">COGNITIVE SCIENCE</text>
-  <text x="1020" y="290" font-size="18" font-weight="700" fill="rgba(255,255,255,0.62)" letter-spacing="-0.5">Attention and the Hard</text>
-  <text x="1020" y="312" font-size="18" font-weight="700" fill="rgba(255,255,255,0.62)" letter-spacing="-0.5">Problem of Experience</text>
-  <text x="1020" y="336" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.24)">Dr. James Kwon &#xB7; 18 min</text>
-  <text x="1516" y="290" font-size="12" font-family="system-ui,sans-serif" fill="#7070DC" text-anchor="end" opacity="0.55">Read &#x2192;</text>
-  <rect x="1020" y="354" width="520" height="1" fill="rgba(255,255,255,0.05)"/>
-  <!-- Article 3 -->
-  <text x="1020" y="380" font-size="10" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.36)" letter-spacing="1.5">AI AND SOCIETY</text>
-  <text x="1020" y="406" font-size="18" font-weight="700" fill="rgba(255,255,255,0.52)" letter-spacing="-0.5">Agency Without</text>
-  <text x="1020" y="428" font-size="18" font-weight="700" fill="rgba(255,255,255,0.52)" letter-spacing="-0.5">Consciousness</text>
-  <text x="1020" y="452" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.2)">Prof. Marcus Webb &#xB7; 14 min</text>
-  <text x="1516" y="406" font-size="12" font-family="system-ui,sans-serif" fill="#7070DC" text-anchor="end" opacity="0.42">Read &#x2192;</text>
-  <!-- Horizontal divider -->
-  <rect x="60" y="600" width="1480" height="1" fill="rgba(255,255,255,0.04)"/>
-  <!-- Themes section -->
-  <text x="60" y="632" font-size="10" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.2)" letter-spacing="2">RESEARCH THEMES</text>
-  <rect x="60" y="648" width="300" height="52" rx="8" fill="rgba(112,112,220,0.06)" stroke="rgba(112,112,220,0.14)" stroke-width="1"/>
-  <text x="80" y="678" font-size="14" font-weight="700" fill="rgba(255,255,255,0.6)">Consciousness &#38; Mind</text>
-  <rect x="378" y="648" width="300" height="52" rx="8" fill="rgba(112,112,220,0.05)" stroke="rgba(112,112,220,0.1)" stroke-width="1"/>
-  <text x="398" y="678" font-size="14" font-weight="700" fill="rgba(255,255,255,0.52)">AI Ethics &#38; Governance</text>
-  <rect x="696" y="648" width="300" height="52" rx="8" fill="rgba(112,112,220,0.04)" stroke="rgba(112,112,220,0.08)" stroke-width="1"/>
-  <text x="716" y="678" font-size="14" font-weight="700" fill="rgba(255,255,255,0.45)">Human Flourishing</text>
-  <rect x="1014" y="648" width="300" height="52" rx="8" fill="rgba(112,112,220,0.03)" stroke="rgba(112,112,220,0.07)" stroke-width="1"/>
-  <text x="1034" y="678" font-size="14" font-weight="700" fill="rgba(255,255,255,0.38)">AI &#38; Society</text>
-  <rect x="1332" y="648" width="208" height="52" rx="8" fill="rgba(112,112,220,0.02)" stroke="rgba(112,112,220,0.06)" stroke-width="1"/>
-  <text x="1352" y="678" font-size="14" font-weight="700" fill="rgba(255,255,255,0.3)">Future of Intelligence</text>
-  <!-- Newsletter bar -->
-  <rect x="60" y="728" width="1480" height="64" rx="10" fill="rgba(112,112,220,0.06)" stroke="rgba(112,112,220,0.14)" stroke-width="1"/>
-  <text x="80" y="752" font-size="14" font-weight="700" fill="rgba(255,255,255,0.65)">The Institute Newsletter</text>
-  <text x="80" y="772" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.28)">New publications, events, and editorial notes &#x2014; direct to your inbox.</text>
-  <rect x="1060" y="740" width="340" height="36" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="1180" y="762" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.2)" text-anchor="middle">Your email address</text>
-  <rect x="1416" y="740" width="100" height="36" rx="8" fill="#7070DC" opacity="0.8"/>
-  <text x="1466" y="762" font-size="12" font-family="system-ui,sans-serif" font-weight="600" fill="white" text-anchor="middle">Subscribe</text>
+  <g font-family="system-ui,-apple-system,sans-serif">
+    <text x="96" y="92" font-size="12.5" fill="#F0EBE0">The Institute for AI</text>
+    <text x="96" y="108" font-size="12.5" fill="#F0EBE0">and the Future of Consciousness</text>
+    <text x="542" y="98" font-size="10" fill="#C9A84C" letter-spacing="1.5" font-weight="600">ABOUT</text>
+    <text x="608" y="98" font-size="10" fill="#9BA3AF" letter-spacing="1.5">THINKING</text>
+    <text x="693" y="98" font-size="10" fill="#9BA3AF" letter-spacing="1.5">OP-EDS</text>
+    <text x="756" y="98" font-size="10" fill="#9BA3AF" letter-spacing="1.5">DISPATCH</text>
+    <text x="831" y="98" font-size="10" fill="#9BA3AF" letter-spacing="1.5">ENGAGE</text>
+    <line x1="905" y1="85" x2="905" y2="109" stroke="#9BA3AF" stroke-opacity="0.3" stroke-width="0.8"/>
+    <text x="918" y="98" font-size="10" fill="#9BA3AF" letter-spacing="1.5">AUDIENCES</text>
+    <rect x="1090" y="79" width="148" height="26" fill="none" stroke="#C9A84C" stroke-width="1" rx="2"/>
+    <text x="1164" y="96" font-size="9" fill="#C9A84C" font-weight="600" letter-spacing="1" text-anchor="middle">BECOME A PARTNER</text>
+    <rect x="1250" y="79" width="108" height="26" fill="none" stroke="#C9A84C" stroke-width="1" rx="2"/>
+    <text x="1304" y="96" font-size="9" fill="#C9A84C" font-weight="600" letter-spacing="1" text-anchor="middle">GET INVOLVED</text>
+    <rect x="1370" y="79" width="100" height="26" fill="url(#gold-hp)" rx="2"/>
+    <text x="1420" y="96" font-size="9" fill="#060912" font-weight="700" letter-spacing="1" text-anchor="middle">DONATE NOW</text>
+  </g>
+  <line x1="96" y1="122" x2="1520" y2="122" stroke="#C9A84C" stroke-opacity="0.12" stroke-width="0.5"/>
+
+  <!-- Badge -->
+  <g transform="translate(96,195)">
+    <line x1="0" y1="9" x2="26" y2="9" stroke="#C9A84C" stroke-width="1.5"/>
+    <text x="34" y="14" font-family="system-ui,sans-serif" font-size="10.5" fill="#C9A84C" letter-spacing="2.2" font-weight="500">INTERDISCIPLINARY RESEARCH INSTITUTE</text>
+  </g>
+
+  <!-- Headline -->
+  <g font-family="Georgia,'Times New Roman',serif">
+    <text x="96" y="295" font-size="71" fill="#EDE8DC" font-weight="400" letter-spacing="-1">Exploring how AI is</text>
+    <text x="96" y="378" font-size="71" fill="#EDE8DC" font-weight="400" letter-spacing="-1">reshaping</text>
+    <text x="330" y="378" font-size="71" fill="#C9A84C" font-weight="400" letter-spacing="-1" filter="url(#glow-hp)"> cognition,</text>
+    <text x="96" y="461" font-size="71" fill="#C9A84C" font-weight="400" letter-spacing="-1" filter="url(#glow-hp)">identity,</text>
+    <text x="96" y="544" font-size="71" fill="#C9A84C" font-weight="400" letter-spacing="-1" filter="url(#glow-hp)">and society</text>
+  </g>
+
+  <!-- Subtitle -->
+  <text x="96" y="608" font-family="system-ui,sans-serif" font-size="16" fill="#8A919E">We study how intelligent systems are reshaping cognition, identity,</text>
+  <text x="96" y="629" font-family="system-ui,sans-serif" font-size="16" fill="#8A919E">agency, and society — and we translate that research into public</text>
+  <text x="96" y="650" font-family="system-ui,sans-serif" font-size="16" fill="#8A919E">understanding, policy, and education.</text>
+
+  <!-- CTAs -->
+  <rect x="96" y="686" width="202" height="48" fill="none" stroke="#EDE8DC" stroke-width="1.5" rx="2"/>
+  <text x="197" y="715" font-family="system-ui,sans-serif" font-size="11.5" fill="#EDE8DC" font-weight="600" letter-spacing="1.5" text-anchor="middle">EXPLORE OUR WORK</text>
+  <rect x="314" y="686" width="162" height="48" fill="url(#gold-hp)" rx="2"/>
+  <text x="395" y="715" font-family="system-ui,sans-serif" font-size="11.5" fill="#060912" font-weight="700" letter-spacing="1.5" text-anchor="middle">GET INVOLVED</text>
+
+  <!-- Play mission -->
+  <circle cx="106" cy="772" r="12" fill="none" stroke="#C9A84C" stroke-width="1.2"/>
+  <polygon points="103,766 103,778 114,772" fill="#C9A84C"/>
+  <text x="127" y="777" font-family="system-ui,sans-serif" font-size="11.5" fill="#C9A84C" letter-spacing="1.5">PLAY OUR MISSION</text>
+
+  <!-- Neural head -->
+  <ellipse cx="1245" cy="470" rx="285" ry="305" fill="url(#head-hp)"/>
+  <g stroke="#C9A84C" stroke-width="0.8" opacity="0.28" fill="none">
+    <line x1="1210" y1="185" x2="1162" y2="214"/><line x1="1210" y1="185" x2="1260" y2="210"/>
+    <line x1="1162" y1="214" x2="1100" y2="282"/><line x1="1260" y1="210" x2="1322" y2="264"/>
+    <line x1="1322" y1="264" x2="1360" y2="332"/><line x1="1360" y1="332" x2="1372" y2="397"/>
+    <line x1="1372" y1="397" x2="1382" y2="462"/><line x1="1382" y1="462" x2="1370" y2="532"/>
+    <line x1="1370" y1="532" x2="1325" y2="577"/><line x1="1325" y1="577" x2="1280" y2="622"/>
+    <line x1="1280" y1="622" x2="1210" y2="652"/><line x1="1210" y1="652" x2="1140" y2="642"/>
+    <line x1="1140" y1="642" x2="1100" y2="597"/><line x1="1100" y1="597" x2="1065" y2="522"/>
+    <line x1="1065" y1="522" x2="1060" y2="405"/><line x1="1060" y1="405" x2="1100" y2="282"/>
+    <line x1="1210" y1="652" x2="1165" y2="700"/><line x1="1210" y1="652" x2="1260" y2="690"/>
+    <line x1="1165" y1="700" x2="1210" y2="720"/><line x1="1260" y1="690" x2="1210" y2="720"/>
+    <line x1="1100" y1="282" x2="1170" y2="312"/><line x1="1170" y1="312" x2="1242" y2="302"/>
+    <line x1="1242" y1="302" x2="1322" y2="264"/><line x1="1170" y1="312" x2="1190" y2="397"/>
+    <line x1="1242" y1="302" x2="1310" y2="362"/><line x1="1310" y1="362" x2="1360" y2="332"/>
+    <line x1="1310" y1="362" x2="1252" y2="382"/><line x1="1252" y1="382" x2="1190" y2="397"/>
+    <line x1="1190" y1="397" x2="1130" y2="422"/><line x1="1130" y1="422" x2="1060" y2="405"/>
+    <line x1="1130" y1="422" x2="1210" y2="442"/><line x1="1210" y1="442" x2="1280" y2="442"/>
+    <line x1="1280" y1="442" x2="1340" y2="482"/><line x1="1340" y1="482" x2="1372" y2="397"/>
+    <line x1="1340" y1="482" x2="1370" y2="532"/><line x1="1210" y1="442" x2="1180" y2="492"/>
+    <line x1="1180" y1="492" x2="1130" y2="422"/><line x1="1180" y1="492" x2="1150" y2="547"/>
+    <line x1="1150" y1="547" x2="1100" y2="597"/><line x1="1150" y1="547" x2="1200" y2="567"/>
+    <line x1="1200" y1="567" x2="1252" y2="582"/><line x1="1252" y1="582" x2="1320" y2="532"/>
+    <line x1="1320" y1="532" x2="1280" y2="622"/><line x1="1280" y1="442" x2="1320" y2="532"/>
+    <line x1="1065" y1="522" x2="1130" y2="422"/><line x1="1065" y1="522" x2="1100" y2="597"/>
+    <line x1="1210" y1="185" x2="1242" y2="302"/><line x1="1162" y1="214" x2="1170" y2="312"/>
+    <line x1="1140" y1="642" x2="1150" y2="547"/><line x1="1252" y1="582" x2="1280" y2="622"/>
+    <line x1="1415" y1="272" x2="1322" y2="264"/><line x1="1445" y1="422" x2="1372" y2="397"/>
+    <line x1="1435" y1="560" x2="1370" y2="532"/>
+    <line x1="972" y1="330" x2="1060" y2="405"/><line x1="972" y1="502" x2="1065" y2="522"/>
+  </g>
+  <g stroke="#E2C97E" stroke-width="1.2" opacity="0.5" fill="none">
+    <line x1="1210" y1="442" x2="1280" y2="442"/><line x1="1190" y1="397" x2="1210" y2="442"/>
+    <line x1="1210" y1="442" x2="1180" y2="492"/><line x1="1310" y1="362" x2="1280" y2="442"/>
+    <line x1="1130" y1="422" x2="1210" y2="442"/>
+  </g>
+  <g fill="#C9A84C" opacity="0.65" filter="url(#glow-hp)">
+    <circle cx="1210" cy="185" r="3.5"/><circle cx="1162" cy="214" r="3"/><circle cx="1260" cy="210" r="3"/>
+    <circle cx="1322" cy="264" r="3"/><circle cx="1100" cy="282" r="3"/><circle cx="1360" cy="332" r="3"/>
+    <circle cx="1372" cy="397" r="3.5"/><circle cx="1060" cy="405" r="3"/><circle cx="1382" cy="462" r="3"/>
+    <circle cx="1065" cy="522" r="3"/><circle cx="1370" cy="532" r="3"/><circle cx="1325" cy="577" r="3"/>
+    <circle cx="1100" cy="597" r="3"/><circle cx="1280" cy="622" r="3"/><circle cx="1210" cy="652" r="3.5"/>
+    <circle cx="1140" cy="642" r="3"/><circle cx="1165" cy="700" r="2.5"/><circle cx="1210" cy="720" r="2.5"/>
+    <circle cx="1260" cy="690" r="2.5"/>
+  </g>
+  <g fill="#E2C97E" opacity="0.85" filter="url(#glow-hp)">
+    <circle cx="1170" cy="312" r="3"/><circle cx="1242" cy="302" r="3"/><circle cx="1310" cy="362" r="3"/>
+    <circle cx="1190" cy="397" r="4"/><circle cx="1252" cy="382" r="3"/><circle cx="1130" cy="422" r="3"/>
+    <circle cx="1210" cy="442" r="5"/><circle cx="1280" cy="442" r="3.5"/><circle cx="1340" cy="482" r="3"/>
+    <circle cx="1180" cy="492" r="3.5"/><circle cx="1150" cy="547" r="3"/><circle cx="1320" cy="532" r="3"/>
+    <circle cx="1200" cy="567" r="3"/><circle cx="1252" cy="582" r="3"/>
+    <circle cx="1415" cy="272" r="2" opacity="0.35"/><circle cx="1445" cy="422" r="2" opacity="0.35"/>
+    <circle cx="1435" cy="560" r="2" opacity="0.35"/><circle cx="972" cy="330" r="2" opacity="0.35"/>
+    <circle cx="972" cy="502" r="2" opacity="0.35"/>
+  </g>
+
+  <!-- Scroll indicator -->
+  <circle cx="800" cy="864" r="10" fill="none" stroke="#C9A84C" stroke-opacity="0.4" stroke-width="1"/>
+  <line x1="800" y1="858" x2="800" y2="870" stroke="#C9A84C" stroke-opacity="0.6" stroke-width="1.5"/>
+  <line x1="796" y1="866" x2="800" y2="870" stroke="#C9A84C" stroke-opacity="0.6" stroke-width="1.5"/>
+  <line x1="804" y1="866" x2="800" y2="870" stroke="#C9A84C" stroke-opacity="0.6" stroke-width="1.5"/>
 </svg>

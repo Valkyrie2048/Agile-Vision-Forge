@@ -1,95 +1,130 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" font-family="Georgia,serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="35%" r="50%"><stop offset="0%" stop-color="#7070DC" stop-opacity="0.09"/><stop offset="100%" stop-color="#7070DC" stop-opacity="0"/></radialGradient>
+    <linearGradient id="bg-th" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0B0F1A"/><stop offset="100%" stop-color="#070C14"/>
+    </linearGradient>
+    <linearGradient id="gold-th" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9A84C"/><stop offset="100%" stop-color="#E2C97E"/>
+    </linearGradient>
+    <filter id="tag-shadow"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#C9A84C" flood-opacity="0.2"/></filter>
   </defs>
-  <rect width="1200" height="780" fill="#06060e"/>
-  <rect width="1200" height="780" fill="url(#bg)"/>
+
   <!-- Browser chrome -->
-  <rect width="1200" height="44" fill="#0b0b18"/>
-  <circle cx="18" cy="22" r="6" fill="#ff5f57" opacity="0.65"/>
-  <circle cx="38" cy="22" r="6" fill="#febc2e" opacity="0.65"/>
-  <circle cx="58" cy="22" r="6" fill="#28c840" opacity="0.65"/>
-  <rect x="120" y="10" width="380" height="24" rx="5" fill="#100f20"/>
-  <text x="310" y="26" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.25)" text-anchor="middle">instituteai.org/essays/machine-consciousness</text>
-  <rect width="1200" height="1" y="44" fill="rgba(255,255,255,0.05)"/>
-  <!-- Top nav -->
-  <rect x="0" y="44" width="1200" height="50" fill="rgba(6,6,14,0.95)"/>
-  <rect x="0" y="94" width="1200" height="1" fill="rgba(255,255,255,0.05)"/>
-  <text x="50" y="72" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.55)" font-style="italic">The Institute for AI &#38; Consciousness</text>
-  <text x="800" y="72" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.32)" text-anchor="middle">Research</text>
-  <text x="880" y="72" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.32)" text-anchor="middle">Library</text>
-  <text x="960" y="72" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.32)" text-anchor="middle">Events</text>
-  <!-- Article body (main column) -->
-  <rect x="50" y="110" width="750" height="650" fill="rgba(0,0,0,0)"/>
-  <!-- Breadcrumb -->
-  <text x="50" y="130" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.25)">Research &#x2192; Philosophy of Mind &#x2192;</text>
-  <!-- Category -->
-  <text x="50" y="160" font-size="10" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.7)" letter-spacing="2">PHILOSOPHY OF MIND</text>
-  <!-- Title -->
-  <text x="50" y="206" font-size="32" font-weight="700" fill="rgba(255,255,255,0.88)" letter-spacing="-0.8">The Question of Machine</text>
-  <text x="50" y="246" font-size="32" font-weight="700" fill="rgba(255,255,255,0.88)" letter-spacing="-0.8">Consciousness</text>
-  <!-- Subtitle -->
-  <text x="50" y="280" font-size="15" fill="rgba(255,255,255,0.4)" font-style="italic">How should we think about experience in systems that process information?</text>
-  <!-- Byline -->
-  <rect x="50" y="296" width="700" height="1" fill="rgba(255,255,255,0.06)"/>
-  <circle cx="68" cy="326" r="14" fill="rgba(112,112,220,0.18)"/>
-  <text x="68" y="332" font-size="11" font-family="system-ui,sans-serif" fill="#7070DC" text-anchor="middle">SC</text>
-  <text x="92" y="320" font-size="12" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.6)">Dr. Sarah Chen &#xB7; Professor of Philosophy of Mind</text>
-  <text x="92" y="336" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.28)">July 2026 &#xB7; 22 min read</text>
-  <rect x="50" y="352" width="700" height="1" fill="rgba(255,255,255,0.06)"/>
-  <!-- Article body text (represented as text-like rect blocks) -->
-  <!-- Lead paragraph (larger) -->
-  <rect x="50" y="368" width="700" height="10" rx="3" fill="rgba(255,255,255,0.18)"/>
-  <rect x="50" y="386" width="680" height="10" rx="3" fill="rgba(255,255,255,0.16)"/>
-  <rect x="50" y="404" width="692" height="10" rx="3" fill="rgba(255,255,255,0.16)"/>
-  <rect x="50" y="422" width="660" height="10" rx="3" fill="rgba(255,255,255,0.15)"/>
-  <!-- Second paragraph -->
-  <rect x="50" y="450" width="700" height="8" rx="3" fill="rgba(255,255,255,0.11)"/>
-  <rect x="50" y="466" width="684" height="8" rx="3" fill="rgba(255,255,255,0.1)"/>
-  <rect x="50" y="482" width="692" height="8" rx="3" fill="rgba(255,255,255,0.1)"/>
-  <rect x="50" y="498" width="640" height="8" rx="3" fill="rgba(255,255,255,0.09)"/>
-  <!-- Pull quote -->
-  <rect x="50" y="526" width="700" height="72" rx="0" fill="rgba(112,112,220,0.05)" stroke-left="rgba(112,112,220,0.5)"/>
-  <rect x="50" y="526" width="3" height="72" fill="#7070DC" opacity="0.5"/>
-  <text x="66" y="552" font-size="15" fill="rgba(255,255,255,0.62)" font-style="italic">The hard problem is not whether machines can think.</text>
-  <text x="66" y="574" font-size="15" fill="rgba(255,255,255,0.62)" font-style="italic">It is whether they can experience anything at all.</text>
-  <text x="66" y="592" font-size="11" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.55)">&#x2014; Dr. Sarah Chen</text>
-  <!-- Third paragraph -->
-  <rect x="50" y="618" width="700" height="8" rx="3" fill="rgba(255,255,255,0.1)"/>
-  <rect x="50" y="634" width="680" height="8" rx="3" fill="rgba(255,255,255,0.09)"/>
-  <rect x="50" y="650" width="696" height="8" rx="3" fill="rgba(255,255,255,0.09)"/>
-  <rect x="50" y="666" width="652" height="8" rx="3" fill="rgba(255,255,255,0.08)"/>
-  <!-- Sidebar -->
-  <rect x="840" y="110" width="310" height="650" rx="0" fill="rgba(0,0,0,0)"/>
-  <text x="840" y="136" font-size="10" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.2)" letter-spacing="2">IN THIS COLLECTION</text>
-  <!-- Related article 1 -->
-  <rect x="840" y="150" width="310" height="80" rx="8" fill="rgba(112,112,220,0.06)" stroke="rgba(112,112,220,0.14)" stroke-width="1"/>
-  <text x="858" y="172" font-size="10" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.55)" letter-spacing="1">AI ETHICS</text>
-  <text x="858" y="192" font-size="13" font-weight="700" fill="rgba(255,255,255,0.62)">The Alignment Problem</text>
-  <text x="858" y="210" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.28)">Priya Acharya &#xB7; 11 min</text>
-  <text x="858" y="224" font-size="11" font-family="system-ui,sans-serif" fill="#7070DC" opacity="0.6">Read &#x2192;</text>
-  <!-- Related article 2 -->
-  <rect x="840" y="242" width="310" height="80" rx="8" fill="rgba(112,112,220,0.04)" stroke="rgba(112,112,220,0.1)" stroke-width="1"/>
-  <text x="858" y="264" font-size="10" font-family="system-ui,sans-serif" fill="rgba(112,112,220,0.42)" letter-spacing="1">COGNITIVE SCIENCE</text>
-  <text x="858" y="284" font-size="13" font-weight="700" fill="rgba(255,255,255,0.52)">Attention and Experience</text>
-  <text x="858" y="302" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.22)">James Kwon &#xB7; 18 min</text>
-  <text x="858" y="316" font-size="11" font-family="system-ui,sans-serif" fill="#7070DC" opacity="0.45">Read &#x2192;</text>
-  <!-- Author bio -->
-  <rect x="840" y="348" width="310" height="1" fill="rgba(255,255,255,0.05)"/>
-  <text x="840" y="374" font-size="10" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.18)" letter-spacing="2">ABOUT THE AUTHOR</text>
-  <circle cx="858" cy="406" r="20" fill="rgba(112,112,220,0.15)" stroke="rgba(112,112,220,0.25)" stroke-width="1.5"/>
-  <text x="858" y="412" font-size="14" font-family="system-ui,sans-serif" fill="#7070DC" text-anchor="middle">SC</text>
-  <text x="888" y="398" font-size="12" font-weight="700" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.65)">Dr. Sarah Chen</text>
-  <text x="888" y="414" font-size="11" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.28)">Professor of Philosophy</text>
-  <rect x="840" y="438" width="310" height="7" rx="3" fill="rgba(255,255,255,0.07)"/>
-  <rect x="840" y="453" width="286" height="7" rx="3" fill="rgba(255,255,255,0.06)"/>
-  <rect x="840" y="468" width="300" height="7" rx="3" fill="rgba(255,255,255,0.05)"/>
-  <text x="840" y="496" font-size="11" font-family="system-ui,sans-serif" fill="#7070DC" opacity="0.5">View profile &#x2192;</text>
-  <!-- Newsletter sign-up -->
-  <rect x="840" y="530" width="310" height="84" rx="8" fill="rgba(112,112,220,0.06)" stroke="rgba(112,112,220,0.14)" stroke-width="1"/>
-  <text x="858" y="554" font-size="12" font-weight="700" font-family="system-ui,sans-serif" fill="rgba(255,255,255,0.6)">Institute Newsletter</text>
-  <rect x="858" y="564" width="274" height="6" rx="3" fill="rgba(255,255,255,0.07)"/>
-  <rect x="858" y="578" width="258" height="6" rx="3" fill="rgba(255,255,255,0.05)"/>
-  <rect x="858" y="596" width="274" height="28" rx="6" fill="#7070DC" opacity="0.7"/>
-  <text x="995" y="614" font-size="12" font-family="system-ui,sans-serif" fill="white" text-anchor="middle" font-weight="600">Subscribe</text>
+  <rect width="1600" height="900" rx="8" fill="#1C1C1E"/>
+  <rect x="0" y="0" width="1600" height="42" rx="8" fill="#2A2A2D"/>
+  <rect x="0" y="30" width="1600" height="12" fill="#2A2A2D"/>
+  <circle cx="24" cy="21" r="6" fill="#FF5F57"/><circle cx="44" cy="21" r="6" fill="#FEBC2E"/><circle cx="64" cy="21" r="6" fill="#28C840"/>
+  <rect x="200" y="11" width="840" height="20" rx="5" fill="#3A3A3D"/>
+  <text x="620" y="25" font-family="system-ui,sans-serif" font-size="11" fill="#8A8A8E" text-anchor="middle">futureofconsciousness.global/thinking</text>
+
+  <!-- Site bg -->
+  <rect x="0" y="42" width="1600" height="858" fill="url(#bg-th)"/>
+
+  <!-- Nav -->
+  <g font-family="system-ui,-apple-system,sans-serif">
+    <text x="96" y="88" font-size="12" fill="#F0EBE0">The Institute for AI</text>
+    <text x="96" y="103" font-size="12" fill="#F0EBE0">and the Future of Consciousness</text>
+    <text x="542" y="95" font-size="10" fill="#9BA3AF" letter-spacing="1.5">ABOUT</text>
+    <text x="603" y="95" font-size="10" fill="#C9A84C" letter-spacing="1.5" font-weight="600">THINKING</text>
+    <text x="694" y="95" font-size="10" fill="#9BA3AF" letter-spacing="1.5">OP-EDS</text>
+    <text x="756" y="95" font-size="10" fill="#9BA3AF" letter-spacing="1.5">DISPATCH</text>
+    <text x="830" y="95" font-size="10" fill="#9BA3AF" letter-spacing="1.5">ENGAGE</text>
+    <line x1="903" y1="82" x2="903" y2="107" stroke="#9BA3AF" stroke-opacity="0.3" stroke-width="0.8"/>
+    <text x="916" y="95" font-size="10" fill="#9BA3AF" letter-spacing="1.5">AUDIENCES</text>
+    <rect x="1090" y="78" width="148" height="25" fill="none" stroke="#C9A84C" stroke-width="1" rx="2"/>
+    <text x="1164" y="95" font-size="9" fill="#C9A84C" font-weight="600" letter-spacing="1" text-anchor="middle">BECOME A PARTNER</text>
+    <rect x="1250" y="78" width="108" height="25" fill="none" stroke="#C9A84C" stroke-width="1" rx="2"/>
+    <text x="1304" y="95" font-size="9" fill="#C9A84C" font-weight="600" letter-spacing="1" text-anchor="middle">GET INVOLVED</text>
+    <rect x="1370" y="78" width="100" height="25" fill="url(#gold-th)" rx="2"/>
+    <text x="1420" y="95" font-size="9" fill="#060912" font-weight="700" letter-spacing="1" text-anchor="middle">DONATE NOW</text>
+  </g>
+  <line x1="96" y1="118" x2="1520" y2="118" stroke="#C9A84C" stroke-opacity="0.12" stroke-width="0.5"/>
+
+  <!-- Page header -->
+  <text x="96" y="165" font-family="system-ui,sans-serif" font-size="11" fill="#C9A84C" letter-spacing="2.5" font-weight="500">FROM THE INSTITUTE</text>
+  <text x="96" y="240" font-family="Georgia,'Times New Roman',serif" font-size="80" fill="#EDE8DC" font-weight="400" letter-spacing="-1">Thinking</text>
+  <text x="96" y="278" font-family="system-ui,sans-serif" font-size="17" fill="#7A8290">Essays, analyses, and perspectives on AI and the human condition —</text>
+  <text x="96" y="298" font-family="system-ui,sans-serif" font-size="17" fill="#7A8290">written for anyone who cares how this story ends.</text>
+
+  <!-- Divider -->
+  <line x1="0" y1="325" x2="1600" y2="325" stroke="#C9A84C" stroke-opacity="0.1" stroke-width="1"/>
+
+  <!-- Filter tags row -->
+  <g font-family="system-ui,sans-serif" font-size="11" font-weight="500">
+    <!-- ALL - active -->
+    <rect x="96" y="342" width="44" height="28" rx="4" fill="#C9A84C"/>
+    <text x="118" y="361" fill="#060912" font-weight="700" letter-spacing="0.5" text-anchor="middle">ALL</text>
+    <!-- Other tags -->
+    <rect x="152" y="342" width="186" height="28" rx="4" fill="none" stroke="#C9A84C" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="245" y="361" fill="#C9A84C" letter-spacing="0.8" text-anchor="middle">ATTENTION &amp; COGNITION</text>
+    <rect x="350" y="342" width="180" height="28" rx="4" fill="none" stroke="#C9A84C" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="440" y="361" fill="#C9A84C" letter-spacing="0.8" text-anchor="middle">AGENCY &amp; AUTONOMY</text>
+    <rect x="542" y="342" width="186" height="28" rx="4" fill="none" stroke="#C9A84C" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="635" y="361" fill="#C9A84C" letter-spacing="0.8" text-anchor="middle">HUMAN FLOURISHING</text>
+    <rect x="740" y="342" width="170" height="28" rx="4" fill="none" stroke="#C9A84C" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="825" y="361" fill="#C9A84C" letter-spacing="0.8" text-anchor="middle">PHILOSOPHY OF MIND</text>
+    <rect x="922" y="342" width="155" height="28" rx="4" fill="none" stroke="#C9A84C" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="999" y="361" fill="#C9A84C" letter-spacing="0.8" text-anchor="middle">WORK &amp; SOCIETY</text>
+    <rect x="1089" y="342" width="168" height="28" rx="4" fill="none" stroke="#C9A84C" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="1173" y="361" fill="#C9A84C" letter-spacing="0.8" text-anchor="middle">MEMORY &amp; IDENTITY</text>
+    <!-- Search -->
+    <rect x="1350" y="342" width="214" height="28" rx="4" fill="none" stroke="#4A5160" stroke-width="1"/>
+    <text x="1370" y="361" fill="#4A5160" font-size="12">🔍</text>
+    <text x="1390" y="361" fill="#4A5160">Search essays...</text>
+  </g>
+
+  <!-- Essay cards - row 1 -->
+  <!-- Card 1 -->
+  <rect x="96" y="398" width="718" height="460" rx="4" fill="#0E1220"/>
+  <!-- Image area -->
+  <rect x="96" y="398" width="718" height="285" rx="4" fill="#141A2E"/>
+  <!-- Abstract image content - attention/brain visualization -->
+  <ellipse cx="455" cy="540" rx="180" ry="90" fill="#1E2845" opacity="0.8"/>
+  <g stroke="#C9A84C" stroke-width="0.6" opacity="0.2">
+    <line x1="280" y1="450" x2="455" y2="540"/><line x1="630" y1="450" x2="455" y2="540"/>
+    <line x1="455" y1="398" x2="455" y2="540"/><line x1="455" y1="540" x2="455" y2="683"/>
+    <line x1="350" y1="480" x2="560" y2="600"/>
+  </g>
+  <circle cx="455" cy="540" r="60" fill="none" stroke="#C9A84C" stroke-opacity="0.15" stroke-width="30"/>
+  <circle cx="455" cy="540" r="8" fill="#C9A84C" opacity="0.6"/>
+  <circle cx="310" cy="465" r="4" fill="#C9A84C" opacity="0.4"/>
+  <circle cx="600" cy="465" r="4" fill="#C9A84C" opacity="0.4"/>
+  <circle cx="370" cy="620" r="3" fill="#C9A84C" opacity="0.3"/>
+  <circle cx="540" cy="610" r="3" fill="#C9A84C" opacity="0.3"/>
+  <!-- Category badge -->
+  <rect x="112" y="414" width="176" height="24" rx="3" fill="#C9A84C" fill-opacity="0.15" stroke="#C9A84C" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="200" y="431" font-family="system-ui,sans-serif" font-size="10" fill="#C9A84C" font-weight="600" letter-spacing="1.2" text-anchor="middle">ATTENTION &amp; COGNITION</text>
+  <!-- Card text -->
+  <text x="112" y="714" font-family="Georgia,'Times New Roman',serif" font-size="26" fill="#EDE8DC" font-weight="400">The Attention Economy and</text>
+  <text x="112" y="746" font-family="Georgia,'Times New Roman',serif" font-size="26" fill="#EDE8DC" font-weight="400">the Fragmented Mind</text>
+  <text x="112" y="776" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">Algorithmic systems are designed to capture and hold</text>
+  <text x="112" y="794" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">attention — but at what cost to our capacity for sustained</text>
+  <text x="112" y="812" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">thought, deep reading, and deliberate action?</text>
+  <text x="112" y="842" font-family="system-ui,sans-serif" font-size="12" fill="#C9A84C">Read more →</text>
+
+  <!-- Card 2 -->
+  <rect x="830" y="398" width="718" height="460" rx="4" fill="#0E1220"/>
+  <rect x="830" y="398" width="718" height="285" rx="4" fill="#141A2E"/>
+  <!-- Abstract image - person in tunnel/spiral -->
+  <ellipse cx="1189" cy="540" rx="85" ry="85" fill="#1A2235"/>
+  <circle cx="1189" cy="540" r="75" fill="none" stroke="#C9A84C" stroke-opacity="0.08" stroke-width="1"/>
+  <circle cx="1189" cy="540" r="55" fill="none" stroke="#C9A84C" stroke-opacity="0.1" stroke-width="1"/>
+  <circle cx="1189" cy="540" r="38" fill="none" stroke="#C9A84C" stroke-opacity="0.12" stroke-width="1.5"/>
+  <circle cx="1189" cy="540" r="20" fill="none" stroke="#C9A84C" stroke-opacity="0.2" stroke-width="2"/>
+  <ellipse cx="1189" cy="525" rx="6" ry="12" fill="#C9A84C" opacity="0.5"/>
+  <ellipse cx="1189" cy="555" rx="10" ry="6" fill="#C9A84C" opacity="0.2"/>
+  <g stroke="#C9A84C" stroke-width="0.5" opacity="0.15">
+    <line x1="830" y1="460" x2="1100" y2="540"/><line x1="1480" y1="460" x2="1278" y2="540"/>
+    <line x1="1189" y1="398" x2="1189" y2="465"/><line x1="1189" y1="615" x2="1189" y2="683"/>
+  </g>
+  <!-- Category badge -->
+  <rect x="846" y="414" width="164" height="24" rx="3" fill="#C9A84C" fill-opacity="0.15" stroke="#C9A84C" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="928" y="431" font-family="system-ui,sans-serif" font-size="10" fill="#C9A84C" font-weight="600" letter-spacing="1.2" text-anchor="middle">AGENCY &amp; AUTONOMY</text>
+  <!-- Card text -->
+  <text x="846" y="714" font-family="Georgia,'Times New Roman',serif" font-size="26" fill="#EDE8DC" font-weight="400">Cognitive Sovereignty in the</text>
+  <text x="846" y="746" font-family="Georgia,'Times New Roman',serif" font-size="26" fill="#EDE8DC" font-weight="400">Age of Algorithmic Persuasion</text>
+  <text x="846" y="776" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">As AI systems grow more capable of shaping belief and</text>
+  <text x="846" y="794" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">behavior, what does it mean to think, choose, and form</text>
+  <text x="846" y="812" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">convictions that are genuinely one's own?</text>
+  <text x="846" y="842" font-family="system-ui,sans-serif" font-size="12" fill="#C9A84C">Read more →</text>
 </svg>

@@ -1,176 +1,134 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#070612"/>
-      <stop offset="100%" stop-color="#0d0b1e"/>
+    <linearGradient id="bg-op" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0B0F1A"/><stop offset="100%" stop-color="#070C14"/>
     </linearGradient>
-    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7070DC"/>
-      <stop offset="100%" stop-color="#9090f0"/>
-    </linearGradient>
-    <linearGradient id="card1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7070DC" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#9090f0" stop-opacity="0.05"/>
+    <linearGradient id="gold-op" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9A84C"/><stop offset="100%" stop-color="#E2C97E"/>
     </linearGradient>
   </defs>
 
-  <!-- Background -->
-  <rect width="1200" height="650" fill="url(#bg)"/>
+  <!-- Browser chrome -->
+  <rect width="1600" height="900" rx="8" fill="#1C1C1E"/>
+  <rect x="0" y="0" width="1600" height="42" rx="8" fill="#2A2A2D"/>
+  <rect x="0" y="30" width="1600" height="12" fill="#2A2A2D"/>
+  <circle cx="24" cy="21" r="6" fill="#FF5F57"/><circle cx="44" cy="21" r="6" fill="#FEBC2E"/><circle cx="64" cy="21" r="6" fill="#28C840"/>
+  <rect x="200" y="11" width="840" height="20" rx="5" fill="#3A3A3D"/>
+  <text x="620" y="25" font-family="system-ui,sans-serif" font-size="11" fill="#8A8A8E" text-anchor="middle">futureofconsciousness.global/op-eds</text>
 
-  <!-- Left sidebar -->
-  <rect x="0" y="0" width="260" height="650" fill="rgba(255,255,255,0.02)"/>
-  <rect x="0" y="0" width="260" height="650" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <!-- Site bg -->
+  <rect x="0" y="42" width="1600" height="858" fill="url(#bg-op)"/>
 
-  <!-- Sidebar header -->
-  <text x="24" y="36" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" font-weight="600" letter-spacing="1.5">LIBRARY</text>
-  <rect x="24" y="48" width="212" height="1" fill="rgba(255,255,255,0.06)"/>
+  <!-- Nav -->
+  <g font-family="system-ui,-apple-system,sans-serif">
+    <text x="96" y="88" font-size="12" fill="#F0EBE0">The Institute for AI</text>
+    <text x="96" y="103" font-size="12" fill="#F0EBE0">and the Future of Consciousness</text>
+    <text x="542" y="95" font-size="10" fill="#9BA3AF" letter-spacing="1.5">ABOUT</text>
+    <text x="603" y="95" font-size="10" fill="#9BA3AF" letter-spacing="1.5">THINKING</text>
+    <text x="694" y="95" font-size="10" fill="#C9A84C" letter-spacing="1.5" font-weight="600">OP-EDS</text>
+    <text x="756" y="95" font-size="10" fill="#9BA3AF" letter-spacing="1.5">DISPATCH</text>
+    <text x="830" y="95" font-size="10" fill="#9BA3AF" letter-spacing="1.5">ENGAGE</text>
+    <line x1="903" y1="82" x2="903" y2="107" stroke="#9BA3AF" stroke-opacity="0.3" stroke-width="0.8"/>
+    <text x="916" y="95" font-size="10" fill="#9BA3AF" letter-spacing="1.5">AUDIENCES</text>
+    <rect x="1090" y="78" width="148" height="25" fill="none" stroke="#C9A84C" stroke-width="1" rx="2"/>
+    <text x="1164" y="95" font-size="9" fill="#C9A84C" font-weight="600" letter-spacing="1" text-anchor="middle">BECOME A PARTNER</text>
+    <rect x="1250" y="78" width="108" height="25" fill="none" stroke="#C9A84C" stroke-width="1" rx="2"/>
+    <text x="1304" y="95" font-size="9" fill="#C9A84C" font-weight="600" letter-spacing="1" text-anchor="middle">GET INVOLVED</text>
+    <rect x="1370" y="78" width="100" height="25" fill="url(#gold-op)" rx="2"/>
+    <text x="1420" y="95" font-size="9" fill="#060912" font-weight="700" letter-spacing="1" text-anchor="middle">DONATE NOW</text>
+  </g>
+  <line x1="96" y1="118" x2="1520" y2="118" stroke="#C9A84C" stroke-opacity="0.12" stroke-width="0.5"/>
 
-  <!-- Sidebar filters -->
-  <text x="24" y="78" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" letter-spacing="1">COLLECTIONS</text>
-  
-  <!-- Active filter -->
-  <rect x="16" y="88" width="228" height="34" rx="6" fill="#7070DC" fill-opacity="0.15"/>
-  <rect x="16" y="88" width="3" height="34" rx="1.5" fill="#7070DC"/>
-  <text x="36" y="110" font-family="system-ui,sans-serif" font-size="13" fill="white">All Research</text>
-  <rect x="210" y="97" width="24" height="16" rx="8" fill="#7070DC" fill-opacity="0.3"/>
-  <text x="222" y="109" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle">84</text>
+  <!-- Page header -->
+  <text x="96" y="162" font-family="system-ui,sans-serif" font-size="11" fill="#C9A84C" letter-spacing="2.5" font-weight="500">INSTITUTE PUBLICATIONS</text>
+  <text x="96" y="232" font-family="Georgia,'Times New Roman',serif" font-size="76" fill="#EDE8DC" font-weight="400" letter-spacing="-1">Op-Eds</text>
+  <text x="96" y="268" font-family="system-ui,sans-serif" font-size="16" fill="#7A8290">Opinion and analysis from the Institute on the most consequential questions</text>
+  <text x="96" y="288" font-family="system-ui,sans-serif" font-size="16" fill="#7A8290">in AI, consciousness, and human flourishing. Each piece sets out a clear</text>
+  <text x="96" y="308" font-family="system-ui,sans-serif" font-size="16" fill="#7A8290">argument and draws on the best available evidence.</text>
 
-  <!-- Filter items -->
-  <text x="36" y="144" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Peer Reviewed</text>
-  <text x="36" y="172" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Case Studies</text>
-  <text x="36" y="200" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Reports</text>
-  <text x="36" y="228" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">White Papers</text>
-  <text x="36" y="256" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Datasets</text>
+  <!-- Stats bar -->
+  <line x1="0" y1="335" x2="1600" y2="335" stroke="#C9A84C" stroke-opacity="0.1" stroke-width="1"/>
+  <rect x="0" y="335" width="1600" height="95" fill="#080C14"/>
 
-  <rect x="24" y="272" width="212" height="1" fill="rgba(255,255,255,0.06)"/>
-  <text x="24" y="294" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" letter-spacing="1">TOPICS</text>
-  
-  <text x="36" y="320" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">AI Ethics</text>
-  <text x="36" y="348" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Climate</text>
-  <text x="36" y="376" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Governance</text>
-  <text x="36" y="404" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Technology</text>
-  <text x="36" y="432" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.5)">Society</text>
+  <!-- Stat items -->
+  <g font-family="system-ui,sans-serif" text-anchor="middle">
+    <!-- 12 Publications -->
+    <g transform="translate(280,382)">
+      <text x="0" y="0" font-family="Georgia,serif" font-size="40" fill="#C9A84C" font-weight="400">12</text>
+      <text x="0" y="22" font-size="11" fill="#9BA3AF" letter-spacing="1.5" font-weight="500">PUBLICATIONS</text>
+    </g>
+    <line x1="560" y1="348" x2="560" y2="418" stroke="#C9A84C" stroke-opacity="0.15" stroke-width="1"/>
+    <!-- 4 Research Domains -->
+    <g transform="translate(720,382)">
+      <text x="0" y="0" font-family="Georgia,serif" font-size="40" fill="#C9A84C" font-weight="400">4</text>
+      <text x="0" y="22" font-size="11" fill="#9BA3AF" letter-spacing="1.5" font-weight="500">RESEARCH DOMAINS</text>
+    </g>
+    <line x1="920" y1="348" x2="920" y2="418" stroke="#C9A84C" stroke-opacity="0.15" stroke-width="1"/>
+    <!-- 5 Policy Briefs -->
+    <g transform="translate(1080,382)">
+      <text x="0" y="0" font-family="Georgia,serif" font-size="40" fill="#C9A84C" font-weight="400">5</text>
+      <text x="0" y="22" font-size="11" fill="#9BA3AF" letter-spacing="1.5" font-weight="500">POLICY BRIEFS</text>
+    </g>
+    <line x1="1280" y1="348" x2="1280" y2="418" stroke="#C9A84C" stroke-opacity="0.15" stroke-width="1"/>
+    <!-- 411 Pages -->
+    <g transform="translate(1440,382)">
+      <text x="0" y="0" font-family="Georgia,serif" font-size="40" fill="#C9A84C" font-weight="400">411</text>
+      <text x="0" y="22" font-size="11" fill="#9BA3AF" letter-spacing="1.5" font-weight="500">PAGES PUBLISHED</text>
+    </g>
+  </g>
+  <line x1="0" y1="430" x2="1600" y2="430" stroke="#C9A84C" stroke-opacity="0.1" stroke-width="1"/>
 
-  <!-- Main content area -->
-  <!-- Search bar -->
-  <rect x="280" y="20" width="620" height="42" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <circle cx="308" cy="41" r="8" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-  <line x1="314" y1="47" x2="318" y2="51" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
-  <text x="328" y="46" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.3)">Search research library...</text>
+  <!-- Publication type filters -->
+  <g font-family="system-ui,sans-serif" font-size="12" font-weight="500">
+    <!-- Briefing Papers - active -->
+    <rect x="96" y="448" width="156" height="32" rx="4" fill="url(#gold-op)" filter="url(#tag-shadow)"/>
+    <text x="174" y="469" fill="#060912" font-weight="700" text-anchor="middle">Briefing Papers</text>
+    <rect x="164" y="450" width="20" height="18" rx="9" fill="#060912" fill-opacity="0.2" transform="translate(-6,0)"/>
+    <text x="242" y="469" fill="#060912" font-size="11" font-weight="700">5</text>
+    <!-- Perspectives -->
+    <rect x="268" y="448" width="140" height="32" rx="4" fill="none" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="1"/>
+    <text x="338" y="469" fill="#C9A84C" text-anchor="middle">Perspectives</text>
+    <text x="388" y="469" fill="#C9A84C" font-size="11">6</text>
+    <!-- Letters from ED -->
+    <rect x="424" y="448" width="258" height="32" rx="4" fill="none" stroke="#C9A84C" stroke-opacity="0.3" stroke-width="1"/>
+    <text x="553" y="469" fill="#C9A84C" text-anchor="middle">Letters from the Executive Director</text>
+    <text x="662" y="469" fill="#C9A84C" font-size="11">2</text>
+  </g>
 
-  <!-- Sort controls -->
-  <text x="280" y="90" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.4)">84 results</text>
-  <rect x="830" y="76" width="70" height="26" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="865" y="93" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.5)" text-anchor="middle">Newest</text>
+  <!-- Article cards -->
+  <!-- Card 1 -->
+  <rect x="96" y="504" width="718" height="360" rx="4" fill="#0D1120" stroke="#C9A84C" stroke-opacity="0.08" stroke-width="1"/>
+  <g transform="translate(112,524)">
+    <rect x="0" y="0" width="176" height="22" rx="3" fill="#C9A84C" fill-opacity="0.12" stroke="#C9A84C" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="88" y="16" font-family="system-ui,sans-serif" font-size="10" fill="#C9A84C" font-weight="600" letter-spacing="1.2" text-anchor="middle">ATTENTION &amp; COGNITION</text>
+    <text x="200" y="16" font-family="system-ui,sans-serif" font-size="12" fill="#7A8290">April 2025</text>
+    <text x="0" y="62" font-family="Georgia,serif" font-size="22" fill="#EDE8DC">Protecting Cognitive Capacity:</text>
+    <text x="0" y="90" font-family="Georgia,serif" font-size="22" fill="#EDE8DC">Design Standards for</text>
+    <text x="0" y="118" font-family="Georgia,serif" font-size="22" fill="#EDE8DC">Attention-Harvesting AI</text>
+    <text x="0" y="152" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">Presents evidence that algorithmically fragmented attention</text>
+    <text x="0" y="172" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">produces measurable declines in comprehension, deliberative</text>
+    <text x="0" y="192" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">capacity, and cognitive autonomy — and proposes product design</text>
+    <text x="0" y="212" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">standards for attention-respecting AI interfaces.</text>
+    <line x1="0" y1="240" x2="686" y2="240" stroke="#C9A84C" stroke-opacity="0.08" stroke-width="1"/>
+    <text x="0" y="272" font-family="system-ui,sans-serif" font-size="12" fill="#C9A84C" letter-spacing="1">READ BRIEFING PAPER →</text>
+    <text x="200" y="272" font-family="system-ui,sans-serif" font-size="12" fill="#5A6270">Briefing Paper · 34 pages</text>
+  </g>
 
-  <!-- Featured article card -->
-  <rect x="280" y="108" width="600" height="140" rx="10" fill="url(#card1)" stroke="rgba(112,112,220,0.25)" stroke-width="1"/>
-  <rect x="280" y="108" width="4" height="140" rx="2" fill="#7070DC"/>
-  <rect x="296" y="120" width="48" height="18" rx="9" fill="#7070DC" fill-opacity="0.2"/>
-  <text x="320" y="133" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle" font-weight="600">FEATURED</text>
-  <text x="356" y="133" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">Peer Reviewed • AI Ethics</text>
-  <text x="296" y="158" font-family="system-ui,sans-serif" font-size="16" fill="white" font-weight="600">Algorithmic Accountability in Public Decision Systems</text>
-  <text x="296" y="178" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">A comprehensive analysis of transparency requirements and audit frameworks</text>
-  <text x="296" y="198" font-family="system-ui,sans-serif" font-size="12" fill="rgba(255,255,255,0.5)">for AI systems used in government and public services.</text>
-  <text x="296" y="228" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.35)">Dr. Sarah Chen, Prof. Marcus Webb • 2024 • 42 pages</text>
-
-  <!-- Grid of research cards -->
-  <!-- Row 1 -->
-  <rect x="280" y="266" width="190" height="160" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <rect x="292" y="278" width="44" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
-  <text x="314" y="289" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">REPORT</text>
-  <text x="292" y="312" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Climate Policy</text>
-  <text x="292" y="328" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Effectiveness</text>
-  <text x="292" y="348" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">2024 global analysis</text>
-  <text x="292" y="364" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">across 40 countries</text>
-  <text x="292" y="412" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">28 pages</text>
-
-  <rect x="486" y="266" width="190" height="160" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <rect x="498" y="278" width="58" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
-  <text x="527" y="289" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">CASE STUDY</text>
-  <text x="498" y="312" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Digital Governance</text>
-  <text x="498" y="328" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">in Smart Cities</text>
-  <text x="498" y="348" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">Infrastructure and</text>
-  <text x="498" y="364" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">public engagement</text>
-  <text x="498" y="412" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">35 pages</text>
-
-  <rect x="692" y="266" width="190" height="160" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <rect x="704" y="278" width="52" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
-  <text x="730" y="289" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">DATASET</text>
-  <text x="704" y="312" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Social Media</text>
-  <text x="704" y="328" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Discourse Index</text>
-  <text x="704" y="348" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">2.4M annotated</text>
-  <text x="704" y="364" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">public posts, 2019–24</text>
-  <text x="704" y="412" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">Open access</text>
-
-  <!-- Row 2 -->
-  <rect x="280" y="440" width="190" height="155" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <rect x="292" y="452" width="68" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
-  <text x="326" y="463" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">WHITE PAPER</text>
-  <text x="292" y="488" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Ethical AI in</text>
-  <text x="292" y="504" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Healthcare</text>
-  <text x="292" y="576" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">18 pages</text>
-
-  <rect x="486" y="440" width="190" height="155" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <rect x="498" y="452" width="68" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
-  <text x="532" y="463" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">PEER REVIEW</text>
-  <text x="498" y="488" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Technology &amp;</text>
-  <text x="498" y="504" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Labor Markets</text>
-  <text x="498" y="576" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">54 pages</text>
-
-  <rect x="692" y="440" width="190" height="155" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-  <rect x="704" y="452" width="52" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
-  <text x="730" y="463" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">REPORT</text>
-  <text x="704" y="488" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Democracy &amp;</text>
-  <text x="704" y="504" font-family="system-ui,sans-serif" font-size="12" fill="white" font-weight="600">Digital Media</text>
-  <text x="704" y="576" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)">31 pages</text>
-
-  <!-- Right panel - reading preview -->
-  <rect x="900" y="0" width="300" height="650" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-  <text x="920" y="36" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" font-weight="600" letter-spacing="1.5">PREVIEW</text>
-  <rect x="920" y="48" width="260" height="1" fill="rgba(255,255,255,0.06)"/>
-
-  <!-- Article preview -->
-  <rect x="920" y="64" width="80" height="14" rx="7" fill="rgba(112,112,220,0.2)"/>
-  <text x="960" y="75" font-family="system-ui,sans-serif" font-size="9" fill="#7070DC" text-anchor="middle">FEATURED</text>
-  <text x="920" y="104" font-family="system-ui,sans-serif" font-size="13" fill="white" font-weight="700">Algorithmic</text>
-  <text x="920" y="122" font-family="system-ui,sans-serif" font-size="13" fill="white" font-weight="700">Accountability</text>
-  <text x="920" y="152" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">Dr. Sarah Chen</text>
-  <text x="920" y="168" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.4)">Prof. Marcus Webb</text>
-
-  <rect x="920" y="184" width="260" height="1" fill="rgba(255,255,255,0.06)"/>
-
-  <!-- Abstract -->
-  <text x="920" y="206" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" letter-spacing="1">ABSTRACT</text>
-  <text x="920" y="224" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.5)">As AI systems are deployed in</text>
-  <text x="920" y="240" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.5)">public sector decision-making,</text>
-  <text x="920" y="256" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.5)">questions of accountability and</text>
-  <text x="920" y="272" font-family="system-ui,sans-serif" font-size="11" fill="rgba(255,255,255,0.5)">transparency become critical...</text>
-
-  <!-- Stats -->
-  <rect x="920" y="296" width="120" height="60" rx="6" fill="rgba(112,112,220,0.08)" stroke="rgba(112,112,220,0.15)" stroke-width="1"/>
-  <text x="980" y="322" font-family="system-ui,sans-serif" font-size="20" fill="#7070DC" font-weight="700" text-anchor="middle">42</text>
-  <text x="980" y="340" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle">pages</text>
-
-  <rect x="1058" y="296" width="120" height="60" rx="6" fill="rgba(112,112,220,0.08)" stroke="rgba(112,112,220,0.15)" stroke-width="1"/>
-  <text x="1118" y="322" font-family="system-ui,sans-serif" font-size="20" fill="#7070DC" font-weight="700" text-anchor="middle">156</text>
-  <text x="1118" y="340" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)" text-anchor="middle">citations</text>
-
-  <!-- CTA -->
-  <rect x="920" y="376" width="260" height="36" rx="8" fill="#7070DC"/>
-  <text x="1050" y="399" font-family="system-ui,sans-serif" font-size="13" fill="white" text-anchor="middle" font-weight="600">Read Full Paper</text>
-
-  <rect x="920" y="422" width="260" height="36" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-  <text x="1050" y="445" font-family="system-ui,sans-serif" font-size="13" fill="rgba(255,255,255,0.6)" text-anchor="middle">Download PDF</text>
-
-  <!-- Tags -->
-  <text x="920" y="484" font-family="system-ui,sans-serif" font-size="10" fill="rgba(255,255,255,0.3)" letter-spacing="1">TAGS</text>
-  <rect x="920" y="494" width="56" height="20" rx="10" fill="rgba(112,112,220,0.1)" stroke="rgba(112,112,220,0.2)" stroke-width="1"/>
-  <text x="948" y="508" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle">AI Ethics</text>
-  <rect x="986" y="494" width="76" height="20" rx="10" fill="rgba(112,112,220,0.1)" stroke="rgba(112,112,220,0.2)" stroke-width="1"/>
-  <text x="1024" y="508" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle">Governance</text>
-  <rect x="920" y="524" width="56" height="20" rx="10" fill="rgba(112,112,220,0.1)" stroke="rgba(112,112,220,0.2)" stroke-width="1"/>
-  <text x="948" y="538" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle">Policy</text>
-  <rect x="986" y="524" width="56" height="20" rx="10" fill="rgba(112,112,220,0.1)" stroke="rgba(112,112,220,0.2)" stroke-width="1"/>
-  <text x="1014" y="538" font-family="system-ui,sans-serif" font-size="10" fill="#7070DC" text-anchor="middle">Public</text>
+  <!-- Card 2 -->
+  <rect x="830" y="504" width="718" height="360" rx="4" fill="#0D1120" stroke="#C9A84C" stroke-opacity="0.08" stroke-width="1"/>
+  <g transform="translate(846,524)">
+    <rect x="0" y="0" width="164" height="22" rx="3" fill="#C9A84C" fill-opacity="0.12" stroke="#C9A84C" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="82" y="16" font-family="system-ui,sans-serif" font-size="10" fill="#C9A84C" font-weight="600" letter-spacing="1.2" text-anchor="middle">AGENCY &amp; AUTONOMY</text>
+    <text x="180" y="16" font-family="system-ui,sans-serif" font-size="12" fill="#7A8290">February 2025</text>
+    <text x="0" y="62" font-family="Georgia,serif" font-size="22" fill="#EDE8DC">Cognitive Sovereignty Under</text>
+    <text x="0" y="90" font-family="Georgia,serif" font-size="22" fill="#EDE8DC">Algorithmic Persuasion:</text>
+    <text x="0" y="118" font-family="Georgia,serif" font-size="22" fill="#EDE8DC">A Legislative Framework</text>
+    <text x="0" y="152" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">Examines how AI systems capable of targeting individual</text>
+    <text x="0" y="172" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">psychological profiles at scale create a qualitatively new</text>
+    <text x="0" y="192" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">challenge for democratic governance — and proposes a</text>
+    <text x="0" y="212" font-family="system-ui,sans-serif" font-size="14" fill="#7A8290">framework for legislative response grounded in cognitive rights.</text>
+    <line x1="0" y1="240" x2="686" y2="240" stroke="#C9A84C" stroke-opacity="0.08" stroke-width="1"/>
+    <text x="0" y="272" font-family="system-ui,sans-serif" font-size="12" fill="#C9A84C" letter-spacing="1">READ BRIEFING PAPER →</text>
+    <text x="200" y="272" font-family="system-ui,sans-serif" font-size="12" fill="#5A6270">Briefing Paper · 42 pages</text>
+  </g>
 </svg>
