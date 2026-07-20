@@ -212,7 +212,23 @@ export default function WorkCaseStudy() {
         </section>
       )}
 
-      {/* ─── 3. OPPORTUNITY (MASSIVE STATEMENT) ────────────────────── */}
+      {/* ─── 2.5. PROJECT BRIEF ─────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="px-6 lg:px-12 xl:px-16 mb-24 md:mb-32"
+      >
+        <div className="max-w-[120rem] mx-auto">
+          <div className="border-t border-white/[0.07] pt-16 flex flex-col md:flex-row gap-8 md:gap-24">
+            <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 flex-shrink-0 mt-1">Project Brief</span>
+            <p className="text-xl md:text-2xl text-white/55 font-light leading-relaxed max-w-4xl">{project.summary}</p>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* ─── 3. OPPORTUNITY ──────────────────────────────────────────── */}
       <div className="px-6 lg:px-12 xl:px-16">
         <div className="max-w-[120rem] mx-auto">
           <motion.section
@@ -220,12 +236,12 @@ export default function WorkCaseStudy() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1 }}
-            className="mb-32 md:mb-48 max-w-7xl mx-auto text-center"
+            className="mb-32 md:mb-48 max-w-5xl"
           >
-            <Eyebrow color={project.accentColor} className="justify-center flex">The Opportunity</Eyebrow>
-            <h2 className="text-white font-light leading-[1.3] tracking-tight text-center" style={{ fontSize: "clamp(2rem, 4vw, 4.5rem)" }}>
+            <Eyebrow color={project.accentColor}>The Opportunity</Eyebrow>
+            <p className="text-white/80 font-light leading-[1.6] tracking-tight" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2.25rem)" }}>
               {project.opportunity}
-            </h2>
+            </p>
           </motion.section>
         </div>
       </div>
@@ -538,7 +554,12 @@ export default function WorkCaseStudy() {
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
                   />
                 ) : (
-                   <div className="absolute inset-0 flex items-center justify-center text-white/20"><ImageIcon className="w-24 h-24" /></div>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-8 p-16">
+                    <p className="font-serif text-center leading-none tracking-tight select-none" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", color: `${project.accentColor}18` }}>
+                      {project.gallery[0].label}
+                    </p>
+                    <div className="w-20 h-px opacity-20" style={{ backgroundColor: project.accentColor }} />
+                  </div>
                 )}
               </div>
               <div className="px-6 lg:px-12 xl:px-16 mt-8">
@@ -571,7 +592,12 @@ export default function WorkCaseStudy() {
                           className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
                         />
                       ) : (
-                         <div className="absolute inset-0 flex items-center justify-center text-white/20"><ImageIcon className="w-16 h-16" /></div>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 p-10">
+                          <p className="font-serif text-center leading-none tracking-tight select-none" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", color: `${project.accentColor}20` }}>
+                            {item.label}
+                          </p>
+                          <div className="w-12 h-px opacity-20" style={{ backgroundColor: project.accentColor }} />
+                        </div>
                       )}
                     </div>
                     <h4 className="text-2xl font-serif text-white mb-4">{item.label}</h4>
@@ -605,7 +631,12 @@ export default function WorkCaseStudy() {
                                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
                               />
                             ) : (
-                              <div className="absolute inset-0 flex items-center justify-center text-white/20"><ImageIcon className="w-16 h-16" /></div>
+                              <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 p-12">
+                                <p className="font-serif text-center leading-none tracking-tight select-none" style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", color: `${project.accentColor}20` }}>
+                                  {item.label}
+                                </p>
+                                <div className="w-12 h-px opacity-20" style={{ backgroundColor: project.accentColor }} />
+                              </div>
                             )}
                          </div>
                          <div className={`flex flex-col ${isFullWidth ? 'md:flex-row md:items-start md:justify-between gap-8' : ''}`}>
@@ -623,45 +654,60 @@ export default function WorkCaseStudy() {
 
       <div className="px-6 lg:px-12 xl:px-16">
         <div className="max-w-[120rem] mx-auto">
-          {/* ─── 10. OUTCOMES + REFLECTION ──────────────────────────────── */}
-          <section className="mb-32 md:mb-48 border-t border-white/10 pt-32">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1 }}
-              >
-                <Eyebrow color={project.accentColor}>The Outcomes</Eyebrow>
-                <div className="space-y-6 mt-12">
-                  {project.outcomes.map((outcome, i) => (
-                    <div key={i} className="flex items-start gap-6 p-8 rounded-3xl bg-white/[0.02] border border-white/[0.05]">
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center bg-white/5 flex-shrink-0" style={{ color: project.accentColor }}>
-                        <Check className="w-4 h-4" />
-                      </div>
-                      <p className="text-xl text-white/80 font-light leading-relaxed pt-0.5">{outcome}</p>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="flex flex-col"
-              >
-                <Eyebrow color={project.accentColor}>Reflection</Eyebrow>
-                <blockquote className="mt-8">
-                  <Quote className="w-12 h-12 mb-8 text-white/20" />
-                  <p className="text-3xl lg:text-4xl text-white/90 font-serif leading-[1.4] tracking-tight">
-                    "{project.reflection}"
+          {/* ─── 10. OUTCOMES ────────────────────────────────────────────── */}
+          <section className="mb-0 border-t border-white/10 pt-32">
+            <Eyebrow color={project.accentColor}>The Outcomes</Eyebrow>
+            <div className="mt-16">
+              {project.outcomes.map((outcome, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.8, delay: i * 0.08 }}
+                  className="flex gap-10 items-start py-10 border-b border-white/[0.06] group"
+                >
+                  <span
+                    className="text-[3.5rem] lg:text-[4.5rem] font-serif leading-none flex-shrink-0 tabular-nums select-none transition-opacity duration-500 group-hover:opacity-40"
+                    style={{ color: `${project.accentColor}28` }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p className="text-2xl lg:text-3xl text-white/75 font-light leading-relaxed pt-3 group-hover:text-white/90 transition-colors duration-500">
+                    {outcome}
                   </p>
-                </blockquote>
-              </motion.div>
+                </motion.div>
+              ))}
             </div>
           </section>
+        </div>
+      </div>
+
+      {/* ─── 10b. REFLECTION (FULL WIDTH) ────────────────────────────── */}
+      <section className="my-32 md:my-48 border-y border-white/10 py-32 md:py-48 relative overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: `radial-gradient(ellipse 80% 60% at 50% 50%, ${project.accentColor}08 0%, transparent 70%)` }}
+        />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="px-6 lg:px-12 xl:px-16 max-w-[100rem] mx-auto text-center"
+        >
+          <Quote className="w-10 h-10 mx-auto mb-12 text-white/10" />
+          <p
+            className="font-serif text-white/90 leading-[1.4] tracking-tight mx-auto"
+            style={{ fontSize: "clamp(1.6rem, 3.5vw, 3.5rem)", maxWidth: "56rem" }}
+          >
+            "{project.reflection}"
+          </p>
+        </motion.div>
+      </section>
+
+      <div className="px-6 lg:px-12 xl:px-16">
+        <div className="max-w-[120rem] mx-auto">
 
           {/* ─── 11. NEXT/PREV NAVIGATION ─────────────────────────────── */}
           <section className="pb-32 md:pb-48">
