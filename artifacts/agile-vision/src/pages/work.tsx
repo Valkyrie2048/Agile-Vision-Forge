@@ -158,8 +158,8 @@ export default function Work() {
               Vision AI Works — Selected Work
             </p>
             <h1 className="font-serif text-[clamp(3.5rem,9vw,9.5rem)] leading-[0.95] tracking-tight text-white mb-10">
-              Work that{" "}
-              <em className="not-italic text-white/25 italic">works.</em>
+              AI Work that{" "}
+              <em className="not-italic italic" style={{ color: "hsl(258 80% 62%)" }}>Works.</em>
             </h1>
             <p className="text-lg sm:text-xl text-white/45 font-light leading-relaxed max-w-xl">
               Intelligent platforms across fintech, insurtech, AI, and the future of work —
