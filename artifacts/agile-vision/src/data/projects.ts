@@ -134,10 +134,10 @@ export const projects: Project[] = [
     },
     coverImage: "/work/gigamatic-finance-cover.png",
     gallery: [
-      { type: "browser", label: "Homepage", description: "The editorial homepage: independent positioning, product categories, and the financial guide library at a glance", screens: ["hero", "categories", "guides"], imagePath: "/work/gigamatic-finance-dashboard.svg" },
-      { type: "browser", label: "Product comparison", description: "Savings account comparison table with live rates, minimum deposits, and product features", screens: ["comparison-table", "rate-details"], imagePath: "/work/gigamatic-finance-mobile.svg" },
-      { type: "detail", label: "Expert guide", description: "Long-form guide layout — structured for deep reading with in-article comparison data and related products", screens: ["guide-body", "inline-comparison"], imagePath: "/work/gigamatic-finance-products.svg" },
-      { type: "browser", label: "Market news", description: "Financial news feed with rate movements, economic context, and curated market commentary", screens: ["news-feed", "article-preview"], imagePath: "/work/gigamatic-finance-insights.svg" },
+      { type: "browser", label: "Homepage", description: "The editorial homepage: independent positioning, product categories, and the financial guide library at a glance", screens: ["hero", "categories", "guides"], imagePath: "/work/gigamatic-finance-cover.png" },
+      { type: "browser", label: "Product comparison", description: "Savings account comparison table with live rates, minimum deposits, and product features — updated daily, no paid placement", screens: ["comparison-table", "rate-details"], imagePath: "/work/gigamatic-finance-comparisons.png" },
+      { type: "detail", label: "Financial guides", description: "Long-form guide layout — structured for deep reading with in-article comparison data and related products", screens: ["guide-body", "inline-comparison"], imagePath: "/work/gigamatic-finance-guides.png" },
+      { type: "browser", label: "Market news", description: "Financial news feed with rate movements, economic context, and curated market commentary", screens: ["news-feed", "article-preview"], imagePath: "/work/gigamatic-finance-news.png" },
     ],
     outcomes: [
       "Built and launched a live financial media platform with 60+ products compared and 14 expert financial guides",
@@ -228,10 +228,10 @@ export const projects: Project[] = [
     },
     coverImage: "/work/gigamatic-insure-cover.png",
     gallery: [
-      { type: "browser", label: "Homepage", description: "The quote widget takes centre stage: insurance type selector, instant comparison CTA, and social proof at a glance", screens: ["hero", "quote-widget", "stats"], imagePath: "/work/gigamatic-insure-onboarding.svg" },
-      { type: "browser", label: "Coverage categories", description: "Full insurance category selection — auto, home, life, health, business, renters — with integrated finance product access", screens: ["category-grid"], imagePath: "/work/gigamatic-insure-coverage.svg" },
-      { type: "detail", label: "Quote results", description: "Side-by-side insurer comparison with monthly premium, coverage level, carrier rating, and direct quote links", screens: ["results-table"], imagePath: "/work/gigamatic-insure-comparison.svg" },
-      { type: "browser", label: "My Policies", description: "Post-purchase policy dashboard showing active coverage, renewal dates, and account management", screens: ["policies-list", "policy-detail"], imagePath: "/work/gigamatic-insure-eligibility.svg" },
+      { type: "browser", label: "Homepage", description: "The quote widget takes centre stage: insurance type selector, instant comparison CTA, and social proof at a glance", screens: ["hero", "quote-widget", "stats"], imagePath: "/work/gigamatic-insure-cover.png" },
+      { type: "browser", label: "Get a Quote", description: "AI-powered smart quote flow — paste a VIN, address, or URL and the system handles the rest across Auto, Home, Life, Business, and Health", screens: ["quote-flow", "category-tabs"], imagePath: "/work/gigamatic-insure-quote.png" },
+      { type: "detail", label: "Quote results", description: "Side-by-side insurer comparison with monthly premium, coverage level, carrier rating, and direct quote links", screens: ["results-table"] },
+      { type: "browser", label: "My Policies", description: "Post-purchase policy dashboard showing active coverage, renewal dates, and account management", screens: ["policies-list", "policy-detail"] },
     ],
     outcomes: [
       "Built and launched a live insurance comparison marketplace with 40+ carrier integrations across six insurance categories",
@@ -323,10 +323,10 @@ export const projects: Project[] = [
     },
     coverImage: "/work/gigamatic-careers-cover.png",
     gallery: [
-      { type: "fullwidth", label: "Editorial homepage", description: "The editorial-first homepage: headline positioning, featured articles with editorial photography, and clear content category navigation", screens: ["homepage-hero", "featured-articles"], imagePath: "/work/gigamatic-careers-profile.svg" },
-      { type: "browser", label: "Article reading experience", description: "Long-form article layout — generous typography, full-bleed editorial photography, structured reading experience with related content", screens: ["article-body", "related"], imagePath: "/work/gigamatic-careers-skills.svg" },
-      { type: "detail", label: "Job listings", description: "Curated job board integrated with the editorial platform — company, role, location, and type with search and filter", screens: ["listings-grid", "filter-panel"], imagePath: "/work/gigamatic-careers-opportunities.svg" },
-      { type: "browser", label: "Learning resources", description: "Curated learning organised by career stage and development goal — courses, programmes, and resources surfaced alongside editorial content", screens: ["learning-grid"], imagePath: "/work/gigamatic-careers-pathway.svg" },
+      { type: "fullwidth", label: "Editorial homepage", description: "The editorial-first homepage: headline positioning, featured articles with editorial photography, and clear content category navigation", screens: ["homepage-hero", "featured-articles"], imagePath: "/work/gigamatic-careers-cover.png" },
+      { type: "browser", label: "Trending news", description: "Curated career and workplace news from WSJ, Bloomberg, TechCrunch, HBR, Forbes, and 10+ elite publications — fresh content daily", screens: ["news-feed", "category-tabs"], imagePath: "/work/gigamatic-careers-news.png" },
+      { type: "detail", label: "Job listings", description: "Real-time job board aggregated from across the web — search by title, skills, location, type, and salary level", screens: ["listings-grid", "filter-panel"], imagePath: "/work/gigamatic-careers-jobs.png" },
+      { type: "browser", label: "Interactive tools", description: "Free, data-driven career tools — Salary Negotiation Calculator, Career Transition Readiness Quiz, Career Templates Library, and Role Comparison Tool", screens: ["tools-list"], imagePath: "/work/gigamatic-careers-tools.png" },
     ],
     outcomes: [
       "Built and launched a live career media platform with a consistent editorial voice and professional-grade reading experience",
@@ -418,10 +418,10 @@ export const projects: Project[] = [
     },
     coverImage: "/work/gigamatic-ai-cover.png",
     gallery: [
-      { type: "browser", label: "Homepage", description: "The discovery hub: social proof from Stanford, MIT, and Google; platform stats; and dual entry points into tools and learning", screens: ["hero", "stats", "social-proof"], imagePath: "/work/gigamatic-ai-hub.svg" },
-      { type: "browser", label: "AI tools directory", description: "220+ tools organised by category — filterable by use case, pricing model, and feature — with verified tool cards", screens: ["tools-grid", "category-filter"], imagePath: "/work/gigamatic-ai-consent.svg" },
-      { type: "detail", label: "My Stack", description: "The personal AI toolkit builder — saved tools organised by category, with quick access and stack sharing", screens: ["stack-view", "add-tool"], imagePath: "/work/gigamatic-ai-explainability.svg" },
-      { type: "browser", label: "Ask GIGI", description: "The platform's AI assistant — answering tool questions, recommending courses, and navigating the directory through conversation", screens: ["chat-interface"], imagePath: "/work/gigamatic-ai-chat.svg" },
+      { type: "browser", label: "Homepage", description: "The discovery hub: social proof from Stanford, MIT, and Google; platform stats; and dual entry points into tools and learning", screens: ["hero", "stats", "social-proof"], imagePath: "/work/gigamatic-ai-cover.png" },
+      { type: "browser", label: "AI tools directory", description: "220+ verified AI tools across 13 categories — Writing, Image, Video, Code, Audio, Productivity and more — with filterable tool cards", screens: ["tools-grid", "category-filter"], imagePath: "/work/gigamatic-ai-tools.png" },
+      { type: "detail", label: "Expert course library", description: "45+ courses curated from Stanford, MIT, Google, DeepLearning.AI, Hugging Face, and Fast.ai — free, structured, and filterable by level and topic", screens: ["learn-grid", "filters"], imagePath: "/work/gigamatic-ai-learn.png" },
+      { type: "browser", label: "Platform overview", description: "The full product ecosystem — tools directory, learning hub, My Stack builder, AI news feed, events, and Ask GIGI — in one destination", screens: ["overview"], imagePath: "/work/gigamatic-ai-homepage.png" },
     ],
     outcomes: [
       "Built and launched a live AI discovery platform featuring 220+ verified tools across 13 categories",
@@ -510,10 +510,10 @@ export const projects: Project[] = [
     },
     coverImage: "/work/institute-cover.png",
     gallery: [
-      { type: "fullwidth", label: "Homepage", description: "Deep navy hero with gold-highlighted typewriter headline, neural head wireframe, and dual CTAs — establishing the institute's intellectual authority and independence from the first moment", screens: ["hero"], imagePath: "/work/institute-homepage.svg" },
-      { type: "browser", label: "Thinking — essays", description: "Research domain filter tags (Attention & Cognition, Agency & Autonomy, Human Flourishing, Philosophy of Mind, Work & Society, Memory & Identity) and editorial essay cards with rich imagery and gold category badges", screens: ["thinking-listing"], imagePath: "/work/institute-article.svg" },
-      { type: "browser", label: "Op-Eds", description: "12 publications across 4 research domains — stats bar, publication type filters (Briefing Papers 5, Perspectives 6, Letters from the Executive Director 2), and timestamped article cards", screens: ["op-eds"], imagePath: "/work/institute-library.svg" },
-      { type: "browser", label: "About — Why We Exist", description: "The institute's founding position stated directly: the most consequential questions raised by artificial intelligence are not technical — they are human", screens: ["about"], imagePath: "/work/institute-contributor.svg" },
+      { type: "fullwidth", label: "Homepage", description: "Deep navy hero with gold-highlighted typewriter headline, neural head wireframe, and dual CTAs — establishing the institute's intellectual authority and independence from the first moment", screens: ["hero"], imagePath: "/work/institute-cover.png" },
+      { type: "browser", label: "Thinking — essays", description: "Research domain filter tags (Attention & Cognition, Agency & Autonomy, Human Flourishing, Philosophy of Mind, Work & Society, Memory & Identity) and editorial essay cards with rich imagery and gold category badges", screens: ["thinking-listing"], imagePath: "/work/institute-thinking.png" },
+      { type: "browser", label: "Op-Eds", description: "12 publications across 4 research domains — stats bar, publication type filters (Briefing Papers 5, Perspectives 6, Letters from the Executive Director 2), and timestamped article cards", screens: ["op-eds"], imagePath: "/work/institute-opeds.png" },
+      { type: "browser", label: "About — Why We Exist", description: "The institute's founding position stated directly: the most consequential questions raised by artificial intelligence are not technical — they are human", screens: ["about"], imagePath: "/work/institute-about.png" },
     ],
     outcomes: [
       "Designed and built a live platform for a genuinely new kind of intellectual institution — independent, interdisciplinary, and publicly committed to asking the hardest questions about AI",

@@ -8,6 +8,7 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
   const num = String(index + 1).padStart(2, "0");
+  const isReversed = index % 2 === 1;
 
   return (
     <Link href={`/work/${project.slug}`}>
@@ -15,70 +16,71 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.06 }}
         className="group relative cursor-pointer"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Project number + divider */}
-        <div className="flex items-center gap-6 mb-8 md:mb-12">
+        {/* Number + rule */}
+        <div className="flex items-center gap-6 mb-10 md:mb-12">
           <span className="text-[10px] font-mono tracking-[0.3em] text-white/20">{num}</span>
           <div className="flex-1 h-px bg-white/8" />
         </div>
 
-        {/* Image */}
-        <div
-          className="relative w-full overflow-hidden rounded-[1.25rem] md:rounded-[2rem] bg-zinc-900 border border-white/[0.06]"
-          style={{
-            aspectRatio: "16/9",
-            transform: hovered ? "scale(0.985)" : "scale(1)",
-            transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1), box-shadow 0.7s ease",
-            boxShadow: hovered
-              ? `0 32px 96px -16px ${project.accentColor}28`
-              : "0 0 0 0 transparent",
-          }}
-        >
-          {/* Accent glow layer */}
-          <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none z-0"
-            style={{ background: `radial-gradient(circle at 50% 60%, ${project.accentColor}35 0%, transparent 70%)` }}
-          />
+        {/* Side-by-side layout */}
+        <div className={`flex flex-col lg:flex-row gap-10 lg:gap-12 xl:gap-16 items-start ${isReversed ? "lg:flex-row-reverse" : ""}`}>
 
-          {project.coverImage ? (
-            <motion.img
-              src={project.coverImage}
-              alt={project.name}
-              className="w-full h-full object-cover object-top relative z-10"
-              animate={{ scale: hovered ? 1.04 : 1 }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            />
-          ) : (
+          {/* Image — 58% */}
+          <div className="w-full lg:w-[58%] flex-shrink-0">
             <div
-              className="absolute inset-0 z-10 flex items-center justify-center"
-              style={{ background: `radial-gradient(ellipse at center, ${project.accentColorLight}30, transparent)` }}
+              className="relative w-full overflow-hidden rounded-2xl bg-zinc-900 border border-white/[0.06]"
+              style={{
+                aspectRatio: "4/3",
+                transform: hovered ? "scale(0.985)" : "scale(1)",
+                transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1), box-shadow 0.7s ease",
+                boxShadow: hovered
+                  ? `0 24px 80px -12px ${project.accentColor}30`
+                  : "0 0 0 0 transparent",
+              }}
             >
-              <span className="text-5xl font-serif italic text-white/20">{project.name}</span>
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none z-0"
+                style={{ background: `radial-gradient(circle at 50% 60%, ${project.accentColor}35 0%, transparent 70%)` }}
+              />
+
+              {project.coverImage ? (
+                <motion.img
+                  src={project.coverImage}
+                  alt={project.name}
+                  className="w-full h-full object-cover object-top relative z-10"
+                  animate={{ scale: hovered ? 1.04 : 1 }}
+                  transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                />
+              ) : (
+                <div
+                  className="absolute inset-0 z-10 flex items-center justify-center"
+                  style={{ background: `radial-gradient(ellipse at center, ${project.accentColorLight}30, transparent)` }}
+                >
+                  <span className="text-4xl font-serif italic text-white/20">{project.name}</span>
+                </div>
+              )}
+
+              <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/60 via-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              <motion.div
+                className="absolute bottom-5 right-5 z-30 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-2xl"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              >
+                <ArrowUpRight className="w-4 h-4" />
+              </motion.div>
             </div>
-          )}
+          </div>
 
-          {/* Hover overlay */}
-          <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-          {/* CTA circle */}
-          <motion.div
-            className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-30 w-14 h-14 md:w-18 md:h-18 rounded-full bg-white text-black flex items-center justify-center shadow-2xl"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 22 }}
-          >
-            <ArrowUpRight className="w-5 h-5 md:w-6 md:h-6" />
-          </motion.div>
-        </div>
-
-        {/* Meta */}
-        <div className="mt-8 md:mt-10 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 md:gap-16 items-start">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
+          {/* Meta — 42% */}
+          <div className="w-full lg:w-[42%] flex flex-col justify-center lg:py-6 xl:py-10">
+            <div className="flex items-center gap-3 mb-5">
               <span
                 className="text-[10px] font-mono tracking-[0.2em] uppercase"
                 style={{ color: project.accentColor }}
@@ -90,16 +92,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 {project.platform}
               </span>
             </div>
-            <h2 className="text-[2rem] sm:text-[2.5rem] md:text-[3.25rem] font-serif tracking-tight text-white leading-[1.05] group-hover:text-white/90 transition-colors duration-300">
+
+            <h2 className="text-[2rem] sm:text-[2.4rem] md:text-[2.75rem] font-serif tracking-tight text-white leading-[1.05] group-hover:text-white/90 transition-colors duration-300 mb-6">
               {project.name}
             </h2>
-          </div>
 
-          <div className="md:max-w-[22rem]">
-            <p className="text-base md:text-[1.05rem] text-white/55 leading-[1.75] font-light mb-6">
+            <p className="text-base text-white/50 leading-[1.75] font-light mb-8">
               {project.tagline}
             </p>
-            <div className="flex flex-wrap gap-2">
+
+            <div className="flex flex-wrap gap-2 mb-8">
               {project.services.slice(0, 3).map((service) => (
                 <span
                   key={service}
@@ -114,7 +116,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 </span>
               )}
             </div>
+
+            <div className="flex items-center gap-2 text-[11px] font-medium text-white/35 group-hover:text-white/75 transition-colors duration-300">
+              <span>View case study</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 duration-300" />
+            </div>
           </div>
+
         </div>
       </motion.article>
     </Link>

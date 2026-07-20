@@ -496,83 +496,85 @@ export default function WorkCaseStudy() {
 
       {/* ─── 6. GALLERY ──────────────────────────────────────── */}
       {project.gallery && project.gallery.length > 0 && (
-        <section className="border-t border-white/[0.06]">
-          <div className="px-6 lg:px-12 xl:px-16 pt-28 md:pt-40 pb-16 md:pb-20">
-            <div className="max-w-[90rem] mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.8 }}
-                className="flex items-end justify-between gap-8"
-              >
-                <div>
-                  <Eyebrow color={project.accentColor}>Gallery</Eyebrow>
-                  <h2
-                    className="font-serif text-white tracking-tight leading-tight"
-                    style={{ fontSize: "clamp(2.25rem, 5vw, 5rem)" }}
+        <section className="border-t border-white/[0.06] px-6 lg:px-12 xl:px-16 pt-28 md:pt-40 pb-28 md:pb-40">
+          <div className="max-w-[90rem] mx-auto">
+
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8 }}
+              className="flex items-end justify-between gap-8 mb-14 md:mb-18"
+            >
+              <div>
+                <Eyebrow color={project.accentColor}>Gallery</Eyebrow>
+                <h2
+                  className="font-serif text-white tracking-tight leading-tight"
+                  style={{ fontSize: "clamp(2.25rem, 5vw, 4.5rem)" }}
+                >
+                  Interface &amp; Experience
+                </h2>
+              </div>
+              <span className="text-[10px] font-mono text-white/25 pb-1 flex-shrink-0">
+                {String(project.gallery.length).padStart(2, "0")} screens
+              </span>
+            </motion.div>
+
+            {/* 2-column grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+              {project.gallery.map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: (i % 2) * 0.1 }}
+                  className="flex flex-col gap-5"
+                >
+                  {/* Image tile */}
+                  <div
+                    className="relative w-full overflow-hidden rounded-xl md:rounded-2xl bg-zinc-900 border border-white/[0.07]"
+                    style={{ aspectRatio: "16/10" }}
                   >
-                    Interface &amp; Experience
-                  </h2>
-                </div>
-                <span className="text-[10px] font-mono text-white/25 pb-1">
-                  {String(project.gallery.length).padStart(2, "0")} screens
-                </span>
-              </motion.div>
-            </div>
-          </div>
+                    {item.imagePath ? (
+                      <img
+                        src={item.imagePath}
+                        alt={item.label}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    ) : (
+                      <div
+                        className="absolute inset-0 flex items-center justify-center"
+                        style={{
+                          background: `radial-gradient(ellipse at 50% 40%, ${project.accentColor}18 0%, transparent 70%)`,
+                        }}
+                      >
+                        <span className="font-serif italic text-white/20 text-2xl">{item.label}</span>
+                      </div>
+                    )}
+                  </div>
 
-          <div className="flex flex-col">
-            {project.gallery.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <div className="px-4 md:px-6">
-                  {item.imagePath ? (
-                    <div className="w-full overflow-hidden rounded-xl md:rounded-2xl bg-zinc-900 border border-white/[0.07]">
-                      <img src={item.imagePath} alt={item.label} className="w-full h-auto block" />
-                    </div>
-                  ) : (
-                    <div
-                      className="w-full aspect-[16/9] rounded-xl md:rounded-2xl flex items-center justify-center border border-white/[0.07]"
-                      style={{
-                        background: `radial-gradient(ellipse at 50% 40%, ${project.accentColor}18 0%, transparent 70%)`,
-                      }}
-                    >
-                      <span className="font-serif italic text-white/20 text-3xl">{item.label}</span>
-                    </div>
-                  )}
-                </div>
-
-                <div className="px-6 lg:px-12 xl:px-16 py-10 md:py-14">
-                  <div className="max-w-[90rem] mx-auto grid grid-cols-[auto_1fr] md:grid-cols-[80px_1fr_auto] gap-6 md:gap-10 items-start">
-                    <span className="text-[2rem] md:text-[2.5rem] font-serif leading-none text-white/10 select-none tabular-nums">
+                  {/* Caption */}
+                  <div className="flex items-start gap-4 px-1">
+                    <span className="text-[1.6rem] font-serif leading-none text-white/[0.08] select-none tabular-nums flex-shrink-0 mt-0.5">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
-                      <h3 className="text-lg md:text-xl font-semibold text-white mb-2 leading-snug">{item.label}</h3>
-                      <p className="text-sm md:text-base text-white/45 font-light leading-[1.75] max-w-2xl">{item.description}</p>
+                      <h3 className="text-sm font-semibold text-white mb-1.5 leading-snug">{item.label}</h3>
+                      <p className="text-xs md:text-[0.8rem] text-white/40 font-light leading-[1.75]">{item.description}</p>
                     </div>
-                    <div
-                      className="hidden md:block text-[10px] font-mono tracking-[0.2em] uppercase pt-1"
-                      style={{ color: `${project.accentColor}80` }}
+                    <span
+                      className="ml-auto text-[9px] font-mono tracking-[0.2em] uppercase flex-shrink-0 mt-0.5 opacity-50"
+                      style={{ color: project.accentColor }}
                     >
-                      {item.type ?? "Screen"}
-                    </div>
+                      {item.type ?? "screen"}
+                    </span>
                   </div>
-                </div>
+                </motion.div>
+              ))}
+            </div>
 
-                {i < project.gallery.length - 1 && (
-                  <div className="px-6 lg:px-12 xl:px-16">
-                    <div className="max-w-[90rem] mx-auto h-px bg-white/[0.05]" />
-                  </div>
-                )}
-              </motion.div>
-            ))}
           </div>
         </section>
       )}
