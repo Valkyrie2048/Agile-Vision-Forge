@@ -90,7 +90,7 @@ export const projects: Project[] = [
       { title: "Rate alert intelligence (future vision)", description: "The product roadmap includes intelligent rate monitoring — alerting subscribers when products they have viewed or saved reach competitive thresholds." },
       { title: "Product matching (design exploration)", description: "Exploration of how a guided, conversational interface could replace form-based product finders for readers who are uncertain about which category of product they need." },
     ],
-    coverImage: "/work/gigamatic-finance-cover.svg",
+    coverImage: "/work/gigamatic-finance-cover.png",
     gallery: [
       { type: "browser", label: "Homepage", description: "The editorial homepage: independent positioning, product categories, and the financial guide library at a glance", screens: ["hero", "categories", "guides"], imagePath: "/work/gigamatic-finance-dashboard.svg" },
       { type: "browser", label: "Product comparison", description: "Savings account comparison table with live rates, minimum deposits, and product features", screens: ["comparison-table", "rate-details"], imagePath: "/work/gigamatic-finance-mobile.svg" },
@@ -157,7 +157,7 @@ export const projects: Project[] = [
       { title: "Coverage recommendation (proposed)", description: "A planned capability to surface recommended coverage levels and policy features based on user-provided profile data and stated risk tolerance." },
       { title: "Renewal intelligence (future vision)", description: "The product roadmap includes proactive renewal alerts with real-time comparison data — surfacing better quotes before a policy auto-renews at a worse rate." },
     ],
-    coverImage: "/work/gigamatic-insure-cover.svg",
+    coverImage: "/work/gigamatic-insure-cover.png",
     gallery: [
       { type: "browser", label: "Homepage", description: "The quote widget takes centre stage: insurance type selector, instant comparison CTA, and social proof at a glance", screens: ["hero", "quote-widget", "stats"], imagePath: "/work/gigamatic-insure-onboarding.svg" },
       { type: "browser", label: "Coverage categories", description: "Full insurance category selection — auto, home, life, health, business, renters — with integrated finance product access", screens: ["category-grid"], imagePath: "/work/gigamatic-insure-coverage.svg" },
@@ -225,7 +225,7 @@ export const projects: Project[] = [
       { title: "Content discovery (proposed)", description: "A planned layer that surfaces editorially relevant content based on a reader's demonstrated interests, career stage, and reading history." },
       { title: "Job matching (future vision)", description: "The product roadmap includes intelligent job matching — connecting readers to listings relevant to their career trajectory and stated professional goals, surfaced in editorial context." },
     ],
-    coverImage: "/work/gigamatic-careers-cover.svg",
+    coverImage: "/work/gigamatic-careers-cover.png",
     gallery: [
       { type: "fullwidth", label: "Editorial homepage", description: "The editorial-first homepage: headline positioning, featured articles with editorial photography, and clear content category navigation", screens: ["homepage-hero", "featured-articles"], imagePath: "/work/gigamatic-careers-profile.svg" },
       { type: "browser", label: "Article reading experience", description: "Long-form article layout — generous typography, full-bleed editorial photography, structured reading experience with related content", screens: ["article-body", "related"], imagePath: "/work/gigamatic-careers-skills.svg" },
@@ -293,7 +293,7 @@ export const projects: Project[] = [
       { title: "Tool comparison intelligence (proposed)", description: "A planned capability to generate structured comparisons between similar tools — surfacing the meaningful differences that matter for specific use cases." },
       { title: "Personalised learning paths (future vision)", description: "The product roadmap includes AI-curated learning paths — building structured sequences of courses, tools, and practice based on a user's stated goals and existing knowledge." },
     ],
-    coverImage: "/work/gigamatic-ai-cover.svg",
+    coverImage: "/work/gigamatic-ai-cover.png",
     gallery: [
       { type: "browser", label: "Homepage", description: "The discovery hub: social proof from Stanford, MIT, and Google; platform stats; and dual entry points into tools and learning", screens: ["hero", "stats", "social-proof"], imagePath: "/work/gigamatic-ai-hub.svg" },
       { type: "browser", label: "AI tools directory", description: "220+ tools organised by category — filterable by use case, pricing model, and feature — with verified tool cards", screens: ["tools-grid", "category-filter"], imagePath: "/work/gigamatic-ai-consent.svg" },
@@ -358,7 +358,7 @@ export const projects: Project[] = [
       { title: "Subject, not tool", description: "Artificial intelligence is the subject of the institute's inquiry, not an operational tool within the platform — a deliberate choice that keeps the human relationship to AI at the centre of the product." },
       { title: "Content discovery (proposed)", description: "Future work may explore AI-assisted navigation of the research library — surfacing connections across essays, op-eds, and briefing papers by theme and relevance for readers navigating a growing body of work." },
     ],
-    coverImage: "/work/institute-cover.svg",
+    coverImage: "/work/institute-cover.png",
     gallery: [
       { type: "fullwidth", label: "Homepage", description: "Deep navy hero with gold-highlighted typewriter headline, neural head wireframe, and dual CTAs — establishing the institute's intellectual authority and independence from the first moment", screens: ["hero"], imagePath: "/work/institute-homepage.svg" },
       { type: "browser", label: "Thinking — essays", description: "Research domain filter tags (Attention & Cognition, Agency & Autonomy, Human Flourishing, Philosophy of Mind, Work & Society, Memory & Identity) and editorial essay cards with rich imagery and gold category badges", screens: ["thinking-listing"], imagePath: "/work/institute-article.svg" },
