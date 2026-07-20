@@ -232,7 +232,6 @@ export const projects: Project[] = [
       { type: "browser", label: "Homepage", description: "The quote widget takes centre stage: insurance type selector, instant comparison CTA, and social proof at a glance", screens: ["hero", "quote-widget", "stats"], imagePath: "/work/gigamatic-insure-cover.png" },
       { type: "browser", label: "Get a Quote", description: "AI-powered smart quote flow — paste a VIN, address, or URL and the system handles the rest across Auto, Home, Life, Business, and Health", screens: ["quote-flow", "category-tabs"], imagePath: "/work/gigamatic-insure-quote.png" },
       { type: "browser", label: "How it works", description: "The 3-step process — tell us about yourself, we compare 40+ carriers instantly, you choose and save — explained clearly before you commit to anything", screens: ["process-steps", "step-detail"], imagePath: "/work/gigamatic-insure-how-it-works.png" },
-      { type: "detail", label: "My Policies", description: "Post-purchase policy dashboard showing active coverage, renewal dates, and account management", screens: ["policies-list", "policy-detail"] },
     ],
     outcomes: [
       "Built and launched a live insurance comparison marketplace across six insurance categories with major carrier integrations nationwide",
@@ -453,7 +452,8 @@ export const projects: Project[] = [
       "Front-End Development",
     ],
     platform: "Web",
-    status: "Live — futureofconsciousness.global",
+    status: "Live — published",
+    website: "futureofconsciousness.global",
     accentColor: "hsl(43 55% 55%)",
     accentColorLight: "hsla(43,55%,55%,0.10)",
     opportunity:
@@ -481,8 +481,9 @@ export const projects: Project[] = [
       { title: "Editorial restraint", description: "Content is allowed to occupy space. Category filters, pull quotes, and clear section labels help readers navigate a serious body of work without reducing it to headlines or optimised for dwell time." },
     ],
     aiRole: [
-      { title: "Subject, not tool", description: "Artificial intelligence is the subject of the institute's inquiry, not an operational tool within the platform — a deliberate choice that keeps the human relationship to AI at the centre of the product." },
-      { title: "Content discovery (proposed)", description: "Future work may explore AI-assisted navigation of the research library — surfacing connections across essays, op-eds, and briefing papers by theme and relevance for readers navigating a growing body of work." },
+      { title: "AI as subject, not instrument (principled)", description: "Artificial intelligence is the subject of the institute's inquiry, not an operational tool within the platform — a deliberate architectural choice that preserves the intellectual coherence of an institution studying AI's effects on human judgment." },
+      { title: "Human-curated research discovery (live)", description: "All navigation, curation, and content surfacing is maintained by the institute's editorial team. Research domain filters, publication types, and audience entry points are deliberate human choices — not algorithmic rankings." },
+      { title: "AI-assisted research navigation (proposed)", description: "Future work may explore AI-assisted connections across the research library — surfacing thematic links between essays, op-eds, and briefing papers — subject to the same critical scrutiny the institute applies to AI in every other context." },
     ],
     aiDeepDive: {
       headline: "AI as subject, not instrument — a deliberate inversion that protects the platform's intellectual integrity",
@@ -631,15 +632,15 @@ export const projects: Project[] = [
     ],
     aiRole: [
       {
-        title: "Conversational planning engine",
+        title: "Conversational planning engine (live)",
         description: "The app's core working feature: a natural language planning interface that accepts unstructured trip descriptions and iterates toward a fully structured, time-ordered itinerary through conversational refinement. The engine handles ambiguity gracefully — 'something interesting for the afternoon' is as valid a starting point as a specific venue request.",
       },
       {
-        title: "Contextual recommendation layer",
+        title: "Contextual recommendation layer (live)",
         description: "A recommendation system designed to combine live location, time of day, current weather, stated preferences, and the record of what has already been done on the trip. The design challenge is not building the layer — it is deciding when to surface suggestions and when to stay silent. Surfacing too often trains users to dismiss; surfacing too rarely misses the moments of genuine value.",
       },
       {
-        title: "Agentic disruption management",
+        title: "Agentic disruption management (live)",
         description: "The highest-value capability in the product: an agentic system that monitors live travel data (flights, rail, weather), detects disruptions before they become crises, and prepares a complete replanning recommendation — alternative routing, updated hotel check-in windows, rescheduled reservations — ready for one-tap human confirmation. The system acts as a prepared response, not an autonomous one.",
       },
     ],
@@ -805,7 +806,6 @@ export const projects: Project[] = [
       { type: "fullwidth", label: "Homepage", description: "The campaign hero: deep space photography, gold headline lettering, and a single email CTA — 'One email a month. The story as it happens.' — alongside the 1995/TODAY/NEXT timeline framing the mission", screens: ["hero", "timeline"], imagePath: "/work/spaceplace-cover.png" },
       { type: "browser", label: "About the mission", description: "The founding argument: why Toronto — the largest city in North America without a public planetarium — needs a new window on the sky, and what SpacePlace Canada is building to provide it", screens: ["mission-statement", "case-for-support"], imagePath: "/work/spaceplace-about.png" },
       { type: "browser", label: "Events", description: "Upcoming and past public events — from virtual speaker nights to in-person stargazing sessions — building the community of supporters the planetarium needs to become real", screens: ["events-listing"], imagePath: "/work/spaceplace-events.png" },
-      { type: "browser", label: "Support the campaign", description: "The campaign's public call to action: newsletter sign-up, events, and partnership pathways that build the community of support the planetarium needs to become real", screens: ["support-cta", "newsletter-form"] },
     ],
     outcomes: [
       "Designed and built a live campaign platform that communicates a thirty-year civic gap and makes the case for a new public planetarium with clarity and emotional resonance",

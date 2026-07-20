@@ -8,6 +8,7 @@ import {
   MessageSquare, Brain, Eye, UserCheck, AlertCircle,
   BookOpen, Library, Calendar, Mail, Globe, Mic,
   RefreshCw, Navigation, Bell,
+  Star, Handshake, Newspaper,
   ArrowUpRight, Zap, CheckCircle2, Lightbulb, Image as ImageIcon,
   Quote,
   Check
@@ -23,6 +24,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   MessageSquare, Brain, Eye, UserCheck, AlertCircle,
   BookOpen, Library, Calendar, Mail, Globe, Mic,
   RefreshCw, Navigation, Bell,
+  Star, Handshake, Newspaper,
 };
 
 function CapabilityIcon({ name }: { name: string }) {
