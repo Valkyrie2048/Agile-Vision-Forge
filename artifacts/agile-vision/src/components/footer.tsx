@@ -10,9 +10,9 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-4">
               <div className="flex items-baseline">
-                <span className="text-lg font-bold tracking-tight">Vision</span>
-                <span className="text-lg font-bold tracking-tight text-primary mx-[0.2em]">AI</span>
-                <span className="text-lg font-bold tracking-tight">Works</span>
+                <span className="text-sm font-medium tracking-[0.18em] uppercase">Vision</span>
+                <span className="text-sm font-medium tracking-[0.18em] uppercase text-primary mx-[0.25em]">AI</span>
+                <span className="text-sm font-medium tracking-[0.18em] uppercase">Works</span>
               </div>
               <span className="text-xs text-muted-foreground tracking-wide">Making your vision work.</span>
             </div>
