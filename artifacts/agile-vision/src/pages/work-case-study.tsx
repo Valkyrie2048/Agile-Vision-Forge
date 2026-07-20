@@ -47,6 +47,72 @@ function Rule() {
   return <div className="h-px bg-white/[0.07] my-32 md:my-48 max-w-[120rem] mx-auto w-full" />;
 }
 
+function BrowserFrame({ src, alt, accentColor, url }: {
+  src: string; alt: string; accentColor: string; url?: string;
+}) {
+  return (
+    <div className="relative w-full h-full flex flex-col">
+      <div
+        className="absolute -inset-x-6 -bottom-10 top-6 rounded-3xl blur-3xl opacity-20 pointer-events-none"
+        style={{ background: accentColor }}
+      />
+      <div
+        className="relative flex flex-col h-full rounded-xl overflow-hidden border border-white/[0.09]"
+        style={{ boxShadow: "0 20px 60px -10px rgba(0,0,0,0.85)" }}
+      >
+        <div className="flex items-center gap-2 px-3 py-2.5 bg-[#161616] border-b border-white/[0.07] flex-shrink-0">
+          <div className="flex gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#ff5f57" }} />
+            <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#febc2e" }} />
+            <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#28c840" }} />
+          </div>
+          <div className="flex-1 mx-2 h-5 rounded bg-white/[0.05] border border-white/[0.05] flex items-center px-2 gap-1.5 min-w-0">
+            <svg className="w-2 h-2 text-white/20 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+              <circle cx="12" cy="12" r="10" />
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+            <span className="text-[9px] font-mono text-white/20 tracking-wide truncate">
+              {url ? `https://${url}` : ""}
+            </span>
+          </div>
+        </div>
+        <div className="flex-1 overflow-hidden bg-zinc-950">
+          <img src={src} alt={alt} className="w-full h-full object-cover object-top" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PhoneFrame({ src, alt, accentColor }: {
+  src: string; alt: string; accentColor: string;
+}) {
+  return (
+    <div className="relative flex justify-center items-center w-full h-full">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: `radial-gradient(ellipse at center, ${accentColor}28, transparent 65%)` }}
+      />
+      <div className="relative" style={{ width: "min(50%, 180px)" }}>
+        <div
+          className="relative rounded-[2rem] overflow-hidden border-[2.5px] border-white/[0.14] bg-black"
+          style={{ boxShadow: `0 48px 80px -24px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.05), 0 20px 40px -10px ${accentColor}35` }}
+        >
+          <div className="flex justify-center pt-2 pb-1 bg-black">
+            <div className="w-20 h-5 bg-black rounded-full border border-white/[0.11]" />
+          </div>
+          <div style={{ aspectRatio: "9/19.5" }}>
+            <img src={src} alt={alt} className="w-full h-full object-cover object-top" />
+          </div>
+          <div className="flex justify-center py-2 bg-black">
+            <div className="w-20 h-1 rounded-full bg-white/15" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const STATUS_CONFIG = {
   live: {
     dot: "bg-emerald-400",
@@ -598,9 +664,11 @@ export default function WorkCaseStudy() {
         </div>
       </div>
 
-      {/* ─── 9. GALLERY (EDITORIAL SPREAD) ───────────────────────────────────────────── */}
+      {/* ─── 9. GALLERY ───────────────────────────────────────────────────────────────── */}
       <section className="mb-32 md:mb-48 relative">
         <div className="w-full flex flex-col gap-12 md:gap-24">
+
+          {/* Item 0: Hero */}
           {displayGallery.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -609,14 +677,27 @@ export default function WorkCaseStudy() {
               transition={{ duration: 1 }}
               className="w-full"
             >
-              {/* Item 0: Full bleed, tall */}
-              <div className="w-full h-[60vh] md:h-[90vh] relative bg-zinc-900 overflow-hidden border-y border-white/10 group">
-                <img 
-                  src={displayGallery[0].imagePath!} 
-                  alt={displayGallery[0].label}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
-                />
-              </div>
+              {displayGallery[0].type === "fullwidth" ? (
+                <div className="w-full h-[60vh] md:h-[90vh] relative overflow-hidden border-y border-white/10 group" style={{ background: "#0a0a0a" }}>
+                  <img
+                    src={displayGallery[0].imagePath!}
+                    alt={displayGallery[0].label}
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-1000"
+                  />
+                  <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent 55%, rgba(9,9,9,0.75))" }} />
+                </div>
+              ) : displayGallery[0].type === "phone" ? (
+                <div className="w-full h-[72vh] relative border-y border-white/[0.05] overflow-hidden" style={{ background: "#090909" }}>
+                  <PhoneFrame src={displayGallery[0].imagePath!} alt={displayGallery[0].label} accentColor={project.accentColor} />
+                </div>
+              ) : (
+                <div className="w-full h-[72vh] relative border-y border-white/[0.05] overflow-hidden flex items-center" style={{ background: "#0b0b0b" }}>
+                  <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse at 50% 90%, ${project.accentColor}18, transparent 65%)` }} />
+                  <div className="relative w-full h-full max-w-6xl mx-auto px-10 md:px-16 py-10 md:py-14">
+                    <BrowserFrame src={displayGallery[0].imagePath!} alt={displayGallery[0].label} accentColor={project.accentColor} url={project.website} />
+                  </div>
+                </div>
+              )}
               <div className="px-6 lg:px-12 xl:px-16 mt-8">
                 <div className="max-w-[120rem] mx-auto border-t border-white/[0.06] pt-6 flex flex-col md:flex-row md:items-start justify-between gap-6">
                   <div className="flex items-baseline gap-4 flex-shrink-0">
@@ -642,12 +723,19 @@ export default function WorkCaseStudy() {
                     transition={{ duration: 1, delay: i * 0.2 }}
                     className="flex flex-col"
                   >
-                    <div className="w-full aspect-[4/3] rounded-3xl bg-zinc-900 border border-white/10 overflow-hidden mb-8 group relative">
-                      <img 
-                        src={item.imagePath!} 
-                        alt={item.label}
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
-                      />
+                    <div
+                      className={`w-full rounded-3xl mb-8 relative overflow-hidden ${
+                        item.type === "phone" ? "aspect-[3/4]" : "aspect-[16/10]"
+                      } ${item.type !== "phone" && item.type !== "fullwidth" ? "p-5 md:p-6" : ""}`}
+                      style={{ background: "#0d0d0d" }}
+                    >
+                      {item.type === "phone" ? (
+                        <PhoneFrame src={item.imagePath!} alt={item.label} accentColor={project.accentColor} />
+                      ) : item.type === "fullwidth" ? (
+                        <img src={item.imagePath!} alt={item.label} className="w-full h-full object-cover object-top" />
+                      ) : (
+                        <BrowserFrame src={item.imagePath!} alt={item.label} accentColor={project.accentColor} url={project.website} />
+                      )}
                     </div>
                     <div className="border-t border-white/[0.06] pt-5 flex items-baseline gap-4 mb-3">
                       <span className="text-[10px] font-mono tracking-[0.3em] uppercase flex-shrink-0" style={{ color: `${project.accentColor}70` }}>
@@ -662,43 +750,60 @@ export default function WorkCaseStudy() {
             </div>
           )}
 
-          {/* Items 3+: Alternating full or portrait */}
+          {/* Items 3+: Remaining */}
           {displayGallery.length > 3 && (
             <div className="px-6 lg:px-12 xl:px-16">
-               <div className="max-w-[120rem] mx-auto space-y-24">
-                  {displayGallery.slice(3).map((item, i) => {
-                    const isFullWidth = i % 3 === 0;
-                    return (
-                      <motion.div
-                        key={`rest-${i}`}
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 1 }}
-                        className={`flex flex-col ${isFullWidth ? '' : 'max-w-4xl mx-auto'}`}
+              <div className="max-w-[120rem] mx-auto space-y-24">
+                {displayGallery.slice(3).map((item, i) => {
+                  const isWide = i % 3 === 0;
+                  return (
+                    <motion.div
+                      key={`rest-${i}`}
+                      initial={{ opacity: 0, y: 40 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 1 }}
+                      className={`flex flex-col ${isWide ? "" : "max-w-4xl mx-auto"}`}
+                    >
+                      <div
+                        className={`w-full overflow-hidden mb-8 rounded-3xl relative ${
+                          item.type === "phone"
+                            ? "aspect-[3/4]"
+                            : item.type === "fullwidth"
+                            ? "aspect-video md:aspect-[21/9]"
+                            : isWide
+                            ? "aspect-[16/9]"
+                            : "aspect-[16/10]"
+                        } ${item.type !== "phone" && item.type !== "fullwidth" ? "p-5 md:p-6" : ""}`}
+                        style={{ background: "#0d0d0d" }}
                       >
-                         <div className={`w-full bg-zinc-900 border border-white/10 overflow-hidden mb-8 rounded-3xl group relative ${isFullWidth ? 'aspect-video md:aspect-[21/9]' : 'aspect-square md:aspect-[4/3]'}`}>
-                            <img 
-                              src={item.imagePath!} 
-                              alt={item.label}
-                              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
-                            />
-                         </div>
-                         <div className={`border-t border-white/[0.06] pt-5 flex flex-col ${isFullWidth ? 'md:flex-row md:items-start md:justify-between gap-6' : 'gap-2'}`}>
-                           <div className="flex items-baseline gap-4 flex-shrink-0">
-                             <span className="text-[10px] font-mono tracking-[0.3em] uppercase" style={{ color: `${project.accentColor}70` }}>
-                               {String(i + 4).padStart(2, "0")}
-                             </span>
-                             <h4 className="text-lg font-serif text-white/80">{item.label}</h4>
-                           </div>
-                           <p className={`text-sm text-white/40 font-light leading-relaxed ${isFullWidth ? 'max-w-2xl' : ''}`}>{item.description}</p>
-                         </div>
-                      </motion.div>
-                    )
-                  })}
-               </div>
+                        {item.type === "fullwidth" ? (
+                          <>
+                            <img src={item.imagePath!} alt={item.label} className="w-full h-full object-cover object-top" />
+                            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent 60%, rgba(9,9,9,0.6))" }} />
+                          </>
+                        ) : item.type === "phone" ? (
+                          <PhoneFrame src={item.imagePath!} alt={item.label} accentColor={project.accentColor} />
+                        ) : (
+                          <BrowserFrame src={item.imagePath!} alt={item.label} accentColor={project.accentColor} url={project.website} />
+                        )}
+                      </div>
+                      <div className={`border-t border-white/[0.06] pt-5 flex flex-col ${isWide ? "md:flex-row md:items-start md:justify-between gap-6" : "gap-2"}`}>
+                        <div className="flex items-baseline gap-4 flex-shrink-0">
+                          <span className="text-[10px] font-mono tracking-[0.3em] uppercase" style={{ color: `${project.accentColor}70` }}>
+                            {String(i + 4).padStart(2, "0")}
+                          </span>
+                          <h4 className="text-lg font-serif text-white/80">{item.label}</h4>
+                        </div>
+                        <p className={`text-sm text-white/40 font-light leading-relaxed ${isWide ? "max-w-2xl" : ""}`}>{item.description}</p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
           )}
+
         </div>
       </section>
 
