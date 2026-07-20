@@ -160,7 +160,7 @@ export default function WorkCaseStudy() {
               </div>
               <h1
                 className="font-serif text-white tracking-tight leading-[0.9]"
-                style={{ fontSize: "clamp(4rem, 10vw, 12rem)" }}
+                style={{ fontSize: "clamp(3rem, 6vw, 7rem)" }}
               >
                 {project.name}
               </h1>
@@ -169,7 +169,7 @@ export default function WorkCaseStudy() {
             <div className="flex flex-col gap-10 lg:text-right lg:min-w-[300px]">
               <p
                 className="text-white/60 font-light leading-relaxed max-w-xl lg:ml-auto"
-                style={{ fontSize: "clamp(1.2rem, 2vw, 1.8rem)" }}
+                style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)" }}
               >
                 {project.tagline}
               </p>
@@ -213,7 +213,7 @@ export default function WorkCaseStudy() {
         </section>
       )}
 
-      {/* ─── 2.3. AI FEATURES STRIP ──────────────────────────────────── */}
+      {/* ─── 2.3. AI FEATURES ──────────────────────────────────────────── */}
       {project.aiRole && project.aiRole.length > 0 && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -223,22 +223,27 @@ export default function WorkCaseStudy() {
           className="px-6 lg:px-12 xl:px-16 mb-12"
         >
           <div className="max-w-[120rem] mx-auto">
-            <div className="flex flex-wrap items-start gap-x-8 gap-y-4 py-8 border-b border-white/[0.06]">
-              <span
-                className="text-[10px] font-mono tracking-[0.35em] uppercase mt-1 flex-shrink-0"
-                style={{ color: `${project.accentColor}80` }}
-              >
-                AI Features
-              </span>
-              <div className="flex flex-wrap gap-3">
+            <div className="border-y border-white/[0.06] py-10">
+              <div className="flex items-center gap-3 mb-8">
+                <span
+                  className="text-[10px] font-mono tracking-[0.35em] uppercase"
+                  style={{ color: project.accentColor }}
+                >
+                  AI Capabilities
+                </span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {project.aiRole.map((role, i) => (
-                  <span
-                    key={i}
-                    className="inline-flex items-center gap-2 text-xs font-mono text-white/40 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02]"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: `${project.accentColor}90` }} />
-                    {role.title}
-                  </span>
+                  <div key={i} className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2.5">
+                      <span
+                        className="w-2 h-2 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: project.accentColor }}
+                      />
+                      <span className="text-sm font-mono text-white/80 leading-snug">{role.title}</span>
+                    </div>
+                    <p className="text-xs text-white/40 font-light leading-relaxed pl-[18px]">{role.description}</p>
+                  </div>
                 ))}
               </div>
             </div>
@@ -257,7 +262,7 @@ export default function WorkCaseStudy() {
         <div className="max-w-[120rem] mx-auto">
           <div className="border-t border-white/[0.07] pt-16 flex flex-col md:flex-row gap-8 md:gap-24">
             <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 flex-shrink-0 mt-1">Project Brief</span>
-            <p className="text-xl md:text-2xl text-white/55 font-light leading-relaxed max-w-4xl">{project.summary}</p>
+            <p className="text-base md:text-lg text-white/55 font-light leading-relaxed max-w-4xl">{project.summary}</p>
           </div>
         </div>
       </motion.div>
@@ -276,7 +281,7 @@ export default function WorkCaseStudy() {
               className="border-l-2 pl-8 md:pl-12 mb-0"
               style={{ borderColor: project.accentColor }}
             >
-              <p className="text-white/80 font-light leading-[1.6] tracking-tight" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2.25rem)" }}>
+              <p className="text-white/80 font-light leading-[1.6] tracking-tight" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.5rem)" }}>
                 {project.opportunity}
               </p>
             </div>
@@ -300,7 +305,7 @@ export default function WorkCaseStudy() {
               <Eyebrow color={project.accentColor}>The Vision</Eyebrow>
               <p
                 className="text-white/85 font-light leading-[1.55] tracking-tight"
-                style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.6rem)" }}
+                style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.5rem)" }}
               >
                 {project.vision}
               </p>
@@ -337,8 +342,8 @@ export default function WorkCaseStudy() {
                     >
                       {String(i + 1).padStart(2, "0")}
                     </div>
-                    <h4 className="text-2xl lg:text-3xl font-serif text-white mb-3 tracking-tight leading-tight">{p.title}</h4>
-                    <p className="text-base lg:text-lg text-white/55 font-light leading-relaxed">{p.description}</p>
+                    <h4 className="text-xl lg:text-2xl font-serif text-white mb-3 tracking-tight leading-tight">{p.title}</h4>
+                    <p className="text-sm lg:text-base text-white/55 font-light leading-relaxed">{p.description}</p>
                   </div>
                 ))}
               </div>
@@ -370,8 +375,8 @@ export default function WorkCaseStudy() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div className="relative z-10 pt-8 border-t border-white/20">
-                      <h4 className="text-4xl font-serif text-white mb-6">{user.title}</h4>
-                      <p className="text-xl text-white/60 font-light leading-relaxed max-w-lg">{user.description}</p>
+                      <h4 className="text-2xl lg:text-3xl font-serif text-white mb-4">{user.title}</h4>
+                      <p className="text-sm lg:text-base text-white/60 font-light leading-relaxed max-w-lg">{user.description}</p>
                     </div>
                   </div>
                 ))}
@@ -406,7 +411,7 @@ export default function WorkCaseStudy() {
                   </span>
                 </div>
                 
-                <h2 className="font-serif text-white tracking-tight leading-[1] max-w-6xl mx-auto bg-clip-text" style={{ fontSize: "clamp(4rem, 8vw, 8rem)" }}>
+                <h2 className="font-serif text-white tracking-tight leading-[1.05] max-w-6xl mx-auto" style={{ fontSize: "clamp(2rem, 3.5vw, 3.75rem)" }}>
                   {ai.headline}
                 </h2>
               </div>
@@ -421,7 +426,7 @@ export default function WorkCaseStudy() {
                       </div>
                       <h3 className="text-sm font-mono tracking-[0.2em] uppercase text-white/60">{ai.useCase.label}</h3>
                     </div>
-                    <p className="text-xl text-white/75 font-light leading-relaxed">{ai.useCase.body}</p>
+                    <p className="text-base text-white/75 font-light leading-relaxed">{ai.useCase.body}</p>
                   </div>
                 </div>
                 
@@ -434,7 +439,7 @@ export default function WorkCaseStudy() {
                       </div>
                       <h3 className="text-sm font-mono tracking-[0.2em] uppercase text-white/60">{ai.implementation.label}</h3>
                     </div>
-                    <p className="text-xl text-white/75 font-light leading-relaxed">{ai.implementation.body}</p>
+                    <p className="text-base text-white/75 font-light leading-relaxed">{ai.implementation.body}</p>
                   </div>
                 </div>
               </div>
@@ -455,10 +460,10 @@ export default function WorkCaseStudy() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div className="pt-1">
-                      <h4 className="text-2xl lg:text-3xl font-serif text-white mb-3 tracking-tight group-hover:text-white transition-colors">
+                      <h4 className="text-lg lg:text-xl font-serif text-white mb-3 tracking-tight group-hover:text-white transition-colors">
                         {benefit.title}
                       </h4>
-                      <p className="text-lg text-white/55 font-light leading-relaxed">{benefit.description}</p>
+                      <p className="text-sm text-white/55 font-light leading-relaxed">{benefit.description}</p>
                     </div>
                   </div>
                 ))}
@@ -502,23 +507,23 @@ export default function WorkCaseStudy() {
                             <CapabilityIcon name={layer.icon} />
                           </div>
                         </div>
-                        <h3 className="text-4xl font-serif text-white mb-4 tracking-tight">{layer.name}</h3>
-                        <p className="text-xl text-white/50 font-light">{layer.role}</p>
+                        <h3 className="text-2xl lg:text-3xl font-serif text-white mb-4 tracking-tight">{layer.name}</h3>
+                        <p className="text-sm text-white/50 font-light">{layer.role}</p>
                       </div>
                     </div>
 
                     <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8">
                       <div className="space-y-4 p-8 rounded-2xl bg-white/[0.02] border border-white/5">
                         <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30">Input</div>
-                        <p className="text-lg text-white/70 font-light leading-relaxed">{layer.input}</p>
+                        <p className="text-sm text-white/70 font-light leading-relaxed">{layer.input}</p>
                       </div>
                       <div className="space-y-4 p-8 rounded-2xl bg-white/[0.02] border border-white/5">
                         <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30">Process</div>
-                        <p className="text-lg text-white/70 font-light leading-relaxed">{layer.process}</p>
+                        <p className="text-sm text-white/70 font-light leading-relaxed">{layer.process}</p>
                       </div>
                       <div className="space-y-4 p-8 rounded-2xl bg-white/[0.02] border border-white/5">
                         <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30">Output</div>
-                        <p className="text-lg text-white/70 font-light leading-relaxed">{layer.output}</p>
+                        <p className="text-sm text-white/70 font-light leading-relaxed">{layer.output}</p>
                       </div>
                     </div>
                   </div>
@@ -559,10 +564,10 @@ export default function WorkCaseStudy() {
                       Primary Capability
                     </div>
                   </div>
-                  <h3 className="text-4xl lg:text-5xl font-serif text-white mb-6 leading-[1.1] max-w-3xl">
+                  <h3 className="text-2xl lg:text-3xl font-serif text-white mb-5 leading-[1.1] max-w-3xl">
                     {project.capabilities[0].title}
                   </h3>
-                  <p className="text-xl text-white/65 font-light leading-relaxed max-w-3xl">
+                  <p className="text-sm lg:text-base text-white/65 font-light leading-relaxed max-w-3xl">
                     {project.capabilities[0].description}
                   </p>
                 </div>
@@ -581,8 +586,8 @@ export default function WorkCaseStudy() {
                     >
                       <CapabilityIcon name={cap.icon} />
                     </div>
-                    <h4 className="text-xl lg:text-2xl font-serif text-white mb-4 leading-tight">{cap.title}</h4>
-                    <p className="text-base lg:text-lg text-white/50 font-light leading-relaxed mt-auto">{cap.description}</p>
+                    <h4 className="text-lg lg:text-xl font-serif text-white mb-3 leading-tight">{cap.title}</h4>
+                    <p className="text-sm text-white/50 font-light leading-relaxed mt-auto">{cap.description}</p>
                   </div>
                 ))}
               </div>
@@ -716,7 +721,7 @@ export default function WorkCaseStudy() {
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="text-2xl lg:text-3xl text-white/75 font-light leading-relaxed pt-3 group-hover:text-white/90 transition-colors duration-500">
+                  <p className="text-base lg:text-lg text-white/75 font-light leading-relaxed pt-3 group-hover:text-white/90 transition-colors duration-500">
                     {outcome}
                   </p>
                 </motion.div>
@@ -742,7 +747,7 @@ export default function WorkCaseStudy() {
           <Quote className="w-10 h-10 mx-auto mb-12 text-white/10" />
           <p
             className="font-serif text-white/90 leading-[1.4] tracking-tight mx-auto"
-            style={{ fontSize: "clamp(1.6rem, 3.5vw, 3.5rem)", maxWidth: "56rem" }}
+            style={{ fontSize: "clamp(1.1rem, 2vw, 2rem)", maxWidth: "56rem" }}
           >
             "{project.reflection}"
           </p>
