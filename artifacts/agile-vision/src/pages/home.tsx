@@ -271,25 +271,10 @@ function HeroSection() {
       />
 
       {/* Mouse-reactive orbs — outer div handles CSS float, inner motion handles mouse offset */}
-      <motion.div className="absolute top-[10%] left-[15%] pointer-events-none" style={{ x: orb1X, y: orb1Y }}>
-        <div className="w-[400px] h-[400px] rounded-full opacity-40 blur-[100px]"
-          style={{ background: "hsl(250 85% 60%)", animation: "float1 20s ease-in-out infinite" }} />
-      </motion.div>
-      <motion.div className="absolute top-[60%] right-[10%] pointer-events-none" style={{ x: orb2X, y: orb2Y }}>
-        <div className="w-[350px] h-[350px] rounded-full opacity-30 blur-[100px]"
-          style={{ background: "hsl(280 80% 55%)", animation: "float2 25s ease-in-out infinite" }} />
-      </motion.div>
-      <motion.div className="absolute bottom-[20%] left-[40%] pointer-events-none" style={{ x: orb3X, y: orb3Y }}>
-        <div className="w-[300px] h-[300px] rounded-full opacity-25 blur-[120px]"
-          style={{ background: "hsl(220 90% 55%)", animation: "float3 18s ease-in-out infinite" }} />
-      </motion.div>
-      <motion.div className="absolute top-[30%] right-[35%] pointer-events-none" style={{ x: orb4X, y: orb4Y }}>
-        <div className="w-[200px] h-[200px] rounded-full opacity-20 blur-[80px]"
-          style={{ background: "hsl(255 80% 55%)", animation: "float4 22s ease-in-out infinite" }} />
-      </motion.div>
+      <motion.div className="absolute inset-0 pointer-events-none opacity-20" style={{ background: "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05), transparent 70%)" }} />
 
       <div className="absolute inset-0 bg-black/40 pointer-events-none" />
-      <div className="absolute inset-0 grid-pattern opacity-10 pointer-events-none" />
+      <div className="absolute inset-0 grid-pattern opacity-[0.03] pointer-events-none" />
       <AINetworkGraph />
 
       <motion.div
@@ -308,70 +293,43 @@ function HeroSection() {
           className="mb-6"
         >
           <h1
-            className="font-serif text-4xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.05] text-white"
+            className="font-serif text-5xl sm:text-7xl md:text-[7rem] font-bold tracking-tight leading-[0.95] text-white"
             data-testid="text-hero-title"
             data-hero-heading
           >
-            <TextReveal delay={0.2}>We Make Your</TextReveal>
+            <TextReveal delay={0.2}>We ship intelligent</TextReveal>
             <br />
-            <span className="relative inline-block">
-              {/* Pulsing aura behind gradient text */}
-              <motion.span
-                className="absolute -inset-x-8 -inset-y-4 pointer-events-none rounded-full"
-                aria-hidden="true"
-                animate={{ opacity: [0.3, 0.55, 0.3] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                style={{
-                  background: "radial-gradient(ellipse at center, hsla(255,85%,65%,0.45) 0%, hsla(265,75%,60%,0.15) 50%, transparent 75%)",
-                  filter: "blur(28px)",
-                }}
-              />
-              <span className="gradient-text shimmer-text relative">
-                <TextReveal delay={0.35}>Vision Work</TextReveal>
-              </span>
+            <span className="relative inline-block text-white/90">
+              <TextReveal delay={0.35}>products. Not ideas.</TextReveal>
             </span>
           </h1>
         </motion.div>
 
         <BlurReveal delay={0.5}>
           <p
-            className="text-lg sm:text-xl text-white/60 max-w-xl mx-auto mb-10 leading-relaxed"
+            className="text-lg sm:text-xl text-white/50 max-w-2xl mx-auto mb-12 leading-[1.6] font-light"
             data-testid="text-hero-subtitle"
           >
-            We build it with AI, from idea to launch, agentic systems, and intelligent software for ambitious companies.
+            We are an elite AI studio building agentic systems, mobile apps, and full-scale platforms. Seven live case studies across fintech, insurtech, travel, and research prove it.
           </p>
         </BlurReveal>
 
-        <BlurReveal delay={0.7} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        <BlurReveal delay={0.7} className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12">
+          <MagneticButton>
+            <Link href="/work">
+              <Button size="lg" className="px-10 py-6 h-auto text-base rounded-none bg-white text-black hover:bg-white/90 font-medium" data-testid="button-hero-get-started">
+                Explore the Work
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </MagneticButton>
           <MagneticButton>
             <Link href="/get-started">
-              <Button size="lg" className="px-8 shadow-lg shadow-primary/30" data-testid="button-hero-get-started">
+              <Button size="lg" variant="outline" className="px-10 py-6 h-auto text-base rounded-none bg-transparent border-white/20 text-white hover:bg-white/5 font-medium" data-testid="button-hero-simulator">
                 Start a Project
-                <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
           </MagneticButton>
-          <MagneticButton>
-            <Link href="/simulator">
-              <Button size="lg" variant="outline" className="bg-white/5 backdrop-blur-sm border-white/20 text-white hover:bg-white/10" data-testid="button-hero-simulator">
-                Try the AI Simulator
-              </Button>
-            </Link>
-          </MagneticButton>
-        </BlurReveal>
-
-        {/* Floating tech tags */}
-        <BlurReveal delay={0.9}>
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {["GPT-4o", "Claude", "LangChain", "React", "Node.js", "Python", "Supabase", "Vercel"].map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 rounded-full text-xs font-medium bg-white/6 border border-white/10 text-white/50 backdrop-blur-sm"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
         </BlurReveal>
 
       </motion.div>
@@ -499,64 +457,55 @@ function CapabilitiesSection() {
   return (
     <section ref={sectionRef} id="capabilities" className="py-24 bg-card" data-testid="section-capabilities">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-24 md:mb-32">
           <BlurReveal>
-            <Badge variant="secondary" className="mb-4">
-              <Sparkles className="w-3 h-3 mr-1" />
-              What We Build
-            </Badge>
+            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 mb-8">
+              Capabilities
+            </p>
           </BlurReveal>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <TextReveal>End-to-End AI Product Development</TextReveal>
+          <h2 className="font-serif text-4xl sm:text-5xl md:text-7xl tracking-tight mb-8 text-white">
+            <TextReveal>What We Build</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              From intelligent chatbots to autonomous agents, we build the full spectrum of AI-powered products.
+            <p className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto font-light leading-[1.6]">
+              From intelligent chatbots to autonomous agents, we build the full spectrum of AI-powered products. We focus on execution and craftsmanship.
             </p>
           </BlurReveal>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5 rounded-none">
           {capabilities.map((cap, i) => (
             <motion.div
               key={i}
-              className="h-full"
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ duration: 0.6, delay: i * 0.05 }}
+              className="bg-[#090909] group p-10 md:p-16 hover:bg-[#0c0c0c] transition-colors cursor-pointer border-transparent"
+              onClick={() => setActiveModal(i)}
+              data-testid={`card-capability-${i}`}
             >
-              <div className="relative h-full">
-                <div className="absolute -inset-[1px] rounded-md overflow-hidden pointer-events-none z-[2]">
-                  <div
-                    className="absolute inset-0 rounded-md"
-                    style={{ boxShadow: "inset 0 0 0 1px hsla(250,85%,65%,0.15)" }}
-                  />
-                  <div
-                    className="absolute inset-0 shimmer-sweep-anim"
-                    style={{ animationDelay: `${i * 0.6}s`, background: "linear-gradient(105deg, transparent 0%, transparent 35%, hsla(250,85%,70%,0.1) 42%, hsla(280,80%,70%,0.18) 50%, hsla(250,85%,70%,0.1) 58%, transparent 65%, transparent 100%)" }}
-                  />
+              <div className="flex flex-col h-full">
+                <div className="mb-12 flex justify-between items-start">
+                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.02] text-white/60 group-hover:text-white transition-colors">
+                    <cap.icon className="w-5 h-5" />
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-white/20 group-hover:text-white/60 transition-colors transform group-hover:translate-x-1" />
                 </div>
-                <Card
-                  className="relative h-full flex flex-col hover-elevate cursor-pointer overflow-visible"
-                  data-testid={`card-capability-${i}`}
-                  onClick={() => setActiveModal(i)}
-                >
-                  <div className="relative overflow-hidden rounded-t-md aspect-[16/10] shrink-0">
-                    <motion.img
-                      src={cap.image}
-                      alt={cap.title}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.08 }}
-                      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
-                  </div>
-                  <div className="relative flex-1 p-5 pt-0 -mt-6 z-10">
-                    <h3 className="font-semibold text-lg mb-1.5">{cap.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{cap.description}</p>
-                  </div>
-                </Card>
+                
+                <h3 className="font-serif text-3xl text-white mb-6 tracking-tight group-hover:text-white/90 transition-colors">{cap.title}</h3>
+                <p className="text-base text-white/40 leading-relaxed font-light mb-8 max-w-md">{cap.description}</p>
+                
+                <div className="mt-auto">
+                  <ul className="space-y-3">
+                    {cap.highlights.slice(0, 2).map((h, j) => (
+                      <li key={j} className="text-sm font-mono text-white/30 flex items-center gap-3">
+                        <span className="w-1 h-1 bg-white/20 rounded-full" />
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -1048,61 +997,41 @@ function ProcessSection() {
   ];
 
   return (
-    <section className="py-32 bg-card" data-testid="section-process">
+    <section className="py-32 bg-black border-y border-white/5" data-testid="section-process">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-24">
           <BlurReveal>
-            <Badge variant="secondary" className="mb-4">
-              <Zap className="w-3 h-3 mr-1" />
-              Our Process
-            </Badge>
+            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 mb-8">
+              Process
+            </p>
           </BlurReveal>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <TextReveal>From Idea to Launch in Weeks</TextReveal>
+          <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl tracking-tight mb-6 text-white">
+            <TextReveal>How We Work</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Our streamlined process ensures rapid delivery without compromising quality.
+            <p className="text-lg text-white/40 max-w-xl mx-auto font-light leading-relaxed">
+              We move fast, but we don't skip steps. A rigorous methodology for shipping production AI.
             </p>
           </BlurReveal>
         </div>
 
-        <div className="relative">
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 -translate-y-1/2 h-px">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-x-8 gap-y-16">
+          {steps.map((step, i) => (
             <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.5, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="h-full origin-left"
-              style={{ background: "linear-gradient(90deg, transparent, hsl(250 85% 60% / 0.5), transparent)" }}
-            />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
-                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="text-center relative"
-              >
-                <motion.div
-                  whileInView={{ scale: [0.5, 1.1, 1] }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 + i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 relative z-10"
-                >
-                  <step.icon className="w-7 h-7 text-primary" />
-                </motion.div>
-                <div className="text-sm font-mono text-primary mb-2">{step.num}</div>
-                <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
-              </motion.div>
-            ))}
-          </div>
+              key={step.num}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="relative"
+            >
+              <div className="text-[3rem] font-serif leading-none mb-6 opacity-20 text-white">
+                {step.num}
+              </div>
+              <h3 className="text-xl font-serif text-white mb-4 tracking-tight">{step.title}</h3>
+              <p className="text-sm text-white/50 leading-relaxed font-light">{step.description}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

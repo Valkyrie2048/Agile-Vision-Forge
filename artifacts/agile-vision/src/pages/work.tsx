@@ -160,7 +160,7 @@ export default function Work() {
               Proof of Craft
             </h1>
             <p className="text-lg sm:text-xl text-white/45 font-light leading-relaxed max-w-2xl">
-              Intelligent platforms across fintech, insurtech, AI, and the future of work. We don't just build software — we craft digital experiences that command attention.
+              Seven live platforms across fintech, insurtech, AI, and travel. We don't just prototype—we ship intelligent software that works.
             </p>
           </motion.div>
         </div>

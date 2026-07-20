@@ -372,17 +372,17 @@ export default function WorkCaseStudy() {
           >
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16 lg:gap-32 items-start">
               <div className="sticky top-32">
-                <Eyebrow color={project.accentColor}>The Problem</Eyebrow>
+                <Eyebrow color={project.accentColor}>The Challenge</Eyebrow>
                 <div className="h-px w-12 bg-white/20 mt-8" />
               </div>
               <div className="pt-2">
                 <h2
                   className="font-serif text-white tracking-tight leading-[1.2] mb-16 italic"
-                  style={{ fontSize: "clamp(2rem, 3.5vw, 3.5rem)" }}
+                  style={{ fontSize: "clamp(2.5rem, 4vw, 4rem)" }}
                 >
                   "{project.problemStatement}"
                 </h2>
-                <div className="space-y-6 max-w-3xl">
+                <div className="space-y-12 max-w-3xl">
                   {opportunityBullets.map((bullet, i) => (
                     <div key={i} className="flex gap-6 items-start">
                       <span className="font-mono text-xs text-white/20 mt-1">{String(i + 1).padStart(2, '0')}</span>
@@ -506,7 +506,7 @@ export default function WorkCaseStudy() {
               transition={{ duration: 1 }}
             >
               <Eyebrow color={project.accentColor}>AI Role</Eyebrow>
-              <div className="space-y-3 mt-8">
+              <div className="space-y-6 mt-12 max-w-4xl">
                 {project.aiRole.map((role, i) => {
                   const titleLower = role.title.toLowerCase();
                   const isLive = titleLower.includes("(live)");
@@ -521,19 +521,21 @@ export default function WorkCaseStudy() {
                   return (
                     <div
                       key={i}
-                      className="flex gap-6 items-start p-7 rounded-2xl border border-white/[0.06] bg-white/[0.015]"
+                      className="flex flex-col md:flex-row gap-8 items-start p-10 rounded-none border-b border-white/[0.06] bg-transparent"
                     >
-                      <div
-                        className={`mt-0.5 flex-shrink-0 flex items-center gap-1.5 px-3 py-1 rounded-full border text-[10px] font-mono tracking-[0.2em] uppercase whitespace-nowrap ${roleCfg.bg} ${roleCfg.text}`}
-                      >
-                        <span className={`w-1.5 h-1.5 rounded-full ${roleCfg.dot}`} />
-                        {statusLabel}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-serif text-white mb-2 tracking-tight">
+                      <div className="w-full md:w-1/3">
+                        <div
+                          className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] font-mono tracking-[0.2em] uppercase whitespace-nowrap mb-6 ${roleCfg.bg} ${roleCfg.text}`}
+                        >
+                          <span className={`w-1.5 h-1.5 rounded-full ${roleCfg.dot}`} />
+                          {statusLabel}
+                        </div>
+                        <h3 className="text-2xl font-serif text-white tracking-tight">
                           {cleanTitle}
                         </h3>
-                        <p className="text-sm text-white/45 font-light leading-relaxed">
+                      </div>
+                      <div className="w-full md:w-2/3">
+                        <p className="text-lg text-white/50 font-light leading-[1.6]">
                           {role.description}
                         </p>
                       </div>
@@ -709,7 +711,7 @@ export default function WorkCaseStudy() {
               <div className="text-center mb-24">
                 <Eyebrow color={project.accentColor} className="mx-auto">The Impact</Eyebrow>
                 <h2 className="font-serif text-[clamp(2.5rem,4vw,4rem)] text-white tracking-tight mt-8">
-                  Measurable Results
+                  {project.name} in Action
                 </h2>
               </div>
               
