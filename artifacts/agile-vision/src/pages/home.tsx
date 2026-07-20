@@ -299,8 +299,15 @@ function HeroSection() {
           >
             <TextReveal delay={0.2}>We ship intelligent</TextReveal>
             <br />
-            <span className="relative inline-block text-white/90">
+            <span className="relative inline-block">
               <TextReveal delay={0.35}>products. Not ideas.</TextReveal>
+              <motion.span
+                className="absolute bottom-0 left-0 h-[3px] rounded-full"
+                style={{ background: "hsl(250 85% 65%)" }}
+                initial={{ scaleX: 0, originX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 1.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              />
             </span>
           </h1>
         </motion.div>
@@ -455,25 +462,25 @@ function CapabilitiesSection() {
   const activeCap = activeModal !== null ? capabilities[activeModal] : null;
 
   return (
-    <section ref={sectionRef} id="capabilities" className="py-24 bg-card" data-testid="section-capabilities">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} id="capabilities" className="py-40 md:py-56 bg-[#080808] border-y border-white/[0.05]" data-testid="section-capabilities">
+      <div className="max-w-[120rem] mx-auto px-6 lg:px-12 xl:px-16">
         <div className="text-center mb-24 md:mb-32">
           <BlurReveal>
             <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 mb-8">
               Capabilities
             </p>
           </BlurReveal>
-          <h2 className="font-serif text-4xl sm:text-5xl md:text-7xl tracking-tight mb-8 text-white">
-            <TextReveal>What We Build</TextReveal>
+          <h2 className="font-serif text-[clamp(3rem,6vw,6.5rem)] tracking-tight mb-8 text-white">
+            <TextReveal>Every layer, built in-house.</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
             <p className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto font-light leading-[1.6]">
-              From intelligent chatbots to autonomous agents, we build the full spectrum of AI-powered products. We focus on execution and craftsmanship.
+              Agentic systems, mobile apps, web platforms, analytics, automation. We don't outsource the intelligence.
             </p>
           </BlurReveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5 rounded-none">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.04] border border-white/[0.04] rounded-none">
           {capabilities.map((cap, i) => (
             <motion.div
               key={i}
@@ -481,7 +488,7 @@ function CapabilitiesSection() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: i * 0.05 }}
-              className="bg-[#090909] group p-10 md:p-16 hover:bg-[#0c0c0c] transition-colors cursor-pointer border-transparent"
+              className="bg-[#090909] group relative p-10 md:p-16 hover:bg-[#0f0f0f] transition-colors cursor-pointer border-transparent"
               onClick={() => setActiveModal(i)}
               data-testid={`card-capability-${i}`}
             >
@@ -662,21 +669,18 @@ const INDUSTRY_CARDS = [
 
 function IndustriesSection() {
   return (
-    <section className="py-24" data-testid="section-industries">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+    <section className="py-40 md:py-56" data-testid="section-industries">
+      <div className="max-w-[120rem] mx-auto px-6 lg:px-12 xl:px-16">
+        <div className="text-center mb-24 md:mb-32">
           <BlurReveal>
-            <Badge variant="secondary" className="mb-4">
-              <Sparkles className="w-3 h-3 mr-1" />
-              Industry Solutions
-            </Badge>
+            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 mb-8">Industries</p>
           </BlurReveal>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <TextReveal>AI Built for Your Industry</TextReveal>
+          <h2 className="font-serif text-[clamp(3rem,6vw,6rem)] tracking-tight text-white mb-8">
+            <TextReveal>Vertical expertise.</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Every sector has its own rhythms, risks, and data. We ship AI tailored to the realities of your vertical, not generic templates.
+            <p className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto font-light leading-[1.6]">
+              Every sector has its own rhythms, risks, and data. We ship AI tailored to the realities of your vertical.
             </p>
           </BlurReveal>
         </div>
@@ -863,17 +867,14 @@ function GetStartedPreview() {
         {/* Header */}
         <div className="text-center mb-10">
           <BlurReveal>
-            <Badge variant="secondary" className="mb-4">
-              <Sparkles className="w-3 h-3 mr-1" />
-              Our Work
-            </Badge>
+            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 mb-8">Explore the work</p>
           </BlurReveal>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            <TextReveal>We Build AI Solutions</TextReveal>
+          <h2 className="font-serif text-[clamp(2.5rem,5vw,5rem)] tracking-tight text-white mb-6">
+            <TextReveal>Pick a product type.</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
-            <p className="text-muted-foreground max-w-lg mx-auto">
-              Pick a product type and see a live demo of what we'd build for your business.
+            <p className="text-base text-white/40 max-w-lg mx-auto font-light leading-[1.6]">
+              See a live demo of what we'd build for your business.
             </p>
           </BlurReveal>
         </div>

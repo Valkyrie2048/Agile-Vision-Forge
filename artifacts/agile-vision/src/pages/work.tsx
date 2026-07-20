@@ -153,6 +153,7 @@ export default function Work() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col items-center text-center max-w-4xl mx-auto"
           >
+            <div className="w-12 h-px bg-white/15 mx-auto mb-8" />
             <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 mb-8">
               Selected Work
             </p>
@@ -267,8 +268,8 @@ export default function Work() {
             transition={{ duration: 0.9 }}
           >
             <h2 className="font-serif text-[clamp(2.5rem,6vw,6rem)] leading-[1] tracking-tight text-white mb-10">
-              Ready to build something{" "}
-              <em className="italic text-primary">extraordinary?</em>
+              Seven shipped.{" "}
+              <em className="italic text-white/40">What's yours?</em>
             </h2>
             <Link href="/contact" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-medium text-base tracking-wide transition-all duration-300 hover:scale-105 hover:bg-white/92 shadow-lg shadow-white/5">
               Start the conversation

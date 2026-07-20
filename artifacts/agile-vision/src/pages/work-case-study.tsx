@@ -248,14 +248,14 @@ export default function WorkCaseStudy() {
             {project.keyStats && project.keyStats.length > 0 && (
               <div className="grid grid-cols-3 gap-0 divide-x divide-white/[0.08] pt-10 border-t border-white/[0.08] max-w-2xl">
                 {project.keyStats.map((stat, i) => (
-                  <div key={i} className={`flex flex-col gap-2 ${i === 0 ? "pr-8" : "px-8"}`}>
+                  <div key={i} className={`flex flex-col gap-2 ${i === 0 ? "pr-10" : "px-10"}`}>
                     <div
                       className="font-serif tracking-tight leading-none"
-                      style={{ fontSize: "clamp(1.8rem, 3vw, 2.8rem)", color: project.accentColor }}
+                      style={{ fontSize: "clamp(3.5rem, 6vw, 6rem)", color: project.accentColor }}
                     >
                       <CountUp value={stat.value} />
                     </div>
-                    <div className="text-[9px] font-mono tracking-[0.25em] uppercase text-white/35">
+                    <div className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/35">
                       {stat.label}
                     </div>
                   </div>
@@ -303,12 +303,12 @@ export default function WorkCaseStudy() {
               transition={{ duration: 1 }}
               className="mb-16"
             >
-              <Eyebrow color={project.accentColor}>Platform gallery</Eyebrow>
+              <Eyebrow color={project.accentColor}>Gallery</Eyebrow>
               <h2
                 className="font-serif text-white tracking-tight leading-tight"
                 style={{ fontSize: "clamp(1.8rem, 2.5vw, 2.8rem)" }}
               >
-                Inside the product
+                The platform, in detail
               </h2>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
@@ -410,8 +410,8 @@ export default function WorkCaseStudy() {
             >
               <Eyebrow color={project.accentColor} className="mx-auto">The Vision</Eyebrow>
               <p
-                className="text-white/90 font-serif leading-[1.4] tracking-tight mt-12"
-                style={{ fontSize: "clamp(1.5rem, 2.5vw, 3rem)" }}
+                className="text-white/90 font-serif font-light leading-[1.4] tracking-tight mt-12"
+                style={{ fontSize: "clamp(2rem, 3vw, 3.5rem)" }}
               >
                 {visionShort}
               </p>
@@ -505,7 +505,7 @@ export default function WorkCaseStudy() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1 }}
             >
-              <Eyebrow color={project.accentColor}>AI Role</Eyebrow>
+              <Eyebrow color={project.accentColor}>How AI ships in this product</Eyebrow>
               <div className="space-y-6 mt-12 max-w-4xl">
                 {project.aiRole.map((role, i) => {
                   const titleLower = role.title.toLowerCase();
@@ -521,7 +521,7 @@ export default function WorkCaseStudy() {
                   return (
                     <div
                       key={i}
-                      className="flex flex-col md:flex-row gap-8 items-start p-10 rounded-none border-b border-white/[0.06] bg-transparent"
+                      className="flex flex-col md:flex-row gap-8 items-start py-12 px-0 rounded-none border-b border-white/[0.06] bg-transparent"
                     >
                       <div className="w-full md:w-1/3">
                         <div
@@ -709,7 +709,7 @@ export default function WorkCaseStudy() {
               transition={{ duration: 1 }}
             >
               <div className="text-center mb-24">
-                <Eyebrow color={project.accentColor} className="mx-auto">The Impact</Eyebrow>
+                <Eyebrow color={project.accentColor} className="mx-auto">Outcomes</Eyebrow>
                 <h2 className="font-serif text-[clamp(2.5rem,4vw,4rem)] text-white tracking-tight mt-8">
                   {project.name} in Action
                 </h2>
