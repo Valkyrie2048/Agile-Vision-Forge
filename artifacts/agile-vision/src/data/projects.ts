@@ -21,8 +21,8 @@ export interface AiDeepDive {
   headline: string;
   status: "live" | "proposed" | "vision";
   statusLabel: string;
-  useCase: { label: string; body: string };
-  implementation: { label: string; body: string };
+  useCase: { label: string; body: string; bullets?: string[] };
+  implementation: { label: string; body: string; bullets?: string[] };
   benefits: AiBenefit[];
 }
 
@@ -119,6 +119,12 @@ export const projects: Project[] = [
       implementation: {
         label: "The Implementation",
         body: "A planned content personalisation layer tracks demonstrated interest signals — product categories browsed, guides read, market news followed — to build a reader profile used to surface relevant comparisons without configuration. A rate monitoring engine watches all 60+ products and triggers subscriber alerts when a product a reader has engaged with reaches a competitive threshold. A conversational product finder (in active design exploration) replaces the form-based product selector with a dialogue that can handle 'I'm not sure what I'm looking for' as a valid starting point, guiding users from situation to product without assuming prior financial literacy.",
+        bullets: [
+          "A content personalisation layer tracks interest signals — categories browsed, guides read, news followed — and builds a reader profile without any manual configuration.",
+          "A rate monitoring engine watches all 60+ products and triggers subscriber alerts when a tracked product reaches a competitive threshold.",
+          "A conversational product finder accepts 'I'm not sure what I'm looking for' as a valid starting point, guiding users from situation to product.",
+          "No financial literacy required: the dialogue translates what a user needs into a product category, rather than requiring them to know it in advance.",
+        ],
       },
       benefits: [
         {
@@ -219,6 +225,12 @@ export const projects: Project[] = [
       implementation: {
         label: "The Implementation",
         body: "Ask GIGI is a live, embedded LLM-powered chatbot integrated throughout the comparison flow — not siloed in a chat tab, but surfaced at the natural friction points: next to coverage level selectors, on the results page when quotes vary significantly, and within the Learning Hub alongside product guides. It answers coverage questions in plain language ('what is an excess?', 'do I need umbrella coverage?'), explains the meaningful differences between carrier quotes, guides users between insurance categories, and provides confidence at the moment of decision — without ever recommending a specific product for commercial reasons.",
+        bullets: [
+          "Ask GIGI is embedded at the natural friction points — next to coverage selectors, on the results page, and inside the Learning Hub — not siloed in a separate chat tab.",
+          "It answers coverage questions in plain language: what an excess is, whether umbrella coverage applies, how to read a carrier financial rating.",
+          "It explains the meaningful differences between carrier quotes when results vary significantly, reducing confusion at the moment of decision.",
+          "It guides users across insurance categories and provides confidence throughout — without ever recommending a specific product for commercial reasons.",
+        ],
       },
       benefits: [
         {
@@ -319,6 +331,12 @@ export const projects: Project[] = [
       implementation: {
         label: "The Implementation",
         body: "Ask GIGI is a live embedded AI career assistant that maps a reader's natural-language question or situation description to the platform's editorial framework and content library. It interprets open-ended questions — 'I've been offered a VP role at a Series B startup and a Director role at a Fortune 500, what should I be thinking about?' — provides an immediate, contextualised response, and surfaces specific articles and resources from the platform that are directly relevant. It functions simultaneously as an answer engine and a personalised content navigation layer, available at any point in the reading experience.",
+        bullets: [
+          "Ask GIGI maps a reader's natural-language question to the platform's editorial framework and content library.",
+          "It interprets open-ended questions — 'VP at a Series B or Director at a Fortune 500, what should I be thinking about?' — and provides an immediate, contextualised response.",
+          "It surfaces specific articles and resources directly relevant to the reader's situation, not the most popular content on the platform.",
+          "It functions simultaneously as an answer engine and a personalised content navigation layer, available at any point in the reading experience.",
+        ],
       },
       benefits: [
         {
@@ -416,10 +434,22 @@ export const projects: Project[] = [
       useCase: {
         label: "The Use-Case",
         body: "With a broad catalogue of tools across many categories and expert courses from Stanford, MIT, and Google, GIGAMATIC AI faces its own discovery problem: how does a user find the right tool for their specific use case, or the right course for their current knowledge level, without spending an hour browsing? The platform needed an intelligent navigation layer that could interpret what a user is trying to accomplish — not what category they think they're in — and surface a specific, reasoned recommendation. This is the exact problem AI is positioned to solve, and the design decision to use it here is intentional and self-referential.",
+        bullets: [
+          "With 220+ tools across 13 categories, GIGAMATIC AI faces its own discovery problem: how does a user find the right tool without spending an hour browsing?",
+          "The platform needed a navigation layer that interprets what a user is trying to accomplish — not what category they think they're in.",
+          "The solution surfaces a specific, reasoned recommendation from the full catalogue, rather than a filtered list for the user to evaluate alone.",
+          "The design decision to use AI as the navigation layer is intentional and self-referential: a platform about AI, built with AI.",
+        ],
       },
       implementation: {
         label: "The Implementation",
         body: "Ask GIGI functions as the conversational front-end to the entire directory and course library. It understands tool categories, capability differences, pricing models, and use-case fit — allowing users to describe what they're trying to do ('I need to generate product images for an e-commerce store without a design background') and receive a specific recommendation with rationale. My Stack builds a persistent personalisation layer: as users save tools and build their stack over time, the platform's understanding of their workflow deepens, enabling increasingly relevant recommendations across tools and courses.",
+        bullets: [
+          "Ask GIGI functions as the conversational front-end to the entire 220+ tool directory and 45+ course library.",
+          "Users describe what they're trying to do — 'generate product images without a design background' — and receive a specific recommendation with rationale.",
+          "My Stack builds a persistent personalisation layer: as users save tools over time, the platform's understanding of their workflow deepens.",
+          "The deeper the stack, the more relevant the recommendations — across tools and courses — enabling increasingly precise guidance.",
+        ],
       },
       benefits: [
         {
@@ -518,10 +548,22 @@ export const projects: Project[] = [
       useCase: {
         label: "The Use-Case",
         body: "A research institute studying the effects of artificial intelligence on human cognition, identity, and agency faces a fundamental design question: should the platform itself deploy AI as an operational tool? The question is not technical — it is about intellectual coherence. An institution asking hard questions about AI's relationship to human consciousness cannot use AI as an unreflective operational layer without undermining the credibility of those questions. The 'use-case' here is not a feature to build, but a principle to hold: the design of this platform is itself a statement about the relationship between human judgment and algorithmic systems.",
+        bullets: [
+          "A research institute studying AI's effects on human cognition faces a fundamental design question: should the platform itself deploy AI as an operational tool?",
+          "The question is not technical — it is about intellectual coherence.",
+          "An institution asking hard questions about AI's relationship to consciousness cannot use AI unreflectively without undermining the credibility of those questions.",
+          "The 'use-case' here is not a feature to build, but a principle to hold: the platform's design is itself a statement about human judgment and algorithmic systems.",
+        ],
       },
       implementation: {
         label: "The Implementation",
         body: "The platform's navigation, curation, and content discovery are designed without AI assistance — research domain filters, publication type navigation, and audience-specific entry points are human-curated and maintained by the institute's editorial team. This is an active architectural choice, not a technical omission. Any future AI-assisted navigation of the research library will be scoped with strict constraints: transparent in its operation, bounded in its scope, clearly distinguished from editorial curation, and subject to the same critical scrutiny the institute applies to AI in every other context.",
+        bullets: [
+          "Navigation, curation, and content discovery are designed without AI assistance — research domain filters and audience entry points are human-curated by the editorial team.",
+          "This is an active architectural choice, not a technical omission.",
+          "Any future AI-assisted navigation will be scoped with strict constraints: transparent in operation, bounded in scope, clearly distinguished from editorial curation.",
+          "It will be subject to the same critical scrutiny the institute applies to AI in every other context.",
+        ],
       },
       benefits: [
         {

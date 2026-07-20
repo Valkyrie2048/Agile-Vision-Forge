@@ -116,8 +116,8 @@ export default function WorkCaseStudy() {
       .map(s => { const t = s.trim(); return t.endsWith('.') ? t : t + '.'; });
 
   const opportunityBullets = toBullets(project.opportunity, 3);
-  const useCaseBullets = toBullets(ai.useCase.body, 4);
-  const implementationBullets = toBullets(ai.implementation.body, 4);
+  const useCaseBullets = ai.useCase.bullets ?? toBullets(ai.useCase.body, 4);
+  const implementationBullets = ai.implementation.bullets ?? toBullets(ai.implementation.body, 4);
 
   return (
     <div className="min-h-screen bg-[#090909] selection:bg-white/15 selection:text-white overflow-x-hidden">
