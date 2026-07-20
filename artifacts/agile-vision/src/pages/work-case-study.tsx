@@ -1,5 +1,5 @@
 import { useRoute, Link } from "wouter";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import {
   ArrowLeft, ArrowRight,
   BarChart3, TrendingUp, CreditCard, Sparkles, Shield, Lock,
@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { projects, type Project } from "@/data/projects";
 import { usePageMeta } from "@/hooks/use-page-meta";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BrowserFrame, PhoneFrame } from "@/components/device-frames";
 
 const ICON_MAP: Record<string, React.ElementType> = {
@@ -46,6 +46,65 @@ function Eyebrow({ children, color, className = "" }: { children: React.ReactNod
 
 function Rule() {
   return <div className="h-px bg-white/[0.07] my-32 md:my-48 max-w-[120rem] mx-auto w-full" />;
+}
+
+function CountUp({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+  const [display, setDisplay] = useState("0");
+  const isNumber = /^[0-9]+[kmM+%$]*$/.test(value) || /^\$?[0-9]+(\.[0-9]+)?[a-zA-Z%]*$/.test(value);
+  
+  useEffect(() => {
+    if (!inView || !isNumber) {
+      if (inView) setDisplay(value);
+      return;
+    }
+    
+    let start = 0;
+    const match = value.match(/^([^\\d]*)([\\d,.]+)(.*)$/);
+    if (!match) {
+      setDisplay(value);
+      return;
+    }
+    const prefix = match[1];
+    const numStr = match[2].replace(/,/g, '');
+    const suffix = match[3];
+    const end = parseFloat(numStr);
+    
+    if (isNaN(end)) {
+      setDisplay(value);
+      return;
+    }
+
+    const duration = 2000;
+    const startTime = performance.now();
+    
+    const animate = (time: number) => {
+      const elapsed = time - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const current = start + (end - start) * easeOutQuart;
+      
+      let formatted = "";
+      if (Number.isInteger(end)) {
+        formatted = Math.round(current).toString();
+      } else {
+        formatted = current.toFixed(1);
+      }
+      
+      setDisplay(`${prefix}${formatted}${suffix}`);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setDisplay(value); // exact match at end
+      }
+    };
+    
+    requestAnimationFrame(animate);
+  }, [inView, value, isNumber]);
+
+  return <span ref={ref}>{display}</span>;
 }
 
 const STATUS_CONFIG = {
@@ -98,13 +157,8 @@ export default function WorkCaseStudy() {
     );
   }
 
-  const prevProject = projectIndex > 0 ? projects[projectIndex - 1] : null;
-  const nextProject =
-    projectIndex < projects.length - 1 ? projects[projectIndex + 1] : null;
-
   const ai = project.aiDeepDive;
   const statusCfg = STATUS_CONFIG[ai.status as keyof typeof STATUS_CONFIG] || STATUS_CONFIG.live;
-  const displayGallery = project.gallery.filter(item => item.imagePath);
 
   const visionShort = (() => {
     const sentences = project.vision.split('. ').filter(s => s.trim().length > 20);
@@ -115,7 +169,7 @@ export default function WorkCaseStudy() {
     text.split('. ').filter(s => s.trim().length > 30).slice(0, max)
       .map(s => { const t = s.trim(); return t.endsWith('.') ? t : t + '.'; });
 
-  const opportunityBullets = toBullets(project.opportunity, 3);
+  const opportunityBullets = toBullets(project.opportunity, 4);
   const useCaseBullets = ai.useCase.bullets ?? toBullets(ai.useCase.body, 4);
   const implementationBullets = ai.implementation.bullets ?? toBullets(ai.implementation.body, 4);
 
@@ -152,54 +206,44 @@ export default function WorkCaseStudy() {
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="w-full flex flex-col lg:flex-row lg:items-end justify-between gap-16"
+            className="w-full"
           >
-            <div className="max-w-6xl">
-              <div className="flex flex-wrap items-center gap-4 mb-10">
-                <span
-                  className="text-xs font-mono tracking-[0.25em] uppercase px-4 py-2 rounded-full border border-white/10"
-                  style={{ color: project.accentColor, backgroundColor: `${project.accentColor}10` }}
+            <div className="flex flex-wrap items-center gap-4 mb-10">
+              <span
+                className="text-xs font-mono tracking-[0.25em] uppercase px-4 py-2 rounded-full border border-white/10"
+                style={{ color: project.accentColor, backgroundColor: `${project.accentColor}10` }}
+              >
+                {project.category}
+              </span>
+              <span className="text-xs font-mono tracking-[0.25em] uppercase px-4 py-2 rounded-full border border-white/10 bg-white/5 text-white/70">
+                {project.platform}
+              </span>
+              {project.website && (
+                <a
+                  href={`https://${project.website}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-2 text-xs font-mono tracking-[0.2em] uppercase text-white/50 hover:text-white transition-colors ml-4"
                 >
-                  {project.category}
-                </span>
-                {project.website && (
-                  <a
-                    href={`https://${project.website}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-2 text-xs font-mono tracking-[0.2em] uppercase text-white/50 hover:text-white transition-colors"
-                  >
-                    Visit Live Site
-                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
-                )}
-              </div>
-              <h1
-                className="font-serif text-white tracking-tight leading-[0.9]"
-                style={{ fontSize: "clamp(3rem, 6vw, 7rem)" }}
-              >
-                {project.name}
-              </h1>
+                  Visit Live Site
+                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              )}
             </div>
-
-            <div className="flex flex-col gap-10 lg:text-right lg:min-w-[300px]">
-              <p
-                className="text-white/60 font-light leading-relaxed max-w-xl lg:ml-auto"
-                style={{ fontSize: "clamp(1rem, 1.4vw, 1.25rem)" }}
-              >
-                {project.tagline}
-              </p>
-              <div className="grid grid-cols-2 gap-8 lg:flex lg:flex-col lg:items-end lg:gap-8 border-t lg:border-t-0 border-white/10 pt-8 lg:pt-0">
-                <div>
-                  <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30 mb-2">Platform</div>
-                  <div className="text-lg font-medium text-white">{project.platform}</div>
-                </div>
-                <div>
-                  <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30 mb-2">Status</div>
-                  <div className="text-lg font-medium" style={{ color: project.accentColor }}>{project.status}</div>
-                </div>
-              </div>
-            </div>
+            
+            <h1
+              className="font-serif text-white tracking-tight leading-[0.9] max-w-7xl mb-12"
+              style={{ fontSize: "clamp(3.5rem, 8vw, 8rem)" }}
+            >
+              {project.name}
+            </h1>
+            
+            <p
+              className="text-white/60 font-light leading-relaxed max-w-3xl"
+              style={{ fontSize: "clamp(1.1rem, 1.6vw, 1.5rem)" }}
+            >
+              {project.tagline}
+            </p>
           </motion.div>
         </div>
       </section>
@@ -210,20 +254,20 @@ export default function WorkCaseStudy() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.6 }}
-          className="border-y border-white/[0.06] bg-black/20"
+          className="border-y border-white/[0.06] bg-[#0d0d0d]"
         >
-          <div className="px-6 lg:px-12 xl:px-16 py-10 md:py-12">
+          <div className="px-6 lg:px-12 xl:px-16 py-12 md:py-16">
             <div className="max-w-[120rem] mx-auto">
-              <div className="grid grid-cols-3 divide-x divide-white/[0.05]">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0 md:divide-x divide-white/[0.05]">
                 {project.keyStats.map((stat, i) => (
-                  <div key={i} className={`flex flex-col gap-2 px-8 ${i === 0 ? "pl-0" : ""}`}>
+                  <div key={i} className={`flex flex-col gap-3 md:px-12 ${i === 0 ? "md:pl-0" : ""}`}>
                     <div
-                      className="font-serif text-white tracking-tight leading-none"
-                      style={{ fontSize: "clamp(2rem, 3.5vw, 3.5rem)" }}
+                      className="font-serif tracking-tight leading-none"
+                      style={{ fontSize: "clamp(2.5rem, 4vw, 4rem)", color: project.accentColor }}
                     >
-                      {stat.value}
+                      <CountUp value={stat.value} />
                     </div>
-                    <div className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/30">
+                    <div className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/40">
                       {stat.label}
                     </div>
                   </div>
@@ -244,9 +288,9 @@ export default function WorkCaseStudy() {
             className="w-full"
           >
             <div
-              className="relative w-full h-[50vh] md:h-[85vh] bg-zinc-900 border-y border-white/10"
+              className="relative w-full h-[60vh] md:h-[90vh] bg-zinc-950 border-y border-white/10"
               style={{
-                boxShadow: `0 0 150px -40px ${project.accentColor}30`,
+                boxShadow: `0 0 200px -50px ${project.accentColor}40`,
               }}
             >
               <img
@@ -254,49 +298,11 @@ export default function WorkCaseStudy() {
                 alt={`${project.name} interface`}
                 className="w-full h-full object-cover object-center"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
             </div>
           </motion.div>
         </section>
       )}
-
-      {/* ─── 2.3. AI FEATURES ──────────────────────────────────────────── */}
-      {project.aiRole && project.aiRole.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="px-6 lg:px-12 xl:px-16 mb-12"
-        >
-          <div className="max-w-[120rem] mx-auto">
-            <div className="border-y border-white/[0.06] py-10">
-              <div className="flex items-center gap-3 mb-8">
-                <span
-                  className="text-[10px] font-mono tracking-[0.35em] uppercase"
-                  style={{ color: project.accentColor }}
-                >
-                  AI Capabilities
-                </span>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {project.aiRole.map((role, i) => (
-                  <div key={i} className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2.5">
-                      <span
-                        className="w-2 h-2 rounded-full flex-shrink-0"
-                        style={{ backgroundColor: project.accentColor }}
-                      />
-                      <span className="text-sm font-mono text-white/80 leading-snug">{role.title}</span>
-                    </div>
-                    <p className="text-xs text-white/40 font-light leading-relaxed pl-[18px]">{role.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      )}
-
 
       {/* ─── 3. THE PROBLEM ──────────────────────────────────────────── */}
       <div className="px-6 lg:px-12 xl:px-16">
@@ -308,28 +314,26 @@ export default function WorkCaseStudy() {
             transition={{ duration: 1 }}
             className="mb-32 md:mb-48"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16 lg:gap-24">
-              <div>
-                <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25">The Problem</span>
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16 lg:gap-32 items-start">
+              <div className="sticky top-32">
+                <Eyebrow color={project.accentColor}>The Problem</Eyebrow>
+                <div className="h-px w-12 bg-white/20 mt-8" />
               </div>
-              <div>
-                <p
-                  className="font-serif text-white tracking-tight leading-[1.15] mb-12"
-                  style={{ fontSize: "clamp(2rem, 3.5vw, 4rem)" }}
+              <div className="pt-2">
+                <h2
+                  className="font-serif text-white tracking-tight leading-[1.2] mb-16 italic"
+                  style={{ fontSize: "clamp(2rem, 3.5vw, 3.5rem)" }}
                 >
-                  {project.problemStatement}
-                </p>
-                <ul className="space-y-4">
+                  "{project.problemStatement}"
+                </h2>
+                <div className="space-y-6 max-w-3xl">
                   {opportunityBullets.map((bullet, i) => (
-                    <li key={i} className="flex gap-5 items-start">
-                      <span
-                        className="w-1.5 h-1.5 rounded-full mt-[0.6rem] flex-shrink-0"
-                        style={{ backgroundColor: project.accentColor }}
-                      />
-                      <p className="text-sm text-white/45 font-light leading-relaxed">{bullet}</p>
-                    </li>
+                    <div key={i} className="flex gap-6 items-start">
+                      <span className="font-mono text-xs text-white/20 mt-1">{String(i + 1).padStart(2, '0')}</span>
+                      <p className="text-base lg:text-lg text-white/50 font-light leading-relaxed">{bullet}</p>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
           </motion.section>
@@ -341,58 +345,43 @@ export default function WorkCaseStudy() {
         <div className="px-6 lg:px-12 xl:px-16 py-32 md:py-48">
           <div className="max-w-[120rem] mx-auto">
 
-            {/* Vision — full editorial width */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1 }}
-              className="mb-24 md:mb-32 max-w-5xl"
+              className="mb-24 md:mb-32 max-w-6xl mx-auto text-center"
             >
-              <Eyebrow color={project.accentColor}>The Vision</Eyebrow>
+              <Eyebrow color={project.accentColor} className="mx-auto">The Vision</Eyebrow>
               <p
-                className="text-white/85 font-light leading-[1.55] tracking-tight"
-                style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.5rem)" }}
+                className="text-white/90 font-serif leading-[1.4] tracking-tight mt-12"
+                style={{ fontSize: "clamp(1.5rem, 2.5vw, 3rem)" }}
               >
                 {visionShort}
               </p>
             </motion.div>
 
-            {/* Services — inline list, no pills */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="mb-24 md:mb-40 border-t border-white/[0.06] pt-12"
-            >
-              <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 mr-8">Services</span>
-              <span className="text-sm text-white/40 font-light">
-                {project.services.join(" · ")}
-              </span>
-            </motion.div>
-
-            {/* Design Principles — with large numbered anchors */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1, delay: 0.2 }}
             >
-              <Eyebrow>Design Principles</Eyebrow>
-              <div className="flex flex-wrap gap-3 mt-8">
+              <Eyebrow className="text-center">Design Principles</Eyebrow>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
                 {project.designPrinciples.map((p, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-3 px-5 py-3 rounded-full border border-white/[0.08] bg-white/[0.02]"
+                    className="flex flex-col gap-4 p-8 rounded-2xl border border-white/[0.05] bg-[#090909]/40 backdrop-blur-sm"
                   >
                     <span
-                      className="text-[10px] font-mono flex-shrink-0"
-                      style={{ color: `${project.accentColor}70` }}
+                      className="text-[10px] font-mono tracking-[0.2em]"
+                      style={{ color: `${project.accentColor}` }}
                     >
-                      {String(i + 1).padStart(2, "0")}
+                      Principle {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-sm font-medium text-white/70 tracking-tight">{p.title}</span>
+                    <h3 className="text-xl font-serif text-white tracking-tight">{p.title}</h3>
+                    <p className="text-sm text-white/50 font-light leading-relaxed">{p.description}</p>
                   </div>
                 ))}
               </div>
@@ -402,41 +391,8 @@ export default function WorkCaseStudy() {
         </div>
       </section>
 
-      {/* ─── 5. USERS (ASYMMETRIC/CHARACTER FOCUSED) ─────────────────────────────────────────────── */}
-      {project.users && project.users.length > 0 && (
-        <div className="px-6 lg:px-12 xl:px-16">
-          <div className="max-w-[120rem] mx-auto">
-            <motion.section
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1 }}
-              className="mb-32 md:mb-48"
-            >
-              <Eyebrow color={project.accentColor}>Built For</Eyebrow>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24 mt-20">
-                {project.users.map((user, i) => (
-                  <div key={i} className={`flex flex-col relative ${i % 2 !== 0 ? 'md:mt-32' : ''}`}>
-                    <span 
-                      className="absolute -top-24 -left-6 text-[10rem] md:text-[14rem] font-serif leading-none opacity-[0.055] select-none"
-                      style={{ color: project.accentColor }}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div className="relative z-10 pt-8 border-t border-white/20">
-                      <h4 className="text-2xl lg:text-3xl font-serif text-white mb-4">{user.title}</h4>
-                      <p className="text-sm lg:text-base text-white/60 font-light leading-relaxed max-w-lg">{user.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
-          </div>
-        </div>
-      )}
-
       {/* ─── 6. AI DEEP DIVE (TECHNICAL & DRAMATIC) ──────────────────────────────────────── */}
-      <section className="mb-32 md:mb-48 relative border-y border-white/10 overflow-hidden bg-black">
+      <section className="mb-32 md:mb-48 relative border-y border-white/10 overflow-hidden bg-[#050505]">
         <div className="absolute inset-0 grid-pattern opacity-30 mix-blend-overlay pointer-events-none" />
         <div 
           className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] blur-[120px] opacity-10 pointer-events-none"
@@ -460,448 +416,117 @@ export default function WorkCaseStudy() {
                   </span>
                 </div>
                 
-                <h2 className="font-serif text-white tracking-tight leading-[1.05] max-w-6xl mx-auto" style={{ fontSize: "clamp(2rem, 3.5vw, 3.75rem)" }}>
+                <h2 className="font-serif text-white tracking-tight leading-[1.05] max-w-6xl mx-auto" style={{ fontSize: "clamp(2.5rem, 4vw, 4.5rem)" }}>
                   {ai.headline}
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-32">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-32">
+                {/* Use Case Block */}
                 <div className="p-12 md:p-16 rounded-[2rem] bg-white/[0.02] border border-white/[0.05] backdrop-blur-md relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-4 mb-8">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative z-10 h-full flex flex-col">
+                    <div className="flex items-center gap-4 mb-10">
                       <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center" style={{ color: project.accentColor }}>
                         <Lightbulb className="w-6 h-6" />
                       </div>
                       <h3 className="text-sm font-mono tracking-[0.2em] uppercase text-white/60">{ai.useCase.label}</h3>
                     </div>
-                    <ul className="space-y-3">
-                      {useCaseBullets.map((bullet, i) => (
-                        <li key={i} className="flex gap-4 items-start">
-                          <span className="w-1.5 h-1.5 rounded-full mt-[0.55rem] flex-shrink-0" style={{ backgroundColor: project.accentColor }} />
-                          <p className="text-sm text-white/65 font-light leading-relaxed">{bullet}</p>
+                    <ul className="space-y-6 flex-1">
+                      {useCaseBullets.slice(0, 4).map((bullet, i) => (
+                        <li key={i} className="flex gap-5 items-start">
+                          <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: project.accentColor }} />
+                          <p className="text-base text-white/70 font-light leading-relaxed">{bullet}</p>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
                 
+                {/* Implementation Block */}
                 <div className="p-12 md:p-16 rounded-[2rem] bg-white/[0.02] border border-white/[0.05] backdrop-blur-md relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-4 mb-8">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative z-10 h-full flex flex-col">
+                    <div className="flex items-center gap-4 mb-10">
                       <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center" style={{ color: project.accentColor }}>
                         <Zap className="w-6 h-6" />
                       </div>
                       <h3 className="text-sm font-mono tracking-[0.2em] uppercase text-white/60">{ai.implementation.label}</h3>
                     </div>
-                    <ul className="space-y-3">
-                      {implementationBullets.map((bullet, i) => (
-                        <li key={i} className="flex gap-4 items-start">
-                          <span className="w-1.5 h-1.5 rounded-full mt-[0.55rem] flex-shrink-0" style={{ backgroundColor: project.accentColor }} />
-                          <p className="text-sm text-white/65 font-light leading-relaxed">{bullet}</p>
+                    <ul className="space-y-6 flex-1">
+                      {implementationBullets.slice(0, 4).map((bullet, i) => (
+                        <li key={i} className="flex gap-5 items-start">
+                          <div className="w-5 h-5 rounded flex items-center justify-center border border-white/20 mt-0.5 flex-shrink-0 bg-white/5">
+                            <span className="text-[10px] font-mono text-white/50">{i + 1}</span>
+                          </div>
+                          <p className="text-base text-white/70 font-light leading-relaxed">{bullet}</p>
                         </li>
                       ))}
                     </ul>
                   </div>
                 </div>
               </div>
-
-              <div className="border-t border-white/[0.08] mt-24">
-                <div className="mb-10 pt-12">
-                  <Eyebrow color={project.accentColor}>The AI Advantage</Eyebrow>
-                </div>
-                {ai.benefits.map((benefit, i) => (
-                  <div
-                    key={i}
-                    className="flex gap-10 lg:gap-16 items-start py-14 border-b border-white/[0.06] group"
-                  >
-                    <span
-                      className="text-[5rem] lg:text-[7rem] font-serif leading-none flex-shrink-0 tabular-nums select-none"
-                      style={{ color: `${project.accentColor}28` }}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div className="pt-2 min-w-0">
-                      <div className="pb-4 mb-4 border-b" style={{ borderColor: `${project.accentColor}30` }}>
-                        <h4 className="text-2xl lg:text-3xl font-serif text-white tracking-tight leading-tight">
-                          {benefit.title}
-                        </h4>
-                      </div>
-                      <p className="text-sm text-white/45 font-light leading-relaxed">
-                        {benefit.description.split('. ')[0]}.
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      <div className="px-6 lg:px-12 xl:px-16">
-        <div className="max-w-[120rem] mx-auto">
-          {/* ─── 7. AI LAYERS (OPTIONAL) ──────────────────────────────── */}
-          {project.aiLayers && project.aiLayers.length > 0 && (
-            <motion.section
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1 }}
-              className="mb-32 md:mb-48"
-            >
-              <Eyebrow color={project.accentColor}>Processing Pipeline</Eyebrow>
-              <div className="flex flex-col gap-8">
-                {project.aiLayers.map((layer, i) => (
-                  <div 
-                    key={i} 
-                    className="grid grid-cols-1 xl:grid-cols-[1fr_2fr] gap-12 p-12 lg:p-16 rounded-[2.5rem] bg-white/[0.02] border border-white/[0.05] relative overflow-hidden group"
-                  >
-                    <div 
-                      className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none"
-                      style={{ background: `linear-gradient(90deg, ${project.accentColor}, transparent)` }}
-                    />
-                    
-                    <div className="relative z-10 flex flex-col justify-center">
-                      <div>
-                        <div className="flex items-center gap-6 mb-8">
-                          <span className="text-5xl font-serif text-white/20">{layer.number}</span>
-                          <div 
-                            className="w-16 h-16 rounded-2xl flex items-center justify-center bg-white/5 border border-white/10"
-                            style={{ color: project.accentColor }}
-                          >
-                            <CapabilityIcon name={layer.icon} />
-                          </div>
-                        </div>
-                        <h3 className="text-2xl lg:text-3xl font-serif text-white mb-4 tracking-tight">{layer.name}</h3>
-                        <p className="text-sm text-white/50 font-light">{layer.role}</p>
-                      </div>
-                    </div>
-
-                    <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-                      <div className="space-y-4 p-8 rounded-2xl bg-white/[0.02] border border-white/5">
-                        <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30">Input</div>
-                        <p className="text-sm text-white/70 font-light leading-relaxed">{layer.input}</p>
-                      </div>
-                      <div className="space-y-4 p-8 rounded-2xl bg-white/[0.02] border border-white/5">
-                        <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30">Process</div>
-                        <p className="text-sm text-white/70 font-light leading-relaxed">{layer.process}</p>
-                      </div>
-                      <div className="space-y-4 p-8 rounded-2xl bg-white/[0.02] border border-white/5">
-                        <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30">Output</div>
-                        <p className="text-sm text-white/70 font-light leading-relaxed">{layer.output}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.section>
-          )}
-
-          {/* ─── 8. CAPABILITIES ──────────────────────────────────────── */}
-          <motion.section
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1 }}
-            className="mb-32 md:mb-48"
-          >
-            <Eyebrow color={project.accentColor}>Core Capabilities</Eyebrow>
-
-            <div className="grid grid-cols-1 gap-6 mt-10">
-              {/* Hero capability — accent left border strip */}
-              <div
-                className="relative rounded-[2.5rem] overflow-hidden"
-                style={{ background: `linear-gradient(135deg, ${project.accentColor}0D 0%, transparent 60%)` }}
-              >
-                <div
-                  className="absolute left-0 top-0 bottom-0 w-1 rounded-l-[2.5rem]"
-                  style={{ backgroundColor: project.accentColor }}
-                />
-                <div className="p-12 lg:p-20 pl-14 lg:pl-24">
-                  <div className="flex items-start gap-8 mb-10">
-                    <div
-                      className="w-14 h-14 rounded-2xl flex items-center justify-center bg-white/5 border border-white/10 flex-shrink-0"
-                      style={{ color: project.accentColor }}
-                    >
-                      <CapabilityIcon name={project.capabilities[0].icon} />
-                    </div>
-                    <div className="text-[10px] font-mono tracking-[0.3em] uppercase pt-4" style={{ color: `${project.accentColor}80` }}>
-                      Primary Capability
-                    </div>
-                  </div>
-                  <h3 className="text-2xl lg:text-3xl font-serif text-white mb-5 leading-[1.1] max-w-3xl">
-                    {project.capabilities[0].title}
-                  </h3>
-                  <p className="text-sm lg:text-base text-white/65 font-light leading-relaxed max-w-3xl">
-                    {project.capabilities[0].description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Supporting grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {project.capabilities.slice(1).map((cap, i) => (
-                  <div
-                    key={i}
-                    className="p-8 lg:p-10 rounded-[2rem] bg-white/[0.018] border border-white/[0.06] flex flex-col group hover:bg-white/[0.03] hover:border-white/10 transition-all duration-300"
-                  >
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/5 border border-white/10 mb-7 group-hover:border-white/20 transition-colors"
-                      style={{ color: project.accentColor }}
-                    >
-                      <CapabilityIcon name={cap.icon} />
-                    </div>
-                    <h4 className="text-lg lg:text-xl font-serif text-white mb-3 leading-tight">{cap.title}</h4>
-                    <p className="text-sm text-white/50 font-light leading-relaxed mt-auto">{cap.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.section>
-        </div>
-      </div>
-
-      {/* ─── 9. GALLERY ───────────────────────────────────────────────────────────────── */}
-      <section className="mb-32 md:mb-48 relative">
-        <div className="w-full flex flex-col gap-12 md:gap-24">
-
-          {/* Item 0: Hero */}
-          {displayGallery.length > 0 && (
+      {/* ─── 7. BENEFITS (TRIUMPHANT CLOSE) ───────────────────────── */}
+      {project.aiDeepDive?.benefits && project.aiDeepDive.benefits.length > 0 && (
+        <section className="px-6 lg:px-12 xl:px-16 pb-32 md:pb-48">
+          <div className="max-w-[120rem] mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1 }}
-              className="w-full"
             >
-              {displayGallery[0].type === "fullwidth" ? (
-                <div className="w-full h-[60vh] md:h-[90vh] relative overflow-hidden border-y border-white/10 group" style={{ background: "#0a0a0a" }}>
-                  <img
-                    src={displayGallery[0].imagePath!}
-                    alt={displayGallery[0].label}
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-1000"
-                  />
-                  <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent 55%, rgba(9,9,9,0.75))" }} />
-                </div>
-              ) : displayGallery[0].type === "phone" ? (
-                <div className="w-full h-[72vh] relative border-y border-white/[0.05] overflow-hidden" style={{ background: "#090909" }}>
-                  <PhoneFrame src={displayGallery[0].imagePath!} alt={displayGallery[0].label} accentColor={project.accentColor} />
-                </div>
-              ) : (
-                <div className="w-full h-[72vh] relative border-y border-white/[0.05] overflow-hidden flex items-center" style={{ background: "#0b0b0b" }}>
-                  <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse at 50% 90%, ${project.accentColor}18, transparent 65%)` }} />
-                  <div className="relative w-full h-full max-w-6xl mx-auto px-10 md:px-16 py-10 md:py-14">
-                    <BrowserFrame src={displayGallery[0].imagePath!} alt={displayGallery[0].label} accentColor={project.accentColor} url={project.website} />
-                  </div>
-                </div>
-              )}
-              <div className="px-6 lg:px-12 xl:px-16 mt-8">
-                <div className="max-w-[120rem] mx-auto border-t border-white/[0.06] pt-6 flex flex-col md:flex-row md:items-start justify-between gap-6">
-                  <div className="flex items-baseline gap-4 flex-shrink-0">
-                    <span className="text-[10px] font-mono tracking-[0.3em] uppercase" style={{ color: `${project.accentColor}70` }}>01</span>
-                    <h4 className="text-lg font-serif text-white/80">{displayGallery[0].label}</h4>
-                  </div>
-                  <p className="text-base text-white/45 font-light leading-relaxed max-w-2xl">{displayGallery[0].description}</p>
-                </div>
+              <div className="text-center mb-24">
+                <Eyebrow color={project.accentColor} className="mx-auto">The Impact</Eyebrow>
+                <h2 className="font-serif text-[clamp(2.5rem,4vw,4rem)] text-white tracking-tight mt-8">
+                  Measurable Results
+                </h2>
               </div>
-            </motion.div>
-          )}
-
-          {/* Items 1 & 2: Side-by-side */}
-          {displayGallery.length > 1 && (
-            <div className="px-6 lg:px-12 xl:px-16">
-              <div className="max-w-[120rem] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
-                {displayGallery.slice(1, 3).map((item, i) => (
-                  <motion.div
-                    key={`pair-${i}`}
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 1, delay: i * 0.2 }}
-                    className="flex flex-col"
-                  >
-                    <div
-                      className={`w-full rounded-3xl mb-8 relative overflow-hidden ${
-                        item.type === "phone" ? "aspect-[3/4]" : "aspect-[16/10]"
-                      } ${item.type !== "phone" && item.type !== "fullwidth" ? "p-5 md:p-6" : ""}`}
-                      style={{ background: "#0d0d0d" }}
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {project.aiDeepDive.benefits.slice(0, 3).map((benefit: { title: string; description: string }, i: number) => (
+                  <div key={i} className="relative flex flex-col p-10 md:p-12 rounded-[2rem] bg-[#0d0d0d] border border-white/5 hover:border-white/10 transition-colors">
+                    <span 
+                      className="text-[4rem] font-serif leading-none mb-8 opacity-20"
+                      style={{ color: project.accentColor }}
                     >
-                      {item.type === "phone" ? (
-                        <PhoneFrame src={item.imagePath!} alt={item.label} accentColor={project.accentColor} />
-                      ) : item.type === "fullwidth" ? (
-                        <img src={item.imagePath!} alt={item.label} className="w-full h-full object-cover object-top" />
-                      ) : (
-                        <BrowserFrame src={item.imagePath!} alt={item.label} accentColor={project.accentColor} url={project.website} />
-                      )}
-                    </div>
-                    <div className="border-t border-white/[0.06] pt-5 flex items-baseline gap-4 mb-3">
-                      <span className="text-[10px] font-mono tracking-[0.3em] uppercase flex-shrink-0" style={{ color: `${project.accentColor}70` }}>
-                        {String(i + 2).padStart(2, "0")}
-                      </span>
-                      <h4 className="text-lg font-serif text-white/80">{item.label}</h4>
-                    </div>
-                    <p className="text-sm text-white/40 font-light leading-relaxed">{item.description}</p>
-                  </motion.div>
+                      {(i + 1).toString().padStart(2, '0')}
+                    </span>
+                    <h3 className="text-2xl font-serif text-white mb-4">{benefit.title}</h3>
+                    <p className="text-base text-white/50 font-light leading-relaxed">{benefit.description}</p>
+                  </div>
                 ))}
               </div>
-            </div>
-          )}
+            </motion.div>
+          </div>
+        </section>
+      )}
 
-          {/* Items 3+: Remaining */}
-          {displayGallery.length > 3 && (
-            <div className="px-6 lg:px-12 xl:px-16">
-              <div className="max-w-[120rem] mx-auto space-y-24">
-                {displayGallery.slice(3).map((item, i) => {
-                  const isWide = i % 3 === 0;
-                  return (
-                    <motion.div
-                      key={`rest-${i}`}
-                      initial={{ opacity: 0, y: 40 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      transition={{ duration: 1 }}
-                      className={`flex flex-col ${isWide ? "" : "max-w-4xl mx-auto"}`}
-                    >
-                      <div
-                        className={`w-full overflow-hidden mb-8 rounded-3xl relative ${
-                          item.type === "phone"
-                            ? "aspect-[3/4]"
-                            : item.type === "fullwidth"
-                            ? "aspect-video md:aspect-[21/9]"
-                            : isWide
-                            ? "aspect-[16/9]"
-                            : "aspect-[16/10]"
-                        } ${item.type !== "phone" && item.type !== "fullwidth" ? "p-5 md:p-6" : ""}`}
-                        style={{ background: "#0d0d0d" }}
-                      >
-                        {item.type === "fullwidth" ? (
-                          <>
-                            <img src={item.imagePath!} alt={item.label} className="w-full h-full object-cover object-top" />
-                            <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent 60%, rgba(9,9,9,0.6))" }} />
-                          </>
-                        ) : item.type === "phone" ? (
-                          <PhoneFrame src={item.imagePath!} alt={item.label} accentColor={project.accentColor} />
-                        ) : (
-                          <BrowserFrame src={item.imagePath!} alt={item.label} accentColor={project.accentColor} url={project.website} />
-                        )}
-                      </div>
-                      <div className={`border-t border-white/[0.06] pt-5 flex flex-col ${isWide ? "md:flex-row md:items-start md:justify-between gap-6" : "gap-2"}`}>
-                        <div className="flex items-baseline gap-4 flex-shrink-0">
-                          <span className="text-[10px] font-mono tracking-[0.3em] uppercase" style={{ color: `${project.accentColor}70` }}>
-                            {String(i + 4).padStart(2, "0")}
-                          </span>
-                          <h4 className="text-lg font-serif text-white/80">{item.label}</h4>
-                        </div>
-                        <p className={`text-sm text-white/40 font-light leading-relaxed ${isWide ? "max-w-2xl" : ""}`}>{item.description}</p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-        </div>
-      </section>
-
-      <div className="px-6 lg:px-12 xl:px-16">
-        <div className="max-w-[120rem] mx-auto">
-          {/* ─── 10. OUTCOMES ────────────────────────────────────────────── */}
-          <section className="mb-0 border-t border-white/10 pt-32">
-            <Eyebrow color={project.accentColor}>The Outcomes</Eyebrow>
-            <div className="mt-16">
-              {project.outcomes.map((outcome, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.8, delay: i * 0.08 }}
-                  className="flex gap-10 items-start py-10 border-b border-white/[0.06] group"
-                >
-                  <span
-                    className="text-[3.5rem] lg:text-[4.5rem] font-serif leading-none flex-shrink-0 tabular-nums select-none transition-opacity duration-500 group-hover:opacity-40"
-                    style={{ color: `${project.accentColor}28` }}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <p className="text-base lg:text-lg text-white/75 font-light leading-relaxed pt-3 group-hover:text-white/90 transition-colors duration-500">
-                    {outcome}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-        </div>
-      </div>
-
-      {/* ─── 10b. REFLECTION (FULL WIDTH) ────────────────────────────── */}
-      <section className="my-32 md:my-48 border-y border-white/10 py-32 md:py-48 relative overflow-hidden">
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: `radial-gradient(ellipse 80% 60% at 50% 50%, ${project.accentColor}08 0%, transparent 70%)` }}
-        />
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="px-6 lg:px-12 xl:px-16 max-w-[100rem] mx-auto text-center"
-        >
-          <Quote className="w-10 h-10 mx-auto mb-12 text-white/10" />
-          <p
-            className="font-serif text-white/90 leading-[1.4] tracking-tight mx-auto"
-            style={{ fontSize: "clamp(1.1rem, 2vw, 2rem)", maxWidth: "56rem" }}
+      {/* ─── FOOTER CTA ────────────────────────────────────────── */}
+      <section className="py-32 px-6 lg:px-12 xl:px-16 border-t border-white/[0.06] bg-black text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/[0.05] to-transparent pointer-events-none" />
+        <div className="max-w-4xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            "{project.reflection}"
-          </p>
-        </motion.div>
-      </section>
-
-      <div className="px-6 lg:px-12 xl:px-16">
-        <div className="max-w-[120rem] mx-auto">
-
-          {/* ─── 11. NEXT/PREV NAVIGATION ─────────────────────────────── */}
-          <section className="pb-32 md:pb-48">
-            <div className="flex flex-col sm:flex-row gap-6">
-              {prevProject && (
-                <Link
-                  href={`/work/${prevProject.slug}`}
-                  className="flex-1 group relative overflow-hidden rounded-[2.5rem] bg-white/[0.02] border border-white/[0.05] p-12 lg:p-16 hover:bg-white/[0.04] transition-all duration-300 hover:border-white/10"
-                >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" style={{ background: `linear-gradient(45deg, ${prevProject.accentColor}, transparent)` }} />
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-8">
-                      <span className="text-white/20 group-hover:text-white/40 transition-colors">←</span>
-                      <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/30">Previous</span>
-                    </div>
-                    <h3 className="text-3xl lg:text-4xl font-serif text-white tracking-tight mb-3 group-hover:text-white transition-colors">{prevProject.name}</h3>
-                    <p className="text-sm text-white/35 font-light line-clamp-2 group-hover:text-white/50 transition-colors">{prevProject.tagline}</p>
-                  </div>
-                </Link>
-              )}
-              {nextProject && (
-                <Link
-                  href={`/work/${nextProject.slug}`}
-                  className="flex-1 group relative overflow-hidden rounded-[2.5rem] bg-white/[0.02] border border-white/[0.05] p-12 lg:p-16 hover:bg-white/[0.04] transition-all duration-300 hover:border-white/10 text-right"
-                >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" style={{ background: `linear-gradient(225deg, ${nextProject.accentColor}, transparent)` }} />
-                  <div className="relative z-10">
-                    <div className="flex items-center justify-end gap-3 mb-8">
-                      <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/30">Next</span>
-                      <span className="text-white/20 group-hover:text-white/40 transition-colors">→</span>
-                    </div>
-                    <h3 className="text-3xl lg:text-4xl font-serif text-white tracking-tight mb-3 group-hover:text-white transition-colors">{nextProject.name}</h3>
-                    <p className="text-sm text-white/35 font-light line-clamp-2 group-hover:text-white/50 transition-colors">{nextProject.tagline}</p>
-                  </div>
-                </Link>
-              )}
-            </div>
-          </section>
+            <h2 className="font-serif text-[clamp(2.5rem,5vw,5rem)] text-white tracking-tight leading-[1] mb-12">
+              Ready to transform your <em className="italic text-primary">industry?</em>
+            </h2>
+            <Link href="/contact" className="inline-flex items-center gap-3 px-10 py-5 bg-white text-black rounded-full font-medium text-lg tracking-wide transition-all duration-300 hover:scale-105 hover:bg-white/90 shadow-2xl shadow-white/5">
+              Work with us
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
