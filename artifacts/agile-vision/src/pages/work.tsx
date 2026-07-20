@@ -7,101 +7,116 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
+  const num = String(index + 1).padStart(2, "0");
 
   return (
     <Link href={`/work/${project.slug}`}>
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
+      <motion.article
+        initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
-        className="group block relative cursor-pointer"
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.08 }}
+        className="group relative cursor-pointer"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <div className="flex flex-col gap-6 md:gap-8">
-          {/* Image Container */}
-          <div 
-            className="relative w-full aspect-[4/3] md:aspect-[16/9] overflow-hidden rounded-2xl md:rounded-[2rem] bg-zinc-900 border border-white/5 transition-transform duration-700 ease-out"
-            style={{ 
-              transform: hovered ? 'scale(0.98)' : 'scale(1)',
-              boxShadow: hovered ? `0 20px 80px -20px \${project.accentColor}30` : 'none'
-            }}
-          >
-            {/* Background Glow */}
-            <div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl"
-              style={{ background: `radial-gradient(circle at 50% 50%, \${project.accentColor}40 0%, transparent 70%)` }}
+        {/* Project number + divider */}
+        <div className="flex items-center gap-6 mb-8 md:mb-12">
+          <span className="text-[10px] font-mono tracking-[0.3em] text-white/20">{num}</span>
+          <div className="flex-1 h-px bg-white/8" />
+        </div>
+
+        {/* Image */}
+        <div
+          className="relative w-full overflow-hidden rounded-[1.25rem] md:rounded-[2rem] bg-zinc-900 border border-white/[0.06]"
+          style={{
+            aspectRatio: "16/9",
+            transform: hovered ? "scale(0.985)" : "scale(1)",
+            transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1), box-shadow 0.7s ease",
+            boxShadow: hovered
+              ? `0 32px 96px -16px ${project.accentColor}28`
+              : "0 0 0 0 transparent",
+          }}
+        >
+          {/* Accent glow layer */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none z-0"
+            style={{ background: `radial-gradient(circle at 50% 60%, ${project.accentColor}35 0%, transparent 70%)` }}
+          />
+
+          {project.coverImage ? (
+            <motion.img
+              src={project.coverImage}
+              alt={project.name}
+              className="w-full h-full object-cover object-top relative z-10"
+              animate={{ scale: hovered ? 1.04 : 1 }}
+              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
             />
-
-            {project.coverImage ? (
-              <motion.img
-                src={project.coverImage}
-                alt={project.name}
-                className="w-full h-full object-cover object-top relative z-10"
-                animate={{ scale: hovered ? 1.05 : 1 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              />
-            ) : (
-              <div 
-                className="absolute inset-0 z-10 flex items-center justify-center"
-                style={{ background: `radial-gradient(circle at center, \${project.accentColorLight}, transparent)` }}
-              >
-                <div className="text-4xl font-serif italic text-white/50">{project.name}</div>
-              </div>
-            )}
-
-            {/* Overlay Gradient on Hover */}
-            <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            {/* Hover Floating Button */}
-            <motion.div 
-              className="absolute bottom-8 right-8 z-30 w-16 h-16 rounded-full bg-white text-black flex items-center justify-center backdrop-blur-md"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+          ) : (
+            <div
+              className="absolute inset-0 z-10 flex items-center justify-center"
+              style={{ background: `radial-gradient(ellipse at center, ${project.accentColorLight}30, transparent)` }}
             >
-              <ArrowUpRight className="w-6 h-6" />
-            </motion.div>
+              <span className="text-5xl font-serif italic text-white/20">{project.name}</span>
+            </div>
+          )}
+
+          {/* Hover overlay */}
+          <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+          {/* CTA circle */}
+          <motion.div
+            className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-30 w-14 h-14 md:w-18 md:h-18 rounded-full bg-white text-black flex items-center justify-center shadow-2xl"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
+            transition={{ type: "spring", stiffness: 260, damping: 22 }}
+          >
+            <ArrowUpRight className="w-5 h-5 md:w-6 md:h-6" />
+          </motion.div>
+        </div>
+
+        {/* Meta */}
+        <div className="mt-8 md:mt-10 grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 md:gap-16 items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span
+                className="text-[10px] font-mono tracking-[0.2em] uppercase"
+                style={{ color: project.accentColor }}
+              >
+                {project.category}
+              </span>
+              <span className="text-white/20 text-xs">·</span>
+              <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/35">
+                {project.platform}
+              </span>
+            </div>
+            <h2 className="text-[2rem] sm:text-[2.5rem] md:text-[3.25rem] font-serif tracking-tight text-white leading-[1.05] group-hover:text-white/90 transition-colors duration-300">
+              {project.name}
+            </h2>
           </div>
 
-          {/* Content */}
-          <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-12 px-2">
-            <div className="flex-1 space-y-4">
-              <div className="flex items-center gap-3">
-                <span 
-                  className="text-xs font-mono tracking-widest uppercase px-3 py-1 rounded-full border border-white/10"
-                  style={{ color: project.accentColor }}
+          <div className="md:max-w-[22rem]">
+            <p className="text-base md:text-[1.05rem] text-white/55 leading-[1.75] font-light mb-6">
+              {project.tagline}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {project.services.slice(0, 3).map((service) => (
+                <span
+                  key={service}
+                  className="text-[10px] font-mono tracking-wider text-white/35 border border-white/10 px-2.5 py-1 rounded-full"
                 >
-                  {project.category}
+                  {service}
                 </span>
-                <span className="text-sm font-medium text-white/40">{project.platform}</span>
-              </div>
-              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white group-hover:text-white/90 transition-colors">
-                {project.name}
-              </h2>
-            </div>
-            
-            <div className="flex-1 md:max-w-md">
-              <p className="text-base md:text-lg text-white/60 leading-relaxed font-light">
-                {project.tagline}
-              </p>
-              <div className="flex flex-wrap gap-2 mt-6">
-                {project.services.slice(0, 3).map(service => (
-                  <span key={service} className="text-xs text-white/40 border border-white/10 px-3 py-1.5 rounded-full">
-                    {service}
-                  </span>
-                ))}
-                {project.services.length > 3 && (
-                  <span className="text-xs text-white/30 px-2 py-1.5">
-                    +{project.services.length - 3} more
-                  </span>
-                )}
-              </div>
+              ))}
+              {project.services.length > 3 && (
+                <span className="text-[10px] font-mono text-white/25 px-1 py-1">
+                  +{project.services.length - 3}
+                </span>
+              )}
             </div>
           </div>
         </div>
-      </motion.div>
+      </motion.article>
     </Link>
   );
 }
@@ -116,73 +131,87 @@ export default function Work() {
 
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filtered = activeCategory === "All"
-    ? projects
-    : projects.filter(p => p.filterCategory === activeCategory);
+  const filtered =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((p) => p.filterCategory === activeCategory);
 
   return (
     <div className="min-h-screen bg-background selection:bg-primary/30 selection:text-white">
-      {/* Hero Section */}
-      <section className="pt-40 pb-20 px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      {/* Hero */}
+      <section className="pt-44 pb-16 px-6 lg:px-12 xl:px-16">
+        <div className="max-w-[90rem] mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-4xl"
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h1 className="text-6xl sm:text-7xl lg:text-[7rem] font-medium tracking-tighter text-white leading-[1.05] mb-8 font-serif">
-              Work that <span className="text-white/40 italic">works.</span>
+            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 mb-10">
+              Vision AI Works — Selected Work
+            </p>
+            <h1 className="font-serif text-[clamp(3.5rem,9vw,9.5rem)] leading-[0.95] tracking-tight text-white mb-10">
+              Work that{" "}
+              <em className="not-italic text-white/25 italic">works.</em>
             </h1>
-            <p className="text-xl sm:text-2xl text-white/50 leading-relaxed font-light max-w-2xl">
-              We design and build intelligent platforms across fintech, insurtech, AI, and the future of work. Proof of craft, delivered.
+            <p className="text-lg sm:text-xl text-white/45 font-light leading-relaxed max-w-xl">
+              Intelligent platforms across fintech, insurtech, AI, and the future of work —
+              proof of craft, delivered.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Filters */}
-      <section className="px-6 lg:px-8 pb-12 sticky top-20 z-40 bg-background/80 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-7xl mx-auto flex gap-6 overflow-x-auto no-scrollbar py-4">
-          {projectCategories.map(cat => {
-            const isActive = activeCategory === cat;
-            const count = cat === "All" ? projects.length : projects.filter(p => p.filterCategory === cat).length;
-            
-            return (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`group flex items-center gap-2 whitespace-nowrap transition-all duration-300 \${
-                  isActive ? "text-white" : "text-white/40 hover:text-white/80"
-                }`}
-              >
-                <span className={`text-sm font-medium tracking-wide \${isActive ? "border-b border-white pb-1" : "pb-1"}`}>
-                  {cat}
-                </span>
-                <span className="text-[10px] font-mono mb-1 bg-white/10 px-1.5 py-0.5 rounded text-white/50">
-                  {count}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </section>
+      {/* Sticky filter bar */}
+      <div className="sticky top-[4.5rem] z-40 bg-background/85 backdrop-blur-2xl border-b border-white/[0.06]">
+        <div className="max-w-[90rem] mx-auto px-6 lg:px-12 xl:px-16">
+          <div className="flex items-center gap-8 overflow-x-auto no-scrollbar py-4">
+            {projectCategories.map((cat) => {
+              const isActive = activeCategory === cat;
+              const count =
+                cat === "All"
+                  ? projects.length
+                  : projects.filter((p) => p.filterCategory === cat).length;
 
-      {/* Projects Grid */}
-      <section className="px-6 lg:px-8 py-24">
-        <div className="max-w-7xl mx-auto">
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`flex items-center gap-2.5 whitespace-nowrap transition-all duration-300 ${
+                    isActive ? "text-white" : "text-white/35 hover:text-white/70"
+                  }`}
+                >
+                  <span
+                    className={`text-xs font-medium tracking-wide ${
+                      isActive ? "border-b border-white/80 pb-px" : "pb-px"
+                    }`}
+                  >
+                    {cat}
+                  </span>
+                  <span className="text-[9px] font-mono bg-white/8 border border-white/10 px-1.5 py-0.5 rounded text-white/40">
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Project list */}
+      <section className="px-6 lg:px-12 xl:px-16 pt-20 pb-32">
+        <div className="max-w-[90rem] mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="flex flex-col gap-32"
+              transition={{ duration: 0.35 }}
+              className="flex flex-col gap-28 md:gap-40"
             >
               {filtered.length === 0 ? (
-                <div className="py-32 text-center text-xl text-white/40 font-light">
-                  No projects found for this category.
+                <div className="py-40 text-center text-lg text-white/30 font-light font-serif italic">
+                  No projects in this category yet.
                 </div>
               ) : (
                 filtered.map((project, i) => (
@@ -194,23 +223,24 @@ export default function Work() {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-32 px-6 lg:px-8 border-t border-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 pointer-events-none" />
+      {/* CTA */}
+      <section className="relative py-40 px-6 lg:px-12 overflow-hidden border-t border-white/[0.06]">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.04] to-transparent pointer-events-none" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.9 }}
           >
-            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-serif font-medium text-white mb-8 tracking-tight">
-              Ready to build something <i className="text-primary">extraordinary?</i>
+            <h2 className="font-serif text-[clamp(2.5rem,6vw,6rem)] leading-[1] tracking-tight text-white mb-10">
+              Ready to build something{" "}
+              <em className="italic text-primary">extraordinary?</em>
             </h2>
             <Link href="/contact">
-              <button className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-medium text-lg transition-transform hover:scale-105 hover:bg-white/90">
+              <button className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-medium text-base tracking-wide transition-all duration-300 hover:scale-105 hover:bg-white/92 shadow-lg shadow-white/5">
                 Start the conversation
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
           </motion.div>
