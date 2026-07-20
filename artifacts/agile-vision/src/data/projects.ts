@@ -12,6 +12,20 @@ export interface GalleryItem {
   imagePath?: string;
 }
 
+export interface AiBenefit {
+  title: string;
+  description: string;
+}
+
+export interface AiDeepDive {
+  headline: string;
+  status: "live" | "proposed" | "vision";
+  statusLabel: string;
+  useCase: { label: string; body: string };
+  implementation: { label: string; body: string };
+  benefits: AiBenefit[];
+}
+
 export interface Project {
   slug: string;
   name: string;
@@ -32,6 +46,7 @@ export interface Project {
   capabilities: ProjectCapability[];
   designPrinciples: { title: string; description: string }[];
   aiRole: { title: string; description: string }[];
+  aiDeepDive: AiDeepDive;
   gallery: GalleryItem[];
   outcomes: string[];
   reflection: string;
@@ -90,6 +105,33 @@ export const projects: Project[] = [
       { title: "Rate alert intelligence (future vision)", description: "The product roadmap includes intelligent rate monitoring — alerting subscribers when products they have viewed or saved reach competitive thresholds." },
       { title: "Product matching (design exploration)", description: "Exploration of how a guided, conversational interface could replace form-based product finders for readers who are uncertain about which category of product they need." },
     ],
+    aiDeepDive: {
+      headline: "Right guidance, right moment — AI as the editorial lens for personal finance",
+      status: "proposed",
+      statusLabel: "In Design — Roadmap Feature",
+      useCase: {
+        label: "The Use-Case",
+        body: "Most financial comparison platforms display the same data to every visitor. A reader investigating first-time mortgage options has fundamentally different needs from one tracking savings rates for retirement planning — yet both see the same homepage. Without personalisation, the platform serves everyone adequately and nobody precisely. The AI opportunity is to learn what each reader actually needs — their financial life stage, their product interests, their rate sensitivity — and surface the most relevant comparisons, guides, and alerts without them having to know what to ask for.",
+      },
+      implementation: {
+        label: "The Implementation",
+        body: "A planned content personalisation layer tracks demonstrated interest signals — product categories browsed, guides read, market news followed — to build a reader profile used to surface relevant comparisons without configuration. A rate monitoring engine watches all 60+ products and triggers subscriber alerts when a product a reader has engaged with reaches a competitive threshold. A conversational product finder (in active design exploration) replaces the form-based product selector with a dialogue that can handle 'I'm not sure what I'm looking for' as a valid starting point, guiding users from situation to product without assuming prior financial literacy.",
+      },
+      benefits: [
+        {
+          title: "Guidance that finds you",
+          description: "Relevant comparisons and guides surface before you search for them — matched to your life stage and demonstrated interests, not to a generic reader profile.",
+        },
+        {
+          title: "Proactive rate intelligence",
+          description: "Get alerted when products you've viewed move into competitive territory — before a rate window closes or a fixed term auto-renews at a worse rate.",
+        },
+        {
+          title: "Discovery without jargon",
+          description: "A conversational product finder that starts from your situation — 'I'm saving for a house deposit' — rather than requiring you to know the category name before you can compare.",
+        },
+      ],
+    },
     coverImage: "/work/gigamatic-finance-cover.png",
     gallery: [
       { type: "browser", label: "Homepage", description: "The editorial homepage: independent positioning, product categories, and the financial guide library at a glance", screens: ["hero", "categories", "guides"], imagePath: "/work/gigamatic-finance-dashboard.svg" },
@@ -157,6 +199,33 @@ export const projects: Project[] = [
       { title: "Coverage recommendation (proposed)", description: "A planned capability to surface recommended coverage levels and policy features based on user-provided profile data and stated risk tolerance." },
       { title: "Renewal intelligence (future vision)", description: "The product roadmap includes proactive renewal alerts with real-time comparison data — surfacing better quotes before a policy auto-renews at a worse rate." },
     ],
+    aiDeepDive: {
+      headline: "Ask GIGI — eliminating the drop-off that happens when insurance gets confusing",
+      status: "live",
+      statusLabel: "Live in Production",
+      useCase: {
+        label: "The Use-Case",
+        body: "Insurance comparison is abandoned most often at points of confusion — unfamiliar coverage terminology, uncertainty about what level of coverage is appropriate, or not understanding how to evaluate carrier financial ratings. This confusion is costly: users leave without finding better coverage and the $720/year average saving goes unrealised. The traditional industry answer is a call-centre handoff — slow, expensive, and the exact experience most users are trying to avoid. Ask GIGI was designed to solve this in the browser, at the moment of confusion, without a queue.",
+      },
+      implementation: {
+        label: "The Implementation",
+        body: "Ask GIGI is a live, embedded LLM-powered chatbot integrated throughout the comparison flow — not siloed in a chat tab, but surfaced at the natural friction points: next to coverage level selectors, on the results page when quotes vary significantly, and within the Learning Hub alongside product guides. It answers coverage questions in plain language ('what is an excess?', 'do I need umbrella coverage?'), explains the meaningful differences between carrier quotes, guides users between insurance categories, and provides confidence at the moment of decision — without ever recommending a specific product for commercial reasons.",
+      },
+      benefits: [
+        {
+          title: "Instant coverage clarity",
+          description: "Plain-language answers to policy questions at the exact moment confusion strikes — no waiting, no hold music, no being transferred between departments.",
+        },
+        {
+          title: "Confidence in the comparison",
+          description: "Users understand what they're comparing — not just what costs less — leading to decisions grounded in genuine fit rather than headline price alone.",
+        },
+        {
+          title: "No drop-off moments",
+          description: "Points of confusion become answered questions rather than reasons to abandon. Users who would have left the comparison flow get to a quote instead.",
+        },
+      ],
+    },
     coverImage: "/work/gigamatic-insure-cover.png",
     gallery: [
       { type: "browser", label: "Homepage", description: "The quote widget takes centre stage: insurance type selector, instant comparison CTA, and social proof at a glance", screens: ["hero", "quote-widget", "stats"], imagePath: "/work/gigamatic-insure-onboarding.svg" },
@@ -194,8 +263,8 @@ export const projects: Project[] = [
     ],
     platform: "Web",
     status: "Live product — published",
-    accentColor: "hsl(220 15% 18%)",
-    accentColorLight: "hsla(220,15%,18%,0.08)",
+    accentColor: "hsl(220 15% 55%)",
+    accentColorLight: "hsla(220,15%,55%,0.08)",
     opportunity:
       "Career advice is one of the most abundant and least valuable categories of content on the internet. Generic productivity tips, motivational platitudes, and listicles dominate a space where professionals face genuinely consequential decisions — whether to take a management track or stay individual contributor, how to navigate a sector transition, when to leave a role, how to build leverage before you need it. Premium career intelligence exists — in executive coaching, in elite MBA programmes, in well-networked professional communities — but it is expensive, inaccessible, and rarely available in a readable format. GIGAMATIC Careers was built to change that ratio: serious, strategically useful editorial content about the decisions that define careers, freely available in a reading experience that matches the quality of the writing.",
     vision:
@@ -225,6 +294,33 @@ export const projects: Project[] = [
       { title: "Content discovery (proposed)", description: "A planned layer that surfaces editorially relevant content based on a reader's demonstrated interests, career stage, and reading history." },
       { title: "Job matching (future vision)", description: "The product roadmap includes intelligent job matching — connecting readers to listings relevant to their career trajectory and stated professional goals, surfaced in editorial context." },
     ],
+    aiDeepDive: {
+      headline: "Ask GIGI — a career intelligence assistant that responds to your specific situation, not a generic one",
+      status: "live",
+      statusLabel: "Live in Production",
+      useCase: {
+        label: "The Use-Case",
+        body: "Career advice content is most consumed at the moment of a specific, personal decision — whether to accept a promotion, how to navigate a difficult manager, whether a sector pivot is realistic. Static editorial content can address these questions thematically; it cannot respond to the specifics of a reader's situation. The gap between 'I have a career question' and 'this article is relevant to my exact circumstances' is where most career platforms lose their audience. Ask GIGI was built to close that gap: an AI assistant that interprets the reader's situation and responds to it directly, then surfaces the most relevant editorial content to go deeper.",
+      },
+      implementation: {
+        label: "The Implementation",
+        body: "Ask GIGI is a live embedded AI career assistant that maps a reader's natural-language question or situation description to the platform's editorial framework and content library. It interprets open-ended questions — 'I've been offered a VP role at a Series B startup and a Director role at a Fortune 500, what should I be thinking about?' — provides an immediate, contextualised response, and surfaces specific articles and resources from the platform that are directly relevant. It functions simultaneously as an answer engine and a personalised content navigation layer, available at any point in the reading experience.",
+      },
+      benefits: [
+        {
+          title: "Your question, answered",
+          description: "Immediate, specific responses to career questions rooted in your actual situation — not a search results page of tangentially related articles.",
+        },
+        {
+          title: "Personalised content discovery",
+          description: "The right articles and resources surface for your specific situation, not the most popular ones. Editorial depth becomes findable when you need it.",
+        },
+        {
+          title: "A thinking partner, available always",
+          description: "Career anxiety doesn't keep office hours. Ask GIGI is available at 11pm before a difficult conversation, on a Sunday before a Monday decision.",
+        },
+      ],
+    },
     coverImage: "/work/gigamatic-careers-cover.png",
     gallery: [
       { type: "fullwidth", label: "Editorial homepage", description: "The editorial-first homepage: headline positioning, featured articles with editorial photography, and clear content category navigation", screens: ["homepage-hero", "featured-articles"], imagePath: "/work/gigamatic-careers-profile.svg" },
@@ -293,6 +389,33 @@ export const projects: Project[] = [
       { title: "Tool comparison intelligence (proposed)", description: "A planned capability to generate structured comparisons between similar tools — surfacing the meaningful differences that matter for specific use cases." },
       { title: "Personalised learning paths (future vision)", description: "The product roadmap includes AI-curated learning paths — building structured sequences of courses, tools, and practice based on a user's stated goals and existing knowledge." },
     ],
+    aiDeepDive: {
+      headline: "A platform about AI, built with AI — Ask GIGI as the meta-layer navigating 220+ tools and 45+ courses",
+      status: "live",
+      statusLabel: "Live in Production",
+      useCase: {
+        label: "The Use-Case",
+        body: "With 220+ tools across 13 categories and 45+ courses from Stanford, MIT, and Google, GIGAMATIC AI faces its own discovery problem: how does a user find the right tool for their specific use case, or the right course for their current knowledge level, without spending an hour browsing? The platform needed an intelligent navigation layer that could interpret what a user is trying to accomplish — not what category they think they're in — and surface a specific, reasoned recommendation. This is the exact problem AI is positioned to solve, and the design decision to use it here is intentional and self-referential.",
+      },
+      implementation: {
+        label: "The Implementation",
+        body: "Ask GIGI functions as the conversational front-end to the entire directory and course library. It understands tool categories, capability differences, pricing models, and use-case fit — allowing users to describe what they're trying to do ('I need to generate product images for an e-commerce store without a design background') and receive a specific recommendation with rationale. My Stack builds a persistent personalisation layer: as users save tools and build their stack over time, the platform's understanding of their workflow deepens, enabling increasingly relevant recommendations across tools and courses.",
+      },
+      benefits: [
+        {
+          title: "From intent to tool in seconds",
+          description: "Describe what you need to accomplish — not what category you're browsing — and get a specific, reasoned tool recommendation immediately.",
+        },
+        {
+          title: "Stack-aware suggestions",
+          description: "Recommendations account for what you already use. No duplicate functionality, no tools that conflict with your existing workflow.",
+        },
+        {
+          title: "Learning paths, not just courses",
+          description: "AI-curated sequences build on your current knowledge level and stated goals — not a flat list of 45 courses with no context for where to start.",
+        },
+      ],
+    },
     coverImage: "/work/gigamatic-ai-cover.png",
     gallery: [
       { type: "browser", label: "Homepage", description: "The discovery hub: social proof from Stanford, MIT, and Google; platform stats; and dual entry points into tools and learning", screens: ["hero", "stats", "social-proof"], imagePath: "/work/gigamatic-ai-hub.svg" },
@@ -358,6 +481,33 @@ export const projects: Project[] = [
       { title: "Subject, not tool", description: "Artificial intelligence is the subject of the institute's inquiry, not an operational tool within the platform — a deliberate choice that keeps the human relationship to AI at the centre of the product." },
       { title: "Content discovery (proposed)", description: "Future work may explore AI-assisted navigation of the research library — surfacing connections across essays, op-eds, and briefing papers by theme and relevance for readers navigating a growing body of work." },
     ],
+    aiDeepDive: {
+      headline: "AI as subject, not instrument — a deliberate inversion that protects the platform's intellectual integrity",
+      status: "vision",
+      statusLabel: "Principled Design Decision",
+      useCase: {
+        label: "The Use-Case",
+        body: "A research institute studying the effects of artificial intelligence on human cognition, identity, and agency faces a fundamental design question: should the platform itself deploy AI as an operational tool? The question is not technical — it is about intellectual coherence. An institution asking hard questions about AI's relationship to human consciousness cannot use AI as an unreflective operational layer without undermining the credibility of those questions. The 'use-case' here is not a feature to build, but a principle to hold: the design of this platform is itself a statement about the relationship between human judgment and algorithmic systems.",
+      },
+      implementation: {
+        label: "The Implementation",
+        body: "The platform's navigation, curation, and content discovery are designed without AI assistance — research domain filters, publication type navigation, and audience-specific entry points are human-curated and maintained by the institute's editorial team. This is an active architectural choice, not a technical omission. Any future AI-assisted navigation of the research library will be scoped with strict constraints: transparent in its operation, bounded in its scope, clearly distinguished from editorial curation, and subject to the same critical scrutiny the institute applies to AI in every other context.",
+      },
+      benefits: [
+        {
+          title: "Intellectual coherence",
+          description: "Readers engaging with research on AI's effects on human cognition can be confident that the platform's curation reflects human editorial judgment — not the algorithmic optimisation the institute is studying.",
+        },
+        {
+          title: "Trustworthy research discovery",
+          description: "No engagement-optimised ranking distorts access to what matters most. Research surfaces because it is relevant, not because it performs well in a recommendation model.",
+        },
+        {
+          title: "A model for responsible restraint",
+          description: "The institute's deliberate non-use of AI in this context is itself a demonstration of the careful human agency it advocates for in its research — practice matching principle.",
+        },
+      ],
+    },
     coverImage: "/work/institute-cover.png",
     gallery: [
       { type: "fullwidth", label: "Homepage", description: "Deep navy hero with gold-highlighted typewriter headline, neural head wireframe, and dual CTAs — establishing the institute's intellectual authority and independence from the first moment", screens: ["hero"], imagePath: "/work/institute-homepage.svg" },
@@ -424,6 +574,33 @@ export const projects: Project[] = [
       { title: "Contextual recommendation engine (design exploration)", description: "Design exploration has considered a recommendation layer that combines location, time, preferences, and real-time data to surface suggestions that feel genuinely relevant rather than algorithmically generic." },
       { title: "Agentic disruption management (future vision)", description: "The long-term product vision includes an agentic capability that can detect travel disruptions, research alternatives, and prepare a replanning recommendation — requiring explicit human approval before any rebooking or consequential action is taken." },
     ],
+    aiDeepDive: {
+      headline: "Agentic travel intelligence — closing the gap between a search engine and a real travel companion",
+      status: "vision",
+      statusLabel: "Prototype + Product Vision",
+      useCase: {
+        label: "The Use-Case",
+        body: "Every traveller has experienced the gap: your flight is delayed and your connection is tight, but the app just shows you the new boarding time. There's a great neighbourhood restaurant nearby but the search results are sponsored. You need to replan three days of a trip in 20 minutes but your itinerary app is static. These aren't edge cases — they are the defining moments of modern travel. Current applications have no answer to them because they are fundamentally search and booking interfaces, not intelligent companions. Hudson was designed to close that gap by treating contextual intelligence as the core product, not a feature added on top.",
+      },
+      implementation: {
+        label: "The Implementation",
+        body: "Three AI layers work in concert. A conversational planning engine accepts natural language inputs — 'four days in Kyoto, interested in food, contemporary architecture, and avoiding the tourist centres' — and iterates toward a personalised, logistically coherent itinerary through dialogue rather than form-filling. A location-aware recommendation engine combines GPS, time of day, weather, user preference history, and real-time availability to surface contextually relevant suggestions without being asked. An agentic disruption management system monitors live travel data, detects disruptions, researches alternatives, and prepares a complete replanning recommendation — but requires explicit human confirmation before executing any booking or consequential action, preserving oversight at every critical juncture.",
+      },
+      benefits: [
+        {
+          title: "Plans built from your preferences",
+          description: "Start from what you actually want — 'food, architecture, avoid the tourist centres' — not from a generic tourist list that the algorithm decided was popular.",
+        },
+        {
+          title: "Suggestions that know where you are",
+          description: "Contextual recommendations respond to your current location, the time of day, what you've already done, and the weather — surfaced before you think to search.",
+        },
+        {
+          title: "Disruption handled, not just announced",
+          description: "When your flight changes, a replanning recommendation is ready — researched, coherent, and waiting for your approval — not just a push notification telling you what you already know.",
+        },
+      ],
+    },
     coverImage: "/work/hudson-cover.svg",
     gallery: [
       { type: "phone", label: "Conversational planning", description: "Natural language trip planning with iterative refinement", screens: ["planning-chat", "itinerary-preview"], imagePath: "/work/hudson-planning.svg" },

@@ -8,7 +8,7 @@ import {
   MessageSquare, Brain, Eye, UserCheck, AlertCircle,
   BookOpen, Library, Calendar, Mail, Globe, Mic,
   RefreshCw, Navigation, Bell,
-  ArrowUpRight,
+  ArrowUpRight, Zap, CheckCircle2, Lightbulb,
 } from "lucide-react";
 import { projects, type Project } from "@/data/projects";
 import { usePageMeta } from "@/hooks/use-page-meta";
@@ -42,6 +42,24 @@ function Eyebrow({ children, color }: { children: React.ReactNode; color?: strin
 function Rule() {
   return <div className="h-px bg-white/[0.07] my-16 md:my-24" />;
 }
+
+const STATUS_CONFIG = {
+  live: {
+    dot: "bg-emerald-400",
+    bg: "bg-emerald-400/10 border-emerald-400/20",
+    text: "text-emerald-400",
+  },
+  proposed: {
+    dot: "bg-amber-400",
+    bg: "bg-amber-400/10 border-amber-400/20",
+    text: "text-amber-400",
+  },
+  vision: {
+    dot: "bg-sky-400",
+    bg: "bg-sky-400/10 border-sky-400/20",
+    text: "text-sky-400",
+  },
+};
 
 export default function WorkCaseStudy() {
   const [, params] = useRoute("/work/:slug");
@@ -81,6 +99,9 @@ export default function WorkCaseStudy() {
   const nextProject =
     projectIndex < projects.length - 1 ? projects[projectIndex + 1] : null;
 
+  const ai = project.aiDeepDive;
+  const statusCfg = STATUS_CONFIG[ai.status];
+
   return (
     <div className="min-h-screen bg-background selection:bg-white/15 selection:text-white overflow-x-hidden">
 
@@ -89,7 +110,6 @@ export default function WorkCaseStudy() {
         ref={heroRef}
         className="relative min-h-[90vh] flex flex-col justify-between pt-28 pb-20 md:pt-40 md:pb-28 px-6 lg:px-12 xl:px-16 overflow-hidden"
       >
-        {/* Background glow */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -99,7 +119,6 @@ export default function WorkCaseStudy() {
         <div className="absolute inset-0 bg-background/50 pointer-events-none" />
 
         <div className="max-w-[90rem] mx-auto w-full relative z-10">
-          {/* Back nav */}
           <motion.div
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
@@ -115,7 +134,6 @@ export default function WorkCaseStudy() {
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_200px] gap-12 lg:gap-20 items-end">
-            {/* Title block */}
             <motion.div
               style={{ y: heroY, opacity: heroOpacity }}
               initial={{ opacity: 0, y: 50 }}
@@ -141,14 +159,12 @@ export default function WorkCaseStudy() {
                   </a>
                 )}
               </div>
-
               <h1
                 className="font-serif text-white tracking-tight leading-[0.93] mb-8 md:mb-10"
                 style={{ fontSize: "clamp(3rem, 8.5vw, 9rem)" }}
               >
                 {project.name}
               </h1>
-
               <p
                 className="text-white/50 font-light leading-[1.6] max-w-2xl"
                 style={{ fontSize: "clamp(1.1rem, 2vw, 1.5rem)" }}
@@ -157,7 +173,6 @@ export default function WorkCaseStudy() {
               </p>
             </motion.div>
 
-            {/* Meta sidebar */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -215,7 +230,6 @@ export default function WorkCaseStudy() {
       <section className="px-6 lg:px-12 xl:px-16 pt-28 md:pt-40 pb-0">
         <div className="max-w-[90rem] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-16 lg:gap-28">
-            {/* Left: opportunity + vision */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -228,7 +242,6 @@ export default function WorkCaseStudy() {
               >
                 {project.tagline}
               </h2>
-
               <div className="space-y-14">
                 <div>
                   <Eyebrow color={project.accentColor}>The Opportunity</Eyebrow>
@@ -245,7 +258,6 @@ export default function WorkCaseStudy() {
               </div>
             </motion.div>
 
-            {/* Right: services + principles */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -267,7 +279,6 @@ export default function WorkCaseStudy() {
                   ))}
                 </ul>
               </div>
-
               <div>
                 <Eyebrow>Design Principles</Eyebrow>
                 <div className="space-y-8">
@@ -290,9 +301,151 @@ export default function WorkCaseStudy() {
         </div>
       </div>
 
-      {/* ─── 4. CAPABILITIES ─────────────────────────────────── */}
+      {/* ─── 4. AI DEEP DIVE ─────────────────────────────────── */}
+      <section className="px-6 lg:px-12 xl:px-16 pb-20 md:pb-28 relative overflow-hidden">
+        {/* Accent glow behind the section */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.06]"
+          style={{
+            background: `radial-gradient(ellipse 60% 50% at 50% 0%, ${project.accentColor}, transparent)`,
+          }}
+        />
+
+        <div className="max-w-[90rem] mx-auto relative z-10">
+          {/* Section header */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8 }}
+            className="mb-14 md:mb-20"
+          >
+            <div className="flex flex-wrap items-center gap-4 mb-6">
+              <Eyebrow color={project.accentColor}>AI Integration</Eyebrow>
+              {/* Status badge */}
+              <span
+                className={`inline-flex items-center gap-1.5 text-[10px] font-mono tracking-[0.2em] uppercase px-3 py-1 rounded-full border ${statusCfg.bg} ${statusCfg.text} -mt-3`}
+              >
+                <span className={`w-1.5 h-1.5 rounded-full ${statusCfg.dot}`} />
+                {ai.statusLabel}
+              </span>
+            </div>
+            <h2
+              className="font-serif text-white tracking-tight leading-[1.05] max-w-4xl"
+              style={{ fontSize: "clamp(1.75rem, 3.5vw, 3.25rem)" }}
+            >
+              {ai.headline}
+            </h2>
+          </motion.div>
+
+          {/* Use-case + Implementation — two columns */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-14 mb-14 md:mb-20">
+            {/* Use-Case */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7 }}
+              className="p-8 md:p-10 rounded-2xl border border-white/[0.07] bg-white/[0.02]"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div
+                  className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: `${project.accentColor}18`, color: project.accentColor }}
+                >
+                  <Lightbulb className="w-4 h-4" />
+                </div>
+                <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-white/40">
+                  {ai.useCase.label}
+                </span>
+              </div>
+              <p className="text-[1rem] md:text-[1.05rem] text-white/65 font-light leading-[1.85]">
+                {ai.useCase.body}
+              </p>
+            </motion.div>
+
+            {/* Implementation */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="p-8 md:p-10 rounded-2xl border border-white/[0.07] bg-white/[0.02]"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <div
+                  className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: `${project.accentColor}18`, color: project.accentColor }}
+                >
+                  <Zap className="w-4 h-4" />
+                </div>
+                <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-white/40">
+                  {ai.implementation.label}
+                </span>
+              </div>
+              <p className="text-[1rem] md:text-[1.05rem] text-white/65 font-light leading-[1.85]">
+                {ai.implementation.body}
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Benefits — full-width row */}
+          <div>
+            <div className="flex items-center gap-5 mb-10">
+              <div
+                className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                style={{ backgroundColor: `${project.accentColor}18`, color: project.accentColor }}
+              >
+                <CheckCircle2 className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-white/40">
+                Benefits to Users
+              </span>
+              <div className="flex-1 h-px bg-white/[0.06]" />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+              {ai.benefits.map((benefit, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="p-7 rounded-2xl border border-white/[0.08] bg-white/[0.025] relative overflow-hidden group"
+                >
+                  {/* Subtle number watermark */}
+                  <div
+                    className="absolute top-4 right-5 text-[4rem] font-serif leading-none select-none pointer-events-none opacity-[0.04]"
+                    style={{ color: project.accentColor }}
+                  >
+                    {i + 1}
+                  </div>
+                  <div
+                    className="w-1.5 h-1.5 rounded-full mb-5"
+                    style={{ backgroundColor: project.accentColor }}
+                  />
+                  <h4 className="text-sm font-semibold text-white mb-3 leading-snug">
+                    {benefit.title}
+                  </h4>
+                  <p className="text-sm text-white/50 font-light leading-[1.75]">
+                    {benefit.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="px-6 lg:px-12 xl:px-16">
+        <div className="max-w-[90rem] mx-auto">
+          <Rule />
+        </div>
+      </div>
+
+      {/* ─── 5. CAPABILITIES ─────────────────────────────────── */}
       <section className="px-6 lg:px-12 xl:px-16 pb-28 md:pb-40 relative overflow-hidden">
-        {/* Dot texture */}
         <div
           className="absolute inset-0 opacity-[0.025] pointer-events-none"
           style={{
@@ -308,7 +461,7 @@ export default function WorkCaseStudy() {
             transition={{ duration: 0.8 }}
             className="mb-16 md:mb-20"
           >
-            <Eyebrow color={project.accentColor}>Capabilities &amp; AI</Eyebrow>
+            <Eyebrow color={project.accentColor}>Capabilities</Eyebrow>
             <h2
               className="font-serif text-white tracking-tight leading-tight"
               style={{ fontSize: "clamp(2.25rem, 5vw, 5rem)" }}
@@ -338,45 +491,12 @@ export default function WorkCaseStudy() {
               </motion.div>
             ))}
           </div>
-
-          {/* AI Role */}
-          {project.aiRole && project.aiRole.length > 0 && (
-            <div className="mt-20 md:mt-28">
-              <div className="flex items-center gap-5 mb-12">
-                <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/30">
-                  AI Integration
-                </span>
-                <div className="flex-1 h-px bg-white/[0.07]" />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
-                {project.aiRole.map((role, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: i * 0.1 }}
-                    className="flex gap-6"
-                  >
-                    <div className="pt-1 flex-shrink-0" style={{ color: project.accentColor }}>
-                      <Sparkles className="w-5 h-5 opacity-70" />
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-serif text-white mb-3 leading-snug">{role.title}</h4>
-                      <p className="text-sm text-white/55 font-light leading-[1.8]">{role.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
-      {/* ─── 5. GALLERY ──────────────────────────────────────── */}
+      {/* ─── 6. GALLERY ──────────────────────────────────────── */}
       {project.gallery && project.gallery.length > 0 && (
         <section className="border-t border-white/[0.06]">
-          {/* Gallery header — full width */}
           <div className="px-6 lg:px-12 xl:px-16 pt-28 md:pt-40 pb-16 md:pb-20">
             <div className="max-w-[90rem] mx-auto">
               <motion.div
@@ -402,7 +522,6 @@ export default function WorkCaseStudy() {
             </div>
           </div>
 
-          {/* Gallery items */}
           <div className="flex flex-col">
             {project.gallery.map((item, i) => (
               <motion.div
@@ -412,15 +531,10 @@ export default function WorkCaseStudy() {
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               >
-                {/* Image — bleeds to edges */}
                 <div className="px-4 md:px-6">
                   {item.imagePath ? (
                     <div className="w-full overflow-hidden rounded-xl md:rounded-2xl bg-zinc-900 border border-white/[0.07]">
-                      <img
-                        src={item.imagePath}
-                        alt={item.label}
-                        className="w-full h-auto block"
-                      />
+                      <img src={item.imagePath} alt={item.label} className="w-full h-auto block" />
                     </div>
                   ) : (
                     <div
@@ -434,25 +548,18 @@ export default function WorkCaseStudy() {
                   )}
                 </div>
 
-                {/* Caption */}
                 <div className="px-6 lg:px-12 xl:px-16 py-10 md:py-14">
                   <div className="max-w-[90rem] mx-auto grid grid-cols-[auto_1fr] md:grid-cols-[80px_1fr_auto] gap-6 md:gap-10 items-start">
-                    <span
-                      className="text-[2rem] md:text-[2.5rem] font-serif leading-none text-white/10 select-none tabular-nums"
-                    >
+                    <span className="text-[2rem] md:text-[2.5rem] font-serif leading-none text-white/10 select-none tabular-nums">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
-                      <h3 className="text-lg md:text-xl font-semibold text-white mb-2 leading-snug">
-                        {item.label}
-                      </h3>
-                      <p className="text-sm md:text-base text-white/45 font-light leading-[1.75] max-w-2xl">
-                        {item.description}
-                      </p>
+                      <h3 className="text-lg md:text-xl font-semibold text-white mb-2 leading-snug">{item.label}</h3>
+                      <p className="text-sm md:text-base text-white/45 font-light leading-[1.75] max-w-2xl">{item.description}</p>
                     </div>
                     <div
                       className="hidden md:block text-[10px] font-mono tracking-[0.2em] uppercase pt-1"
-                      style={{ color: project.accentColor + "80" }}
+                      style={{ color: `${project.accentColor}80` }}
                     >
                       {item.type ?? "Screen"}
                     </div>
@@ -470,11 +577,10 @@ export default function WorkCaseStudy() {
         </section>
       )}
 
-      {/* ─── 6. OUTCOMES + REFLECTION ────────────────────────── */}
+      {/* ─── 7. OUTCOMES + REFLECTION ────────────────────────── */}
       <section className="border-t border-white/[0.06] px-6 lg:px-12 xl:px-16 py-28 md:py-40">
         <div className="max-w-[90rem] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-28">
-            {/* Outcomes */}
             {project.outcomes && project.outcomes.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -507,7 +613,6 @@ export default function WorkCaseStudy() {
               </motion.div>
             )}
 
-            {/* Reflection */}
             {project.reflection && (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -517,10 +622,7 @@ export default function WorkCaseStudy() {
                 className="lg:border-l border-white/[0.08] lg:pl-16 flex flex-col justify-center"
               >
                 <Eyebrow color={project.accentColor}>Reflection</Eyebrow>
-                {/* Giant quote mark */}
-                <div
-                  className="font-serif leading-none text-[6rem] md:text-[8rem] text-white/[0.06] select-none -mb-6 -ml-1"
-                >
+                <div className="font-serif leading-none text-[6rem] md:text-[8rem] text-white/[0.06] select-none -mb-6 -ml-1">
                   "
                 </div>
                 <p
@@ -535,7 +637,7 @@ export default function WorkCaseStudy() {
         </div>
       </section>
 
-      {/* ─── 7. PREV / NEXT ──────────────────────────────────── */}
+      {/* ─── 8. PREV / NEXT ──────────────────────────────────── */}
       <section className="border-t border-white/[0.06]">
         <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/[0.06]">
           {prevProject ? (
