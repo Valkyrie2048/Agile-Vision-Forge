@@ -16,6 +16,7 @@ import {
 import { projects, type Project } from "@/data/projects";
 import { usePageMeta } from "@/hooks/use-page-meta";
 import { useRef } from "react";
+import { BrowserFrame, PhoneFrame } from "@/components/device-frames";
 
 const ICON_MAP: Record<string, React.ElementType> = {
   BarChart3, TrendingUp, CreditCard, Sparkles, Shield, Lock,
@@ -45,72 +46,6 @@ function Eyebrow({ children, color, className = "" }: { children: React.ReactNod
 
 function Rule() {
   return <div className="h-px bg-white/[0.07] my-32 md:my-48 max-w-[120rem] mx-auto w-full" />;
-}
-
-function BrowserFrame({ src, alt, accentColor, url }: {
-  src: string; alt: string; accentColor: string; url?: string;
-}) {
-  return (
-    <div className="relative w-full h-full flex flex-col">
-      <div
-        className="absolute -inset-x-6 -bottom-10 top-6 rounded-3xl blur-3xl opacity-20 pointer-events-none"
-        style={{ background: accentColor }}
-      />
-      <div
-        className="relative flex flex-col h-full rounded-xl overflow-hidden border border-white/[0.09]"
-        style={{ boxShadow: "0 20px 60px -10px rgba(0,0,0,0.85)" }}
-      >
-        <div className="flex items-center gap-2 px-3 py-2.5 bg-[#161616] border-b border-white/[0.07] flex-shrink-0">
-          <div className="flex gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#ff5f57" }} />
-            <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#febc2e" }} />
-            <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#28c840" }} />
-          </div>
-          <div className="flex-1 mx-2 h-5 rounded bg-white/[0.05] border border-white/[0.05] flex items-center px-2 gap-1.5 min-w-0">
-            <svg className="w-2 h-2 text-white/20 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-              <circle cx="12" cy="12" r="10" />
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-            </svg>
-            <span className="text-[9px] font-mono text-white/20 tracking-wide truncate">
-              {url ? `https://${url}` : ""}
-            </span>
-          </div>
-        </div>
-        <div className="flex-1 overflow-hidden bg-zinc-950">
-          <img src={src} alt={alt} className="w-full h-full object-cover object-top" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PhoneFrame({ src, alt, accentColor }: {
-  src: string; alt: string; accentColor: string;
-}) {
-  return (
-    <div className="relative flex justify-center items-center w-full h-full">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: `radial-gradient(ellipse at center, ${accentColor}28, transparent 65%)` }}
-      />
-      <div className="relative" style={{ width: "min(50%, 180px)" }}>
-        <div
-          className="relative rounded-[2rem] overflow-hidden border-[2.5px] border-white/[0.14] bg-black"
-          style={{ boxShadow: `0 48px 80px -24px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.05), 0 20px 40px -10px ${accentColor}35` }}
-        >
-          <div className="flex justify-center pt-2 pb-1 bg-black">
-            <div className="w-20 h-5 bg-black rounded-full border border-white/[0.11]" />
-          </div>
-          <div style={{ aspectRatio: "9/19.5" }}>
-            <img src={src} alt={alt} className="w-full h-full object-cover object-top" />
-          </div>
-          <div className="flex justify-center py-2 bg-black">
-            <div className="w-20 h-1 rounded-full bg-white/15" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 }
 
 const STATUS_CONFIG = {
@@ -170,6 +105,19 @@ export default function WorkCaseStudy() {
   const ai = project.aiDeepDive;
   const statusCfg = STATUS_CONFIG[ai.status as keyof typeof STATUS_CONFIG] || STATUS_CONFIG.live;
   const displayGallery = project.gallery.filter(item => item.imagePath);
+
+  const visionShort = (() => {
+    const sentences = project.vision.split('. ').filter(s => s.trim().length > 20);
+    return sentences.length >= 2 ? sentences.slice(0, 2).join('. ') + '.' : project.vision;
+  })();
+
+  const toBullets = (text: string, max: number) =>
+    text.split('. ').filter(s => s.trim().length > 30).slice(0, max)
+      .map(s => { const t = s.trim(); return t.endsWith('.') ? t : t + '.'; });
+
+  const opportunityBullets = toBullets(project.opportunity, 3);
+  const useCaseBullets = toBullets(ai.useCase.body, 4);
+  const implementationBullets = toBullets(ai.implementation.body, 4);
 
   return (
     <div className="min-h-screen bg-[#090909] selection:bg-white/15 selection:text-white overflow-x-hidden">
@@ -256,6 +204,36 @@ export default function WorkCaseStudy() {
         </div>
       </section>
 
+      {/* ─── 1.5. KEY STATS STRIP ─────────────────────────────────── */}
+      {project.keyStats && project.keyStats.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.6 }}
+          className="border-y border-white/[0.06] bg-black/20"
+        >
+          <div className="px-6 lg:px-12 xl:px-16 py-10 md:py-12">
+            <div className="max-w-[120rem] mx-auto">
+              <div className="grid grid-cols-3 divide-x divide-white/[0.05]">
+                {project.keyStats.map((stat, i) => (
+                  <div key={i} className={`flex flex-col gap-2 px-8 ${i === 0 ? "pl-0" : ""}`}>
+                    <div
+                      className="font-serif text-white tracking-tight leading-none"
+                      style={{ fontSize: "clamp(2rem, 3.5vw, 3.5rem)" }}
+                    >
+                      {stat.value}
+                    </div>
+                    <div className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/30">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
       {/* ─── 2. HERO IMAGE FULL BLEED ───────────────────────────── */}
       {project.coverImage && (
         <section className="relative z-20 w-full mb-32 md:mb-48">
@@ -319,23 +297,8 @@ export default function WorkCaseStudy() {
         </motion.div>
       )}
 
-      {/* ─── 2.5. PROJECT BRIEF ─────────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="px-6 lg:px-12 xl:px-16 mb-24 md:mb-32"
-      >
-        <div className="max-w-[120rem] mx-auto">
-          <div className="border-t border-white/[0.07] pt-16 flex flex-col md:flex-row gap-8 md:gap-24">
-            <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 flex-shrink-0 mt-1">Project Brief</span>
-            <p className="text-base md:text-lg text-white/55 font-light leading-relaxed max-w-4xl">{project.summary}</p>
-          </div>
-        </div>
-      </motion.div>
 
-      {/* ─── 3. OPPORTUNITY ──────────────────────────────────────────── */}
+      {/* ─── 3. THE PROBLEM ──────────────────────────────────────────── */}
       <div className="px-6 lg:px-12 xl:px-16">
         <div className="max-w-[120rem] mx-auto">
           <motion.section
@@ -343,15 +306,31 @@ export default function WorkCaseStudy() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1 }}
-            className="mb-32 md:mb-48 max-w-5xl"
+            className="mb-32 md:mb-48"
           >
-            <div
-              className="border-l-2 pl-8 md:pl-12 mb-0"
-              style={{ borderColor: project.accentColor }}
-            >
-              <p className="text-white/80 font-light leading-[1.6] tracking-tight" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.5rem)" }}>
-                {project.opportunity}
-              </p>
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16 lg:gap-24">
+              <div>
+                <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25">The Problem</span>
+              </div>
+              <div>
+                <p
+                  className="text-white/70 font-light leading-[1.6] tracking-tight mb-10"
+                  style={{ fontSize: "clamp(1rem, 1.4vw, 1.3rem)" }}
+                >
+                  {project.problemStatement}
+                </p>
+                <ul className="space-y-4">
+                  {opportunityBullets.map((bullet, i) => (
+                    <li key={i} className="flex gap-5 items-start">
+                      <span
+                        className="w-1.5 h-1.5 rounded-full mt-[0.6rem] flex-shrink-0"
+                        style={{ backgroundColor: project.accentColor }}
+                      />
+                      <p className="text-sm text-white/45 font-light leading-relaxed">{bullet}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </motion.section>
         </div>
@@ -375,7 +354,7 @@ export default function WorkCaseStudy() {
                 className="text-white/85 font-light leading-[1.55] tracking-tight"
                 style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.5rem)" }}
               >
-                {project.vision}
+                {visionShort}
               </p>
             </motion.div>
 
@@ -401,17 +380,19 @@ export default function WorkCaseStudy() {
               transition={{ duration: 1, delay: 0.2 }}
             >
               <Eyebrow>Design Principles</Eyebrow>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16 mt-12">
+              <div className="flex flex-wrap gap-3 mt-8">
                 {project.designPrinciples.map((p, i) => (
-                  <div key={i} className="relative pl-0 group">
-                    <div
-                      className="text-[5rem] font-serif leading-none tabular-nums select-none mb-4"
-                      style={{ color: `${project.accentColor}20` }}
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 px-5 py-3 rounded-full border border-white/[0.08] bg-white/[0.02]"
+                  >
+                    <span
+                      className="text-[10px] font-mono flex-shrink-0"
+                      style={{ color: `${project.accentColor}70` }}
                     >
                       {String(i + 1).padStart(2, "0")}
-                    </div>
-                    <h4 className="text-xl lg:text-2xl font-serif text-white mb-3 tracking-tight leading-tight">{p.title}</h4>
-                    <p className="text-sm lg:text-base text-white/55 font-light leading-relaxed">{p.description}</p>
+                    </span>
+                    <span className="text-sm font-medium text-white/70 tracking-tight">{p.title}</span>
                   </div>
                 ))}
               </div>
@@ -494,7 +475,14 @@ export default function WorkCaseStudy() {
                       </div>
                       <h3 className="text-sm font-mono tracking-[0.2em] uppercase text-white/60">{ai.useCase.label}</h3>
                     </div>
-                    <p className="text-base text-white/75 font-light leading-relaxed">{ai.useCase.body}</p>
+                    <ul className="space-y-3">
+                      {useCaseBullets.map((bullet, i) => (
+                        <li key={i} className="flex gap-4 items-start">
+                          <span className="w-1.5 h-1.5 rounded-full mt-[0.55rem] flex-shrink-0" style={{ backgroundColor: project.accentColor }} />
+                          <p className="text-sm text-white/65 font-light leading-relaxed">{bullet}</p>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
                 
@@ -507,7 +495,14 @@ export default function WorkCaseStudy() {
                       </div>
                       <h3 className="text-sm font-mono tracking-[0.2em] uppercase text-white/60">{ai.implementation.label}</h3>
                     </div>
-                    <p className="text-base text-white/75 font-light leading-relaxed">{ai.implementation.body}</p>
+                    <ul className="space-y-3">
+                      {implementationBullets.map((bullet, i) => (
+                        <li key={i} className="flex gap-4 items-start">
+                          <span className="w-1.5 h-1.5 rounded-full mt-[0.55rem] flex-shrink-0" style={{ backgroundColor: project.accentColor }} />
+                          <p className="text-sm text-white/65 font-light leading-relaxed">{bullet}</p>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -519,19 +514,23 @@ export default function WorkCaseStudy() {
                 {ai.benefits.map((benefit, i) => (
                   <div
                     key={i}
-                    className="flex gap-10 lg:gap-16 items-start py-12 border-b border-white/[0.06] group"
+                    className="flex gap-10 lg:gap-16 items-start py-14 border-b border-white/[0.06] group"
                   >
                     <span
-                      className="text-[3rem] lg:text-[4rem] font-serif leading-none flex-shrink-0 tabular-nums select-none"
-                      style={{ color: `${project.accentColor}35` }}
+                      className="text-[5rem] lg:text-[7rem] font-serif leading-none flex-shrink-0 tabular-nums select-none"
+                      style={{ color: `${project.accentColor}28` }}
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <div className="pt-1">
-                      <h4 className="text-lg lg:text-xl font-serif text-white mb-3 tracking-tight group-hover:text-white transition-colors">
-                        {benefit.title}
-                      </h4>
-                      <p className="text-sm text-white/55 font-light leading-relaxed">{benefit.description}</p>
+                    <div className="pt-2 min-w-0">
+                      <div className="pb-4 mb-4 border-b" style={{ borderColor: `${project.accentColor}30` }}>
+                        <h4 className="text-2xl lg:text-3xl font-serif text-white tracking-tight leading-tight">
+                          {benefit.title}
+                        </h4>
+                      </div>
+                      <p className="text-sm text-white/45 font-light leading-relaxed">
+                        {benefit.description.split('. ')[0]}.
+                      </p>
                     </div>
                   </div>
                 ))}

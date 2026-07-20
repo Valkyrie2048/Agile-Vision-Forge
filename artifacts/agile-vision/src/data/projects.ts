@@ -48,6 +48,8 @@ export interface Project {
   aiRole: { title: string; description: string }[];
   aiDeepDive: AiDeepDive;
   aiLayers?: { number: string; icon: string; name: string; role: string; input: string; process: string; output: string }[];
+  problemStatement: string;
+  keyStats: { value: string; label: string }[];
   gallery: GalleryItem[];
   outcomes: string[];
   reflection: string;
@@ -133,6 +135,12 @@ export const projects: Project[] = [
         },
       ],
     },
+    problemStatement: "Most 'independent' comparison platforms earn from the products they rank — making the comparison itself the conflict of interest.",
+    keyStats: [
+      { value: "100%", label: "Commission-free" },
+      { value: "4", label: "Product categories" },
+      { value: "0", label: "Paid placements" },
+    ],
     coverImage: "/work/gigamatic-finance-cover.png",
     gallery: [
       { type: "browser", label: "Homepage", description: "The editorial homepage: independent positioning, product categories, and the financial guide library at a glance", screens: ["hero", "categories", "guides"], imagePath: "/work/gigamatic-finance-cover.png" },
@@ -227,6 +235,12 @@ export const projects: Project[] = [
         },
       ],
     },
+    problemStatement: "Insurance comparison is defined by friction — ad-heavy sites, hidden commissions, and call-centre handoffs that leave $720/year in savings unrealised.",
+    keyStats: [
+      { value: "40+", label: "Insurers compared" },
+      { value: "<5 min", label: "To a real quote" },
+      { value: "6", label: "Coverage types" },
+    ],
     coverImage: "/work/gigamatic-insure-cover.png",
     gallery: [
       { type: "browser", label: "Homepage", description: "The quote widget takes centre stage: insurance type selector, instant comparison CTA, and social proof at a glance", screens: ["hero", "quote-widget", "stats"], imagePath: "/work/gigamatic-insure-cover.png" },
@@ -321,6 +335,12 @@ export const projects: Project[] = [
         },
       ],
     },
+    problemStatement: "Career advice is the most abundant and least valuable content online — generic tips where real decisions demand strategic depth.",
+    keyStats: [
+      { value: "6", label: "Content domains" },
+      { value: "Live", label: "AI assistant" },
+      { value: "Free", label: "All access" },
+    ],
     coverImage: "/work/gigamatic-careers-cover.png",
     gallery: [
       { type: "fullwidth", label: "Editorial homepage", description: "The editorial-first homepage: headline positioning, featured articles with editorial photography, and clear content category navigation", screens: ["homepage-hero", "featured-articles"], imagePath: "/work/gigamatic-careers-cover.png" },
@@ -416,6 +436,12 @@ export const projects: Project[] = [
         },
       ],
     },
+    problemStatement: "Hundreds of AI tools launch every month — finding the right one, and learning it, requires hours of searching across dozens of fragmented platforms.",
+    keyStats: [
+      { value: "220+", label: "Verified AI tools" },
+      { value: "45+", label: "Expert courses" },
+      { value: "Free", label: "All access" },
+    ],
     coverImage: "/work/gigamatic-ai-cover.png",
     gallery: [
       { type: "browser", label: "Homepage", description: "The discovery hub: social proof from Stanford, MIT, and Google; platform stats; and dual entry points into tools and learning", screens: ["hero", "stats", "social-proof"], imagePath: "/work/gigamatic-ai-cover.png" },
@@ -512,6 +538,12 @@ export const projects: Project[] = [
         },
       ],
     },
+    problemStatement: "The most consequential questions raised by AI — about attention, identity, and agency — are left to inaccessible academics or platforms with vested interests.",
+    keyStats: [
+      { value: "4", label: "Research domains" },
+      { value: "12+", label: "Publications" },
+      { value: "0", label: "Commercial interest" },
+    ],
     coverImage: "/work/institute-cover.png",
     gallery: [
       { type: "fullwidth", label: "Homepage", description: "Deep navy hero with gold-highlighted typewriter headline, neural head wireframe, and dual CTAs — establishing the institute's intellectual authority and independence from the first moment", screens: ["hero"], imagePath: "/work/institute-cover.png" },
@@ -704,6 +736,12 @@ export const projects: Project[] = [
         output: "Prepared replanning proposal, ready for one-tap approval",
       },
     ],
+    problemStatement: "Travel apps are search interfaces in disguise — they retrieve information on demand but can't model what you need, adapt when plans change, or act on your behalf.",
+    keyStats: [
+      { value: "42 sec", label: "Disruption response" },
+      { value: "3", label: "AI layers" },
+      { value: "0", label: "Autonomous actions" },
+    ],
     coverImage: "/work/hudson-cover.png",
     gallery: [
       { type: "phone", label: "App identity", description: "HUDSON — AI Navigator. The splash screen establishes the product's character before a single feature is shown: dark, precise, and quietly capable. The cyan loading bar and bold condensed wordmark signal speed and intelligence without announcing it.", screens: ["splash"], imagePath: "/work/hudson-cover.png" },
@@ -801,6 +839,12 @@ export const projects: Project[] = [
         },
       ],
     },
+    problemStatement: "Toronto — six million people, world-leading universities — has had no public planetarium since 1995, leaving a generation without a window on the sky.",
+    keyStats: [
+      { value: "30 yrs", label: "Without a planetarium" },
+      { value: "6M", label: "Torontonians" },
+      { value: "1995", label: "McLaughlin closed" },
+    ],
     coverImage: "/work/spaceplace-cover.png",
     gallery: [
       { type: "fullwidth", label: "Homepage", description: "The campaign hero: deep space photography, gold headline lettering, and a single email CTA — 'One email a month. The story as it happens.' — alongside the 1995/TODAY/NEXT timeline framing the mission", screens: ["hero", "timeline"], imagePath: "/work/spaceplace-cover.png" },

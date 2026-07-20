@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { projects, projectCategories, type Project } from "@/data/projects";
 import { usePageMeta } from "@/hooks/use-page-meta";
+import { BrowserFrame, PhoneFrame } from "@/components/device-frames";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
@@ -33,9 +34,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {/* Image — 58% */}
           <div className="w-full lg:w-[58%] flex-shrink-0">
             <div
-              className="relative w-full overflow-hidden rounded-2xl bg-zinc-900 border border-white/[0.06]"
+              className="relative w-full overflow-hidden rounded-2xl bg-[#0d0d0d]"
               style={{
-                aspectRatio: "4/3",
+                aspectRatio: project.platform === "iOS" ? "3/4" : "16/10",
                 transform: hovered ? "scale(0.985)" : "scale(1)",
                 transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1), box-shadow 0.7s ease",
                 boxShadow: hovered
@@ -45,17 +46,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             >
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none z-0"
-                style={{ background: `radial-gradient(circle at 50% 60%, ${project.accentColor}35 0%, transparent 70%)` }}
+                style={{ background: `radial-gradient(circle at 50% 60%, ${project.accentColor}25 0%, transparent 70%)` }}
               />
 
               {project.coverImage ? (
-                <motion.img
-                  src={project.coverImage}
-                  alt={project.name}
-                  className="w-full h-full object-cover object-top relative z-10"
-                  animate={{ scale: hovered ? 1.04 : 1 }}
-                  transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-                />
+                project.platform === "iOS" ? (
+                  <PhoneFrame src={project.coverImage} alt={project.name} accentColor={project.accentColor} />
+                ) : (
+                  <div className="absolute inset-4 md:inset-5">
+                    <BrowserFrame src={project.coverImage} alt={project.name} accentColor={project.accentColor} url={project.website} />
+                  </div>
+                )
               ) : (
                 <div
                   className="absolute inset-0 z-10 flex items-center justify-center"
@@ -65,7 +66,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 </div>
               )}
 
-              <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/60 via-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
               <motion.div
                 className="absolute bottom-5 right-5 z-30 w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-2xl"
@@ -93,29 +94,28 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               </span>
             </div>
 
-            <h2 className="text-[2rem] sm:text-[2.4rem] md:text-[2.75rem] font-serif tracking-tight text-white leading-[1.05] group-hover:text-white/90 transition-colors duration-300 mb-6">
+            <h2 className="text-[2rem] sm:text-[2.4rem] md:text-[2.75rem] font-serif tracking-tight text-white leading-[1.05] group-hover:text-white/90 transition-colors duration-300 mb-5">
               {project.name}
             </h2>
 
-            <p className="text-base text-white/50 leading-[1.75] font-light mb-8">
-              {project.tagline}
+            <p className="text-sm text-white/40 font-light italic leading-[1.7] mb-8 max-w-sm">
+              {project.problemStatement}
             </p>
 
-            <div className="flex flex-wrap gap-2 mb-8">
-              {project.services.slice(0, 3).map((service) => (
-                <span
-                  key={service}
-                  className="text-[10px] font-mono tracking-wider text-white/35 border border-white/10 px-2.5 py-1 rounded-full"
-                >
-                  {service}
-                </span>
-              ))}
-              {project.services.length > 3 && (
-                <span className="text-[10px] font-mono text-white/25 px-1 py-1">
-                  +{project.services.length - 3}
-                </span>
-              )}
-            </div>
+            {project.keyStats && project.keyStats.length > 0 && (
+              <div className="flex flex-wrap gap-8 mb-8 pt-6 border-t border-white/[0.07]">
+                {project.keyStats.map((stat, i) => (
+                  <div key={i}>
+                    <div className="text-2xl lg:text-3xl font-serif text-white tracking-tight leading-none mb-1">
+                      {stat.value}
+                    </div>
+                    <div className="text-[9px] font-mono tracking-[0.22em] uppercase text-white/30">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
             <div className="flex items-center gap-2 text-[11px] font-medium text-white/35 group-hover:text-white/75 transition-colors duration-300">
               <span>View case study</span>
