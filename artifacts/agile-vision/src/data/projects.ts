@@ -80,7 +80,7 @@ export const projects: Project[] = [
     opportunity:
       "The financial comparison market is structurally compromised. Most 'independent' comparison platforms earn revenue from the products they feature — creating a direct conflict between editorial integrity and commercial interest. Consumers navigating savings rates, mortgage options, credit cards, and investment products cannot easily distinguish genuine guidance from dressed-up advertising. GIGAMATIC Finance was built around a different model: genuine editorial independence as the product's core value, where no promoted listings, no commission tables, and no sponsored content exist to distort the comparison.",
     vision:
-      "A financial media platform where the independence is the differentiator. GIGAMATIC Finance covers 60+ financial products across savings, credit, mortgages, and investments — with 14 expert guides, live market news, and life-stage content that meets consumers at the specific decisions they face. The product is designed to earn trust over time through consistent editorial rigour, not to optimize for conversion. With 10,000+ newsletter subscribers and a growing readership, it positions itself as the financial media destination for people who want signal over noise.",
+      "A financial media platform where the independence is the differentiator. GIGAMATIC Finance covers financial products across savings, credit, mortgages, and investments — with expert guides, live market news, and life-stage content that meets consumers at the specific decisions they face. The product is designed to earn trust over time through consistent editorial rigour, not to optimize for conversion. It positions itself as the financial media destination for people who want signal over noise.",
     users: [
       { title: "Product shoppers", description: "People actively comparing savings accounts, credit cards, mortgages, or investment options who want unbiased rate and feature comparisons." },
       { title: "Financial learners", description: "Readers building their financial literacy through expert guides and accessible explainers on complex topics." },
@@ -88,12 +88,12 @@ export const projects: Project[] = [
       { title: "Life-stage decision makers", description: "Consumers navigating significant financial transitions — first home, career change, retirement planning — who need contextually relevant guidance." },
     ],
     capabilities: [
-      { icon: "BarChart3", title: "Product comparison engine", description: "Side-by-side comparison of 60+ financial products across savings accounts, credit cards, mortgages, and robo-advisors — with live rates, fees, and feature breakdowns." },
-      { icon: "BookOpen", title: "Expert financial guides", description: "14 in-depth guides covering how to evaluate, select, and apply for key financial products — written for informed consumers, not specialists." },
+      { icon: "BarChart3", title: "Product comparison engine", description: "Side-by-side comparison of financial products across savings accounts, credit cards, mortgages, and robo-advisors — with live rates, fees, and feature breakdowns." },
+      { icon: "BookOpen", title: "Expert financial guides", description: "In-depth guides covering how to evaluate, select, and apply for key financial products — written for informed consumers, not specialists." },
       { icon: "TrendingUp", title: "Market news and rates", description: "Curated financial market news, interest rate updates, and economic context for consumers tracking conditions relevant to their decisions." },
       { icon: "Map", title: "Life stages content", description: "Financially-oriented content organized around life stage — starting out, building wealth, approaching retirement — surfacing relevant guidance at the right moment." },
       { icon: "Search", title: "Product finder", description: "A guided tool helping consumers identify the right product category and surface relevant comparisons based on their specific situation." },
-      { icon: "Mail", title: "Financial intelligence newsletter", description: "A weekly newsletter delivering curated financial insights to 10,000+ subscribers — no fluff, no promotions, just signal." },
+      { icon: "Mail", title: "Financial intelligence newsletter", description: "A weekly newsletter delivering curated financial insights — no fluff, no promotions, just signal." },
     ],
     designPrinciples: [
       { title: "Independence by design", description: "No promoted listings, no sponsored content, no commission-ordered results. Editorial independence is enforced at the product level, not just stated in a disclaimer." },
@@ -141,9 +141,9 @@ export const projects: Project[] = [
       { type: "browser", label: "Market news", description: "Financial news feed with rate movements, economic context, and curated market commentary", screens: ["news-feed", "article-preview"], imagePath: "/work/gigamatic-finance-news.png" },
     ],
     outcomes: [
-      "Built and launched a live financial media platform with 60+ products compared and 14 expert financial guides",
+      "Built and launched a live financial media platform with comprehensive product comparisons and expert financial guides",
       "Established a 100% independent editorial model with no promoted listings or commission-based product ordering",
-      "Grew to 10,000+ newsletter subscribers through a consistent signal-over-noise content approach",
+      "Grew a loyal newsletter readership through a consistent signal-over-noise content approach",
       "Designed a comparison and guide architecture that serves both first-time product shoppers and financially literate readers",
       "Positioned GIGAMATIC Finance as a credible alternative to commission-driven financial comparison platforms",
     ],
@@ -157,7 +157,7 @@ export const projects: Project[] = [
     filterCategory: "Insurtech",
     tagline: "Compare quotes from 40+ top insurers in under 5 minutes — no paperwork, no hassle.",
     summary:
-      "A live insurance comparison marketplace connecting consumers with quotes from 40+ top-rated insurers across auto, home, life, health, business, and renters insurance. With 2M+ quotes compared and an average saving of $720/year, the platform makes switching effortless and finding better coverage fast.",
+      "A live insurance comparison marketplace connecting consumers with quotes from top-rated insurers across auto, home, life, health, business, and renters insurance. The platform makes switching effortless and finding better coverage fast.",
     website: "gigamatic.insure",
     services: [
       "Product Strategy",
@@ -182,7 +182,7 @@ export const projects: Project[] = [
       { title: "Small business owners", description: "Business owners comparing commercial coverage options who need multi-product flexibility in a single marketplace." },
     ],
     capabilities: [
-      { icon: "Search", title: "Instant quote comparison", description: "Compare quotes from 40+ top-rated insurers in under 5 minutes — with no paperwork, no phone calls, and no commitment required." },
+      { icon: "Search", title: "Instant quote comparison", description: "Compare quotes from top-rated insurers in under 5 minutes — with no paperwork, no phone calls, and no commitment required." },
       { icon: "Shield", title: "Multi-category coverage", description: "Auto, home, life, health, business, and renters insurance in one marketplace — with a consistent comparison interface across categories." },
       { icon: "FileText", title: "My Policies dashboard", description: "Post-purchase dashboard giving users visibility into their active policies, renewal dates, and coverage details in one place." },
       { icon: "CreditCard", title: "Integrated finance tools", description: "Extend beyond insurance into adjacent financial products — auto refinance, mortgage rates, credit cards, and personal loans — within the same platform." },
@@ -235,8 +235,8 @@ export const projects: Project[] = [
       { type: "browser", label: "My Policies", description: "Post-purchase policy dashboard showing active coverage, renewal dates, and account management", screens: ["policies-list", "policy-detail"] },
     ],
     outcomes: [
-      "Built and launched a live insurance comparison marketplace with 40+ carrier integrations across six insurance categories",
-      "Achieved 2M+ quotes compared with an average consumer saving of $720/year",
+      "Built and launched a live insurance comparison marketplace across six insurance categories with major carrier integrations nationwide",
+      "Achieved strong adoption with meaningful annual savings for users who switched to better coverage",
       "Designed and shipped a sub-5-minute quote comparison flow with no paperwork or call-centre handoff",
       "Extended the platform beyond insurance into integrated finance tools — auto refinance, mortgage rates, and personal finance products",
       "Shipped Ask GIGI, an embedded AI chatbot reducing user confusion and drop-off in the quote comparison flow",
@@ -346,7 +346,7 @@ export const projects: Project[] = [
     filterCategory: "Artificial Intelligence",
     tagline: "Discover, compare, and master the AI tools powering the modern era.",
     summary:
-      "A live AI discovery and learning platform featuring 220+ verified AI tools across 13 categories, 45+ expert courses curated from Stanford, MIT, and Google, 22 video series, a personal 'My Stack' tool builder, real-time AI news, and an AI chatbot — all free, all in one place.",
+      "A live AI discovery and learning platform featuring a curated directory of verified AI tools, expert courses from Stanford, MIT, and Google, a personal 'My Stack' tool builder, real-time AI news, and an AI chatbot — all free, all in one place.",
     website: "gigamatic.ai",
     services: [
       "Product Strategy",
@@ -372,15 +372,15 @@ export const projects: Project[] = [
       { title: "AI practitioners staying current", description: "Developers, researchers, and AI practitioners using the news feed, events calendar, and tool updates to track a fast-moving space." },
     ],
     capabilities: [
-      { icon: "Search", title: "AI tools directory", description: "220+ verified AI tools across 13 categories — writing, image, video, code, audio, productivity, and more — with descriptions, use cases, and comparison." },
+      { icon: "Search", title: "AI tools directory", description: "A curated directory of verified AI tools across writing, image, video, code, audio, productivity, and more — with descriptions, use cases, and comparison." },
       { icon: "Sparkles", title: "My Stack", description: "A personal AI tool builder letting users curate, organise, and reference the tools they actually use — building a persistent, shareable AI stack over time." },
-      { icon: "GraduationCap", title: "Expert course library", description: "45+ courses curated from Stanford, MIT, Google, DeepLearning.AI, Hugging Face, and Fast.ai — free, structured, and organised by skill level and topic." },
+      { icon: "GraduationCap", title: "Expert course library", description: "Expert courses curated from Stanford, MIT, Google, DeepLearning.AI, Hugging Face, and Fast.ai — free, structured, and organised by skill level and topic." },
       { icon: "TrendingUp", title: "AI news feed", description: "Real-time AI news curated for practitioners and adopters — product launches, research developments, and industry movements without the noise." },
       { icon: "Calendar", title: "Events", description: "Upcoming AI events, conferences, workshops, and online sessions — curated for learners, practitioners, and builders in the AI space." },
       { icon: "MessageSquare", title: "Ask GIGI", description: "An AI-powered assistant providing instant answers to tool questions, learning recommendations, and platform navigation — available throughout the product." },
     ],
     designPrinciples: [
-      { title: "Curation over comprehensiveness", description: "220+ tools is not the full AI landscape — it is a curated selection of verified, quality tools. The editorial decision to exclude is as important as the decision to include." },
+      { title: "Curation over comprehensiveness", description: "A curated selection of verified, quality tools is not the full AI landscape — it is an editorial decision. The choice to exclude is as important as the choice to include." },
       { title: "Dark and immersive", description: "The deep navy-to-purple visual language positions GIGAMATIC AI as native to the AI era — confident, sophisticated, and designed for people who take AI seriously." },
       { title: "Personal and accumulative", description: "My Stack makes the platform's value compound over time. A tool directory is a reference; a personal stack is a relationship — something users build, return to, and share." },
       { title: "Learning integrated with discovery", description: "Tools and courses are connected, not siloed. Discovering a tool should surface relevant learning; completing a course should reveal new tools to explore." },
@@ -391,12 +391,12 @@ export const projects: Project[] = [
       { title: "Personalised learning paths (future vision)", description: "The product roadmap includes AI-curated learning paths — building structured sequences of courses, tools, and practice based on a user's stated goals and existing knowledge." },
     ],
     aiDeepDive: {
-      headline: "A platform about AI, built with AI — Ask GIGI as the meta-layer navigating 220+ tools and 45+ courses",
+      headline: "A platform about AI, built with AI — Ask GIGI as the meta-layer for tools, courses, and discovery",
       status: "live",
       statusLabel: "Live in Production",
       useCase: {
         label: "The Use-Case",
-        body: "With 220+ tools across 13 categories and 45+ courses from Stanford, MIT, and Google, GIGAMATIC AI faces its own discovery problem: how does a user find the right tool for their specific use case, or the right course for their current knowledge level, without spending an hour browsing? The platform needed an intelligent navigation layer that could interpret what a user is trying to accomplish — not what category they think they're in — and surface a specific, reasoned recommendation. This is the exact problem AI is positioned to solve, and the design decision to use it here is intentional and self-referential.",
+        body: "With a broad catalogue of tools across many categories and expert courses from Stanford, MIT, and Google, GIGAMATIC AI faces its own discovery problem: how does a user find the right tool for their specific use case, or the right course for their current knowledge level, without spending an hour browsing? The platform needed an intelligent navigation layer that could interpret what a user is trying to accomplish — not what category they think they're in — and surface a specific, reasoned recommendation. This is the exact problem AI is positioned to solve, and the design decision to use it here is intentional and self-referential.",
       },
       implementation: {
         label: "The Implementation",
@@ -425,8 +425,8 @@ export const projects: Project[] = [
       { type: "browser", label: "Platform overview", description: "The full product ecosystem — tools directory, learning hub, My Stack builder, AI news feed, events, and Ask GIGI — in one destination", screens: ["overview"], imagePath: "/work/gigamatic-ai-homepage.png" },
     ],
     outcomes: [
-      "Built and launched a live AI discovery platform featuring 220+ verified tools across 13 categories",
-      "Curated 45+ expert AI courses from Stanford, MIT, Google, and Hugging Face — free and structured in one place",
+      "Built and launched a live AI discovery platform featuring a curated directory of verified tools across categories",
+      "Curated expert AI courses from Stanford, MIT, Google, and Hugging Face — free and structured in one place",
       "Shipped My Stack, a personal AI tool builder that creates accumulating platform value beyond one-time discovery",
       "Shipped Ask GIGI, an AI assistant providing instant tool recommendations and learning guidance across the platform",
       "Positioned GIGAMATIC AI as the definitive starting point for professionals and learners navigating the AI tools landscape",
@@ -466,7 +466,7 @@ export const projects: Project[] = [
     ],
     capabilities: [
       { icon: "BookOpen", title: "Thinking — essays and analysis", description: "Long-form essays and analyses on AI and the human condition, organised by research domain: Attention & Cognition, Agency & Autonomy, Human Flourishing, Philosophy of Mind, Work & Society, Memory & Identity." },
-      { icon: "FileText", title: "Op-Eds — briefing papers and perspectives", description: "12 publications across 4 research domains — briefing papers, perspectives, and letters from the Executive Director — totalling 411 pages of independent research and analysis." },
+      { icon: "FileText", title: "Op-Eds — briefing papers and perspectives", description: "Publications across four research domains — briefing papers, perspectives, and letters from the Executive Director — comprising substantial independent research and analysis." },
       { icon: "Mail", title: "Dispatch — newsletter", description: "A curated newsletter connecting the institute's community with new publications, events, and opportunities for engagement across its areas of inquiry." },
       { icon: "Users", title: "Engage — partnership and support", description: "Clear pathways for researchers, institutions, and supporters to become partners, get involved, or donate — funding the institute's independence from commercial interest." },
       { icon: "Globe", title: "Audiences — tailored entry points", description: "Distinct entry points designed for different audiences — researchers, policymakers, technologists, and general readers — ensuring the institute's work reaches and resonates with each." },
@@ -518,7 +518,7 @@ export const projects: Project[] = [
     ],
     outcomes: [
       "Designed and built a live platform for a genuinely new kind of intellectual institution — independent, interdisciplinary, and publicly committed to asking the hardest questions about AI",
-      "Published 12 research outputs across 4 domains — Attention & Cognition, Agency & Autonomy, Human Flourishing, and Philosophy of Mind — totalling 411 pages",
+      "Published foundational research outputs across four domains — Attention & Cognition, Agency & Autonomy, Human Flourishing, and Philosophy of Mind",
       "Established a visual and editorial language (deep navy, gold, display serif) that communicates intellectual authority without academic inaccessibility",
       "Built a structured publishing architecture with filterable research domains, publication types, and audience-specific entry points serving researchers, policymakers, technologists, and general readers",
       "Positioned the Institute as a credible, independent voice in public discourse on AI — distinct from academic institutions and commercial technology platforms",

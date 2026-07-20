@@ -101,6 +101,7 @@ export default function WorkCaseStudy() {
 
   const ai = project.aiDeepDive;
   const statusCfg = STATUS_CONFIG[ai.status as keyof typeof STATUS_CONFIG] || STATUS_CONFIG.live;
+  const displayGallery = project.gallery.filter(item => item.imagePath);
 
   return (
     <div className="min-h-screen bg-[#090909] selection:bg-white/15 selection:text-white overflow-x-hidden">
@@ -210,6 +211,39 @@ export default function WorkCaseStudy() {
             </div>
           </motion.div>
         </section>
+      )}
+
+      {/* ─── 2.3. AI FEATURES STRIP ──────────────────────────────────── */}
+      {project.aiRole && project.aiRole.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="px-6 lg:px-12 xl:px-16 mb-12"
+        >
+          <div className="max-w-[120rem] mx-auto">
+            <div className="flex flex-wrap items-start gap-x-8 gap-y-4 py-8 border-b border-white/[0.06]">
+              <span
+                className="text-[10px] font-mono tracking-[0.35em] uppercase mt-1 flex-shrink-0"
+                style={{ color: `${project.accentColor}80` }}
+              >
+                AI Features
+              </span>
+              <div className="flex flex-wrap gap-3">
+                {project.aiRole.map((role, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-2 text-xs font-mono text-white/40 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02]"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: `${project.accentColor}90` }} />
+                    {role.title}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
       )}
 
       {/* ─── 2.5. PROJECT BRIEF ─────────────────────────────────────── */}
@@ -560,7 +594,7 @@ export default function WorkCaseStudy() {
       {/* ─── 9. GALLERY (EDITORIAL SPREAD) ───────────────────────────────────────────── */}
       <section className="mb-32 md:mb-48 relative">
         <div className="w-full flex flex-col gap-12 md:gap-24">
-          {project.gallery.length > 0 && (
+          {displayGallery.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -570,38 +604,29 @@ export default function WorkCaseStudy() {
             >
               {/* Item 0: Full bleed, tall */}
               <div className="w-full h-[60vh] md:h-[90vh] relative bg-zinc-900 overflow-hidden border-y border-white/10 group">
-                 {project.gallery[0].imagePath ? (
-                  <img 
-                    src={project.gallery[0].imagePath} 
-                    alt={project.gallery[0].label}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-8 p-16">
-                    <p className="font-serif text-center leading-none tracking-tight select-none" style={{ fontSize: "clamp(3rem, 8vw, 7rem)", color: `${project.accentColor}18` }}>
-                      {project.gallery[0].label}
-                    </p>
-                    <div className="w-20 h-px opacity-20" style={{ backgroundColor: project.accentColor }} />
-                  </div>
-                )}
+                <img 
+                  src={displayGallery[0].imagePath!} 
+                  alt={displayGallery[0].label}
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
+                />
               </div>
               <div className="px-6 lg:px-12 xl:px-16 mt-8">
                 <div className="max-w-[120rem] mx-auto border-t border-white/[0.06] pt-6 flex flex-col md:flex-row md:items-start justify-between gap-6">
                   <div className="flex items-baseline gap-4 flex-shrink-0">
                     <span className="text-[10px] font-mono tracking-[0.3em] uppercase" style={{ color: `${project.accentColor}70` }}>01</span>
-                    <h4 className="text-lg font-serif text-white/80">{project.gallery[0].label}</h4>
+                    <h4 className="text-lg font-serif text-white/80">{displayGallery[0].label}</h4>
                   </div>
-                  <p className="text-base text-white/45 font-light leading-relaxed max-w-2xl">{project.gallery[0].description}</p>
+                  <p className="text-base text-white/45 font-light leading-relaxed max-w-2xl">{displayGallery[0].description}</p>
                 </div>
               </div>
             </motion.div>
           )}
 
-          {/* Items 1 & 2: Side-by-side if they both exist */}
-          {(project.gallery.length > 1) && (
+          {/* Items 1 & 2: Side-by-side */}
+          {displayGallery.length > 1 && (
             <div className="px-6 lg:px-12 xl:px-16">
               <div className="max-w-[120rem] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
-                {project.gallery.slice(1, 3).map((item, i) => (
+                {displayGallery.slice(1, 3).map((item, i) => (
                   <motion.div
                     key={`pair-${i}`}
                     initial={{ opacity: 0, y: 40 }}
@@ -611,20 +636,11 @@ export default function WorkCaseStudy() {
                     className="flex flex-col"
                   >
                     <div className="w-full aspect-[4/3] rounded-3xl bg-zinc-900 border border-white/10 overflow-hidden mb-8 group relative">
-                       {item.imagePath ? (
-                        <img 
-                          src={item.imagePath} 
-                          alt={item.label}
-                          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 p-10">
-                          <p className="font-serif text-center leading-none tracking-tight select-none" style={{ fontSize: "clamp(2rem, 5vw, 4rem)", color: `${project.accentColor}20` }}>
-                            {item.label}
-                          </p>
-                          <div className="w-12 h-px opacity-20" style={{ backgroundColor: project.accentColor }} />
-                        </div>
-                      )}
+                      <img 
+                        src={item.imagePath!} 
+                        alt={item.label}
+                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
+                      />
                     </div>
                     <div className="border-t border-white/[0.06] pt-5 flex items-baseline gap-4 mb-3">
                       <span className="text-[10px] font-mono tracking-[0.3em] uppercase flex-shrink-0" style={{ color: `${project.accentColor}70` }}>
@@ -639,11 +655,11 @@ export default function WorkCaseStudy() {
             </div>
           )}
 
-          {/* Items 3+: Displayed dynamically (alternating full or 2-col) */}
-          {project.gallery.length > 3 && (
+          {/* Items 3+: Alternating full or portrait */}
+          {displayGallery.length > 3 && (
             <div className="px-6 lg:px-12 xl:px-16">
                <div className="max-w-[120rem] mx-auto space-y-24">
-                  {project.gallery.slice(3).map((item, i) => {
+                  {displayGallery.slice(3).map((item, i) => {
                     const isFullWidth = i % 3 === 0;
                     return (
                       <motion.div
@@ -655,20 +671,11 @@ export default function WorkCaseStudy() {
                         className={`flex flex-col ${isFullWidth ? '' : 'max-w-4xl mx-auto'}`}
                       >
                          <div className={`w-full bg-zinc-900 border border-white/10 overflow-hidden mb-8 rounded-3xl group relative ${isFullWidth ? 'aspect-video md:aspect-[21/9]' : 'aspect-square md:aspect-[4/3]'}`}>
-                            {item.imagePath ? (
-                              <img 
-                                src={item.imagePath} 
-                                alt={item.label}
-                                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
-                              />
-                            ) : (
-                              <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 p-12">
-                                <p className="font-serif text-center leading-none tracking-tight select-none" style={{ fontSize: "clamp(2rem, 5vw, 4.5rem)", color: `${project.accentColor}20` }}>
-                                  {item.label}
-                                </p>
-                                <div className="w-12 h-px opacity-20" style={{ backgroundColor: project.accentColor }} />
-                              </div>
-                            )}
+                            <img 
+                              src={item.imagePath!} 
+                              alt={item.label}
+                              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
+                            />
                          </div>
                          <div className={`border-t border-white/[0.06] pt-5 flex flex-col ${isFullWidth ? 'md:flex-row md:items-start md:justify-between gap-6' : 'gap-2'}`}>
                            <div className="flex items-baseline gap-4 flex-shrink-0">
