@@ -618,6 +618,102 @@ export const projects: Project[] = [
     reflection:
       "The most important design insight from Hudson Navigation was the distinction between an application that does things for you and one that does things with you. Agentic AI in travel is genuinely powerful — the ability to detect disruption, research alternatives, and surface a ready-made plan at the moment it's needed is a real step change from current tools. But the design of that power matters enormously. The product decisions that made this concept compelling were not about what the AI could do autonomously — they were about designing the moments of handoff, confirmation, and control that make autonomous action trustworthy.",
   },
+  {
+    slug: "spaceplace-canada",
+    name: "Space Place Canada",
+    category: "Civic & Culture",
+    filterCategory: "Civic & Culture",
+    tagline: "A public campaign to build Toronto a new planetarium — the city's first window on the sky in thirty years.",
+    summary:
+      "A campaign platform and digital presence for Space Place Canada — the organisation working to build a 21st-century public planetarium in Toronto. The McLaughlin Planetarium closed in 1995, leaving the largest city in North America without a public space for astronomy, science education, and collective wonder. Space Place Canada exists to change that: a dome theatre, interactive exhibits, classrooms, and a production studio — built for Toronto, made in Canada.",
+    website: "quiet-brioche-84fd4c.netlify.app",
+    services: [
+      "Brand Strategy",
+      "Campaign Design",
+      "UX Strategy",
+      "User Experience Design",
+      "User Interface Design",
+      "Front-End Development",
+      "Copywriting",
+      "Content Strategy",
+    ],
+    platform: "Web",
+    status: "Live — campaign site",
+    accentColor: "hsl(47 96% 48%)",
+    accentColorLight: "hsla(47,96%,48%,0.10)",
+    opportunity:
+      "Toronto is the largest city in North America without a public planetarium. The McLaughlin Planetarium closed in 1995 — and in the thirty years since, a generation of Torontonians has grown up without a place to see the sky. A city of six million people, home to some of the world's leading universities and research institutions, has no public infrastructure for astronomy, space science education, or the kind of communal awe that only a dome overhead can produce. Space Place Canada was founded to close that gap — and needed a digital presence that could make that absence feel urgent, the vision feel real, and the campaign feel worth joining.",
+    vision:
+      "Space Place Canada's vision is a 21st-century planetarium for Toronto: a dome theatre for immersive sky experiences, interactive exhibits for all ages, dedicated classroom space for school programming, and a production studio capable of creating original content for the dome. The platform's role is to build the community of support that makes the institution possible — connecting donors, school partners, corporate sponsors, and individuals who believe Toronto deserves a window on the universe.",
+    users: [
+      { title: "Toronto families", description: "Parents and children looking for science-led experiences and public spaces that inspire curiosity and wonder — and who feel the absence of a planetarium acutely." },
+      { title: "Schools and educators", description: "Teachers and school administrators seeking curriculum-aligned space and astronomy programming for students across the city." },
+      { title: "Corporate and institutional partners", description: "Organisations looking to support a visible, civic cultural institution with clear community and educational impact." },
+      { title: "Campaign supporters", description: "Individuals who believe in the mission and want to follow the story, share it, and contribute to making the planetarium a reality." },
+    ],
+    capabilities: [
+      { icon: "Star", title: "Campaign story platform", description: "A single, compelling narrative site that tells the story of Toronto's lost planetarium, the gap it left, and the institution Space Place Canada is building to replace it." },
+      { icon: "Users", title: "Schools programme", description: "A dedicated section connecting educators and schools with the Space Place Canada education mission — setting the context for future curriculum-aligned programming." },
+      { icon: "Calendar", title: "Events and community", description: "A programme of public events building the community of support and keeping the campaign story active and growing." },
+      { icon: "Handshake", title: "Partners and sponsors", description: "A clear framework for corporate and institutional partnership — communicating the scope, values, and impact of supporting Space Place Canada." },
+      { icon: "Newspaper", title: "Campaign news", description: "A news and updates feed keeping supporters informed as the campaign progresses — milestones, media coverage, and moments worth celebrating." },
+      { icon: "Mail", title: "Mission newsletter", description: "A low-frequency email list — one update a month, the story as it happens — for supporters who want to follow the campaign without social media noise." },
+    ],
+    designPrinciples: [
+      { title: "Make the absence felt", description: "The campaign works because the gap is real. The design makes Toronto's thirty years without a planetarium tangible — not as a complaint, but as a shared loss worth fixing together." },
+      { title: "The sky as identity", description: "Dark navy, golden yellow, and the unobstructed night sky as the visual foundation. The design feels like looking up — open, expansive, full of possibility." },
+      { title: "Warmth over urgency", description: "Civic campaigns that resort to pressure tactics lose the trust of the communities they need. The design is confident and inviting, not demanding. Support the campaign because you believe in it — not because you were pushed." },
+      { title: "Built for everyone under it", description: "The planetarium's promise — for science, for wonder, for everyone — is held in the design. Accessible, clear, welcoming to anyone who's ever looked up." },
+    ],
+    aiRole: [
+      { title: "Personalised supporter journeys (proposed)", description: "A planned engagement layer would tailor the campaign experience by visitor type — parent, educator, donor, corporate partner — surfacing the most relevant content and calls to action without requiring registration." },
+      { title: "Campaign progress intelligence (design exploration)", description: "Exploration of how AI could surface dynamic campaign milestones, supporter counts, and progress signals that make each visit feel alive and worth sharing — not a static page." },
+      { title: "School matching and outreach (future vision)", description: "The long-term vision includes an AI-assisted matching system connecting Space Place Canada with schools and educators whose science curriculum priorities align with the planetarium's future programming." },
+    ],
+    aiDeepDive: {
+      headline: "From campaign to community — AI as the connective tissue between a mission and the people who believe in it",
+      status: "proposed",
+      statusLabel: "Design Exploration — Campaign Roadmap",
+      useCase: {
+        label: "The Use-Case",
+        body: "A civic campaign site has a fundamental problem: every visitor arrives with a different relationship to the mission. A Toronto parent who went to the McLaughlin Planetarium as a child has an emotional connection that requires almost no persuasion. A school principal looking for science programming needs to understand what the institution will offer students. A corporate sustainability lead needs to understand the community impact case. A first-time visitor who stumbled in from a news article needs to understand why Toronto doesn't already have a planetarium. Serving all of these audiences from a single static homepage produces a site that is adequate for everyone and compelling for nobody. The AI opportunity is to recognise who is arriving and meet them where they are.",
+      },
+      implementation: {
+        label: "The Implementation",
+        body: "A proposed personalisation layer would use lightweight behavioural signals — entry path, content engaged with, time spent by section — to infer visitor type without requiring registration or explicit identification. Parents browsing the Schools section would surface child-oriented event content and future programming details. Visitors who engage with the partnership section would see corporate impact framing and clear contact pathways. First-time visitors following a news link would receive the foundational campaign story before being invited deeper. A dynamic campaign progress module would use real milestone data to surface the most recent and most shareable moment in the campaign — keeping the site alive between formal news events. Longer term, a school matching tool would use stated curriculum priorities and grade levels to connect educators with relevant programming proposals and campaign contacts.",
+      },
+      benefits: [
+        {
+          title: "A campaign that meets you where you are",
+          description: "Whether you're a parent, a teacher, a potential donor, or someone who just learned Toronto has no planetarium — the site leads with what matters to you, not a one-size-fits-all pitch.",
+        },
+        {
+          title: "Progress that pulls people back",
+          description: "Dynamic milestone content gives supporters a reason to return and share — turning a static campaign page into a living story worth following.",
+        },
+        {
+          title: "Schools connected to the mission early",
+          description: "Educators who care about space science and astronomy can find and express interest in future programming before the planetarium opens — building the institutional relationships that make a launch meaningful.",
+        },
+      ],
+    },
+    coverImage: "/work/spaceplace-cover.png",
+    gallery: [
+      { type: "fullwidth", label: "Homepage", description: "The campaign hero: deep space photography, gold headline lettering, and a single email CTA — 'One email a month. The story as it happens.' — alongside the 1995/TODAY/NEXT timeline framing the mission", screens: ["hero", "timeline"], imagePath: "/work/spaceplace-cover.png" },
+      { type: "browser", label: "About the mission", description: "The founding argument: why Toronto — the largest city in North America without a public planetarium — needs a new window on the sky, and what Space Place Canada is building to provide it", screens: ["mission-statement", "case-for-support"] },
+      { type: "browser", label: "Schools programme", description: "Education outreach section connecting teachers and school administrators with the Space Place Canada science education mission and future curriculum-aligned programming", screens: ["schools-hero", "programme-overview"] },
+      { type: "browser", label: "Support the campaign", description: "The campaign's public call to action: newsletter sign-up, events, and partnership pathways that build the community of support the planetarium needs to become real", screens: ["support-cta", "newsletter-form"] },
+    ],
+    outcomes: [
+      "Designed and built a live campaign platform that communicates a thirty-year civic gap and makes the case for a new public planetarium with clarity and emotional resonance",
+      "Established a visual identity rooted in the night sky — dark navy, golden yellow, and expansive space photography — that gives the campaign a distinctive and memorable presence",
+      "Created a campaign architecture that serves multiple audiences (families, schools, corporate partners, individual supporters) from a single, coherent narrative site",
+      "Built a newsletter acquisition flow anchored in a low-commitment promise: one email a month, the story as it happens",
+      "Delivered a platform positioned to grow with the campaign — from early community building through to institutional launch",
+    ],
+    reflection:
+      "The core design challenge for Space Place Canada was making absence visible. The McLaughlin Planetarium closed in 1995 — which means every Torontonian under forty-five has grown up in a city without one. That absence is so familiar it has become invisible. The campaign's job is to make people feel it again: to remind them that something is missing, and that something can be done about it. The design approach was to let the night sky do most of the work. Dark, expansive, and lit by stars, the visual environment makes the case before a word is read. The challenge was then to connect that feeling — of standing under an open sky — to a civic institution that doesn't yet exist. The 1995/TODAY/NEXT timeline was the key: a three-panel argument that turns absence into narrative and narrative into momentum.",
+  },
 ];
 
 export const projectCategories = [
@@ -628,4 +724,5 @@ export const projectCategories = [
   "Travel",
   "Future of Work",
   "Research and Nonprofit",
+  "Civic & Culture",
 ];
