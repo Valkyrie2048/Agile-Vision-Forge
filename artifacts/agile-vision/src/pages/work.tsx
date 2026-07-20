@@ -1,163 +1,103 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { projects, projectCategories, type Project } from "@/data/projects";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
-function ProjectVisual({ project, index }: { project: Project; index: number }) {
-  if (project.coverImage) {
-    return (
-      <div className="w-full h-full overflow-hidden">
-        <img
-          src={project.coverImage}
-          alt={`${project.name} screenshot`}
-          className="w-full h-full object-cover object-top"
-        />
-      </div>
-    );
-  }
-
-  const seed = index * 137 + 31;
-  const cols = 4 + (seed % 3);
-  const rows = 3 + (seed % 2);
-
-  return (
-    <div
-      className="w-full h-full flex items-center justify-center overflow-hidden"
-      style={{ background: `radial-gradient(ellipse at 55% 35%, ${project.accentColorLight} 0%, transparent 65%)` }}
-    >
-      <div className="relative w-full h-full">
-        {Array.from({ length: cols * rows }).map((_, i) => {
-          const col = i % cols;
-          const row = Math.floor(i / cols);
-          const s = (i * 97 + seed) % 100;
-          const opacity = 0.03 + (s % 35) * 0.0018;
-          return (
-            <div
-              key={i}
-              className="absolute border"
-              style={{
-                left: `${(col / cols) * 100 + 0.5}%`,
-                top: `${(row / rows) * 100 + 0.5}%`,
-                width: `${100 / cols - 1}%`,
-                height: `${100 / rows - 1}%`,
-                borderColor: `${project.accentColor}40`,
-                backgroundColor: project.accentColor,
-                opacity,
-              }}
-            />
-          );
-        })}
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{ background: `radial-gradient(circle at 50% 50%, transparent 30%, hsl(250 20% 7% / 0.7) 100%)` }}
-        >
-          <div className="text-center px-8">
-            <div
-              className="text-5xl font-bold tracking-tight mb-1 font-serif italic"
-              style={{ color: project.accentColor, textShadow: `0 0 60px ${project.accentColor}` }}
-            >
-              {project.name.split(" ")[0]}
-            </div>
-            <div className="text-xs font-medium uppercase tracking-widest mt-2" style={{ color: project.accentColor, opacity: 0.5 }}>
-              {project.platform}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ProjectRow({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <Link href={`/work/${project.slug}`}>
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
-        className="group relative w-full rounded-2xl overflow-hidden cursor-pointer"
-        style={{
-          border: `1px solid ${hovered ? project.accentColor + "28" : "rgba(255,255,255,0.07)"}`,
-          background: "hsl(250 20% 4%)",
-          boxShadow: hovered ? `0 0 48px -12px ${project.accentColor}28` : "none",
-          transition: "border-color 0.3s ease, box-shadow 0.3s ease",
-        }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
+        className="group block relative cursor-pointer"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr]">
+        <div className="flex flex-col gap-6 md:gap-8">
+          {/* Image Container */}
+          <div 
+            className="relative w-full aspect-[4/3] md:aspect-[16/9] overflow-hidden rounded-2xl md:rounded-[2rem] bg-zinc-900 border border-white/5 transition-transform duration-700 ease-out"
+            style={{ 
+              transform: hovered ? 'scale(0.98)' : 'scale(1)',
+              boxShadow: hovered ? `0 20px 80px -20px \${project.accentColor}30` : 'none'
+            }}
+          >
+            {/* Background Glow */}
+            <div 
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl"
+              style={{ background: `radial-gradient(circle at 50% 50%, \${project.accentColor}40 0%, transparent 70%)` }}
+            />
 
-          {/* Image — left side */}
-          <div className="relative h-64 sm:h-80 lg:h-96 overflow-hidden">
-            <motion.div
-              className="absolute inset-0"
-              animate={{ scale: hovered ? 1.025 : 1 }}
-              transition={{ duration: 0.65, ease: "easeOut" }}
+            {project.coverImage ? (
+              <motion.img
+                src={project.coverImage}
+                alt={project.name}
+                className="w-full h-full object-cover object-top relative z-10"
+                animate={{ scale: hovered ? 1.05 : 1 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              />
+            ) : (
+              <div 
+                className="absolute inset-0 z-10 flex items-center justify-center"
+                style={{ background: `radial-gradient(circle at center, \${project.accentColorLight}, transparent)` }}
+              >
+                <div className="text-4xl font-serif italic text-white/50">{project.name}</div>
+              </div>
+            )}
+
+            {/* Overlay Gradient on Hover */}
+            <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            {/* Hover Floating Button */}
+            <motion.div 
+              className="absolute bottom-8 right-8 z-30 w-16 h-16 rounded-full bg-white text-black flex items-center justify-center backdrop-blur-md"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
             >
-              <ProjectVisual project={project} index={index} />
+              <ArrowUpRight className="w-6 h-6" />
             </motion.div>
-
-            {/* Number overlay */}
-            <div className="absolute top-5 left-5 font-mono text-xs font-bold text-white/20">
-              {String(index + 1).padStart(2, "0")}
-            </div>
           </div>
 
-          {/* Content — right side */}
-          <div className="flex flex-col justify-between p-8 lg:p-10 border-t lg:border-t-0 lg:border-l border-white/6">
-            <div>
-              {/* Category + status */}
-              <div className="flex flex-wrap items-center gap-2 mb-6">
-                <span
-                  className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full"
-                  style={{ color: project.accentColor, background: `${project.accentColor}15` }}
+          {/* Content */}
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-12 px-2">
+            <div className="flex-1 space-y-4">
+              <div className="flex items-center gap-3">
+                <span 
+                  className="text-xs font-mono tracking-widest uppercase px-3 py-1 rounded-full border border-white/10"
+                  style={{ color: project.accentColor }}
                 >
                   {project.category}
                 </span>
-                {project.website && (
-                  <span className="text-[11px] text-white/25 font-mono">{project.website}</span>
-                )}
+                <span className="text-sm font-medium text-white/40">{project.platform}</span>
               </div>
-
-              {/* Name */}
-              <h3
-                className="font-bold text-white leading-tight tracking-tight mb-4"
-                style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)" }}
-              >
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white group-hover:text-white/90 transition-colors">
                 {project.name}
-              </h3>
-
-              {/* Tagline */}
-              <p className="text-white/55 leading-relaxed mb-7 text-[15px]">
+              </h2>
+            </div>
+            
+            <div className="flex-1 md:max-w-md">
+              <p className="text-base md:text-lg text-white/60 leading-relaxed font-light">
                 {project.tagline}
               </p>
-
-              {/* Services */}
-              <div className="flex flex-wrap gap-1.5">
-                {project.services.slice(0, 4).map(s => (
-                  <span key={s} className="text-[11px] px-2.5 py-1 rounded-full border border-white/10 text-white/35">
-                    {s}
+              <div className="flex flex-wrap gap-2 mt-6">
+                {project.services.slice(0, 3).map(service => (
+                  <span key={service} className="text-xs text-white/40 border border-white/10 px-3 py-1.5 rounded-full">
+                    {service}
                   </span>
                 ))}
-                {project.services.length > 4 && (
-                  <span className="text-[11px] px-2.5 py-1 rounded-full border border-white/8 text-white/20">
-                    +{project.services.length - 4}
+                {project.services.length > 3 && (
+                  <span className="text-xs text-white/30 px-2 py-1.5">
+                    +{project.services.length - 3} more
                   </span>
                 )}
               </div>
-            </div>
-
-            {/* CTA */}
-            <div className="mt-8 flex items-center gap-2" style={{ color: project.accentColor }}>
-              <span className="text-sm font-semibold">View case study</span>
-              <motion.div animate={{ x: hovered ? 5 : 0 }} transition={{ duration: 0.2 }}>
-                <ArrowRight className="w-4 h-4" />
-              </motion.div>
             </div>
           </div>
         </div>
@@ -169,94 +109,84 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 export default function Work() {
   usePageMeta({
     title: "Selected Work",
-    description:
-      "A collection of platforms, applications, and digital experiences created across financial technology, artificial intelligence, travel, career development, insurance, research, and human flourishing.",
+    description: "A curated collection of intelligent digital products designed by Vision AI Works.",
     url: "/work",
     type: "website",
   });
 
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filtered =
-    activeCategory === "All"
-      ? projects
-      : projects.filter(p => p.filterCategory === activeCategory);
+  const filtered = activeCategory === "All"
+    ? projects
+    : projects.filter(p => p.filterCategory === activeCategory);
 
   return (
-    <div className="min-h-screen bg-background">
-
-      {/* Hero */}
-      <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-background selection:bg-primary/30 selection:text-white">
+      {/* Hero Section */}
+      <section className="pt-40 pb-20 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl"
           >
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-5">
-              Selected Work
-            </p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight text-foreground mb-6 max-w-3xl">
-              Digital products designed for a more intelligent future.
+            <h1 className="text-6xl sm:text-7xl lg:text-[7rem] font-medium tracking-tighter text-white leading-[1.05] mb-8 font-serif">
+              Work that <span className="text-white/40 italic">works.</span>
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
-              Platforms, applications, and digital experiences across fintech, insurtech, AI, travel, career development, and research.
+            <p className="text-xl sm:text-2xl text-white/50 leading-relaxed font-light max-w-2xl">
+              We design and build intelligent platforms across fintech, insurtech, AI, and the future of work. Proof of craft, delivered.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Filters */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-10">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.15 }}
-            className="flex flex-wrap gap-2 border-b border-white/6 pb-10"
-          >
-            {projectCategories.map(cat => {
-              const count = cat === "All" ? projects.length : projects.filter(p => p.filterCategory === cat).length;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
-                    activeCategory === cat
-                      ? "bg-primary text-white border-primary shadow-lg shadow-primary/20"
-                      : "border-white/10 text-muted-foreground hover:text-foreground hover:border-white/20 bg-white/[0.02]"
-                  }`}
-                >
+      <section className="px-6 lg:px-8 pb-12 sticky top-20 z-40 bg-background/80 backdrop-blur-xl border-b border-white/5">
+        <div className="max-w-7xl mx-auto flex gap-6 overflow-x-auto no-scrollbar py-4">
+          {projectCategories.map(cat => {
+            const isActive = activeCategory === cat;
+            const count = cat === "All" ? projects.length : projects.filter(p => p.filterCategory === cat).length;
+            
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`group flex items-center gap-2 whitespace-nowrap transition-all duration-300 \${
+                  isActive ? "text-white" : "text-white/40 hover:text-white/80"
+                }`}
+              >
+                <span className={`text-sm font-medium tracking-wide \${isActive ? "border-b border-white pb-1" : "pb-1"}`}>
                   {cat}
-                  <span className={`ml-1.5 text-[10px] ${activeCategory === cat ? "text-white/60" : "text-white/20"}`}>
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </motion.div>
+                </span>
+                <span className="text-[10px] font-mono mb-1 bg-white/10 px-1.5 py-0.5 rounded text-white/50">
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </section>
 
-      {/* Project list */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-28">
-        <div className="max-w-6xl mx-auto">
+      {/* Projects Grid */}
+      <section className="px-6 lg:px-8 py-24">
+        <div className="max-w-7xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="flex flex-col gap-5"
+              transition={{ duration: 0.4 }}
+              className="flex flex-col gap-32"
             >
               {filtered.length === 0 ? (
-                <div className="text-center py-24 text-muted-foreground">
-                  No projects in this category yet.
+                <div className="py-32 text-center text-xl text-white/40 font-light">
+                  No projects found for this category.
                 </div>
               ) : (
                 filtered.map((project, i) => (
-                  <ProjectRow key={project.slug} project={project} index={i} />
+                  <ProjectCard key={project.slug} project={project} index={i} />
                 ))
               )}
             </motion.div>
@@ -264,29 +194,23 @@ export default function Work() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-24 border-t border-white/5">
-        <div className="max-w-6xl mx-auto pt-20">
+      {/* Call to Action */}
+      <section className="py-32 px-6 lg:px-8 border-t border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 pointer-events-none" />
+        <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8"
+            transition={{ duration: 0.8 }}
           >
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">Start a project</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
-                Have a complex idea that deserves<br className="hidden sm:block" /> a better digital experience?
-              </h2>
-            </div>
-            <Link href="/get-started">
-              <button
-                className="flex-shrink-0 flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
-                style={{ background: "linear-gradient(135deg, hsl(250 85% 60%), hsl(270 80% 55%))" }}
-              >
-                Start a Conversation
-                <ArrowRight className="w-4 h-4" />
+            <h2 className="text-4xl sm:text-5xl lg:text-7xl font-serif font-medium text-white mb-8 tracking-tight">
+              Ready to build something <i className="text-primary">extraordinary?</i>
+            </h2>
+            <Link href="/contact">
+              <button className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-medium text-lg transition-transform hover:scale-105 hover:bg-white/90">
+                Start the conversation
+                <ArrowRight className="w-5 h-5" />
               </button>
             </Link>
           </motion.div>
