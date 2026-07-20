@@ -231,8 +231,8 @@ export const projects: Project[] = [
     gallery: [
       { type: "browser", label: "Homepage", description: "The quote widget takes centre stage: insurance type selector, instant comparison CTA, and social proof at a glance", screens: ["hero", "quote-widget", "stats"], imagePath: "/work/gigamatic-insure-cover.png" },
       { type: "browser", label: "Get a Quote", description: "AI-powered smart quote flow — paste a VIN, address, or URL and the system handles the rest across Auto, Home, Life, Business, and Health", screens: ["quote-flow", "category-tabs"], imagePath: "/work/gigamatic-insure-quote.png" },
-      { type: "detail", label: "Quote results", description: "Side-by-side insurer comparison with monthly premium, coverage level, carrier rating, and direct quote links", screens: ["results-table"] },
-      { type: "browser", label: "My Policies", description: "Post-purchase policy dashboard showing active coverage, renewal dates, and account management", screens: ["policies-list", "policy-detail"] },
+      { type: "browser", label: "How it works", description: "The 3-step process — tell us about yourself, we compare 40+ carriers instantly, you choose and save — explained clearly before you commit to anything", screens: ["process-steps", "step-detail"], imagePath: "/work/gigamatic-insure-how-it-works.png" },
+      { type: "detail", label: "My Policies", description: "Post-purchase policy dashboard showing active coverage, renewal dates, and account management", screens: ["policies-list", "policy-detail"] },
     ],
     outcomes: [
       "Built and launched a live insurance comparison marketplace across six insurance categories with major carrier integrations nationwide",
@@ -423,6 +423,8 @@ export const projects: Project[] = [
       { type: "browser", label: "AI tools directory", description: "220+ verified AI tools across 13 categories — Writing, Image, Video, Code, Audio, Productivity and more — with filterable tool cards", screens: ["tools-grid", "category-filter"], imagePath: "/work/gigamatic-ai-tools.png" },
       { type: "detail", label: "Expert course library", description: "45+ courses curated from Stanford, MIT, Google, DeepLearning.AI, Hugging Face, and Fast.ai — free, structured, and filterable by level and topic", screens: ["learn-grid", "filters"], imagePath: "/work/gigamatic-ai-learn.png" },
       { type: "browser", label: "Platform overview", description: "The full product ecosystem — tools directory, learning hub, My Stack builder, AI news feed, events, and Ask GIGI — in one destination", screens: ["overview"], imagePath: "/work/gigamatic-ai-homepage.png" },
+      { type: "browser", label: "AI Conferences & Events", description: "2026 conference calendar: 39 events across Academic, Industry & Enterprise, and Policy & Governance — filterable by location, with 200,000+ attendees tracked", screens: ["events-grid", "category-filter"], imagePath: "/work/gigamatic-ai-events.png" },
+      { type: "browser", label: "Build Your AI Stack", description: "Personalised AI toolkit builder — choose a starter bundle (Content Creator, Developer, Researcher) or curate your own from 220+ tools", screens: ["stack-builder", "bundles"], imagePath: "/work/gigamatic-ai-my-stack.png" },
     ],
     outcomes: [
       "Built and launched a live AI discovery platform featuring a curated directory of verified tools across categories",
@@ -515,6 +517,7 @@ export const projects: Project[] = [
       { type: "browser", label: "Thinking — essays", description: "Research domain filter tags (Attention & Cognition, Agency & Autonomy, Human Flourishing, Philosophy of Mind, Work & Society, Memory & Identity) and editorial essay cards with rich imagery and gold category badges", screens: ["thinking-listing"], imagePath: "/work/institute-thinking.png" },
       { type: "browser", label: "Op-Eds", description: "12 publications across 4 research domains — stats bar, publication type filters (Briefing Papers 5, Perspectives 6, Letters from the Executive Director 2), and timestamped article cards", screens: ["op-eds"], imagePath: "/work/institute-opeds.png" },
       { type: "browser", label: "About — Why We Exist", description: "The institute's founding position stated directly: the most consequential questions raised by artificial intelligence are not technical — they are human", screens: ["about"], imagePath: "/work/institute-about.png" },
+      { type: "browser", label: "Workshops & Speaking", description: "Two ways to bring the Institute's research to organisations and events — internal workshops that build lasting understanding and public talks that bring rigour to broader audiences", screens: ["engage-overview", "offerings"], imagePath: "/work/institute-engage.png" },
     ],
     outcomes: [
       "Designed and built a live platform for a genuinely new kind of intellectual institution — independent, interdisciplinary, and publicly committed to asking the hardest questions about AI",
