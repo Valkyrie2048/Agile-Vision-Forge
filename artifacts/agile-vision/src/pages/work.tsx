@@ -167,8 +167,9 @@ export default function Work() {
       </section>
 
       {/* Sticky filter bar */}
-      <div className="sticky top-[4.5rem] z-40 bg-[#090909]/85 backdrop-blur-2xl border-y border-white/[0.06] mb-12 md:mb-20">
-        <div className="max-w-[120rem] mx-auto px-6 lg:px-12 xl:px-16">
+      <div className="sticky top-[4.5rem] z-40 bg-[#090909]/85 backdrop-blur-2xl border-y border-white/[0.06] mb-10 md:mb-16">
+        <div className="max-w-[120rem] mx-auto px-6 lg:px-12 xl:px-16 relative">
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#090909] to-transparent z-10" />
           <div className="flex items-center gap-8 overflow-x-auto no-scrollbar py-4">
             {projectCategories.map((cat) => {
               const isActive = activeCategory === cat;
@@ -212,7 +213,7 @@ export default function Work() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.35 }}
-              className="flex flex-col gap-24 md:gap-32 lg:gap-40"
+              className="flex flex-col gap-16 md:gap-24 lg:gap-28"
             >
               {filtered.length === 0 ? (
                 <div className="py-40 text-center text-lg text-white/30 font-light font-serif italic">
@@ -227,7 +228,7 @@ export default function Work() {
 
                   {/* Rest in a 2-column masonry-style grid */}
                   {filtered.length > 1 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24 md:gap-y-32">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 md:gap-y-24">
                       {filtered.slice(1).map((project, i) => (
                         <div key={project.slug} className={`${i % 2 === 1 ? 'md:mt-24' : ''}`}>
                            <ProjectCard project={project} index={i + 1} />

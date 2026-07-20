@@ -179,7 +179,7 @@ export default function WorkCaseStudy() {
       {/* ─── 1. HERO ─────────────────────────────────────────── */}
       <section
         ref={heroRef}
-        className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 lg:px-12 xl:px-16"
+        className="relative pt-20 pb-6 md:pt-28 md:pb-10 px-6 lg:px-12 xl:px-16"
       >
         <div
           className="absolute inset-0 pointer-events-none"
@@ -193,7 +193,7 @@ export default function WorkCaseStudy() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-24"
+            className="mb-8"
           >
             <Link href="/work" className="group flex items-center gap-3 text-xs font-mono tracking-[0.2em] uppercase text-white/50 hover:text-white transition-colors">
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1.5" />
@@ -239,48 +239,36 @@ export default function WorkCaseStudy() {
             </h1>
             
             <p
-              className="text-white/60 font-light leading-relaxed max-w-3xl"
+              className="text-white/60 font-light leading-relaxed max-w-3xl mb-12"
               style={{ fontSize: "clamp(1.1rem, 1.6vw, 1.5rem)" }}
             >
               {project.tagline}
             </p>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* ─── 1.5. KEY STATS STRIP ─────────────────────────────────── */}
-      {project.keyStats && project.keyStats.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.9, delay: 0.6 }}
-          className="border-y border-white/[0.06] bg-[#0d0d0d]"
-        >
-          <div className="px-6 lg:px-12 xl:px-16 py-12 md:py-16">
-            <div className="max-w-[120rem] mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0 md:divide-x divide-white/[0.05]">
+            {project.keyStats && project.keyStats.length > 0 && (
+              <div className="grid grid-cols-3 gap-0 divide-x divide-white/[0.08] pt-10 border-t border-white/[0.08] max-w-2xl">
                 {project.keyStats.map((stat, i) => (
-                  <div key={i} className={`flex flex-col gap-3 md:px-12 ${i === 0 ? "md:pl-0" : ""}`}>
+                  <div key={i} className={`flex flex-col gap-2 ${i === 0 ? "pr-8" : "px-8"}`}>
                     <div
                       className="font-serif tracking-tight leading-none"
-                      style={{ fontSize: "clamp(2.5rem, 4vw, 4rem)", color: project.accentColor }}
+                      style={{ fontSize: "clamp(1.8rem, 3vw, 2.8rem)", color: project.accentColor }}
                     >
                       <CountUp value={stat.value} />
                     </div>
-                    <div className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/40">
+                    <div className="text-[9px] font-mono tracking-[0.25em] uppercase text-white/35">
                       {stat.label}
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </motion.div>
-      )}
+            )}
+          </motion.div>
+        </div>
+      </section>
 
       {/* ─── 2. HERO IMAGE FULL BLEED ───────────────────────────── */}
       {project.coverImage && (
-        <section className="relative z-20 w-full mb-32 md:mb-48">
+        <section className="relative z-20 w-full mb-20 md:mb-32">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
