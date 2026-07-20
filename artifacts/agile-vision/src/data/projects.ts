@@ -799,8 +799,8 @@ export const projects: Project[] = [
     coverImage: "/work/spaceplace-cover.png",
     gallery: [
       { type: "fullwidth", label: "Homepage", description: "The campaign hero: deep space photography, gold headline lettering, and a single email CTA — 'One email a month. The story as it happens.' — alongside the 1995/TODAY/NEXT timeline framing the mission", screens: ["hero", "timeline"], imagePath: "/work/spaceplace-cover.png" },
-      { type: "browser", label: "About the mission", description: "The founding argument: why Toronto — the largest city in North America without a public planetarium — needs a new window on the sky, and what SpacePlace Canada is building to provide it", screens: ["mission-statement", "case-for-support"] },
-      { type: "browser", label: "Schools programme", description: "Education outreach section connecting teachers and school administrators with the SpacePlace Canada science education mission and future curriculum-aligned programming", screens: ["schools-hero", "programme-overview"] },
+      { type: "browser", label: "About the mission", description: "The founding argument: why Toronto — the largest city in North America without a public planetarium — needs a new window on the sky, and what SpacePlace Canada is building to provide it", screens: ["mission-statement", "case-for-support"], imagePath: "/work/spaceplace-about.png" },
+      { type: "browser", label: "Events", description: "Upcoming and past public events — from virtual speaker nights to in-person stargazing sessions — building the community of supporters the planetarium needs to become real", screens: ["events-listing"], imagePath: "/work/spaceplace-events.png" },
       { type: "browser", label: "Support the campaign", description: "The campaign's public call to action: newsletter sign-up, events, and partnership pathways that build the community of support the planetarium needs to become real", screens: ["support-cta", "newsletter-form"] },
     ],
     outcomes: [
