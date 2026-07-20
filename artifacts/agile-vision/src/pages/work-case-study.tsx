@@ -238,69 +238,78 @@ export default function WorkCaseStudy() {
             transition={{ duration: 1 }}
             className="mb-32 md:mb-48 max-w-5xl"
           >
-            <Eyebrow color={project.accentColor}>The Opportunity</Eyebrow>
-            <p className="text-white/80 font-light leading-[1.6] tracking-tight" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2.25rem)" }}>
-              {project.opportunity}
-            </p>
+            <div
+              className="border-l-2 pl-8 md:pl-12 mb-0"
+              style={{ borderColor: project.accentColor }}
+            >
+              <p className="text-white/80 font-light leading-[1.6] tracking-tight" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2.25rem)" }}>
+                {project.opportunity}
+              </p>
+            </div>
           </motion.section>
         </div>
       </div>
 
-      {/* ─── 4. VISION & PRINCIPLES (OFFSET RHYTHM) ───────────────────────────────── */}
-      <section className="mb-32 md:mb-48 py-32 relative border-y border-white/5" style={{ backgroundColor: `${project.accentColor}06` }}>
-        <div className="px-6 lg:px-12 xl:px-16">
+      {/* ─── 4. VISION & PRINCIPLES ───────────────────────────────── */}
+      <section className="mb-32 md:mb-48 relative border-y border-white/[0.06]" style={{ backgroundColor: `${project.accentColor}09` }}>
+        <div className="px-6 lg:px-12 xl:px-16 py-32 md:py-48">
           <div className="max-w-[120rem] mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-16 items-start">
-              <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1 }}
-                className="lg:col-span-5 lg:sticky lg:top-32"
-              >
-                <Eyebrow color={project.accentColor}>The Vision</Eyebrow>
-                <p className="text-white/80 font-light leading-relaxed text-2xl md:text-4xl tracking-tight mb-16">
-                  {project.vision}
-                </p>
-                
-                <div>
-                  <Eyebrow>Services Provided</Eyebrow>
-                  <div className="flex flex-wrap gap-3">
-                    {project.services.map((s) => (
-                      <span
-                        key={s}
-                        className="text-sm font-medium text-white/70 bg-black/20 backdrop-blur-sm border border-white/10 rounded-full px-5 py-2.5"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="lg:col-span-6 lg:col-start-7 space-y-16"
+            {/* Vision — full editorial width */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1 }}
+              className="mb-24 md:mb-32 max-w-5xl"
+            >
+              <Eyebrow color={project.accentColor}>The Vision</Eyebrow>
+              <p
+                className="text-white/85 font-light leading-[1.55] tracking-tight"
+                style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.6rem)" }}
               >
-                <div>
-                  <Eyebrow>Design Principles</Eyebrow>
-                  <div className="space-y-16">
-                    {project.designPrinciples.map((p, i) => (
-                      <div key={i} className="relative group">
-                        <div className="absolute -left-6 top-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                           <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: project.accentColor }} />
-                        </div>
-                        <h4 className="text-3xl font-serif text-white mb-4 tracking-tight">{p.title}</h4>
-                        <p className="text-xl text-white/60 font-light leading-relaxed">{p.description}</p>
-                      </div>
-                    ))}
+                {project.vision}
+              </p>
+            </motion.div>
+
+            {/* Services — inline list, no pills */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="mb-24 md:mb-40 border-t border-white/[0.06] pt-12"
+            >
+              <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 mr-8">Services</span>
+              <span className="text-sm text-white/40 font-light">
+                {project.services.join(" · ")}
+              </span>
+            </motion.div>
+
+            {/* Design Principles — with large numbered anchors */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              <Eyebrow>Design Principles</Eyebrow>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16 mt-12">
+                {project.designPrinciples.map((p, i) => (
+                  <div key={i} className="relative pl-0 group">
+                    <div
+                      className="text-[5rem] font-serif leading-none tabular-nums select-none mb-4"
+                      style={{ color: `${project.accentColor}20` }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <h4 className="text-2xl lg:text-3xl font-serif text-white mb-3 tracking-tight leading-tight">{p.title}</h4>
+                    <p className="text-base lg:text-lg text-white/55 font-light leading-relaxed">{p.description}</p>
                   </div>
-                </div>
-              </motion.div>
-            </div>
+                ))}
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>
@@ -321,7 +330,7 @@ export default function WorkCaseStudy() {
                 {project.users.map((user, i) => (
                   <div key={i} className={`flex flex-col relative ${i % 2 !== 0 ? 'md:mt-32' : ''}`}>
                     <span 
-                      className="absolute -top-24 -left-6 text-[10rem] md:text-[14rem] font-serif leading-none opacity-[0.03] select-none"
+                      className="absolute -top-24 -left-6 text-[10rem] md:text-[14rem] font-serif leading-none opacity-[0.055] select-none"
                       style={{ color: project.accentColor }}
                     >
                       {String(i + 1).padStart(2, "0")}
@@ -378,7 +387,7 @@ export default function WorkCaseStudy() {
                       </div>
                       <h3 className="text-sm font-mono tracking-[0.2em] uppercase text-white/60">{ai.useCase.label}</h3>
                     </div>
-                    <p className="text-2xl text-white/80 font-light leading-relaxed">{ai.useCase.body}</p>
+                    <p className="text-xl text-white/75 font-light leading-relaxed">{ai.useCase.body}</p>
                   </div>
                 </div>
                 
@@ -391,27 +400,34 @@ export default function WorkCaseStudy() {
                       </div>
                       <h3 className="text-sm font-mono tracking-[0.2em] uppercase text-white/60">{ai.implementation.label}</h3>
                     </div>
-                    <p className="text-2xl text-white/80 font-light leading-relaxed">{ai.implementation.body}</p>
+                    <p className="text-xl text-white/75 font-light leading-relaxed">{ai.implementation.body}</p>
                   </div>
                 </div>
               </div>
 
-              <div>
-                <Eyebrow className="text-center">The AI Advantage</Eyebrow>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12 mt-16">
-                  {ai.benefits.map((benefit, i) => (
-                    <div key={i} className="text-center">
-                      <div 
-                        className="w-12 h-12 mx-auto rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-8"
-                        style={{ color: project.accentColor }}
-                      >
-                        <span className="font-mono text-sm">{i + 1}</span>
-                      </div>
-                      <h4 className="text-2xl font-serif text-white mb-4">{benefit.title}</h4>
-                      <p className="text-lg text-white/60 font-light leading-relaxed">{benefit.description}</p>
-                    </div>
-                  ))}
+              <div className="border-t border-white/[0.08] mt-24">
+                <div className="mb-10 pt-12">
+                  <Eyebrow color={project.accentColor}>The AI Advantage</Eyebrow>
                 </div>
+                {ai.benefits.map((benefit, i) => (
+                  <div
+                    key={i}
+                    className="flex gap-10 lg:gap-16 items-start py-12 border-b border-white/[0.06] group"
+                  >
+                    <span
+                      className="text-[3rem] lg:text-[4rem] font-serif leading-none flex-shrink-0 tabular-nums select-none"
+                      style={{ color: `${project.accentColor}35` }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="pt-1">
+                      <h4 className="text-2xl lg:text-3xl font-serif text-white mb-3 tracking-tight group-hover:text-white transition-colors">
+                        {benefit.title}
+                      </h4>
+                      <p className="text-lg text-white/55 font-light leading-relaxed">{benefit.description}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </div>
@@ -485,41 +501,54 @@ export default function WorkCaseStudy() {
             transition={{ duration: 1 }}
             className="mb-32 md:mb-48"
           >
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8">
-              <div>
-                <Eyebrow color={project.accentColor}>Core Capabilities</Eyebrow>
-                <h2 className="text-4xl md:text-6xl font-serif text-white tracking-tight">Features & Systems</h2>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-1 gap-8">
-              {/* Prominent First Capability */}
-              <div className="p-12 lg:p-24 rounded-[3rem] bg-white/[0.02] border border-white/[0.05] relative overflow-hidden group">
-                 <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                 <div className="relative z-10 max-w-4xl">
-                  <div 
-                    className="w-24 h-24 rounded-[2rem] flex items-center justify-center bg-white/5 border border-white/10 mb-12 shadow-2xl"
-                    style={{ color: project.accentColor }}
-                  >
-                    <CapabilityIcon name={project.capabilities[0].icon} />
+            <Eyebrow color={project.accentColor}>Core Capabilities</Eyebrow>
+
+            <div className="grid grid-cols-1 gap-6 mt-10">
+              {/* Hero capability — accent left border strip */}
+              <div
+                className="relative rounded-[2.5rem] overflow-hidden"
+                style={{ background: `linear-gradient(135deg, ${project.accentColor}0D 0%, transparent 60%)` }}
+              >
+                <div
+                  className="absolute left-0 top-0 bottom-0 w-1 rounded-l-[2.5rem]"
+                  style={{ backgroundColor: project.accentColor }}
+                />
+                <div className="p-12 lg:p-20 pl-14 lg:pl-24">
+                  <div className="flex items-start gap-8 mb-10">
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center bg-white/5 border border-white/10 flex-shrink-0"
+                      style={{ color: project.accentColor }}
+                    >
+                      <CapabilityIcon name={project.capabilities[0].icon} />
+                    </div>
+                    <div className="text-[10px] font-mono tracking-[0.3em] uppercase pt-4" style={{ color: `${project.accentColor}80` }}>
+                      Primary Capability
+                    </div>
                   </div>
-                  <h3 className="text-5xl lg:text-6xl font-serif text-white mb-8 leading-[1.1]">{project.capabilities[0].title}</h3>
-                  <p className="text-2xl text-white/60 font-light leading-relaxed">{project.capabilities[0].description}</p>
+                  <h3 className="text-4xl lg:text-5xl font-serif text-white mb-6 leading-[1.1] max-w-3xl">
+                    {project.capabilities[0].title}
+                  </h3>
+                  <p className="text-xl text-white/65 font-light leading-relaxed max-w-3xl">
+                    {project.capabilities[0].description}
+                  </p>
                 </div>
               </div>
-              
-              {/* Supporting Grid (2 or 3 cols depending on content) */}
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+
+              {/* Supporting grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {project.capabilities.slice(1).map((cap, i) => (
-                  <div key={i} className="p-10 lg:p-12 rounded-[2.5rem] bg-white/[0.015] border border-white/[0.05] flex flex-col h-full hover:bg-white/[0.03] transition-colors">
-                    <div 
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center bg-white/5 border border-white/10 mb-8"
+                  <div
+                    key={i}
+                    className="p-8 lg:p-10 rounded-[2rem] bg-white/[0.018] border border-white/[0.06] flex flex-col group hover:bg-white/[0.03] hover:border-white/10 transition-all duration-300"
+                  >
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/5 border border-white/10 mb-7 group-hover:border-white/20 transition-colors"
                       style={{ color: project.accentColor }}
                     >
                       <CapabilityIcon name={cap.icon} />
                     </div>
-                    <h4 className="text-2xl font-serif text-white mb-6">{cap.title}</h4>
-                    <p className="text-lg text-white/50 font-light leading-relaxed mt-auto">{cap.description}</p>
+                    <h4 className="text-xl lg:text-2xl font-serif text-white mb-4 leading-tight">{cap.title}</h4>
+                    <p className="text-base lg:text-lg text-white/50 font-light leading-relaxed mt-auto">{cap.description}</p>
                   </div>
                 ))}
               </div>
@@ -530,12 +559,6 @@ export default function WorkCaseStudy() {
 
       {/* ─── 9. GALLERY (EDITORIAL SPREAD) ───────────────────────────────────────────── */}
       <section className="mb-32 md:mb-48 relative">
-        <div className="px-6 lg:px-12 xl:px-16 mb-16">
-          <div className="max-w-[120rem] mx-auto">
-            <Eyebrow color={project.accentColor} className="text-center lg:text-left">Visual Showcase</Eyebrow>
-          </div>
-        </div>
-
         <div className="w-full flex flex-col gap-12 md:gap-24">
           {project.gallery.length > 0 && (
             <motion.div
@@ -563,10 +586,13 @@ export default function WorkCaseStudy() {
                 )}
               </div>
               <div className="px-6 lg:px-12 xl:px-16 mt-8">
-                 <div className="max-w-[120rem] mx-auto flex flex-col md:flex-row md:items-start justify-between gap-6">
-                   <h4 className="text-2xl font-serif text-white max-w-sm">{project.gallery[0].label}</h4>
-                   <p className="text-lg text-white/50 font-light leading-relaxed max-w-3xl">{project.gallery[0].description}</p>
-                 </div>
+                <div className="max-w-[120rem] mx-auto border-t border-white/[0.06] pt-6 flex flex-col md:flex-row md:items-start justify-between gap-6">
+                  <div className="flex items-baseline gap-4 flex-shrink-0">
+                    <span className="text-[10px] font-mono tracking-[0.3em] uppercase" style={{ color: `${project.accentColor}70` }}>01</span>
+                    <h4 className="text-lg font-serif text-white/80">{project.gallery[0].label}</h4>
+                  </div>
+                  <p className="text-base text-white/45 font-light leading-relaxed max-w-2xl">{project.gallery[0].description}</p>
+                </div>
               </div>
             </motion.div>
           )}
@@ -600,8 +626,13 @@ export default function WorkCaseStudy() {
                         </div>
                       )}
                     </div>
-                    <h4 className="text-2xl font-serif text-white mb-4">{item.label}</h4>
-                    <p className="text-lg text-white/50 font-light leading-relaxed">{item.description}</p>
+                    <div className="border-t border-white/[0.06] pt-5 flex items-baseline gap-4 mb-3">
+                      <span className="text-[10px] font-mono tracking-[0.3em] uppercase flex-shrink-0" style={{ color: `${project.accentColor}70` }}>
+                        {String(i + 2).padStart(2, "0")}
+                      </span>
+                      <h4 className="text-lg font-serif text-white/80">{item.label}</h4>
+                    </div>
+                    <p className="text-sm text-white/40 font-light leading-relaxed">{item.description}</p>
                   </motion.div>
                 ))}
               </div>
@@ -639,9 +670,14 @@ export default function WorkCaseStudy() {
                               </div>
                             )}
                          </div>
-                         <div className={`flex flex-col ${isFullWidth ? 'md:flex-row md:items-start md:justify-between gap-8' : ''}`}>
-                            <h4 className={`text-2xl font-serif text-white mb-4 ${isFullWidth ? 'max-w-sm' : ''}`}>{item.label}</h4>
-                            <p className={`text-lg text-white/50 font-light leading-relaxed ${isFullWidth ? 'max-w-3xl' : ''}`}>{item.description}</p>
+                         <div className={`border-t border-white/[0.06] pt-5 flex flex-col ${isFullWidth ? 'md:flex-row md:items-start md:justify-between gap-6' : 'gap-2'}`}>
+                           <div className="flex items-baseline gap-4 flex-shrink-0">
+                             <span className="text-[10px] font-mono tracking-[0.3em] uppercase" style={{ color: `${project.accentColor}70` }}>
+                               {String(i + 4).padStart(2, "0")}
+                             </span>
+                             <h4 className="text-lg font-serif text-white/80">{item.label}</h4>
+                           </div>
+                           <p className={`text-sm text-white/40 font-light leading-relaxed ${isFullWidth ? 'max-w-2xl' : ''}`}>{item.description}</p>
                          </div>
                       </motion.div>
                     )
@@ -715,24 +751,32 @@ export default function WorkCaseStudy() {
               {prevProject && (
                 <Link
                   href={`/work/${prevProject.slug}`}
-                  className="flex-1 group relative overflow-hidden rounded-[2.5rem] bg-white/[0.02] border border-white/[0.05] p-12 lg:p-16 hover:bg-white/[0.04] transition-colors"
+                  className="flex-1 group relative overflow-hidden rounded-[2.5rem] bg-white/[0.02] border border-white/[0.05] p-12 lg:p-16 hover:bg-white/[0.04] transition-all duration-300 hover:border-white/10"
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" style={{ background: `linear-gradient(45deg, ${prevProject.accentColor}, transparent)` }} />
                   <div className="relative z-10">
-                    <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/40 mb-6 block">Previous Project</span>
-                    <h3 className="text-3xl lg:text-5xl font-serif text-white tracking-tight">{prevProject.name}</h3>
+                    <div className="flex items-center gap-3 mb-8">
+                      <span className="text-white/20 group-hover:text-white/40 transition-colors">←</span>
+                      <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/30">Previous</span>
+                    </div>
+                    <h3 className="text-3xl lg:text-4xl font-serif text-white tracking-tight mb-3 group-hover:text-white transition-colors">{prevProject.name}</h3>
+                    <p className="text-sm text-white/35 font-light line-clamp-2 group-hover:text-white/50 transition-colors">{prevProject.tagline}</p>
                   </div>
                 </Link>
               )}
               {nextProject && (
                 <Link
                   href={`/work/${nextProject.slug}`}
-                  className="flex-1 group relative overflow-hidden rounded-[2.5rem] bg-white/[0.02] border border-white/[0.05] p-12 lg:p-16 hover:bg-white/[0.04] transition-colors text-right"
+                  className="flex-1 group relative overflow-hidden rounded-[2.5rem] bg-white/[0.02] border border-white/[0.05] p-12 lg:p-16 hover:bg-white/[0.04] transition-all duration-300 hover:border-white/10 text-right"
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" style={{ background: `linear-gradient(225deg, ${nextProject.accentColor}, transparent)` }} />
                   <div className="relative z-10">
-                    <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/40 mb-6 block">Next Project</span>
-                    <h3 className="text-3xl lg:text-5xl font-serif text-white tracking-tight">{nextProject.name}</h3>
+                    <div className="flex items-center justify-end gap-3 mb-8">
+                      <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/30">Next</span>
+                      <span className="text-white/20 group-hover:text-white/40 transition-colors">→</span>
+                    </div>
+                    <h3 className="text-3xl lg:text-4xl font-serif text-white tracking-tight mb-3 group-hover:text-white transition-colors">{nextProject.name}</h3>
+                    <p className="text-sm text-white/35 font-light line-clamp-2 group-hover:text-white/50 transition-colors">{nextProject.tagline}</p>
                   </div>
                 </Link>
               )}
