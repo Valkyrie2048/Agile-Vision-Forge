@@ -213,7 +213,7 @@ export default function Work() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.35 }}
-              className="flex flex-col gap-16 md:gap-24 lg:gap-28"
+              className="flex flex-col gap-16 md:gap-24 lg:gap-32"
             >
               {filtered.length === 0 ? (
                 <div className="py-40 text-center text-lg text-white/30 font-light font-serif italic">
@@ -232,14 +232,14 @@ export default function Work() {
                     return (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0">
                         {gridItems.map((project, i) => {
-                          const isLastRow = i >= gridItems.length - (gridItems.length % 2 === 0 ? 2 : 1);
+                          const isLast = i === gridItems.length - 1;
                           return (
                             <div
                               key={project.slug}
                               className={[
                                 i % 2 === 1 ? 'md:mt-24' : '',
                                 'pb-16 md:pb-24',
-                                !isLastRow ? 'border-b border-white/[0.05]' : '',
+                                !isLast ? 'border-b border-white/[0.05]' : '',
                               ].join(' ')}
                             >
                               <ProjectCard project={project} index={i + 1} />
