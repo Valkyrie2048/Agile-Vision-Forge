@@ -601,12 +601,12 @@ export const projects: Project[] = [
         },
       ],
     },
-    coverImage: "/work/hudson-cover.svg",
+    coverImage: "/work/hudson-cover.png",
     gallery: [
-      { type: "phone", label: "Conversational planning", description: "Natural language trip planning with iterative refinement", screens: ["planning-chat", "itinerary-preview"], imagePath: "/work/hudson-planning.svg" },
-      { type: "phone", label: "Live itinerary view", description: "Day-by-day view adapting to current time, location, and preferences", screens: ["itinerary-today", "next-up-card"], imagePath: "/work/hudson-itinerary.svg" },
-      { type: "detail", label: "Location-aware suggestions", description: "Contextual recommendations surfaced near current location", screens: ["nearby-suggestions", "detail-card"], imagePath: "/work/hudson-nearby.svg" },
-      { type: "phone", label: "Disruption handling", description: "Agent-assisted replanning with human confirmation checkpoint", screens: ["alert-screen", "replan-options", "confirm-action"], imagePath: "/work/hudson-disruption.svg" },
+      { type: "phone", label: "App identity", description: "HUDSON — AI Navigator. The splash screen establishes the product's character: dark, precise, and quietly capable. Cyan accent line, bold condensed type, and a phone frame that positions this firmly as a native mobile experience.", screens: ["splash"], imagePath: "/work/hudson-cover.png" },
+      { type: "phone", label: "Conversational planning", description: "Natural language trip planning — accept vague inputs like 'four days in Kyoto, food and architecture, avoid the tourist centres' and iterate toward a structured, logistically coherent itinerary through dialogue rather than form-filling", screens: ["planning-chat", "itinerary-preview"] },
+      { type: "detail", label: "Location-aware suggestions", description: "Contextual recommendations that combine GPS, time of day, weather, preference history, and real-time availability — surfaced before you think to search", screens: ["nearby-suggestions", "detail-card"] },
+      { type: "phone", label: "Disruption handling", description: "When a flight changes, the agent detects it, researches alternatives, and prepares a complete replanning recommendation — ready for human approval before any rebooking action is taken", screens: ["alert-screen", "replan-options", "confirm-action"] },
     ],
     outcomes: [
       "Established a product vision for an iOS travel application that treats contextual intelligence as the core value proposition rather than an added feature",
