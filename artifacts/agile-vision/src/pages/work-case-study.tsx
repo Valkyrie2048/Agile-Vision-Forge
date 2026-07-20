@@ -314,8 +314,8 @@ export default function WorkCaseStudy() {
               </div>
               <div>
                 <p
-                  className="text-white/70 font-light leading-[1.6] tracking-tight mb-10"
-                  style={{ fontSize: "clamp(1rem, 1.4vw, 1.3rem)" }}
+                  className="font-serif text-white tracking-tight leading-[1.15] mb-12"
+                  style={{ fontSize: "clamp(2rem, 3.5vw, 4rem)" }}
                 >
                   {project.problemStatement}
                 </p>
