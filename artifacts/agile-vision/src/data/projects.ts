@@ -518,6 +518,7 @@ export const projects: Project[] = [
       { type: "browser", label: "Op-Eds", description: "12 publications across 4 research domains — stats bar, publication type filters (Briefing Papers 5, Perspectives 6, Letters from the Executive Director 2), and timestamped article cards", screens: ["op-eds"], imagePath: "/work/institute-opeds.png" },
       { type: "browser", label: "About — Why We Exist", description: "The institute's founding position stated directly: the most consequential questions raised by artificial intelligence are not technical — they are human", screens: ["about"], imagePath: "/work/institute-about.png" },
       { type: "browser", label: "Workshops & Speaking", description: "Two ways to bring the Institute's research to organisations and events — internal workshops that build lasting understanding and public talks that bring rigour to broader audiences", screens: ["engage-overview", "offerings"], imagePath: "/work/institute-engage.png" },
+      { type: "browser", label: "Letters from the Director", description: "Long-form letters from the Executive Director — a distinctive editorial format positioned between research publication and open correspondence, establishing the Institute's voice in ongoing public debate", screens: ["letters-listing", "letter-detail"], imagePath: "/work/institute-letters.png" },
     ],
     outcomes: [
       "Designed and built a live platform for a genuinely new kind of intellectual institution — independent, interdisciplinary, and publicly committed to asking the hardest questions about AI",
@@ -536,7 +537,7 @@ export const projects: Project[] = [
     filterCategory: "Travel",
     tagline: "An iOS travel companion that thinks ahead — planning your trip in conversation, adapting when circumstances change, and handling disruption before you have to ask.",
     summary:
-      "Hudson Navigation is a working prototype and strategic product vision for an agentic iOS travel application. Built on the premise that travel apps have been digitized without being meaningfully improved, Hudson treats contextual intelligence as the core product rather than a layered feature — combining conversational trip planning, location-aware recommendations, and human-confirmed agentic replanning into a single, calm experience that behaves less like a search engine and more like a well-briefed travel companion.",
+      "Hudson Navigation is a live Agentic AI iOS app built on the premise that travel apps have been digitized without being meaningfully improved. Hudson treats contextual intelligence as the core product rather than a layered feature — combining conversational trip planning, location-aware recommendations, and human-confirmed agentic replanning into a single, calm experience that behaves less like a search engine and more like a well-briefed travel companion.",
     website: "hudson-app-6bs.pages.dev",
     services: [
       "Product Strategy",
@@ -549,7 +550,7 @@ export const projects: Project[] = [
       "Design Systems",
     ],
     platform: "iOS",
-    status: "Live prototype — product vision",
+    status: "Live — Agentic AI iOS app",
     accentColor: "hsl(195 85% 50%)",
     accentColorLight: "hsla(195,85%,50%,0.12)",
     opportunity:
@@ -631,7 +632,7 @@ export const projects: Project[] = [
     aiRole: [
       {
         title: "Conversational planning engine",
-        description: "The prototype's core working feature: a natural language planning interface that accepts unstructured trip descriptions and iterates toward a fully structured, time-ordered itinerary through conversational refinement. The engine handles ambiguity gracefully — 'something interesting for the afternoon' is as valid a starting point as a specific venue request.",
+        description: "The app's core working feature: a natural language planning interface that accepts unstructured trip descriptions and iterates toward a fully structured, time-ordered itinerary through conversational refinement. The engine handles ambiguity gracefully — 'something interesting for the afternoon' is as valid a starting point as a specific venue request.",
       },
       {
         title: "Contextual recommendation layer",
@@ -639,13 +640,13 @@ export const projects: Project[] = [
       },
       {
         title: "Agentic disruption management",
-        description: "The highest-value capability in the product vision: an agentic system that monitors live travel data (flights, rail, weather), detects disruptions before they become crises, and prepares a complete replanning recommendation — alternative routing, updated hotel check-in windows, rescheduled reservations — ready for one-tap human confirmation. The system acts as a prepared response, not an autonomous one.",
+        description: "The highest-value capability in the product: an agentic system that monitors live travel data (flights, rail, weather), detects disruptions before they become crises, and prepares a complete replanning recommendation — alternative routing, updated hotel check-in windows, rescheduled reservations — ready for one-tap human confirmation. The system acts as a prepared response, not an autonomous one.",
       },
     ],
     aiDeepDive: {
       headline: "From search engine to travel companion — designing the intelligence layer that closes the gap",
-      status: "vision",
-      statusLabel: "Working Prototype + Product Vision",
+      status: "live",
+      statusLabel: "Live — Agentic AI iOS App",
       useCase: {
         label: "The Problem",
         body: "Consider three moments that define the real experience of travel. You land in a city with a layover you did not plan for and no idea what is worth doing for four hours near the airport. Your connecting flight slips forty minutes, puts your connection at risk, and the airline app tells you only that the new departure time is 18:45. You are mid-trip and a restaurant you booked three weeks ago has closed — you discover this at 7pm on a Thursday when everything nearby that matters is already full. These are not edge cases. They are the defining moments of modern travel. Current applications have no useful response to any of them because they are retrieval interfaces — they answer queries you know to ask, in a format you have to interpret, and leave the decision-making entirely to you. Hudson was designed from the beginning to close that gap: not by adding features to an itinerary app, but by treating contextual intelligence as the core product.",
@@ -710,12 +711,12 @@ export const projects: Project[] = [
       { type: "phone", label: "Disruption response", description: "Flight delayed, connection threatened — Hudson detects it, researches alternatives, and surfaces a complete replanning proposal in 42 seconds. Rebook, adjust check-in, shift the dinner reservation. All prepared. None executed until you confirm.", screens: ["alert-screen", "replan-options", "confirm-action"], imagePath: "/work/hudson-disruption.png" },
     ],
     outcomes: [
-      "Designed and shipped a working iOS prototype (live at hudson-app-6bs.pages.dev) demonstrating the core interaction model: conversational planning, contextual recommendations, and agentic disruption response",
+      "Designed and shipped a live Agentic AI iOS app (hudson-app-6bs.pages.dev) demonstrating the core interaction model: conversational planning, contextual recommendations, and agentic disruption response",
       "Established a product architecture that treats contextual intelligence as the primary value proposition — not a feature layer on top of a booking engine",
       "Developed a conversational planning model that accepts natural language as a complete and valid trip brief, producing structured, logistically coherent itineraries through dialogue",
       "Designed an agentic action framework with an explicit and consistent boundary between AI preparation and human confirmation — addressing the core trust challenge in consumer agentic products",
       "Created a calm, glanceable interface design that reduces travel cognitive load rather than adding to it — including a notification model built around precision timing rather than frequency",
-      "Defined a layered AI architecture — conversational planning engine, contextual recommendation layer, agentic disruption management — that can be developed incrementally from prototype to production",
+      "Defined a layered AI architecture — conversational planning engine, contextual recommendation layer, agentic disruption management — designed for incremental capability expansion as the product scales",
     ],
     reflection:
       "The central design challenge in Hudson Navigation was not building intelligence — it was deciding what to do with it. The agentic capabilities the product envisions are genuinely powerful: a system that can detect a flight delay, model the downstream itinerary impact, identify alternatives, and surface a complete replanning recommendation in minutes is a real step change from anything currently available. But power without predictability is not useful in a consumer product. The design work that mattered most was not the planning interface or the recommendation engine — it was defining the moments of handoff: where the AI stops preparing and the human starts deciding, how that boundary is communicated, and how it is held consistently enough that travelers trust it.\n\nThe other insight that shaped the product was about what intelligent travel assistance actually looks like in use. The temptation in building a smart companion is to make it present — constantly surfacing options, proactively checking in, demonstrating its awareness. But travel is already demanding. The interface decisions that improved the product most were the ones that made Hudson quieter: a notification model that fires only when information is actionable, a recommendation system that surfaces suggestions without requiring a response, a planning approach that does the logistical work in the background rather than asking the traveler to manage it. The best version of agentic travel intelligence is not one you notice — it is one you simply benefit from.",
