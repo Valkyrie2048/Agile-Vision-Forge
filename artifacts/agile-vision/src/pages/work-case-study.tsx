@@ -444,6 +444,101 @@ export default function WorkCaseStudy() {
         </div>
       </div>
 
+      {/* ─── 4.5 AI LAYERS ───────────────────────────────────── */}
+      {project.aiLayers && project.aiLayers.length > 0 && (
+        <section className="px-6 lg:px-12 xl:px-16 pb-24 md:pb-32">
+          <div className="max-w-[90rem] mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.8 }}
+              className="mb-12 md:mb-16"
+            >
+              <Eyebrow color={project.accentColor}>Intelligence Architecture</Eyebrow>
+              <h2
+                className="font-serif text-white tracking-tight leading-tight"
+                style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
+              >
+                Three layers. One coherent system.
+              </h2>
+            </motion.div>
+
+            <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 items-stretch">
+              {project.aiLayers.map((layer, i, arr) => (
+                <div key={i} className="flex flex-col lg:flex-row items-stretch flex-1 min-w-0">
+                  <motion.div
+                    initial={{ opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ duration: 0.7, delay: i * 0.12 }}
+                    className="flex-1 min-w-0 rounded-2xl border border-white/[0.08] bg-white/[0.025] overflow-hidden flex flex-col"
+                  >
+                    {/* Layer header */}
+                    <div
+                      className="px-7 pt-7 pb-6 border-b border-white/[0.06]"
+                      style={{ background: `linear-gradient(135deg, ${project.accentColor}0a 0%, transparent 60%)` }}
+                    >
+                      <div className="flex items-start justify-between mb-5">
+                        <div
+                          className="w-11 h-11 rounded-xl flex items-center justify-center"
+                          style={{ backgroundColor: `${project.accentColor}18`, color: project.accentColor }}
+                        >
+                          <CapabilityIcon name={layer.icon} />
+                        </div>
+                        <span
+                          className="text-[3.5rem] font-serif leading-none select-none opacity-[0.07] -mt-1"
+                          style={{ color: project.accentColor }}
+                        >
+                          {layer.number}
+                        </span>
+                      </div>
+                      <h3 className="text-[0.95rem] font-semibold text-white mb-1.5 leading-snug">{layer.name}</h3>
+                      <p className="text-xs text-white/40 font-light leading-relaxed">{layer.role}</p>
+                    </div>
+
+                    {/* Data flow */}
+                    <div className="px-7 py-6 flex flex-col gap-4 flex-1">
+                      <div>
+                        <div className="text-[9px] font-mono tracking-[0.25em] uppercase mb-2" style={{ color: `${project.accentColor}80` }}>Input</div>
+                        <p className="text-[0.8rem] text-white/50 font-light leading-[1.65]">{layer.input}</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1 h-px" style={{ background: `linear-gradient(90deg, ${project.accentColor}40, ${project.accentColor}10)` }} />
+                        <div className="w-5 h-5 rounded-full border flex items-center justify-center flex-shrink-0" style={{ borderColor: `${project.accentColor}30` }}>
+                          <Zap className="w-2.5 h-2.5" style={{ color: project.accentColor }} />
+                        </div>
+                        <div className="flex-1 h-px" style={{ background: `linear-gradient(90deg, ${project.accentColor}10, ${project.accentColor}40)` }} />
+                      </div>
+                      <div>
+                        <div className="text-[9px] font-mono tracking-[0.25em] uppercase mb-2 text-white/25">Process</div>
+                        <p className="text-[0.8rem] text-white/45 font-light leading-[1.65]">{layer.process}</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="flex-1 h-px" style={{ background: `linear-gradient(90deg, ${project.accentColor}40, ${project.accentColor}10)` }} />
+                        <CheckCircle2 className="w-3.5 h-3.5 flex-shrink-0" style={{ color: project.accentColor }} />
+                        <div className="flex-1 h-px" style={{ background: `linear-gradient(90deg, ${project.accentColor}10, ${project.accentColor}40)` }} />
+                      </div>
+                      <div>
+                        <div className="text-[9px] font-mono tracking-[0.25em] uppercase mb-2" style={{ color: `${project.accentColor}80` }}>Output</div>
+                        <p className="text-[0.8rem] font-medium leading-[1.65]" style={{ color: `${project.accentColor}cc` }}>{layer.output}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Connector arrow between cards */}
+                  {i < arr.length - 1 && (
+                    <div className="hidden lg:flex items-center justify-center w-10 flex-shrink-0">
+                      <ArrowRight className="w-4 h-4 text-white/15" />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ─── 5. CAPABILITIES ─────────────────────────────────── */}
       <section className="px-6 lg:px-12 xl:px-16 pb-28 md:pb-40 relative overflow-hidden">
         <div

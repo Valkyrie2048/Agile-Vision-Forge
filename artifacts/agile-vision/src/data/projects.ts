@@ -47,6 +47,7 @@ export interface Project {
   designPrinciples: { title: string; description: string }[];
   aiRole: { title: string; description: string }[];
   aiDeepDive: AiDeepDive;
+  aiLayers?: { number: string; icon: string; name: string; role: string; input: string; process: string; output: string }[];
   gallery: GalleryItem[];
   outcomes: string[];
   reflection: string;
@@ -669,12 +670,41 @@ export const projects: Project[] = [
         },
       ],
     },
+    aiLayers: [
+      {
+        number: "01",
+        icon: "MessageSquare",
+        name: "Conversational Planning Engine",
+        role: "Turns a natural language brief into a structured trip",
+        input: "Unstructured trip description in plain language",
+        process: "Large language model interprets intent, iterates through dialogue to resolve ambiguity, validates logistics and real-time availability, and produces a time-ordered itinerary — no forms, no category menus",
+        output: "Personalised, logistically coherent itinerary",
+      },
+      {
+        number: "02",
+        icon: "Map",
+        name: "Contextual Recommendation Layer",
+        role: "Surfaces the right suggestion at the right moment",
+        input: "Live GPS position, time of day, weather, preference history, trip activity log",
+        process: "Real-time context model scores candidate recommendations by personal relevance, timing appropriateness, and proximity — surfacing only what clears the threshold, without asking",
+        output: "Contextual suggestion delivered before you think to search",
+      },
+      {
+        number: "03",
+        icon: "RefreshCw",
+        name: "Agentic Disruption Manager",
+        role: "Detects problems and prepares solutions before you have to",
+        input: "Live flight, rail, and weather data streams monitored against the active itinerary",
+        process: "Detects disruptions, models downstream itinerary impact, researches and evaluates alternatives, assembles a complete replanning recommendation — then stops and waits for explicit human confirmation before any action is taken",
+        output: "Prepared replanning proposal, ready for one-tap approval",
+      },
+    ],
     coverImage: "/work/hudson-cover.png",
     gallery: [
       { type: "phone", label: "App identity", description: "HUDSON — AI Navigator. The splash screen establishes the product's character before a single feature is shown: dark, precise, and quietly capable. The cyan loading bar and bold condensed wordmark signal speed and intelligence without announcing it.", screens: ["splash"], imagePath: "/work/hudson-cover.png" },
-      { type: "phone", label: "Conversational planning", description: "Natural language as the starting point for a structured trip — the planning interface accepts vague inputs and iterates toward a fully time-ordered itinerary through dialogue, handling logistics and availability in the background", screens: ["planning-chat", "itinerary-preview"] },
-      { type: "detail", label: "Location-aware suggestions", description: "A contextual layer that combines live location, time of day, weather, preference history, and trip activity to surface relevant suggestions at the right moment — without being asked", screens: ["nearby-suggestions", "detail-card"] },
-      { type: "phone", label: "Disruption response", description: "When travel circumstances change, Hudson prepares a complete replanning recommendation in the background — alternative routing, updated timings, rescheduled reservations — ready for one-tap human confirmation before any action is taken", screens: ["alert-screen", "replan-options", "confirm-action"] },
+      { type: "phone", label: "Conversational planning", description: "Natural language as the starting point for a structured trip — the planning interface accepts vague inputs, builds an itinerary through dialogue, and refines it on request. No forms, no category menus: 'move the sake district to Day 2' is a complete and valid instruction.", screens: ["planning-chat", "itinerary-preview"], imagePath: "/work/hudson-chat.png" },
+      { type: "phone", label: "AI-generated itinerary", description: "A day-by-day view built from preference, not popularity — colour-coded by category, with AI-sourced contextual notes on each stop. Hudson booked the timed museum entry and held the sake bar reservation before you thought to ask.", screens: ["itinerary-day", "stop-detail"], imagePath: "/work/hudson-itinerary.png" },
+      { type: "phone", label: "Disruption response", description: "Flight delayed, connection threatened — Hudson detects it, researches alternatives, and surfaces a complete replanning proposal in 42 seconds. Rebook, adjust check-in, shift the dinner reservation. All prepared. None executed until you confirm.", screens: ["alert-screen", "replan-options", "confirm-action"], imagePath: "/work/hudson-disruption.png" },
     ],
     outcomes: [
       "Designed and shipped a working iOS prototype (live at hudson-app-6bs.pages.dev) demonstrating the core interaction model: conversational planning, contextual recommendations, and agentic disruption response",
