@@ -292,7 +292,75 @@ export default function WorkCaseStudy() {
         </section>
       )}
 
-      {/* ─── 3. THE PROBLEM ──────────────────────────────────────────── */}
+      {/* ─── 3. GALLERY ─────────────────────────────────────────────── */}
+      {project.gallery && project.gallery.length > 1 && (
+        <section className="mb-32 md:mb-48 px-6 lg:px-12 xl:px-16">
+          <div className="max-w-[120rem] mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1 }}
+              className="mb-16"
+            >
+              <Eyebrow color={project.accentColor}>Platform gallery</Eyebrow>
+              <h2
+                className="font-serif text-white tracking-tight leading-tight"
+                style={{ fontSize: "clamp(1.8rem, 2.5vw, 2.8rem)" }}
+              >
+                Inside the product
+              </h2>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+              {project.gallery.slice(1).map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.8, delay: (i % 2) * 0.1 }}
+                  className={item.type === "fullwidth" ? "md:col-span-2" : ""}
+                >
+                  <div className={item.type === "phone" ? "h-[520px]" : "h-[340px] md:h-[420px]"}>
+                    {item.type === "browser" && item.imagePath ? (
+                      <BrowserFrame
+                        src={item.imagePath}
+                        alt={item.label}
+                        accentColor={project.accentColor}
+                        url={project.website}
+                      />
+                    ) : item.type === "phone" && item.imagePath ? (
+                      <PhoneFrame
+                        src={item.imagePath}
+                        alt={item.label}
+                        accentColor={project.accentColor}
+                      />
+                    ) : item.imagePath ? (
+                      <div className="w-full h-full rounded-2xl overflow-hidden border border-white/[0.07] bg-zinc-950">
+                        <img
+                          src={item.imagePath}
+                          alt={item.label}
+                          className="w-full h-full object-cover object-top"
+                        />
+                      </div>
+                    ) : null}
+                  </div>
+                  <div className="mt-5">
+                    <h3 className="text-sm font-mono tracking-[0.15em] uppercase text-white/50 mb-2">
+                      {item.label}
+                    </h3>
+                    <p className="text-sm text-white/35 font-light leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 4. THE PROBLEM ──────────────────────────────────────────── */}
       <div className="px-6 lg:px-12 xl:px-16">
         <div className="max-w-[120rem] mx-auto">
           <motion.section
@@ -379,6 +447,105 @@ export default function WorkCaseStudy() {
         </div>
       </section>
 
+      {/* ─── 5. CAPABILITIES ─────────────────────────────────────────── */}
+      {project.capabilities && project.capabilities.length > 0 && (
+        <section className="mb-32 md:mb-48 px-6 lg:px-12 xl:px-16">
+          <div className="max-w-[120rem] mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1 }}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16 lg:gap-32 items-start">
+                <div className="lg:sticky lg:top-32">
+                  <Eyebrow color={project.accentColor}>What It Does</Eyebrow>
+                  <h2
+                    className="font-serif text-white tracking-tight leading-tight mt-4"
+                    style={{ fontSize: "clamp(1.8rem, 2.5vw, 2.8rem)" }}
+                  >
+                    Platform capabilities
+                  </h2>
+                  <div className="h-px w-12 bg-white/20 mt-8" />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/[0.05] border border-white/[0.05] rounded-2xl overflow-hidden">
+                  {project.capabilities.map((cap, i) => (
+                    <div
+                      key={i}
+                      className="p-8 bg-[#0d0d0d] hover:bg-white/[0.02] transition-colors"
+                    >
+                      <div
+                        className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.07] flex items-center justify-center mb-5 flex-shrink-0"
+                        style={{ color: project.accentColor }}
+                      >
+                        <CapabilityIcon name={cap.icon} />
+                      </div>
+                      <h3 className="text-base font-serif text-white mb-3 tracking-tight">
+                        {cap.title}
+                      </h3>
+                      <p className="text-sm text-white/45 font-light leading-relaxed">
+                        {cap.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 5b. AI ROLE ─────────────────────────────────────────────── */}
+      {project.aiRole && project.aiRole.length > 0 && (
+        <section className="mb-32 md:mb-48 px-6 lg:px-12 xl:px-16">
+          <div className="max-w-[120rem] mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1 }}
+            >
+              <Eyebrow color={project.accentColor}>AI Role</Eyebrow>
+              <div className="space-y-3 mt-8">
+                {project.aiRole.map((role, i) => {
+                  const titleLower = role.title.toLowerCase();
+                  const isLive = titleLower.includes("(live)");
+                  const isProposed = titleLower.includes("(proposed)");
+                  const roleCfg = isLive
+                    ? STATUS_CONFIG.live
+                    : isProposed
+                    ? STATUS_CONFIG.proposed
+                    : STATUS_CONFIG.vision;
+                  const statusLabel = isLive ? "Live" : isProposed ? "Proposed" : "Roadmap";
+                  const cleanTitle = role.title.replace(/\s*\([^)]+\)\s*$/, "").trim();
+                  return (
+                    <div
+                      key={i}
+                      className="flex gap-6 items-start p-7 rounded-2xl border border-white/[0.06] bg-white/[0.015]"
+                    >
+                      <div
+                        className={`mt-0.5 flex-shrink-0 flex items-center gap-1.5 px-3 py-1 rounded-full border text-[10px] font-mono tracking-[0.2em] uppercase whitespace-nowrap ${roleCfg.bg} ${roleCfg.text}`}
+                      >
+                        <span className={`w-1.5 h-1.5 rounded-full ${roleCfg.dot}`} />
+                        {statusLabel}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base font-serif text-white mb-2 tracking-tight">
+                          {cleanTitle}
+                        </h3>
+                        <p className="text-sm text-white/45 font-light leading-relaxed">
+                          {role.description}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
       {/* ─── 6. AI DEEP DIVE (TECHNICAL & DRAMATIC) ──────────────────────────────────────── */}
       <section className="mb-32 md:mb-48 relative border-y border-white/10 overflow-hidden bg-[#050505]">
         <div className="absolute inset-0 grid-pattern opacity-30 mix-blend-overlay pointer-events-none" />
@@ -454,6 +621,76 @@ export default function WorkCaseStudy() {
                   </div>
                 </div>
               </div>
+
+              {project.aiLayers && project.aiLayers.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 1, delay: 0.2 }}
+                  className="mt-16"
+                >
+                  <div className="text-center mb-12">
+                    <Eyebrow color={project.accentColor} className="mx-auto">
+                      AI Architecture
+                    </Eyebrow>
+                    <h3 className="font-serif text-white text-2xl md:text-3xl tracking-tight mt-4">
+                      Three layers, one system
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {(project.aiLayers as Array<{ number: string; icon: string; name: string; role: string; input: string; process: string; output: string }>).map((layer, i) => (
+                      <div
+                        key={i}
+                        className="p-8 rounded-2xl border border-white/[0.07] bg-[#080808] flex flex-col gap-8"
+                      >
+                        <div className="flex items-start gap-4">
+                          <span className="text-xs font-mono text-white/25 mt-1 flex-shrink-0">
+                            {layer.number}
+                          </span>
+                          <div>
+                            <h4 className="font-serif text-white text-xl tracking-tight">
+                              {layer.name}
+                            </h4>
+                            <p
+                              className="text-xs font-mono tracking-[0.15em] uppercase mt-2"
+                              style={{ color: project.accentColor }}
+                            >
+                              {layer.role}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="space-y-5 border-t border-white/[0.05] pt-6">
+                          <div>
+                            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/25 block mb-2">
+                              Input
+                            </span>
+                            <p className="text-sm text-white/55 font-light leading-relaxed">
+                              {layer.input}
+                            </p>
+                          </div>
+                          <div>
+                            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/25 block mb-2">
+                              Process
+                            </span>
+                            <p className="text-sm text-white/55 font-light leading-relaxed">
+                              {layer.process}
+                            </p>
+                          </div>
+                          <div>
+                            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/25 block mb-2">
+                              Output
+                            </span>
+                            <p className="text-sm text-white/55 font-light leading-relaxed">
+                              {layer.output}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
             </motion.div>
           </div>
         </div>
@@ -490,6 +727,72 @@ export default function WorkCaseStudy() {
                   </div>
                 ))}
               </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 8. OUTCOMES ─────────────────────────────────────────── */}
+      {project.outcomes && project.outcomes.length > 0 && (
+        <section className="px-6 lg:px-12 xl:px-16 pb-24 md:pb-32">
+          <div className="max-w-[120rem] mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1 }}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16 lg:gap-32 items-start">
+                <div className="lg:sticky lg:top-32">
+                  <Eyebrow color={project.accentColor}>What We Delivered</Eyebrow>
+                  <h2
+                    className="font-serif text-white tracking-tight leading-tight mt-4"
+                    style={{ fontSize: "clamp(1.8rem, 2.5vw, 2.8rem)" }}
+                  >
+                    Outcomes
+                  </h2>
+                  <div className="h-px w-12 bg-white/20 mt-8" />
+                </div>
+                <div className="divide-y divide-white/[0.05]">
+                  {project.outcomes.map((outcome, i) => (
+                    <div key={i} className="flex gap-6 items-start py-7 first:pt-0">
+                      <span className="font-mono text-xs text-white/25 mt-1 flex-shrink-0">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <p className="text-base lg:text-lg text-white/60 font-light leading-relaxed">
+                        {outcome}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 9. REFLECTION ───────────────────────────────────────── */}
+      {project.reflection && (
+        <section className="px-6 lg:px-12 xl:px-16 pb-32 md:pb-48">
+          <div className="max-w-[120rem] mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1 }}
+              className="max-w-5xl mx-auto text-center"
+            >
+              <Quote
+                className="w-10 h-10 mx-auto mb-10 opacity-15"
+                style={{ color: project.accentColor }}
+              />
+              <p
+                className="font-serif text-white/75 leading-[1.5] tracking-tight"
+                style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.6rem)" }}
+              >
+                {project.reflection}
+              </p>
+              <div className="mt-12 h-px w-20 bg-white/10 mx-auto" />
             </motion.div>
           </div>
         </section>
