@@ -222,20 +222,33 @@ export default function Work() {
               ) : (
                 <>
                   {/* First item is featured, full width */}
-                  <div className="w-full">
+                  <div className={`w-full ${filtered.length > 1 ? 'pb-16 md:pb-24 border-b border-white/[0.05]' : ''}`}>
                     <ProjectCard project={filtered[0]} index={0} isFeatured={true} />
                   </div>
 
                   {/* Rest in a 2-column masonry-style grid */}
-                  {filtered.length > 1 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 md:gap-y-24">
-                      {filtered.slice(1).map((project, i) => (
-                        <div key={project.slug} className={`${i % 2 === 1 ? 'md:mt-24' : ''}`}>
-                           <ProjectCard project={project} index={i + 1} />
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  {filtered.length > 1 && (() => {
+                    const gridItems = filtered.slice(1);
+                    return (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-0">
+                        {gridItems.map((project, i) => {
+                          const isLastRow = i >= gridItems.length - (gridItems.length % 2 === 0 ? 2 : 1);
+                          return (
+                            <div
+                              key={project.slug}
+                              className={[
+                                i % 2 === 1 ? 'md:mt-24' : '',
+                                'pb-16 md:pb-24',
+                                !isLastRow ? 'border-b border-white/[0.05]' : '',
+                              ].join(' ')}
+                            >
+                              <ProjectCard project={project} index={i + 1} />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
                 </>
               )}
             </motion.div>
