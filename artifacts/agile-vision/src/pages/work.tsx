@@ -24,10 +24,10 @@ function ProjectCard({ project, index, isFeatured = false }: { project: Project;
         {/* Number + rule */}
         <div className="flex items-center gap-6 mb-8">
           <span className="text-[10px] font-mono tracking-[0.3em] text-white/20">{num}</span>
-          <div className="flex-1 h-px bg-white/[0.08]" />
+          <div className="flex-1 h-px bg-white/8" />
         </div>
 
-        <div className={`flex flex-col gap-10 lg:gap-12 flex-1 ${isFeatured ? 'lg:flex-row items-start' : ''}`}>
+        <div className={`flex flex-col gap-10 lg:gap-12 flex-1 ${isFeatured ? 'lg:flex-row items-center' : ''}`}>
           
           {/* Image */}
           <div className={`w-full flex-shrink-0 ${isFeatured ? 'lg:w-[60%]' : ''}`}>
@@ -78,36 +78,36 @@ function ProjectCard({ project, index, isFeatured = false }: { project: Project;
           </div>
 
           {/* Meta */}
-          <div className={`w-full flex flex-col justify-start flex-1 ${isFeatured ? 'lg:w-[45%] lg:pl-12 xl:pl-16' : ''}`}>
+          <div className={`w-full flex flex-col justify-center flex-1 ${isFeatured ? 'lg:w-[40%] lg:pl-4 xl:pl-8' : ''}`}>
             <div className="flex items-center gap-3 mb-5">
               <span
-                className="text-[11px] font-mono tracking-[0.2em] uppercase"
+                className="text-[10px] font-mono tracking-[0.2em] uppercase"
                 style={{ color: project.accentColor }}
               >
                 {project.category}
               </span>
               <span className="text-white/20 text-xs">·</span>
-              <span className="text-[11px] font-mono tracking-[0.15em] uppercase text-white/35">
+              <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/35">
                 {project.platform}
               </span>
             </div>
 
-            <h2 className={`${isFeatured ? 'text-[2.5rem] md:text-[3rem] lg:text-[4.5rem] xl:text-[5.5rem]' : 'text-[2.25rem] md:text-[3rem]'} font-serif tracking-tight text-white leading-[1.0] group-hover:text-white/90 transition-colors duration-300 mb-6`}>
+            <h2 className={`${isFeatured ? 'text-[2.5rem] md:text-[3rem] lg:text-[4rem]' : 'text-[2rem] md:text-[2.5rem]'} font-serif tracking-tight text-white leading-[1.05] group-hover:text-white/90 transition-colors duration-300 mb-5`}>
               {project.name}
             </h2>
 
-            <p className="text-base md:text-lg text-white/45 font-light italic leading-[1.7] mb-10 max-w-lg">
+            <p className="text-sm md:text-base text-white/40 font-light italic leading-[1.7] mb-8 max-w-md">
               "{project.problemStatement}"
             </p>
 
             {project.keyStats && project.keyStats.length > 0 && (
-              <div className={`grid grid-cols-2 ${isFeatured ? 'lg:grid-cols-3' : ''} gap-8 mb-10 pt-8 border-t border-white/[0.07]`}>
+              <div className={`grid grid-cols-2 ${isFeatured ? 'lg:grid-cols-3' : ''} gap-6 mb-8 pt-6 border-t border-white/[0.07]`}>
                 {project.keyStats.slice(0, isFeatured ? 3 : 2).map((stat, i) => (
                   <div key={i}>
-                    <div className="text-3xl lg:text-4xl font-serif text-white tracking-tight leading-none mb-2">
+                    <div className="text-2xl lg:text-3xl font-serif text-white tracking-tight leading-none mb-2">
                       {stat.value}
                     </div>
-                    <div className="text-[11px] font-mono tracking-[0.22em] uppercase text-white/35">
+                    <div className="text-[9px] font-mono tracking-[0.22em] uppercase text-white/30">
                       {stat.label}
                     </div>
                   </div>
@@ -115,7 +115,7 @@ function ProjectCard({ project, index, isFeatured = false }: { project: Project;
               </div>
             )}
 
-            <div className="mt-auto pt-6 flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-white/35 group-hover:text-white/75 transition-colors duration-300">
+            <div className="mt-auto pt-6 flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-white/35 group-hover:text-white/75 transition-colors duration-300">
               <span>Explore Case Study</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 duration-300" />
             </div>
@@ -153,7 +153,6 @@ export default function Work() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col items-center text-center max-w-4xl mx-auto"
           >
-            <div className="w-12 h-px bg-white/15 mx-auto mb-8" />
             <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 mb-8">
               Selected Work
             </p>
@@ -161,22 +160,8 @@ export default function Work() {
               Proof of Craft
             </h1>
             <p className="text-lg sm:text-xl text-white/45 font-light leading-relaxed max-w-2xl">
-              Seven live platforms across fintech, insurtech, AI, and travel. We don't just prototype—we ship intelligent software that works.
+              Intelligent platforms across fintech, insurtech, AI, and the future of work. We don't just build software — we craft digital experiences that command attention.
             </p>
-
-            <div className="flex flex-wrap justify-center gap-px mt-14 border border-white/[0.06] rounded-2xl overflow-hidden">
-              {[
-                { value: "7", label: "Shipped products" },
-                { value: "7", label: "Industries" },
-                { value: "100%", label: "AI-native" },
-                { value: "All", label: "Live in production" },
-              ].map((stat, i) => (
-                <div key={i} className="flex flex-col items-center gap-2 px-8 py-5 bg-white/[0.02] flex-1 min-w-[120px]">
-                  <span className="text-2xl font-serif text-white tracking-tight">{stat.value}</span>
-                  <span className="text-[10px] font-mono tracking-[0.22em] uppercase text-white/30">{stat.label}</span>
-                </div>
-              ))}
-            </div>
           </motion.div>
         </div>
       </section>
@@ -208,7 +193,7 @@ export default function Work() {
                   >
                     {cat}
                   </span>
-                  <span className="text-[9px] font-mono bg-white/[0.08] border border-white/10 px-1.5 py-0.5 rounded text-white/40">
+                  <span className="text-[9px] font-mono bg-white/8 border border-white/10 px-1.5 py-0.5 rounded text-white/40">
                     {count}
                   </span>
                 </button>
@@ -282,8 +267,8 @@ export default function Work() {
             transition={{ duration: 0.9 }}
           >
             <h2 className="font-serif text-[clamp(2.5rem,6vw,6rem)] leading-[1] tracking-tight text-white mb-10">
-              Seven shipped.{" "}
-              <em className="italic text-white/40">What's yours?</em>
+              Ready to build something{" "}
+              <em className="italic text-primary">extraordinary?</em>
             </h2>
             <Link href="/contact" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-medium text-base tracking-wide transition-all duration-300 hover:scale-105 hover:bg-white/92 shadow-lg shadow-white/5">
               Start the conversation
