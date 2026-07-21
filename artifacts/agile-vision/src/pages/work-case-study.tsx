@@ -345,11 +345,11 @@ export default function WorkCaseStudy() {
                       </div>
                     ) : null}
                   </div>
-                  <div className="mt-5">
-                    <h3 className="text-sm font-mono tracking-[0.15em] uppercase text-white/50 mb-2">
+                  <div className="mt-6">
+                    <h3 className="text-sm font-mono tracking-[0.2em] uppercase text-white/65 mb-2">
                       {item.label}
                     </h3>
-                    <p className="text-sm text-white/35 font-light leading-relaxed">
+                    <p className="text-sm text-white/55 font-light leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -428,7 +428,7 @@ export default function WorkCaseStudy() {
                 {project.designPrinciples.map((p, i) => (
                   <div
                     key={i}
-                    className="flex flex-col gap-4 p-8 rounded-2xl border border-white/[0.05] bg-[#090909]/40 backdrop-blur-sm"
+                    className="flex flex-col gap-4 p-10 rounded-2xl border border-white/[0.05] bg-[#090909]/40 backdrop-blur-sm"
                   >
                     <span
                       className="text-[10px] font-mono tracking-[0.2em]"
@@ -436,8 +436,8 @@ export default function WorkCaseStudy() {
                     >
                       Principle {String(i + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="text-xl font-serif text-white tracking-tight">{p.title}</h3>
-                    <p className="text-sm text-white/50 font-light leading-relaxed">{p.description}</p>
+                    <h3 className="text-2xl font-serif text-white tracking-tight">{p.title}</h3>
+                    <p className="text-base text-white/60 font-light leading-relaxed">{p.description}</p>
                   </div>
                 ))}
               </div>
@@ -462,7 +462,7 @@ export default function WorkCaseStudy() {
                   <Eyebrow color={project.accentColor}>What It Does</Eyebrow>
                   <h2
                     className="font-serif text-white tracking-tight leading-tight mt-4"
-                    style={{ fontSize: "clamp(1.8rem, 2.5vw, 2.8rem)" }}
+                    style={{ fontSize: "clamp(2.5rem, 4vw, 4rem)" }}
                   >
                     Platform capabilities
                   </h2>
@@ -506,7 +506,7 @@ export default function WorkCaseStudy() {
               transition={{ duration: 1 }}
             >
               <Eyebrow color={project.accentColor}>How AI ships in this product</Eyebrow>
-              <div className="space-y-6 mt-12 max-w-4xl">
+              <div className="space-y-0 mt-12 max-w-5xl">
                 {project.aiRole.map((role, i) => {
                   const titleLower = role.title.toLowerCase();
                   const isLive = titleLower.includes("(live)");
@@ -521,21 +521,21 @@ export default function WorkCaseStudy() {
                   return (
                     <div
                       key={i}
-                      className="flex flex-col md:flex-row gap-8 items-start py-12 px-0 rounded-none border-b border-white/[0.06] bg-transparent"
+                      className="flex flex-col md:flex-row gap-10 items-start py-12 border-b border-white/[0.06]"
                     >
-                      <div className="w-full md:w-1/3">
+                      <div className="w-full md:w-2/5 flex-shrink-0">
                         <div
-                          className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] font-mono tracking-[0.2em] uppercase whitespace-nowrap mb-6 ${roleCfg.bg} ${roleCfg.text}`}
+                          className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] font-mono tracking-[0.2em] uppercase whitespace-nowrap mb-5 ${roleCfg.bg} ${roleCfg.text}`}
                         >
                           <span className={`w-1.5 h-1.5 rounded-full ${roleCfg.dot}`} />
                           {statusLabel}
                         </div>
-                        <h3 className="text-2xl font-serif text-white tracking-tight">
+                        <h3 className="text-2xl lg:text-3xl font-serif text-white tracking-tight leading-tight">
                           {cleanTitle}
                         </h3>
                       </div>
-                      <div className="w-full md:w-2/3">
-                        <p className="text-lg text-white/50 font-light leading-[1.6]">
+                      <div className="w-full md:w-3/5">
+                        <p className="text-lg lg:text-xl text-white/55 font-light leading-[1.7]">
                           {role.description}
                         </p>
                       </div>
@@ -749,7 +749,7 @@ export default function WorkCaseStudy() {
                   <Eyebrow color={project.accentColor}>What We Delivered</Eyebrow>
                   <h2
                     className="font-serif text-white tracking-tight leading-tight mt-4"
-                    style={{ fontSize: "clamp(1.8rem, 2.5vw, 2.8rem)" }}
+                    style={{ fontSize: "clamp(2.5rem, 4vw, 4rem)" }}
                   >
                     Outcomes
                   </h2>
@@ -757,11 +757,11 @@ export default function WorkCaseStudy() {
                 </div>
                 <div className="divide-y divide-white/[0.05]">
                   {project.outcomes.map((outcome, i) => (
-                    <div key={i} className="flex gap-6 items-start py-7 first:pt-0">
-                      <span className="font-mono text-xs text-white/25 mt-1 flex-shrink-0">
+                    <div key={i} className="flex gap-6 items-start py-9 first:pt-0">
+                      <span className="font-mono text-xs text-white/25 mt-1.5 flex-shrink-0">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <p className="text-base lg:text-lg text-white/60 font-light leading-relaxed">
+                      <p className="text-lg lg:text-xl text-white/65 font-light leading-relaxed">
                         {outcome}
                       </p>
                     </div>
@@ -785,12 +785,12 @@ export default function WorkCaseStudy() {
               className="max-w-5xl mx-auto text-center"
             >
               <Quote
-                className="w-10 h-10 mx-auto mb-10 opacity-15"
+                className="w-12 h-12 mx-auto mb-10 opacity-25"
                 style={{ color: project.accentColor }}
               />
               <p
-                className="font-serif text-white/75 leading-[1.5] tracking-tight"
-                style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.6rem)" }}
+                className="font-serif text-white/85 leading-[1.5] tracking-tight"
+                style={{ fontSize: "clamp(1.6rem, 2.5vw, 2.5rem)" }}
               >
                 {project.reflection}
               </p>

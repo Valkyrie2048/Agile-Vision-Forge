@@ -24,10 +24,10 @@ function ProjectCard({ project, index, isFeatured = false }: { project: Project;
         {/* Number + rule */}
         <div className="flex items-center gap-6 mb-8">
           <span className="text-[10px] font-mono tracking-[0.3em] text-white/20">{num}</span>
-          <div className="flex-1 h-px bg-white/8" />
+          <div className="flex-1 h-px bg-white/[0.08]" />
         </div>
 
-        <div className={`flex flex-col gap-10 lg:gap-12 flex-1 ${isFeatured ? 'lg:flex-row items-center' : ''}`}>
+        <div className={`flex flex-col gap-10 lg:gap-12 flex-1 ${isFeatured ? 'lg:flex-row items-start' : ''}`}>
           
           {/* Image */}
           <div className={`w-full flex-shrink-0 ${isFeatured ? 'lg:w-[60%]' : ''}`}>
@@ -78,36 +78,36 @@ function ProjectCard({ project, index, isFeatured = false }: { project: Project;
           </div>
 
           {/* Meta */}
-          <div className={`w-full flex flex-col justify-center flex-1 ${isFeatured ? 'lg:w-[40%] lg:pl-4 xl:pl-8' : ''}`}>
+          <div className={`w-full flex flex-col justify-start flex-1 ${isFeatured ? 'lg:w-[45%] lg:pl-12 xl:pl-16' : ''}`}>
             <div className="flex items-center gap-3 mb-5">
               <span
-                className="text-[10px] font-mono tracking-[0.2em] uppercase"
+                className="text-[11px] font-mono tracking-[0.2em] uppercase"
                 style={{ color: project.accentColor }}
               >
                 {project.category}
               </span>
               <span className="text-white/20 text-xs">·</span>
-              <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/35">
+              <span className="text-[11px] font-mono tracking-[0.15em] uppercase text-white/35">
                 {project.platform}
               </span>
             </div>
 
-            <h2 className={`${isFeatured ? 'text-[2.5rem] md:text-[3rem] lg:text-[4rem]' : 'text-[2rem] md:text-[2.5rem]'} font-serif tracking-tight text-white leading-[1.05] group-hover:text-white/90 transition-colors duration-300 mb-5`}>
+            <h2 className={`${isFeatured ? 'text-[2.5rem] md:text-[3rem] lg:text-[4.5rem] xl:text-[5.5rem]' : 'text-[2.25rem] md:text-[3rem]'} font-serif tracking-tight text-white leading-[1.0] group-hover:text-white/90 transition-colors duration-300 mb-6`}>
               {project.name}
             </h2>
 
-            <p className="text-sm md:text-base text-white/40 font-light italic leading-[1.7] mb-8 max-w-md">
+            <p className="text-base md:text-lg text-white/45 font-light italic leading-[1.7] mb-10 max-w-lg">
               "{project.problemStatement}"
             </p>
 
             {project.keyStats && project.keyStats.length > 0 && (
-              <div className={`grid grid-cols-2 ${isFeatured ? 'lg:grid-cols-3' : ''} gap-6 mb-8 pt-6 border-t border-white/[0.07]`}>
+              <div className={`grid grid-cols-2 ${isFeatured ? 'lg:grid-cols-3' : ''} gap-8 mb-10 pt-8 border-t border-white/[0.07]`}>
                 {project.keyStats.slice(0, isFeatured ? 3 : 2).map((stat, i) => (
                   <div key={i}>
-                    <div className="text-2xl lg:text-3xl font-serif text-white tracking-tight leading-none mb-2">
+                    <div className="text-3xl lg:text-4xl font-serif text-white tracking-tight leading-none mb-2">
                       {stat.value}
                     </div>
-                    <div className="text-[9px] font-mono tracking-[0.22em] uppercase text-white/30">
+                    <div className="text-[11px] font-mono tracking-[0.22em] uppercase text-white/35">
                       {stat.label}
                     </div>
                   </div>
@@ -115,7 +115,7 @@ function ProjectCard({ project, index, isFeatured = false }: { project: Project;
               </div>
             )}
 
-            <div className="mt-auto pt-6 flex items-center gap-2 text-xs font-mono tracking-widest uppercase text-white/35 group-hover:text-white/75 transition-colors duration-300">
+            <div className="mt-auto pt-6 flex items-center gap-2 text-sm font-mono tracking-widest uppercase text-white/35 group-hover:text-white/75 transition-colors duration-300">
               <span>Explore Case Study</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 duration-300" />
             </div>
