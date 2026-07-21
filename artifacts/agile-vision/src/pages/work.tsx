@@ -163,6 +163,20 @@ export default function Work() {
             <p className="text-lg sm:text-xl text-white/45 font-light leading-relaxed max-w-2xl">
               Seven live platforms across fintech, insurtech, AI, and travel. We don't just prototype—we ship intelligent software that works.
             </p>
+
+            <div className="flex flex-wrap justify-center gap-px mt-14 border border-white/[0.06] rounded-2xl overflow-hidden">
+              {[
+                { value: "7", label: "Shipped products" },
+                { value: "7", label: "Industries" },
+                { value: "100%", label: "AI-native" },
+                { value: "All", label: "Live in production" },
+              ].map((stat, i) => (
+                <div key={i} className="flex flex-col items-center gap-2 px-8 py-5 bg-white/[0.02] flex-1 min-w-[120px]">
+                  <span className="text-2xl font-serif text-white tracking-tight">{stat.value}</span>
+                  <span className="text-[10px] font-mono tracking-[0.22em] uppercase text-white/30">{stat.label}</span>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
@@ -194,7 +208,7 @@ export default function Work() {
                   >
                     {cat}
                   </span>
-                  <span className="text-[9px] font-mono bg-white/8 border border-white/10 px-1.5 py-0.5 rounded text-white/40">
+                  <span className="text-[9px] font-mono bg-white/[0.08] border border-white/10 px-1.5 py-0.5 rounded text-white/40">
                     {count}
                   </span>
                 </button>
