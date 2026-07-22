@@ -144,10 +144,6 @@ export default function Work() {
 
   return (
     <div className="min-h-screen bg-[#090909] selection:bg-primary/30 selection:text-white">
-      {/* TEMPORARY TEST MARKER - will be removed */}
-      <div style={{ background: "#ff0080", color: "#fff", fontWeight: "bold", fontSize: "24px", textAlign: "center", padding: "16px", letterSpacing: "0.1em", zIndex: 9999, position: "relative" }}>
-        ✅ CODE IS LIVE — f27397a RESTORED — IF YOU SEE THIS, THE CANVAS IS UPDATING
-      </div>
       {/* Hero */}
       <section className="pt-44 pb-16 px-6 lg:px-12 xl:px-16">
         <div className="max-w-[120rem] mx-auto">
