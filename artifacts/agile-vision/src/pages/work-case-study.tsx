@@ -34,7 +34,7 @@ function Eyebrow({ children, color, className = "" }: { children: React.ReactNod
   return (
     <div
       className={`text-xs font-mono tracking-[0.3em] uppercase mb-6 ${className}`}
-      style={{ color: color ?? "rgba(255,255,255,0.4)" }}
+      style={{ color: color ?? "rgba(255,255,255,0.65)" }}
     >
       {children}
     </div>

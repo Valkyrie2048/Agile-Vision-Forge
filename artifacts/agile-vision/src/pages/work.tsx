@@ -154,12 +154,12 @@ export default function Work() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 mb-10">
+            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/65 mb-10">
               Vision AI Works — Selected Work
             </p>
             <h1 className="font-serif text-[clamp(3.5rem,9vw,9.5rem)] leading-[0.95] tracking-tight text-white mb-10">
               Work that{" "}
-              <em className="not-italic text-white/25 italic">works.</em>
+              <em className="not-italic text-white/40 italic">works.</em>
             </h1>
             <p className="text-lg sm:text-xl text-white/65 font-light leading-relaxed max-w-xl">
               Intelligent platforms across fintech, insurtech, AI, and the future of work —
