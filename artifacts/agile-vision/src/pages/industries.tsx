@@ -152,7 +152,7 @@ function TriageDemo() {
                 </div>
                 <div className="opacity-80 truncate">{p.condition} · HR {p.hr} · SpO₂ {p.spo2}% · {p.wait}m wait</div>
               </div>
-              <div className={`text-[10px] px-1.5 py-0.5 rounded font-mono shrink-0 ${p.confidence >= threshold ? "bg-emerald-500/20 text-emerald-400" : "bg-white/5 text-white/30"}`}>
+              <div className={`text-[10px] px-1.5 py-0.5 rounded font-mono shrink-0 ${p.confidence >= threshold ? "bg-emerald-500/20 text-emerald-400" : "bg-white/5 text-white/60"}`}>
                 {p.confidence}%
               </div>
             </motion.div>
@@ -773,7 +773,7 @@ function RouteOptimizerDemo() {
                 <span className="text-white/40">·</span>
                 <span className="text-white/60">{km} km · ~{mins} min</span>
               </div>
-              <div className="text-[11px] text-white/40">
+              <div className="text-[11px] text-white/65">
                 WH → {stopOrder} → WH
               </div>
             </motion.div>

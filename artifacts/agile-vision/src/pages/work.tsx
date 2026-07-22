@@ -88,7 +88,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 {project.category}
               </span>
               <span className="text-white/20 text-xs">·</span>
-              <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/35">
+              <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/65">
                 {project.platform}
               </span>
             </div>
@@ -105,19 +105,19 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               {project.services.slice(0, 3).map((service) => (
                 <span
                   key={service}
-                  className="text-[10px] font-mono tracking-wider text-white/35 border border-white/10 px-2.5 py-1 rounded-full"
+                  className="text-[10px] font-mono tracking-wider text-white/65 border border-white/10 px-2.5 py-1 rounded-full"
                 >
                   {service}
                 </span>
               ))}
               {project.services.length > 3 && (
-                <span className="text-[10px] font-mono text-white/25 px-1 py-1">
+                <span className="text-[10px] font-mono text-white/55 px-1 py-1">
                   +{project.services.length - 3}
                 </span>
               )}
             </div>
 
-            <div className="flex items-center gap-2 text-[11px] font-medium text-white/35 group-hover:text-white/75 transition-colors duration-300">
+            <div className="flex items-center gap-2 text-[11px] font-medium text-white/65 group-hover:text-white/90 transition-colors duration-300">
               <span>View case study</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 duration-300" />
             </div>
@@ -161,7 +161,7 @@ export default function Work() {
               Work that{" "}
               <em className="not-italic text-white/25 italic">works.</em>
             </h1>
-            <p className="text-lg sm:text-xl text-white/45 font-light leading-relaxed max-w-xl">
+            <p className="text-lg sm:text-xl text-white/65 font-light leading-relaxed max-w-xl">
               Intelligent platforms across fintech, insurtech, AI, and the future of work —
               proof of craft, delivered.
             </p>
@@ -185,7 +185,7 @@ export default function Work() {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={`flex items-center gap-2.5 whitespace-nowrap transition-all duration-300 ${
-                    isActive ? "text-white" : "text-white/35 hover:text-white/70"
+                    isActive ? "text-white" : "text-white/55 hover:text-white/80"
                   }`}
                 >
                   <span
@@ -195,7 +195,7 @@ export default function Work() {
                   >
                     {cat}
                   </span>
-                  <span className="text-[9px] font-mono bg-white/8 border border-white/10 px-1.5 py-0.5 rounded text-white/40">
+                  <span className="text-[9px] font-mono bg-white/8 border border-white/10 px-1.5 py-0.5 rounded text-white/65">
                     {count}
                   </span>
                 </button>
@@ -218,7 +218,7 @@ export default function Work() {
               className="flex flex-col gap-28 md:gap-40"
             >
               {filtered.length === 0 ? (
-                <div className="py-40 text-center text-lg text-white/30 font-light font-serif italic">
+                <div className="py-40 text-center text-lg text-white/65 font-light font-serif italic">
                   No projects in this category yet.
                 </div>
               ) : (

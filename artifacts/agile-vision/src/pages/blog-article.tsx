@@ -635,7 +635,7 @@ export default function BlogArticle() {
                       {article.author.name}
                       <SiLinkedIn className="w-3 h-3 text-white/50" />
                     </a>
-                    <span className="text-xs text-white/40">Founder, Agile Vision</span>
+                    <span className="text-xs text-white/65">Founder, Agile Vision</span>
                   </div>
                 </div>
                 <Button

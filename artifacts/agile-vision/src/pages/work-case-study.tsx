@@ -86,7 +86,7 @@ export default function WorkCaseStudy() {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-[#090909] flex flex-col items-center justify-center text-white/40 gap-8">
+      <div className="min-h-screen bg-[#090909] flex flex-col items-center justify-center text-white/65 gap-8">
         <p className="text-2xl font-serif italic">Project not found.</p>
         <Link href="/work" className="flex items-center gap-2 text-xs font-mono tracking-widest uppercase hover:text-white transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Return to Gallery
@@ -175,11 +175,11 @@ export default function WorkCaseStudy() {
               </p>
               <div className="grid grid-cols-2 gap-8 lg:flex lg:flex-col lg:items-end lg:gap-8 border-t lg:border-t-0 border-white/10 pt-8 lg:pt-0">
                 <div>
-                  <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30 mb-2">Platform</div>
+                  <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/60 mb-2">Platform</div>
                   <div className="text-lg font-medium text-white">{project.platform}</div>
                 </div>
                 <div>
-                  <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30 mb-2">Status</div>
+                  <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/60 mb-2">Status</div>
                   <div className="text-lg font-medium" style={{ color: project.accentColor }}>{project.status}</div>
                 </div>
               </div>
@@ -234,7 +234,7 @@ export default function WorkCaseStudy() {
                 {project.aiRole.map((role, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center gap-2 text-xs font-mono text-white/40 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02]"
+                    className="inline-flex items-center gap-2 text-xs font-mono text-white/65 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02]"
                   >
                     <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: `${project.accentColor}90` }} />
                     {role.title}
@@ -256,7 +256,7 @@ export default function WorkCaseStudy() {
       >
         <div className="max-w-[120rem] mx-auto">
           <div className="border-t border-white/[0.07] pt-16 flex flex-col md:flex-row gap-8 md:gap-24">
-            <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 flex-shrink-0 mt-1">Project Brief</span>
+            <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/55 flex-shrink-0 mt-1">Project Brief</span>
             <p className="text-xl md:text-2xl text-white/55 font-light leading-relaxed max-w-4xl">{project.summary}</p>
           </div>
         </div>
@@ -314,8 +314,8 @@ export default function WorkCaseStudy() {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="mb-24 md:mb-40 border-t border-white/[0.06] pt-12"
             >
-              <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/25 mr-8">Services</span>
-              <span className="text-sm text-white/40 font-light">
+              <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/55 mr-8">Services</span>
+              <span className="text-sm text-white/65 font-light">
                 {project.services.join(" · ")}
               </span>
             </motion.div>
@@ -509,15 +509,15 @@ export default function WorkCaseStudy() {
 
                     <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8">
                       <div className="space-y-4 p-8 rounded-2xl bg-white/[0.02] border border-white/5">
-                        <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30">Input</div>
+                        <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/60">Input</div>
                         <p className="text-lg text-white/70 font-light leading-relaxed">{layer.input}</p>
                       </div>
                       <div className="space-y-4 p-8 rounded-2xl bg-white/[0.02] border border-white/5">
-                        <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30">Process</div>
+                        <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/60">Process</div>
                         <p className="text-lg text-white/70 font-light leading-relaxed">{layer.process}</p>
                       </div>
                       <div className="space-y-4 p-8 rounded-2xl bg-white/[0.02] border border-white/5">
-                        <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/30">Output</div>
+                        <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/60">Output</div>
                         <p className="text-lg text-white/70 font-light leading-relaxed">{layer.output}</p>
                       </div>
                     </div>
@@ -616,7 +616,7 @@ export default function WorkCaseStudy() {
                     <span className="text-[10px] font-mono tracking-[0.3em] uppercase" style={{ color: `${project.accentColor}70` }}>01</span>
                     <h4 className="text-lg font-serif text-white/80">{displayGallery[0].label}</h4>
                   </div>
-                  <p className="text-base text-white/45 font-light leading-relaxed max-w-2xl">{displayGallery[0].description}</p>
+                  <p className="text-base text-white/65 font-light leading-relaxed max-w-2xl">{displayGallery[0].description}</p>
                 </div>
               </div>
             </motion.div>
@@ -648,7 +648,7 @@ export default function WorkCaseStudy() {
                       </span>
                       <h4 className="text-lg font-serif text-white/80">{item.label}</h4>
                     </div>
-                    <p className="text-sm text-white/40 font-light leading-relaxed">{item.description}</p>
+                    <p className="text-sm text-white/65 font-light leading-relaxed">{item.description}</p>
                   </motion.div>
                 ))}
               </div>
@@ -684,7 +684,7 @@ export default function WorkCaseStudy() {
                              </span>
                              <h4 className="text-lg font-serif text-white/80">{item.label}</h4>
                            </div>
-                           <p className={`text-sm text-white/40 font-light leading-relaxed ${isFullWidth ? 'max-w-2xl' : ''}`}>{item.description}</p>
+                           <p className={`text-sm text-white/65 font-light leading-relaxed ${isFullWidth ? 'max-w-2xl' : ''}`}>{item.description}</p>
                          </div>
                       </motion.div>
                     )
@@ -764,10 +764,10 @@ export default function WorkCaseStudy() {
                   <div className="relative z-10">
                     <div className="flex items-center gap-3 mb-8">
                       <span className="text-white/20 group-hover:text-white/40 transition-colors">←</span>
-                      <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/30">Previous</span>
+                      <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/60">Previous</span>
                     </div>
                     <h3 className="text-3xl lg:text-4xl font-serif text-white tracking-tight mb-3 group-hover:text-white transition-colors">{prevProject.name}</h3>
-                    <p className="text-sm text-white/35 font-light line-clamp-2 group-hover:text-white/50 transition-colors">{prevProject.tagline}</p>
+                    <p className="text-sm text-white/65 font-light line-clamp-2 group-hover:text-white/80 transition-colors">{prevProject.tagline}</p>
                   </div>
                 </Link>
               )}
@@ -779,11 +779,11 @@ export default function WorkCaseStudy() {
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" style={{ background: `linear-gradient(225deg, ${nextProject.accentColor}, transparent)` }} />
                   <div className="relative z-10">
                     <div className="flex items-center justify-end gap-3 mb-8">
-                      <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/30">Next</span>
+                      <span className="text-xs font-mono tracking-[0.2em] uppercase text-white/60">Next</span>
                       <span className="text-white/20 group-hover:text-white/40 transition-colors">→</span>
                     </div>
                     <h3 className="text-3xl lg:text-4xl font-serif text-white tracking-tight mb-3 group-hover:text-white transition-colors">{nextProject.name}</h3>
-                    <p className="text-sm text-white/35 font-light line-clamp-2 group-hover:text-white/50 transition-colors">{nextProject.tagline}</p>
+                    <p className="text-sm text-white/65 font-light line-clamp-2 group-hover:text-white/80 transition-colors">{nextProject.tagline}</p>
                   </div>
                 </Link>
               )}
