@@ -5,7 +5,13 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { projects, projectCategories, type Project } from "@/data/projects";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
-/* ─── HERO CARD (index 0 — full-width, landscape) ─────────────────────── */
+/* Derive a dark gradient from the project's accent color */
+function coverBg(project: Project): string {
+  const tinted = project.accentColorLight.replace(/,[\d.]+\)$/, ",0.18)");
+  return `linear-gradient(135deg, ${tinted}, #060606)`;
+}
+
+/* ─── HERO CARD (index 0 — full-width) ────────────────────────────────── */
 function HeroProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
 
@@ -20,70 +26,75 @@ function HeroProjectCard({ project, index }: { project: Project; index: number }
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Unified card — image on top, meta panel at bottom */}
+        {/* Single unified card — image area on top, meta panel at bottom */}
         <div
-          className="relative overflow-hidden rounded-[2rem] border border-white/[0.06]"
+          className="relative overflow-hidden rounded-[2rem] border border-white/[0.06] flex flex-col"
           style={{
-            background: project.coverImage ? undefined : `radial-gradient(ellipse at center, ${project.accentColorLight}20, #0d0d0d)`,
-            boxShadow: hovered ? `0 40px 120px -20px ${project.accentColor}35` : "none",
+            background: coverBg(project),
+            boxShadow: hovered ? `0 40px 120px -20px ${project.accentColor}40` : "none",
             transition: "box-shadow 0.7s ease",
           }}
         >
-          {/* Image area */}
-          <div className="relative w-full overflow-hidden bg-zinc-900" style={{ aspectRatio: "16/7" }}>
+          {/* ── Image area ── */}
+          <div className="relative w-full" style={{ aspectRatio: "16/7", flexShrink: 0 }}>
+            {/* Faint italic name watermark */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <span
+                className="font-serif italic text-white/[0.07] select-none"
+                style={{ fontSize: "clamp(3rem,8vw,8rem)" }}
+              >
+                {project.name}
+              </span>
+            </div>
+            {/* Hover radial glow */}
             <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none z-0"
-              style={{ background: `radial-gradient(circle at 50% 60%, ${project.accentColor}30 0%, transparent 70%)` }}
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+              style={{ background: `radial-gradient(ellipse at 50% 60%, ${project.accentColor}25, transparent 70%)` }}
             />
-            {project.coverImage ? (
-              <motion.img
-                src={project.coverImage}
-                alt={project.name}
-                className="w-full h-full object-cover object-top relative z-10"
-                animate={{ scale: hovered ? 1.03 : 1 }}
-                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              />
-            ) : (
-              <div className="absolute inset-0 z-10 flex items-center justify-center">
-                <span className="font-serif italic text-white/10" style={{ fontSize: "clamp(3rem,8vw,8rem)" }}>
-                  {project.name}
-                </span>
-              </div>
-            )}
-            <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <motion.div
-              className="absolute bottom-5 right-5 z-30 w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-2xl"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+            {/* Hover arrow button */}
+            <div
+              className="absolute bottom-6 right-6 w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-2xl transition-all duration-300 z-10"
+              style={{ opacity: hovered ? 1 : 0, transform: hovered ? "scale(1)" : "scale(0.7)" }}
             >
               <ArrowUpRight className="w-5 h-5" />
-            </motion.div>
+            </div>
           </div>
 
-          {/* Meta panel — inside the card */}
+          {/* ── Meta panel — inside the card ── */}
           <div className="p-10 lg:p-14 border-t border-white/[0.06] flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-[10px] font-mono tracking-[0.2em] uppercase" style={{ color: project.accentColor }}>
+                <span
+                  className="text-[10px] font-mono tracking-[0.2em] uppercase"
+                  style={{ color: project.accentColor }}
+                >
                   {project.category}
                 </span>
                 <span className="text-white/20 text-xs">·</span>
-                <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/55">{project.platform}</span>
+                <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/55">
+                  {project.platform}
+                </span>
               </div>
               <h2 className="font-serif text-[clamp(2.2rem,4vw,4.5rem)] text-white leading-[1.0] tracking-tight mb-4">
                 {project.name}
               </h2>
-              <p className="text-lg text-white/55 font-light leading-relaxed max-w-2xl">{project.tagline}</p>
+              <p className="text-lg text-white/55 font-light leading-relaxed max-w-2xl">
+                {project.tagline}
+              </p>
             </div>
             <div className="flex flex-wrap gap-2 lg:justify-end flex-shrink-0 lg:max-w-xs">
               {project.services.slice(0, 4).map((s) => (
-                <span key={s} className="text-[10px] font-mono tracking-wider text-white/65 border border-white/10 px-2.5 py-1 rounded-full">
+                <span
+                  key={s}
+                  className="text-[10px] font-mono tracking-wider text-white/65 border border-white/10 px-2.5 py-1 rounded-full"
+                >
                   {s}
                 </span>
               ))}
               {project.services.length > 4 && (
-                <span className="text-[10px] font-mono text-white/45 px-1 py-1">+{project.services.length - 4}</span>
+                <span className="text-[10px] font-mono text-white/45 px-1 py-1">
+                  +{project.services.length - 4}
+                </span>
               )}
             </div>
           </div>
@@ -93,7 +104,7 @@ function HeroProjectCard({ project, index }: { project: Project; index: number }
   );
 }
 
-/* ─── SPLIT CARD (stacked, used in asymmetric pairs) ───────────────────── */
+/* ─── SPLIT CARD (used in asymmetric pairs) ────────────────────────────── */
 function SplitProjectCard({
   project,
   index,
@@ -116,67 +127,63 @@ function SplitProjectCard({
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Unified card — image on top, meta panel at bottom */}
+        {/* Single unified card */}
         <div
           className="rounded-[1.75rem] overflow-hidden border border-white/[0.06] flex flex-col h-full"
           style={{
-            background: project.coverImage ? undefined : `radial-gradient(ellipse at center, ${project.accentColorLight}15, #0d0d0d)`,
-            boxShadow: hovered ? `0 24px 80px -12px ${project.accentColor}30` : "none",
+            background: coverBg(project),
+            boxShadow: hovered ? `0 24px 80px -12px ${project.accentColor}35` : "none",
             transition: "box-shadow 0.7s ease",
           }}
         >
-          {/* Image area */}
+          {/* ── Image area ── */}
           <div
-            className="relative w-full overflow-hidden bg-zinc-900 flex-shrink-0"
+            className="relative w-full flex-1"
             style={{ minHeight: wide ? 300 : 220 }}
           >
+            {/* Faint italic name watermark */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <span
+                className="font-serif italic text-white/[0.07] select-none"
+                style={{ fontSize: wide ? "5rem" : "3.5rem" }}
+              >
+                {project.name}
+              </span>
+            </div>
+            {/* Hover radial glow */}
             <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none"
-              style={{ background: `radial-gradient(circle at 50% 60%, ${project.accentColor}30 0%, transparent 70%)` }}
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+              style={{ background: `radial-gradient(ellipse at 50% 50%, ${project.accentColor}20, transparent 70%)` }}
             />
-            {project.coverImage ? (
-              <motion.img
-                src={project.coverImage}
-                alt={project.name}
-                className="w-full h-full object-cover object-top relative z-10"
-                style={{ position: "absolute", inset: 0 }}
-                animate={{ scale: hovered ? 1.04 : 1 }}
-                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              />
-            ) : (
-              <div className="absolute inset-0 z-10 flex items-center justify-center">
-                <span
-                  className="font-serif italic text-white/10"
-                  style={{ fontSize: wide ? "5rem" : "3.5rem" }}
-                >
-                  {project.name}
-                </span>
-              </div>
-            )}
-            <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <motion.div
-              className="absolute bottom-4 right-4 z-30 w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow-xl"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
-              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+            {/* Hover arrow button */}
+            <div
+              className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow-xl transition-all duration-300 z-10"
+              style={{ opacity: hovered ? 1 : 0, transform: hovered ? "scale(1)" : "scale(0.7)" }}
             >
               <ArrowUpRight className="w-4 h-4" />
-            </motion.div>
+            </div>
           </div>
 
-          {/* Meta panel — inside the card */}
-          <div className="p-8 border-t border-white/[0.06] flex flex-col flex-1">
+          {/* ── Meta panel — inside the card ── */}
+          <div className="p-8 border-t border-white/[0.06]">
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-[10px] font-mono tracking-[0.2em] uppercase" style={{ color: project.accentColor }}>
+              <span
+                className="text-[10px] font-mono tracking-[0.2em] uppercase"
+                style={{ color: project.accentColor }}
+              >
                 {project.category}
               </span>
               <span className="text-white/20 text-xs">·</span>
-              <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/55">{project.platform}</span>
+              <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/55">
+                {project.platform}
+              </span>
             </div>
             <h2 className="font-serif text-2xl lg:text-3xl text-white leading-[1.1] tracking-tight mb-3">
               {project.name}
             </h2>
-            <p className="text-sm text-white/50 font-light leading-relaxed line-clamp-2 mb-5 flex-1">{project.tagline}</p>
+            <p className="text-sm text-white/50 font-light leading-relaxed line-clamp-2 mb-5">
+              {project.tagline}
+            </p>
             <div className="flex items-center gap-2 text-xs font-medium text-white/55 group-hover:text-white/80 transition-colors duration-300">
               <span>View case study</span>
               <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1 duration-300" />
@@ -188,7 +195,7 @@ function SplitProjectCard({
   );
 }
 
-/* ─── ACCENT CARD (full-width, typography-driven) ──────────────────────── */
+/* ─── ACCENT CARD (full-width, pure text — no image) ───────────────────── */
 function AccentProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
 
@@ -201,13 +208,14 @@ function AccentProjectCard({ project, index }: { project: Project; index: number
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.04 }}
         className="group cursor-pointer relative overflow-hidden rounded-[2rem] border border-white/[0.06] p-12 lg:p-20 flex flex-col lg:flex-row items-center gap-12"
         style={{
-          background: `linear-gradient(135deg, ${project.accentColor}18 0%, ${project.accentColor}06 100%)`,
+          background: `linear-gradient(135deg, ${project.accentColorLight.replace(/,[\d.]+\)$/, ",0.18)")}, #060606)`,
           boxShadow: hovered ? `0 30px 100px -20px ${project.accentColor}40` : "none",
           transition: "box-shadow 0.7s ease",
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
+        {/* Hover glow */}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
           style={{ background: `radial-gradient(ellipse at 30% 50%, ${project.accentColor}15, transparent 60%)` }}
@@ -216,7 +224,10 @@ function AccentProjectCard({ project, index }: { project: Project; index: number
         {/* Text block */}
         <div className="relative z-10 flex-1">
           <div className="flex items-center gap-3 mb-5">
-            <span className="text-[10px] font-mono tracking-[0.2em] uppercase" style={{ color: project.accentColor }}>
+            <span
+              className="text-[10px] font-mono tracking-[0.2em] uppercase"
+              style={{ color: project.accentColor }}
+            >
               {project.category}
             </span>
           </div>
@@ -226,10 +237,12 @@ function AccentProjectCard({ project, index }: { project: Project; index: number
           >
             {project.name}
           </h2>
-          <p className="text-xl text-white/55 font-light leading-relaxed max-w-xl">{project.tagline}</p>
+          <p className="text-xl text-white/55 font-light leading-relaxed max-w-xl">
+            {project.tagline}
+          </p>
         </div>
 
-        {/* Circular arrow button — no thumbnail */}
+        {/* Circular arrow button */}
         <div className="relative z-10 flex-shrink-0">
           <motion.div
             className="w-20 h-20 rounded-full border flex items-center justify-center"
@@ -245,7 +258,7 @@ function AccentProjectCard({ project, index }: { project: Project; index: number
   );
 }
 
-/* ─── MAGAZINE GRID RENDERER ────────────────────────────────────────────── */
+/* ─── MAGAZINE GRID ─────────────────────────────────────────────────────── */
 function MagazineGrid({ items }: { items: Project[] }) {
   if (items.length === 0) {
     return (
@@ -258,13 +271,13 @@ function MagazineGrid({ items }: { items: Project[] }) {
   const sections: React.ReactNode[] = [];
   let i = 0;
 
-  // Row 0 — Hero card (full width)
+  // Row 0 — Full-width hero card
   if (items[i]) {
     sections.push(<HeroProjectCard key={items[i].slug} project={items[i]} index={i} />);
     i++;
   }
 
-  // Row 1 — 60 / 40 pair
+  // Row 1 — 60 / 40 split
   if (items[i]) {
     const a = items[i];
     const b = items[i + 1];
@@ -277,7 +290,7 @@ function MagazineGrid({ items }: { items: Project[] }) {
     i += b ? 2 : 1;
   }
 
-  // Row 2 — 40 / 60 pair (reversed)
+  // Row 2 — 40 / 60 split (reversed)
   if (items[i]) {
     const a = items[i];
     const b = items[i + 1];
@@ -296,7 +309,7 @@ function MagazineGrid({ items }: { items: Project[] }) {
     i++;
   }
 
-  // Remaining — 2-col standard grid
+  // Remaining — standard 2-col grid
   if (items[i]) {
     const remaining = items.slice(i);
     sections.push(
