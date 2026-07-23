@@ -30,6 +30,25 @@ function CapabilityIcon({ name }: { name: string }) {
   return <Icon className="w-6 h-6" />;
 }
 
+function BrowserChrome({ accentColor, children }: { accentColor: string; children: React.ReactNode }) {
+  return (
+    <div
+      className="rounded-3xl overflow-hidden border border-white/[0.09]"
+      style={{ boxShadow: `0 0 100px -20px ${accentColor}35, 0 60px 100px -30px rgba(0,0,0,0.7)` }}
+    >
+      <div className="flex items-center gap-2 px-5 h-10 bg-zinc-950/95 border-b border-white/[0.07] flex-shrink-0">
+        <span className="w-3 h-3 rounded-full bg-red-500/50" />
+        <span className="w-3 h-3 rounded-full bg-yellow-400/50" />
+        <span className="w-3 h-3 rounded-full bg-emerald-500/50" />
+        <div className="flex-1 mx-4">
+          <div className="h-5 rounded-full bg-white/[0.05] border border-white/[0.06] w-full max-w-xs mx-auto" />
+        </div>
+      </div>
+      {children}
+    </div>
+  );
+}
+
 function Eyebrow({ children, color, className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
     <div
@@ -256,16 +275,15 @@ export default function WorkCaseStudy() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
             >
-              <div
-                className="relative w-full h-[38vh] md:h-[52vh] bg-zinc-900 rounded-2xl overflow-hidden border border-white/[0.08]"
-                style={{ boxShadow: `0 0 100px -30px ${project.accentColor}25` }}
-              >
-                <img
-                  src={project.coverImage}
-                  alt={`${project.name} interface`}
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
+              <BrowserChrome accentColor={project.accentColor}>
+                <div className="relative w-full h-[52vh] md:h-[68vh] bg-zinc-900 overflow-hidden">
+                  <img
+                    src={project.coverImage}
+                    alt={`${project.name} interface`}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+              </BrowserChrome>
             </motion.div>
           </div>
         </section>
@@ -666,13 +684,28 @@ export default function WorkCaseStudy() {
               {/* Item 0: Contained screenshot, not full-bleed */}
               <div className="px-6 lg:px-12 xl:px-16 mb-8">
                 <div className="max-w-[120rem] mx-auto">
-                  <div className="w-full h-[40vh] md:h-[56vh] relative bg-zinc-900 overflow-hidden rounded-2xl border border-white/[0.08] group">
-                    <img
-                      src={displayGallery[0].imagePath!}
-                      alt={displayGallery[0].label}
-                      className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-1000"
-                    />
-                  </div>
+                  {displayGallery[0].type === "browser" ? (
+                    <BrowserChrome accentColor={project.accentColor}>
+                      <div className="w-full h-[52vh] md:h-[68vh] relative bg-zinc-900 overflow-hidden group">
+                        <img
+                          src={displayGallery[0].imagePath!}
+                          alt={displayGallery[0].label}
+                          className="w-full h-full object-cover object-top transform group-hover:scale-[1.02] transition-transform duration-1000"
+                        />
+                      </div>
+                    </BrowserChrome>
+                  ) : (
+                    <div
+                      className="w-full h-[52vh] md:h-[68vh] relative bg-zinc-900 overflow-hidden rounded-3xl border border-white/[0.08] group"
+                      style={{ boxShadow: `0 0 100px -20px ${project.accentColor}30, 0 60px 100px -30px rgba(0,0,0,0.7)` }}
+                    >
+                      <img
+                        src={displayGallery[0].imagePath!}
+                        alt={displayGallery[0].label}
+                        className="w-full h-full object-cover object-top transform group-hover:scale-[1.02] transition-transform duration-1000"
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="px-6 lg:px-12 xl:px-16 mt-8">
@@ -700,12 +733,29 @@ export default function WorkCaseStudy() {
                     transition={{ duration: 1, delay: i * 0.2 }}
                     className="flex flex-col"
                   >
-                    <div className="w-full aspect-[4/3] rounded-3xl bg-zinc-900 border border-white/10 overflow-hidden mb-8 group relative">
-                      <img 
-                        src={item.imagePath!} 
-                        alt={item.label}
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
-                      />
+                    <div className="mb-8 group">
+                      {item.type === "browser" ? (
+                        <BrowserChrome accentColor={project.accentColor}>
+                          <div className="w-full aspect-[4/3] bg-zinc-900 overflow-hidden relative">
+                            <img
+                              src={item.imagePath!}
+                              alt={item.label}
+                              className="w-full h-full object-cover object-top transform group-hover:scale-[1.02] transition-transform duration-1000"
+                            />
+                          </div>
+                        </BrowserChrome>
+                      ) : (
+                        <div
+                          className="w-full aspect-[4/3] rounded-3xl bg-zinc-900 border border-white/[0.08] overflow-hidden relative"
+                          style={{ boxShadow: `0 0 80px -20px ${project.accentColor}30, 0 40px 80px -20px rgba(0,0,0,0.6)` }}
+                        >
+                          <img
+                            src={item.imagePath!}
+                            alt={item.label}
+                            className="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-1000"
+                          />
+                        </div>
+                      )}
                     </div>
                     <div className="border-t border-white/[0.06] pt-5 flex items-baseline gap-4 mb-3">
                       <span className="text-[10px] font-mono tracking-[0.3em] uppercase flex-shrink-0" style={{ color: `${project.accentColor}70` }}>
@@ -735,12 +785,29 @@ export default function WorkCaseStudy() {
                         transition={{ duration: 1 }}
                         className={`flex flex-col ${isFullWidth ? '' : 'max-w-4xl mx-auto'}`}
                       >
-                         <div className={`w-full bg-zinc-900 border border-white/10 overflow-hidden mb-8 rounded-3xl group relative ${isFullWidth ? 'aspect-video md:aspect-[21/9]' : 'aspect-square md:aspect-[4/3]'}`}>
-                            <img 
-                              src={item.imagePath!} 
-                              alt={item.label}
-                              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
-                            />
+                         <div className="mb-8 group">
+                           {item.type === "browser" ? (
+                             <BrowserChrome accentColor={project.accentColor}>
+                               <div className={`w-full bg-zinc-900 overflow-hidden relative ${isFullWidth ? 'aspect-video md:aspect-[21/9]' : 'aspect-square md:aspect-[4/3]'}`}>
+                                 <img
+                                   src={item.imagePath!}
+                                   alt={item.label}
+                                   className="w-full h-full object-cover object-top transform group-hover:scale-[1.02] transition-transform duration-1000"
+                                 />
+                               </div>
+                             </BrowserChrome>
+                           ) : (
+                             <div
+                               className={`w-full bg-zinc-900 border border-white/[0.08] overflow-hidden rounded-3xl relative ${isFullWidth ? 'aspect-video md:aspect-[21/9]' : 'aspect-square md:aspect-[4/3]'}`}
+                               style={{ boxShadow: `0 0 80px -20px ${project.accentColor}30, 0 40px 80px -20px rgba(0,0,0,0.6)` }}
+                             >
+                               <img
+                                 src={item.imagePath!}
+                                 alt={item.label}
+                                 className="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-1000"
+                               />
+                             </div>
+                           )}
                          </div>
                          <div className={`border-t border-white/[0.06] pt-5 flex flex-col ${isFullWidth ? 'md:flex-row md:items-start md:justify-between gap-6' : 'gap-2'}`}>
                            <div className="flex items-baseline gap-4 flex-shrink-0">
@@ -774,12 +841,23 @@ export default function WorkCaseStudy() {
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.9, delay: i * 0.07 }}
                 >
-                  <p
-                    className="font-serif text-white/80 leading-[1.25] tracking-tight py-10 hover:text-white transition-colors duration-500"
-                    style={{ fontSize: "clamp(1.6rem, 3vw, 2.75rem)" }}
-                  >
-                    {outcome}
-                  </p>
+                  <div className="flex gap-8 lg:gap-14 items-start py-10 group">
+                    <span
+                      className="font-serif leading-none tabular-nums select-none flex-shrink-0 pt-1"
+                      style={{
+                        fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                        color: `${project.accentColor}30`,
+                      }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <p
+                      className="font-serif text-white/80 leading-[1.25] tracking-tight group-hover:text-white transition-colors duration-500"
+                      style={{ fontSize: "clamp(1.6rem, 3vw, 2.75rem)" }}
+                    >
+                      {outcome}
+                    </p>
+                  </div>
                   {i < project.outcomes.length - 1 && (
                     <div className="h-px bg-white/[0.06]" />
                   )}
