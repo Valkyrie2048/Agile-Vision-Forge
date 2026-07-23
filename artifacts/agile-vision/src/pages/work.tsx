@@ -37,25 +37,15 @@ function HeroProjectCard({ project, index }: { project: Project; index: number }
         >
           {/* ── Image area ── */}
           <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/7", flexShrink: 0 }}>
-            {project.coverImage ? (
-              <motion.img
-                src={project.coverImage}
-                alt={project.name}
-                className="absolute inset-0 w-full h-full object-cover object-top z-10"
-                animate={{ scale: hovered ? 1.03 : 1 }}
-                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              />
-            ) : (
-              /* Faint italic name watermark (fallback when no screenshot) */
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <span
-                  className="font-serif italic text-white/[0.07] select-none"
-                  style={{ fontSize: "clamp(3rem,8vw,8rem)" }}
-                >
-                  {project.name}
-                </span>
-              </div>
-            )}
+            {/* Faint italic name watermark */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <span
+                className="font-serif italic text-white/[0.07] select-none"
+                style={{ fontSize: "clamp(3rem,8vw,8rem)" }}
+              >
+                {project.name}
+              </span>
+            </div>
             {/* Hover radial glow */}
             <div
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20"
@@ -151,25 +141,15 @@ function SplitProjectCard({
             className="relative w-full flex-1 overflow-hidden"
             style={{ minHeight: wide ? 300 : 220 }}
           >
-            {project.coverImage ? (
-              <motion.img
-                src={project.coverImage}
-                alt={project.name}
-                className="absolute inset-0 w-full h-full object-cover object-top z-10"
-                animate={{ scale: hovered ? 1.04 : 1 }}
-                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              />
-            ) : (
-              /* Faint italic name watermark (fallback when no screenshot) */
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <span
-                  className="font-serif italic text-white/[0.07] select-none"
-                  style={{ fontSize: wide ? "5rem" : "3.5rem" }}
-                >
-                  {project.name}
-                </span>
-              </div>
-            )}
+            {/* Faint italic name watermark */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <span
+                className="font-serif italic text-white/[0.07] select-none"
+                style={{ fontSize: wide ? "5rem" : "3.5rem" }}
+              >
+                {project.name}
+              </span>
+            </div>
             {/* Hover radial glow */}
             <div
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20"
