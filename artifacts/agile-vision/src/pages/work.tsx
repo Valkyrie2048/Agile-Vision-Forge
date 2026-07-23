@@ -30,30 +30,40 @@ function HeroProjectCard({ project, index }: { project: Project; index: number }
         <div
           className="relative overflow-hidden rounded-[2rem] border border-white/[0.06] flex flex-col"
           style={{
-            background: coverBg(project),
+            background: coverBg(project), /* always gradient — shows in meta panel even when image overlays image area */
             boxShadow: hovered ? `0 40px 120px -20px ${project.accentColor}40` : "none",
             transition: "box-shadow 0.7s ease",
           }}
         >
           {/* ── Image area ── */}
-          <div className="relative w-full" style={{ aspectRatio: "16/7", flexShrink: 0 }}>
-            {/* Faint italic name watermark */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span
-                className="font-serif italic text-white/[0.07] select-none"
-                style={{ fontSize: "clamp(3rem,8vw,8rem)" }}
-              >
-                {project.name}
-              </span>
-            </div>
+          <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/7", flexShrink: 0 }}>
+            {project.coverImage ? (
+              <motion.img
+                src={project.coverImage}
+                alt={project.name}
+                className="absolute inset-0 w-full h-full object-cover object-top z-10"
+                animate={{ scale: hovered ? 1.03 : 1 }}
+                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+              />
+            ) : (
+              /* Faint italic name watermark (fallback when no screenshot) */
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <span
+                  className="font-serif italic text-white/[0.07] select-none"
+                  style={{ fontSize: "clamp(3rem,8vw,8rem)" }}
+                >
+                  {project.name}
+                </span>
+              </div>
+            )}
             {/* Hover radial glow */}
             <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20"
               style={{ background: `radial-gradient(ellipse at 50% 60%, ${project.accentColor}25, transparent 70%)` }}
             />
             {/* Hover arrow button */}
             <div
-              className="absolute bottom-6 right-6 w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-2xl transition-all duration-300 z-10"
+              className="absolute bottom-6 right-6 w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-2xl transition-all duration-300 z-30"
               style={{ opacity: hovered ? 1 : 0, transform: hovered ? "scale(1)" : "scale(0.7)" }}
             >
               <ArrowUpRight className="w-5 h-5" />
@@ -131,33 +141,43 @@ function SplitProjectCard({
         <div
           className="rounded-[1.75rem] overflow-hidden border border-white/[0.06] flex flex-col h-full"
           style={{
-            background: coverBg(project),
+            background: coverBg(project), /* always gradient — shows in meta panel even when image overlays image area */
             boxShadow: hovered ? `0 24px 80px -12px ${project.accentColor}35` : "none",
             transition: "box-shadow 0.7s ease",
           }}
         >
           {/* ── Image area ── */}
           <div
-            className="relative w-full flex-1"
+            className="relative w-full flex-1 overflow-hidden"
             style={{ minHeight: wide ? 300 : 220 }}
           >
-            {/* Faint italic name watermark */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span
-                className="font-serif italic text-white/[0.07] select-none"
-                style={{ fontSize: wide ? "5rem" : "3.5rem" }}
-              >
-                {project.name}
-              </span>
-            </div>
+            {project.coverImage ? (
+              <motion.img
+                src={project.coverImage}
+                alt={project.name}
+                className="absolute inset-0 w-full h-full object-cover object-top z-10"
+                animate={{ scale: hovered ? 1.04 : 1 }}
+                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+              />
+            ) : (
+              /* Faint italic name watermark (fallback when no screenshot) */
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <span
+                  className="font-serif italic text-white/[0.07] select-none"
+                  style={{ fontSize: wide ? "5rem" : "3.5rem" }}
+                >
+                  {project.name}
+                </span>
+              </div>
+            )}
             {/* Hover radial glow */}
             <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20"
               style={{ background: `radial-gradient(ellipse at 50% 50%, ${project.accentColor}20, transparent 70%)` }}
             />
             {/* Hover arrow button */}
             <div
-              className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow-xl transition-all duration-300 z-10"
+              className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow-xl transition-all duration-300 z-30"
               style={{ opacity: hovered ? 1 : 0, transform: hovered ? "scale(1)" : "scale(0.7)" }}
             >
               <ArrowUpRight className="w-4 h-4" />
