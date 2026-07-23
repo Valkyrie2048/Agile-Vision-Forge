@@ -20,79 +20,73 @@ function HeroProjectCard({ project, index }: { project: Project; index: number }
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
+        {/* Unified card — image on top, meta panel at bottom */}
         <div
-          className="relative w-full overflow-hidden rounded-2xl bg-zinc-900 border border-white/[0.06]"
+          className="relative overflow-hidden rounded-[2rem] border border-white/[0.06]"
           style={{
-            aspectRatio: "21/9",
-            transform: hovered ? "scale(0.993)" : "scale(1)",
-            transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1), box-shadow 0.7s ease",
-            boxShadow: hovered
-              ? `0 40px 120px -20px ${project.accentColor}35`
-              : "0 0 0 0 transparent",
+            background: project.coverImage ? undefined : `radial-gradient(ellipse at center, ${project.accentColorLight}20, #0d0d0d)`,
+            boxShadow: hovered ? `0 40px 120px -20px ${project.accentColor}35` : "none",
+            transition: "box-shadow 0.7s ease",
           }}
         >
-          <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none z-0"
-            style={{ background: `radial-gradient(circle at 50% 60%, ${project.accentColor}30 0%, transparent 70%)` }}
-          />
-          {project.coverImage ? (
-            <motion.img
-              src={project.coverImage}
-              alt={project.name}
-              className="w-full h-full object-cover object-top relative z-10"
-              animate={{ scale: hovered ? 1.03 : 1 }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            />
-          ) : (
+          {/* Image area */}
+          <div className="relative w-full overflow-hidden bg-zinc-900" style={{ aspectRatio: "16/7" }}>
             <div
-              className="absolute inset-0 z-10 flex items-center justify-center"
-              style={{ background: `radial-gradient(ellipse at center, ${project.accentColorLight}30, transparent)` }}
-            >
-              <span className="font-serif italic text-white/15" style={{ fontSize: "clamp(3rem,8vw,8rem)" }}>
-                {project.name}
-              </span>
-            </div>
-          )}
-          <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <motion.div
-            className="absolute bottom-5 right-5 z-30 w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-2xl"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 22 }}
-          >
-            <ArrowUpRight className="w-5 h-5" />
-          </motion.div>
-        </div>
-
-        {/* Meta panel below */}
-        <div className="pt-8 pb-4 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-[10px] font-mono tracking-[0.2em] uppercase" style={{ color: project.accentColor }}>
-                {project.category}
-              </span>
-              <span className="text-white/20 text-xs">·</span>
-              <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/65">{project.platform}</span>
-            </div>
-            <h2 className="font-serif text-[clamp(2rem,4vw,4rem)] text-white leading-[1.0] tracking-tight group-hover:text-white/90 transition-colors duration-300 mb-3">
-              {project.name}
-            </h2>
-            <p className="text-base text-white/50 font-light leading-relaxed max-w-2xl">{project.tagline}</p>
-          </div>
-          <div className="flex flex-wrap gap-2 md:justify-end flex-shrink-0 md:max-w-xs">
-            {project.services.slice(0, 4).map((s) => (
-              <span key={s} className="text-[10px] font-mono tracking-wider text-white/65 border border-white/10 px-2.5 py-1 rounded-full">
-                {s}
-              </span>
-            ))}
-            {project.services.length > 4 && (
-              <span className="text-[10px] font-mono text-white/45 px-1 py-1">+{project.services.length - 4}</span>
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none z-0"
+              style={{ background: `radial-gradient(circle at 50% 60%, ${project.accentColor}30 0%, transparent 70%)` }}
+            />
+            {project.coverImage ? (
+              <motion.img
+                src={project.coverImage}
+                alt={project.name}
+                className="w-full h-full object-cover object-top relative z-10"
+                animate={{ scale: hovered ? 1.03 : 1 }}
+                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+              />
+            ) : (
+              <div className="absolute inset-0 z-10 flex items-center justify-center">
+                <span className="font-serif italic text-white/10" style={{ fontSize: "clamp(3rem,8vw,8rem)" }}>
+                  {project.name}
+                </span>
+              </div>
             )}
+            <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <motion.div
+              className="absolute bottom-5 right-5 z-30 w-14 h-14 rounded-full bg-white text-black flex items-center justify-center shadow-2xl"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+            >
+              <ArrowUpRight className="w-5 h-5" />
+            </motion.div>
           </div>
-        </div>
-        <div className="flex items-center gap-2 text-[11px] font-medium text-white/55 group-hover:text-white/85 transition-colors duration-300 pb-2">
-          <span>View case study</span>
-          <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 duration-300" />
+
+          {/* Meta panel — inside the card */}
+          <div className="p-10 lg:p-14 border-t border-white/[0.06] flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-[10px] font-mono tracking-[0.2em] uppercase" style={{ color: project.accentColor }}>
+                  {project.category}
+                </span>
+                <span className="text-white/20 text-xs">·</span>
+                <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/55">{project.platform}</span>
+              </div>
+              <h2 className="font-serif text-[clamp(2.2rem,4vw,4.5rem)] text-white leading-[1.0] tracking-tight mb-4">
+                {project.name}
+              </h2>
+              <p className="text-lg text-white/55 font-light leading-relaxed max-w-2xl">{project.tagline}</p>
+            </div>
+            <div className="flex flex-wrap gap-2 lg:justify-end flex-shrink-0 lg:max-w-xs">
+              {project.services.slice(0, 4).map((s) => (
+                <span key={s} className="text-[10px] font-mono tracking-wider text-white/65 border border-white/10 px-2.5 py-1 rounded-full">
+                  {s}
+                </span>
+              ))}
+              {project.services.length > 4 && (
+                <span className="text-[10px] font-mono text-white/45 px-1 py-1">+{project.services.length - 4}</span>
+              )}
+            </div>
+          </div>
         </div>
       </motion.article>
     </Link>
@@ -103,9 +97,11 @@ function HeroProjectCard({ project, index }: { project: Project; index: number }
 function SplitProjectCard({
   project,
   index,
+  wide = false,
 }: {
   project: Project;
   index: number;
+  wide?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -120,70 +116,71 @@ function SplitProjectCard({
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
+        {/* Unified card — image on top, meta panel at bottom */}
         <div
-          className="relative w-full overflow-hidden rounded-2xl bg-zinc-900 border border-white/[0.06] flex-shrink-0"
+          className="rounded-[1.75rem] overflow-hidden border border-white/[0.06] flex flex-col h-full"
           style={{
-            aspectRatio: "4/3",
-            transform: hovered ? "scale(0.985)" : "scale(1)",
-            transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1), box-shadow 0.7s ease",
-            boxShadow: hovered
-              ? `0 24px 80px -12px ${project.accentColor}30`
-              : "0 0 0 0 transparent",
+            background: project.coverImage ? undefined : `radial-gradient(ellipse at center, ${project.accentColorLight}15, #0d0d0d)`,
+            boxShadow: hovered ? `0 24px 80px -12px ${project.accentColor}30` : "none",
+            transition: "box-shadow 0.7s ease",
           }}
         >
+          {/* Image area */}
           <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none"
-            style={{ background: `radial-gradient(circle at 50% 60%, ${project.accentColor}30 0%, transparent 70%)` }}
-          />
-          {project.coverImage ? (
-            <motion.img
-              src={project.coverImage}
-              alt={project.name}
-              className="w-full h-full object-cover object-top relative z-10"
-              animate={{ scale: hovered ? 1.04 : 1 }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            />
-          ) : (
-            <div
-              className="absolute inset-0 z-10 flex items-center justify-center"
-              style={{ background: `radial-gradient(ellipse at center, ${project.accentColorLight}30, transparent)` }}
-            >
-              <span className="text-2xl font-serif italic text-white/20">{project.name}</span>
-            </div>
-          )}
-          <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <motion.div
-            className="absolute bottom-4 right-4 z-30 w-11 h-11 rounded-full bg-white text-black flex items-center justify-center shadow-2xl"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 22 }}
+            className="relative w-full overflow-hidden bg-zinc-900 flex-shrink-0"
+            style={{ minHeight: wide ? 300 : 220 }}
           >
-            <ArrowUpRight className="w-4 h-4" />
-          </motion.div>
-        </div>
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none"
+              style={{ background: `radial-gradient(circle at 50% 60%, ${project.accentColor}30 0%, transparent 70%)` }}
+            />
+            {project.coverImage ? (
+              <motion.img
+                src={project.coverImage}
+                alt={project.name}
+                className="w-full h-full object-cover object-top relative z-10"
+                style={{ position: "absolute", inset: 0 }}
+                animate={{ scale: hovered ? 1.04 : 1 }}
+                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+              />
+            ) : (
+              <div className="absolute inset-0 z-10 flex items-center justify-center">
+                <span
+                  className="font-serif italic text-white/10"
+                  style={{ fontSize: wide ? "5rem" : "3.5rem" }}
+                >
+                  {project.name}
+                </span>
+              </div>
+            )}
+            <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <motion.div
+              className="absolute bottom-4 right-4 z-30 w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow-xl"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: hovered ? 1 : 0, opacity: hovered ? 1 : 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+            >
+              <ArrowUpRight className="w-4 h-4" />
+            </motion.div>
+          </div>
 
-        <div className="pt-6 flex flex-col flex-1">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="text-[10px] font-mono tracking-[0.2em] uppercase" style={{ color: project.accentColor }}>
-              {project.category}
-            </span>
-            <span className="text-white/20 text-xs">·</span>
-            <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/65">{project.platform}</span>
-          </div>
-          <h2 className="font-serif text-2xl md:text-3xl text-white leading-[1.1] tracking-tight group-hover:text-white/90 transition-colors duration-300 mb-3">
-            {project.name}
-          </h2>
-          <p className="text-sm text-white/45 font-light leading-relaxed line-clamp-2 mb-5 flex-1">{project.tagline}</p>
-          <div className="flex flex-wrap gap-2 mb-4">
-            {project.services.slice(0, 3).map((s) => (
-              <span key={s} className="text-[10px] font-mono tracking-wider text-white/55 border border-white/10 px-2.5 py-1 rounded-full">
-                {s}
+          {/* Meta panel — inside the card */}
+          <div className="p-8 border-t border-white/[0.06] flex flex-col flex-1">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-[10px] font-mono tracking-[0.2em] uppercase" style={{ color: project.accentColor }}>
+                {project.category}
               </span>
-            ))}
-          </div>
-          <div className="flex items-center gap-2 text-[11px] font-medium text-white/55 group-hover:text-white/85 transition-colors duration-300">
-            <span>View case study</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 duration-300" />
+              <span className="text-white/20 text-xs">·</span>
+              <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/55">{project.platform}</span>
+            </div>
+            <h2 className="font-serif text-2xl lg:text-3xl text-white leading-[1.1] tracking-tight mb-3">
+              {project.name}
+            </h2>
+            <p className="text-sm text-white/50 font-light leading-relaxed line-clamp-2 mb-5 flex-1">{project.tagline}</p>
+            <div className="flex items-center gap-2 text-xs font-medium text-white/55 group-hover:text-white/80 transition-colors duration-300">
+              <span>View case study</span>
+              <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1 duration-300" />
+            </div>
           </div>
         </div>
       </motion.article>
@@ -202,10 +199,10 @@ function AccentProjectCard({ project, index }: { project: Project; index: number
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.04 }}
-        className="group cursor-pointer relative overflow-hidden rounded-2xl border border-white/[0.06] p-10 md:p-16 flex flex-col md:flex-row items-center gap-10"
+        className="group cursor-pointer relative overflow-hidden rounded-[2rem] border border-white/[0.06] p-12 lg:p-20 flex flex-col lg:flex-row items-center gap-12"
         style={{
-          background: `linear-gradient(135deg, ${project.accentColor}14 0%, ${project.accentColor}05 60%, transparent 100%)`,
-          boxShadow: hovered ? `0 30px 100px -20px ${project.accentColor}35` : "none",
+          background: `linear-gradient(135deg, ${project.accentColor}18 0%, ${project.accentColor}06 100%)`,
+          boxShadow: hovered ? `0 30px 100px -20px ${project.accentColor}40` : "none",
           transition: "box-shadow 0.7s ease",
         }}
         onMouseEnter={() => setHovered(true)}
@@ -213,49 +210,36 @@ function AccentProjectCard({ project, index }: { project: Project; index: number
       >
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-          style={{ background: `radial-gradient(ellipse at 30% 50%, ${project.accentColor}12, transparent 60%)` }}
+          style={{ background: `radial-gradient(ellipse at 30% 50%, ${project.accentColor}15, transparent 60%)` }}
         />
-        {project.coverImage && (
-          <div className="relative w-full md:w-64 lg:w-80 xl:w-96 flex-shrink-0 overflow-hidden rounded-xl border border-white/[0.06]" style={{ aspectRatio: "4/3" }}>
-            <motion.img
-              src={project.coverImage}
-              alt={project.name}
-              className="w-full h-full object-cover object-top"
-              animate={{ scale: hovered ? 1.04 : 1 }}
-              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            />
-          </div>
-        )}
+
+        {/* Text block */}
         <div className="relative z-10 flex-1">
           <div className="flex items-center gap-3 mb-5">
             <span className="text-[10px] font-mono tracking-[0.2em] uppercase" style={{ color: project.accentColor }}>
               {project.category}
             </span>
-            <span className="text-white/20 text-xs">·</span>
-            <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-white/65">{project.platform}</span>
           </div>
           <h2
-            className="font-serif text-white leading-[1.0] tracking-tight group-hover:text-white/90 transition-colors duration-300 mb-5"
-            style={{ fontSize: "clamp(2rem,4.5vw,4.5rem)" }}
+            className="font-serif text-white leading-[1.0] tracking-tight mb-6"
+            style={{ fontSize: "clamp(2.5rem,5vw,5rem)" }}
           >
             {project.name}
           </h2>
-          <p className="text-lg text-white/50 font-light leading-relaxed max-w-xl mb-7">{project.tagline}</p>
-          <div className="flex items-center gap-2 text-[11px] font-medium text-white/55 group-hover:text-white/85 transition-colors duration-300">
-            <span>View case study</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 duration-300" />
-          </div>
+          <p className="text-xl text-white/55 font-light leading-relaxed max-w-xl">{project.tagline}</p>
         </div>
-        <motion.div
-          className="relative z-10 flex-shrink-0 w-14 h-14 rounded-full border flex items-center justify-center hidden md:flex"
-          style={{ borderColor: `${project.accentColor}40` }}
-          animate={{
-            backgroundColor: hovered ? `${project.accentColor}18` : "transparent",
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          <ArrowUpRight className="w-6 h-6" style={{ color: project.accentColor }} />
-        </motion.div>
+
+        {/* Circular arrow button — no thumbnail */}
+        <div className="relative z-10 flex-shrink-0">
+          <motion.div
+            className="w-20 h-20 rounded-full border flex items-center justify-center"
+            style={{ borderColor: `${project.accentColor}50` }}
+            animate={{ backgroundColor: hovered ? `${project.accentColor}20` : "transparent" }}
+            transition={{ duration: 0.4 }}
+          >
+            <ArrowUpRight className="w-8 h-8" style={{ color: project.accentColor }} />
+          </motion.div>
+        </div>
       </motion.article>
     </Link>
   );
@@ -285,9 +269,9 @@ function MagazineGrid({ items }: { items: Project[] }) {
     const a = items[i];
     const b = items[i + 1];
     sections.push(
-      <div key="row-1" className="grid gap-8 items-start" style={{ gridTemplateColumns: b ? "60fr 40fr" : "1fr" }}>
-        <SplitProjectCard project={a} index={i} />
-        {b && <SplitProjectCard project={b} index={i + 1} />}
+      <div key="row-1" className="grid gap-8 items-stretch" style={{ gridTemplateColumns: b ? "60fr 40fr" : "1fr" }}>
+        <SplitProjectCard project={a} index={i} wide={true} />
+        {b && <SplitProjectCard project={b} index={i + 1} wide={false} />}
       </div>
     );
     i += b ? 2 : 1;
@@ -298,9 +282,9 @@ function MagazineGrid({ items }: { items: Project[] }) {
     const a = items[i];
     const b = items[i + 1];
     sections.push(
-      <div key="row-2" className="grid gap-8 items-start" style={{ gridTemplateColumns: b ? "40fr 60fr" : "1fr" }}>
-        <SplitProjectCard project={a} index={i} />
-        {b && <SplitProjectCard project={b} index={i + 1} />}
+      <div key="row-2" className="grid gap-8 items-stretch" style={{ gridTemplateColumns: b ? "40fr 60fr" : "1fr" }}>
+        <SplitProjectCard project={a} index={i} wide={false} />
+        {b && <SplitProjectCard project={b} index={i + 1} wide={true} />}
       </div>
     );
     i += b ? 2 : 1;
@@ -316,15 +300,15 @@ function MagazineGrid({ items }: { items: Project[] }) {
   if (items[i]) {
     const remaining = items.slice(i);
     sections.push(
-      <div key="row-rest" className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+      <div key="row-rest" className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
         {remaining.map((p, j) => (
-          <SplitProjectCard key={p.slug} project={p} index={i + j} />
+          <SplitProjectCard key={p.slug} project={p} index={i + j} wide={true} />
         ))}
       </div>
     );
   }
 
-  return <div className="flex flex-col gap-16 md:gap-20">{sections}</div>;
+  return <div className="flex flex-col gap-8">{sections}</div>;
 }
 
 /* ─── PAGE ──────────────────────────────────────────────────────────────── */
