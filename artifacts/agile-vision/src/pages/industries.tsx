@@ -583,7 +583,7 @@ function SentimentAnalyzerDemo() {
         value={text}
         onChange={e => setText(e.target.value)}
         rows={3}
-        className="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-white/40 resize-none focus:outline-none focus:border-primary/50 mb-3"
+        className="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2.5 text-sm text-white placeholder:text-white/55 resize-none focus:outline-none focus:border-primary/50 mb-3"
       />
       {tokens.length > 0 && (
         <>
