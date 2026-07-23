@@ -37,15 +37,16 @@ function HeroProjectCard({ project, index }: { project: Project; index: number }
         >
           {/* ── Image area ── */}
           <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/7", flexShrink: 0 }}>
-            {/* Faint italic name watermark */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span
-                className="font-serif italic text-white/[0.07] select-none"
-                style={{ fontSize: "clamp(3rem,8vw,8rem)" }}
-              >
-                {project.name}
-              </span>
-            </div>
+            {/* Screenshot */}
+            {project.coverImage && (
+              <img
+                src={project.coverImage}
+                alt={project.name}
+                className="absolute inset-0 w-full h-full object-cover object-top transform group-hover:scale-[1.03] transition-transform duration-1000"
+              />
+            )}
+            {/* Gradient overlay so meta panel reads cleanly */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none z-10" />
             {/* Hover radial glow */}
             <div
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20"
@@ -141,15 +142,16 @@ function SplitProjectCard({
             className="relative w-full flex-1 overflow-hidden"
             style={{ minHeight: wide ? 300 : 220 }}
           >
-            {/* Faint italic name watermark */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <span
-                className="font-serif italic text-white/[0.07] select-none"
-                style={{ fontSize: wide ? "5rem" : "3.5rem" }}
-              >
-                {project.name}
-              </span>
-            </div>
+            {/* Screenshot */}
+            {project.coverImage && (
+              <img
+                src={project.coverImage}
+                alt={project.name}
+                className="absolute inset-0 w-full h-full object-cover object-top transform group-hover:scale-[1.03] transition-transform duration-1000"
+              />
+            )}
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent pointer-events-none z-10" />
             {/* Hover radial glow */}
             <div
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20"
