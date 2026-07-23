@@ -335,7 +335,7 @@ function HeroSection() {
 
         <BlurReveal delay={0.5}>
           <p
-            className="text-lg sm:text-xl text-white/60 max-w-xl mx-auto mb-10 leading-relaxed"
+            className="text-lg sm:text-xl text-white/75 max-w-xl mx-auto mb-10 leading-relaxed"
             data-testid="text-hero-subtitle"
           >
             We build it with AI, from idea to launch, agentic systems, and intelligent software for ambitious companies.
@@ -366,7 +366,7 @@ function HeroSection() {
             {["GPT-4o", "Claude", "LangChain", "React", "Node.js", "Python", "Supabase", "Vercel"].map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 rounded-full text-xs font-medium bg-white/6 border border-white/10 text-white/50 backdrop-blur-sm"
+                className="px-3 py-1 rounded-full text-xs font-medium bg-white/6 border border-white/10 text-white/65 backdrop-blur-sm"
               >
                 {tag}
               </span>
@@ -1005,7 +1005,7 @@ function GetStartedPreview() {
               <h3 className="font-sans text-2xl sm:text-3xl font-bold text-white leading-snug mb-2 tracking-tight">
                 {active.tagline}
               </h3>
-              <p className="text-white/55 text-sm leading-relaxed mb-5 max-w-md">
+              <p className="text-white/70 text-sm leading-relaxed mb-5 max-w-md">
                 {active.description}
               </p>
               {/* Capability pills */}
@@ -1439,7 +1439,7 @@ function FinalCTASection() {
             </span>
           </h2>
           <BlurReveal delay={0.4}>
-            <p className="text-lg text-white/60 max-w-xl mx-auto mb-10">
+            <p className="text-lg text-white/75 max-w-xl mx-auto mb-10">
               Ready to turn your vision into an intelligent product? Let's talk about what we can create together.
             </p>
           </BlurReveal>

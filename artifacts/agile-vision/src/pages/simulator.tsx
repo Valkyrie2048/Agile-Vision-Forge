@@ -669,7 +669,7 @@ export default function Simulator() {
                     >
                       {i < currentPhaseIndex ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
                     </motion.div>
-                    <span className={`text-[10px] sm:text-xs font-medium transition-colors whitespace-nowrap ${i <= currentPhaseIndex ? "text-primary" : "text-muted-foreground/60"}`}>
+                    <span className={`text-[10px] sm:text-xs font-medium transition-colors whitespace-nowrap ${i <= currentPhaseIndex ? "text-primary" : "text-muted-foreground"}`}>
                       {label}
                     </span>
                   </div>
@@ -780,7 +780,7 @@ export default function Simulator() {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="max-w-xl mx-auto">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="flex-1 h-px bg-border" />
-                  <span className="text-xs text-muted-foreground/60 font-medium uppercase tracking-wider">or describe your own</span>
+                  <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">or describe your own</span>
                   <div className="flex-1 h-px bg-border" />
                 </div>
                 <Card className="relative p-5 bg-card">

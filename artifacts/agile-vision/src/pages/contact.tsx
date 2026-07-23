@@ -227,7 +227,7 @@ export default function Contact() {
                 {/* Trust signals inline */}
                 <div className="flex items-center justify-center gap-6 pt-1">
                   {trustSignals.map((s, i) => (
-                    <div key={i} className="flex items-center gap-1.5 text-muted-foreground/60">
+                    <div key={i} className="flex items-center gap-1.5 text-muted-foreground">
                       <s.icon className="w-3.5 h-3.5" />
                       <span className="text-xs">{s.text}</span>
                     </div>

@@ -24,7 +24,7 @@ function DemoCard({ title, description, onReset, children }: {
         </div>
         {onReset && (
           <Button size="icon" variant="ghost" onClick={onReset}
-            className="text-white/40 hover:text-white shrink-0 ml-4">
+            className="text-white/65 hover:text-white shrink-0 ml-4">
             <RotateCcw className="w-3.5 h-3.5" />
           </Button>
         )}
