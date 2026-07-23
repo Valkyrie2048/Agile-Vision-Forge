@@ -126,7 +126,7 @@ function TriageDemo() {
       <div className="mb-4 space-y-2">
         <RangeSlider label="AI Confidence Threshold" value={threshold} min={50} max={95}
           onChange={setThreshold} unit="%" />
-        <div className="flex items-center gap-2 text-[11px] text-white/50">
+        <div className="flex items-center gap-2 text-[11px] text-white/65">
           <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
           Above threshold: auto-prioritized by severity
           <span className="w-2 h-2 rounded-full bg-white/20 inline-block ml-2" />
@@ -260,7 +260,7 @@ function AnomalyChartDemo() {
               {change >= 0 ? "+" : ""}{change.toFixed(2)} ({changePct.toFixed(2)}%)
             </span>
           </div>
-          <div className="text-[11px] text-white/50">AGVI · NASDAQ · Agile Vision Inc.</div>
+          <div className="text-[11px] text-white/65">AGVI · NASDAQ · Agile Vision Inc.</div>
         </div>
         <div className="flex gap-1.5">
           <Button size="sm" variant="outline" onClick={() => inject(1)}
@@ -387,7 +387,7 @@ function DemandForecastDemo() {
         ].map(stat => (
           <div key={stat.label} className="rounded-lg bg-white/[0.05] border border-white/10 px-3 py-2 text-center">
             <div className="text-sm font-bold text-white">{stat.value}</div>
-            <div className="text-[10px] text-white/50 mt-0.5">{stat.label}</div>
+            <div className="text-[10px] text-white/65 mt-0.5">{stat.label}</div>
           </div>
         ))}
       </div>
@@ -592,7 +592,7 @@ function SentimentAnalyzerDemo() {
               <span key={i} className={`text-xs px-1.5 py-0.5 rounded font-medium ${
                 t.score === 1 ? "bg-emerald-500/20 text-emerald-300" :
                 t.score === -1 ? "bg-red-500/20 text-red-300" :
-                "text-white/50"
+                "text-white/65"
               }`}>{t.raw}</span>
             ))}
           </div>
@@ -605,7 +605,7 @@ function SentimentAnalyzerDemo() {
             </div>
             <span className={`text-xs font-bold w-16 text-right ${polarityColor}`}>{polarityLabel}</span>
           </div>
-          <div className="flex gap-3 text-[11px] text-white/50">
+          <div className="flex gap-3 text-[11px] text-white/65">
             <span className="text-emerald-400">{posCount} positive signal{posCount !== 1 ? "s" : ""}</span>
             <span>·</span>
             <span className="text-red-400">{negCount} negative signal{negCount !== 1 ? "s" : ""}</span>

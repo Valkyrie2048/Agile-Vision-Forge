@@ -510,7 +510,7 @@ function CapabilitiesSection() {
             <TextReveal>End-to-End AI Product Development</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <p className="text-foreground/70 max-w-xl mx-auto">
               From intelligent chatbots to autonomous agents, we build the full spectrum of AI-powered products.
             </p>
           </BlurReveal>
@@ -554,7 +554,7 @@ function CapabilitiesSection() {
                   </div>
                   <div className="relative flex-1 p-5 pt-0 -mt-6 z-10">
                     <h3 className="font-semibold text-lg mb-1.5">{cap.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{cap.description}</p>
+                    <p className="text-sm text-foreground/70 leading-relaxed">{cap.description}</p>
                   </div>
                 </Card>
               </div>
@@ -726,7 +726,7 @@ function IndustriesSection() {
             <TextReveal>AI Built for Your Industry</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <p className="text-foreground/70 max-w-xl mx-auto">
               Every sector has its own rhythms, risks, and data. We ship AI tailored to the realities of your vertical, not generic templates.
             </p>
           </BlurReveal>
@@ -923,7 +923,7 @@ function GetStartedPreview() {
             <TextReveal>We Build AI Solutions</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
-            <p className="text-muted-foreground max-w-lg mx-auto">
+            <p className="text-foreground/70 max-w-lg mx-auto">
               Pick a product type and see a live demo of what we'd build for your business.
             </p>
           </BlurReveal>
@@ -1061,7 +1061,7 @@ function ProcessSection() {
             <TextReveal>From Idea to Launch in Weeks</TextReveal>
           </h2>
           <BlurReveal delay={0.2}>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <p className="text-foreground/70 max-w-xl mx-auto">
               Our streamlined process ensures rapid delivery without compromising quality.
             </p>
           </BlurReveal>
@@ -1099,7 +1099,7 @@ function ProcessSection() {
                 </motion.div>
                 <div className="text-sm font-mono text-primary mb-2">{step.num}</div>
                 <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                <p className="text-sm text-foreground/70 leading-relaxed">{step.description}</p>
               </motion.div>
             ))}
           </div>
@@ -1515,7 +1515,7 @@ function TestimonialsSection() {
               >
                 <div className="rounded-md bg-card p-6 h-full flex flex-col">
                   <Quote className="w-8 h-8 text-primary/30 mb-4 shrink-0" />
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
+                  <p className="text-sm text-foreground/70 leading-relaxed mb-6 flex-1">
                     "{testimonial.quote}"
                   </p>
                   <div className="font-semibold text-sm">

@@ -348,7 +348,7 @@ function AiAnalysisSection({ analysis }: { analysis: BlogArticleType["aiAnalysis
                   ) : (
                     <div className="w-5 h-5 rounded-full flex-shrink-0 bg-muted/30" />
                   )}
-                  <span className={idx <= analyzeStep ? "text-foreground" : "text-muted-foreground/40"}>
+                  <span className={idx <= analyzeStep ? "text-foreground" : "text-muted-foreground"}>
                     {step}
                   </span>
                 </motion.div>
@@ -615,7 +615,7 @@ export default function BlogArticle() {
                 {article.title}
               </h1>
 
-              <p className="text-base sm:text-lg text-white/50 mt-4 max-w-2xl leading-relaxed line-clamp-2">
+              <p className="text-base sm:text-lg text-white/70 mt-4 max-w-2xl leading-relaxed line-clamp-2">
                 {article.excerpt}
               </p>
 
