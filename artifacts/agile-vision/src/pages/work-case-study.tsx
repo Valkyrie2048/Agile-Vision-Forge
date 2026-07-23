@@ -275,15 +275,28 @@ export default function WorkCaseStudy() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
             >
-              <BrowserChrome accentColor={project.accentColor}>
-                <div className="relative w-full h-[52vh] md:h-[68vh] bg-zinc-900 overflow-hidden">
+              {project.platform === "iOS" ? (
+                <div
+                  className="relative w-full aspect-video bg-zinc-900 overflow-hidden rounded-3xl border border-white/[0.09]"
+                  style={{ boxShadow: `0 0 100px -20px ${project.accentColor}35, 0 60px 100px -30px rgba(0,0,0,0.7)` }}
+                >
                   <img
                     src={project.coverImage}
                     alt={`${project.name} interface`}
                     className="w-full h-full object-cover object-top"
                   />
                 </div>
-              </BrowserChrome>
+              ) : (
+                <BrowserChrome accentColor={project.accentColor}>
+                  <div className="relative w-full aspect-video bg-zinc-900 overflow-hidden">
+                    <img
+                      src={project.coverImage}
+                      alt={`${project.name} interface`}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                </BrowserChrome>
+              )}
             </motion.div>
           </div>
         </section>
@@ -686,7 +699,7 @@ export default function WorkCaseStudy() {
                 <div className="max-w-[120rem] mx-auto">
                   {displayGallery[0].type === "browser" ? (
                     <BrowserChrome accentColor={project.accentColor}>
-                      <div className="w-full h-[52vh] md:h-[68vh] relative bg-zinc-900 overflow-hidden group">
+                      <div className="w-full aspect-video relative bg-zinc-900 overflow-hidden group">
                         <img
                           src={displayGallery[0].imagePath!}
                           alt={displayGallery[0].label}
@@ -696,7 +709,7 @@ export default function WorkCaseStudy() {
                     </BrowserChrome>
                   ) : (
                     <div
-                      className="w-full h-[52vh] md:h-[68vh] relative bg-zinc-900 overflow-hidden rounded-3xl border border-white/[0.08] group"
+                      className="w-full aspect-video relative bg-zinc-900 overflow-hidden rounded-3xl border border-white/[0.08] group"
                       style={{ boxShadow: `0 0 100px -20px ${project.accentColor}30, 0 60px 100px -30px rgba(0,0,0,0.7)` }}
                     >
                       <img
@@ -736,7 +749,7 @@ export default function WorkCaseStudy() {
                     <div className="mb-8 group">
                       {item.type === "browser" ? (
                         <BrowserChrome accentColor={project.accentColor}>
-                          <div className="w-full aspect-[4/3] bg-zinc-900 overflow-hidden relative">
+                          <div className="w-full aspect-video bg-zinc-900 overflow-hidden relative">
                             <img
                               src={item.imagePath!}
                               alt={item.label}
@@ -746,13 +759,13 @@ export default function WorkCaseStudy() {
                         </BrowserChrome>
                       ) : (
                         <div
-                          className="w-full aspect-[4/3] rounded-3xl bg-zinc-900 border border-white/[0.08] overflow-hidden relative"
+                          className="w-full aspect-video rounded-3xl bg-zinc-900 border border-white/[0.08] overflow-hidden relative"
                           style={{ boxShadow: `0 0 80px -20px ${project.accentColor}30, 0 40px 80px -20px rgba(0,0,0,0.6)` }}
                         >
                           <img
                             src={item.imagePath!}
                             alt={item.label}
-                            className="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-1000"
+                            className="w-full h-full object-cover object-top transform group-hover:scale-[1.02] transition-transform duration-1000"
                           />
                         </div>
                       )}
@@ -788,7 +801,7 @@ export default function WorkCaseStudy() {
                          <div className="mb-8 group">
                            {item.type === "browser" ? (
                              <BrowserChrome accentColor={project.accentColor}>
-                               <div className={`w-full bg-zinc-900 overflow-hidden relative ${isFullWidth ? 'aspect-video md:aspect-[21/9]' : 'aspect-square md:aspect-[4/3]'}`}>
+                               <div className="w-full aspect-video bg-zinc-900 overflow-hidden relative">
                                  <img
                                    src={item.imagePath!}
                                    alt={item.label}
@@ -798,13 +811,13 @@ export default function WorkCaseStudy() {
                              </BrowserChrome>
                            ) : (
                              <div
-                               className={`w-full bg-zinc-900 border border-white/[0.08] overflow-hidden rounded-3xl relative ${isFullWidth ? 'aspect-video md:aspect-[21/9]' : 'aspect-square md:aspect-[4/3]'}`}
+                               className="w-full aspect-video bg-zinc-900 border border-white/[0.08] overflow-hidden rounded-3xl relative"
                                style={{ boxShadow: `0 0 80px -20px ${project.accentColor}30, 0 40px 80px -20px rgba(0,0,0,0.6)` }}
                              >
                                <img
                                  src={item.imagePath!}
                                  alt={item.label}
-                                 className="w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-1000"
+                                 className="w-full h-full object-cover object-top transform group-hover:scale-[1.02] transition-transform duration-1000"
                                />
                              </div>
                            )}
