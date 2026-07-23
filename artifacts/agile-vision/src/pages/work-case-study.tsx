@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { projects, type Project } from "@/data/projects";
 import { usePageMeta } from "@/hooks/use-page-meta";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const ICON_MAP: Record<string, React.ElementType> = {
   BarChart3, TrendingUp, CreditCard, Sparkles, Shield, Lock,
@@ -77,6 +77,45 @@ export default function WorkCaseStudy() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  // Page-level reading progress
+  const { scrollYProgress: pageProgress } = useScroll();
+  const progressWidth = useTransform(pageProgress, [0, 1], ["0%", "100%"]);
+  const [activeSection, setActiveSection] = useState("Overview");
+
+  const briefRef = useRef<HTMLElement>(null);
+  const visionRef = useRef<HTMLElement>(null);
+  const usersRef = useRef<HTMLElement>(null);
+  const aiRef = useRef<HTMLElement>(null);
+  const capabilitiesRef = useRef<HTMLElement>(null);
+  const galleryRef = useRef<HTMLElement>(null);
+  const outcomesRef = useRef<HTMLElement>(null);
+  const reflectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const threshold = () => window.innerHeight * 0.32;
+    const check = () => {
+      const ordered: { name: string; ref: React.RefObject<HTMLElement | null> }[] = [
+        { name: "Reflection", ref: reflectionRef },
+        { name: "Outcomes", ref: outcomesRef },
+        { name: "Gallery", ref: galleryRef },
+        { name: "Capabilities", ref: capabilitiesRef },
+        { name: "AI Architecture", ref: aiRef },
+        { name: "Built For", ref: usersRef },
+        { name: "Vision", ref: visionRef },
+        { name: "Overview", ref: briefRef },
+      ];
+      for (const s of ordered) {
+        if (s.ref.current && s.ref.current.getBoundingClientRect().top < threshold()) {
+          setActiveSection(s.name);
+          return;
+        }
+      }
+      setActiveSection("Overview");
+    };
+    window.addEventListener("scroll", check, { passive: true });
+    return () => window.removeEventListener("scroll", check);
+  }, []);
+
   usePageMeta({
     title: project?.name ?? "Case Study",
     description: project?.tagline ?? "",
@@ -105,7 +144,27 @@ export default function WorkCaseStudy() {
 
   return (
     <div className="min-h-screen bg-[#090909] selection:bg-white/15 selection:text-white overflow-x-hidden">
-      
+
+      {/* ─── READING PROGRESS BAR ─────────────────────────────── */}
+      <div className="fixed top-[4.5rem] left-0 right-0 z-50 pointer-events-none">
+        <div className="relative h-[2px] w-full bg-white/[0.04]">
+          <motion.div
+            className="absolute inset-y-0 left-0"
+            style={{ width: progressWidth, backgroundColor: project?.accentColor }}
+          />
+        </div>
+        <div className="absolute top-3 right-6 flex items-center gap-2.5">
+          <span className="text-[9px] font-mono tracking-[0.3em] uppercase text-white/30">{activeSection}</span>
+          <div className="w-px h-3 bg-white/10" />
+          <motion.span
+            className="text-[9px] font-mono text-white/20 tabular-nums"
+            style={{ opacity: pageProgress }}
+          >
+            {/* subtle indicator that scroll is active */}
+          </motion.span>
+        </div>
+      </div>
+
       {/* ─── 1. HERO ─────────────────────────────────────────── */}
       <section
         ref={heroRef}
@@ -188,28 +247,27 @@ export default function WorkCaseStudy() {
         </div>
       </section>
 
-      {/* ─── 2. HERO IMAGE FULL BLEED ───────────────────────────── */}
+      {/* ─── 2. COVER IMAGE ───────────────────────────────────── */}
       {project.coverImage && (
-        <section className="relative z-20 w-full mb-32 md:mb-48">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-            className="w-full"
-          >
-            <div
-              className="relative w-full h-[50vh] md:h-[85vh] bg-zinc-900 border-y border-white/10"
-              style={{
-                boxShadow: `0 0 150px -40px ${project.accentColor}30`,
-              }}
+        <section className="relative z-20 w-full px-6 lg:px-12 xl:px-16 mb-20 md:mb-32">
+          <div className="max-w-[120rem] mx-auto">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
             >
-              <img
-                src={project.coverImage}
-                alt={`${project.name} interface`}
-                className="w-full h-full object-cover object-center"
-              />
-            </div>
-          </motion.div>
+              <div
+                className="relative w-full h-[38vh] md:h-[52vh] bg-zinc-900 rounded-2xl overflow-hidden border border-white/[0.08]"
+                style={{ boxShadow: `0 0 100px -30px ${project.accentColor}25` }}
+              >
+                <img
+                  src={project.coverImage}
+                  alt={`${project.name} interface`}
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+            </motion.div>
+          </div>
         </section>
       )}
 
@@ -246,46 +304,47 @@ export default function WorkCaseStudy() {
         </motion.div>
       )}
 
-      {/* ─── 2.5. PROJECT BRIEF ─────────────────────────────────────── */}
-      <motion.div
+      {/* ─── 2.5 + 3. PROJECT BRIEF & OPPORTUNITY (merged two-column) ── */}
+      <motion.section
+        ref={briefRef}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1 }}
-        className="px-6 lg:px-12 xl:px-16 mb-24 md:mb-32"
+        className="px-6 lg:px-12 xl:px-16 mb-24 md:mb-36"
       >
-        <div className="max-w-[120rem] mx-auto">
-          <div className="border-t border-white/[0.07] pt-16 flex flex-col md:flex-row gap-8 md:gap-24">
-            <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/55 flex-shrink-0 mt-1">Project Brief</span>
-            <p className="text-xl md:text-2xl text-white/55 font-light leading-relaxed max-w-4xl">{project.summary}</p>
+        <div className="max-w-[120rem] mx-auto border-t border-white/[0.07] pt-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+            {/* Left — opportunity quote with accent border */}
+            <div>
+              <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/45 block mb-7">The Opportunity</span>
+              <blockquote
+                className="pl-8 md:pl-10"
+                style={{ borderLeft: `2px solid ${project.accentColor}` }}
+              >
+                <p className="text-white/75 font-light leading-[1.6] tracking-tight" style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)" }}>
+                  {project.opportunity}
+                </p>
+              </blockquote>
+            </div>
+
+            {/* Right — brief summary + services */}
+            <div className="flex flex-col justify-between gap-10">
+              <div>
+                <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/45 block mb-7">Project Brief</span>
+                <p className="text-xl text-white/55 font-light leading-relaxed">{project.summary}</p>
+              </div>
+              <div className="border-t border-white/[0.06] pt-6">
+                <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/40 mr-6">Services</span>
+                <span className="text-sm text-white/50 font-light">{project.services.join(" · ")}</span>
+              </div>
+            </div>
           </div>
         </div>
-      </motion.div>
-
-      {/* ─── 3. OPPORTUNITY ──────────────────────────────────────────── */}
-      <div className="px-6 lg:px-12 xl:px-16">
-        <div className="max-w-[120rem] mx-auto">
-          <motion.section
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1 }}
-            className="mb-32 md:mb-48 max-w-5xl"
-          >
-            <div
-              className="border-l-2 pl-8 md:pl-12 mb-0"
-              style={{ borderColor: project.accentColor }}
-            >
-              <p className="text-white/80 font-light leading-[1.6] tracking-tight" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2.25rem)" }}>
-                {project.opportunity}
-              </p>
-            </div>
-          </motion.section>
-        </div>
-      </div>
+      </motion.section>
 
       {/* ─── 4. VISION & PRINCIPLES ───────────────────────────────── */}
-      <section className="mb-32 md:mb-48 relative border-y border-white/[0.06]" style={{ backgroundColor: `${project.accentColor}09` }}>
+      <section ref={visionRef} className="mb-32 md:mb-48 relative border-y border-white/[0.06]" style={{ backgroundColor: `${project.accentColor}09` }}>
         <div className="px-6 lg:px-12 xl:px-16 py-32 md:py-48">
           <div className="max-w-[120rem] mx-auto">
 
@@ -353,6 +412,7 @@ export default function WorkCaseStudy() {
         <div className="px-6 lg:px-12 xl:px-16">
           <div className="max-w-[120rem] mx-auto">
             <motion.section
+              ref={usersRef}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -382,7 +442,7 @@ export default function WorkCaseStudy() {
       )}
 
       {/* ─── 6. AI DEEP DIVE (TECHNICAL & DRAMATIC) ──────────────────────────────────────── */}
-      <section className="mb-32 md:mb-48 relative border-y border-white/10 overflow-hidden bg-black">
+      <section ref={aiRef} className="mb-32 md:mb-48 relative border-y border-white/10 overflow-hidden bg-black">
         <div className="absolute inset-0 grid-pattern opacity-30 mix-blend-overlay pointer-events-none" />
         <div 
           className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] blur-[120px] opacity-10 pointer-events-none"
@@ -529,6 +589,7 @@ export default function WorkCaseStudy() {
 
           {/* ─── 8. CAPABILITIES ──────────────────────────────────────── */}
           <motion.section
+            ref={capabilitiesRef}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -592,7 +653,7 @@ export default function WorkCaseStudy() {
       </div>
 
       {/* ─── 9. GALLERY (EDITORIAL SPREAD) ───────────────────────────────────────────── */}
-      <section className="mb-32 md:mb-48 relative">
+      <section ref={galleryRef} className="mb-32 md:mb-48 relative">
         <div className="w-full flex flex-col gap-12 md:gap-24">
           {displayGallery.length > 0 && (
             <motion.div
@@ -602,13 +663,17 @@ export default function WorkCaseStudy() {
               transition={{ duration: 1 }}
               className="w-full"
             >
-              {/* Item 0: Full bleed, tall */}
-              <div className="w-full h-[60vh] md:h-[90vh] relative bg-zinc-900 overflow-hidden border-y border-white/10 group">
-                <img 
-                  src={displayGallery[0].imagePath!} 
-                  alt={displayGallery[0].label}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000"
-                />
+              {/* Item 0: Contained screenshot, not full-bleed */}
+              <div className="px-6 lg:px-12 xl:px-16 mb-8">
+                <div className="max-w-[120rem] mx-auto">
+                  <div className="w-full h-[40vh] md:h-[56vh] relative bg-zinc-900 overflow-hidden rounded-2xl border border-white/[0.08] group">
+                    <img
+                      src={displayGallery[0].imagePath!}
+                      alt={displayGallery[0].label}
+                      className="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-1000"
+                    />
+                  </div>
+                </div>
               </div>
               <div className="px-6 lg:px-12 xl:px-16 mt-8">
                 <div className="max-w-[120rem] mx-auto border-t border-white/[0.06] pt-6 flex flex-col md:flex-row md:items-start justify-between gap-6">
@@ -698,27 +763,26 @@ export default function WorkCaseStudy() {
       <div className="px-6 lg:px-12 xl:px-16">
         <div className="max-w-[120rem] mx-auto">
           {/* ─── 10. OUTCOMES ────────────────────────────────────────────── */}
-          <section className="mb-0 border-t border-white/10 pt-32">
+          <section ref={outcomesRef} className="mb-0 border-t border-white/10 pt-32">
             <Eyebrow color={project.accentColor}>The Outcomes</Eyebrow>
-            <div className="mt-16">
+            <div className="mt-20 flex flex-col">
               {project.outcomes.map((outcome, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.8, delay: i * 0.08 }}
-                  className="flex gap-10 items-start py-10 border-b border-white/[0.06] group"
+                  transition={{ duration: 0.9, delay: i * 0.07 }}
                 >
-                  <span
-                    className="text-[3.5rem] lg:text-[4.5rem] font-serif leading-none flex-shrink-0 tabular-nums select-none transition-opacity duration-500 group-hover:opacity-40"
-                    style={{ color: `${project.accentColor}28` }}
+                  <p
+                    className="font-serif text-white/80 leading-[1.25] tracking-tight py-10 hover:text-white transition-colors duration-500"
+                    style={{ fontSize: "clamp(1.6rem, 3vw, 2.75rem)" }}
                   >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <p className="text-2xl lg:text-3xl text-white/75 font-light leading-relaxed pt-3 group-hover:text-white/90 transition-colors duration-500">
                     {outcome}
                   </p>
+                  {i < project.outcomes.length - 1 && (
+                    <div className="h-px bg-white/[0.06]" />
+                  )}
                 </motion.div>
               ))}
             </div>
@@ -727,7 +791,7 @@ export default function WorkCaseStudy() {
       </div>
 
       {/* ─── 10b. REFLECTION (FULL WIDTH) ────────────────────────────── */}
-      <section className="my-32 md:my-48 border-y border-white/10 py-32 md:py-48 relative overflow-hidden">
+      <section ref={reflectionRef} className="my-32 md:my-48 border-y border-white/10 py-32 md:py-48 relative overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{ background: `radial-gradient(ellipse 80% 60% at 50% 50%, ${project.accentColor}08 0%, transparent 70%)` }}
