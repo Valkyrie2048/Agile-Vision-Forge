@@ -9,7 +9,7 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "Industries", href: "/industries" },
   { label: "Work", href: "/work" },
-  { label: "Business Simulator", href: "/simulator" },
+  { label: "AI Solutions", href: "/simulator" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
