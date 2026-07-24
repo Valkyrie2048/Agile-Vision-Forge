@@ -7,8 +7,8 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 
 /* Derive a dark gradient from the project's accent color */
 function coverBg(project: Project): string {
-  const tinted = project.accentColorLight.replace(/,[\d.]+\)$/, ",0.18)");
-  return `linear-gradient(135deg, ${tinted}, #060606)`;
+  const tinted = project.accentColorLight.replace(/,[\d.]+\)$/, ",0.32)");
+  return `linear-gradient(145deg, ${tinted} 0%, #111111 55%, #0a0a0a 100%)`;
 }
 
 /* ─── HERO CARD (index 0 — full-width) ────────────────────────────────── */
@@ -28,10 +28,12 @@ function HeroProjectCard({ project, index }: { project: Project; index: number }
       >
         {/* Single unified card — image area on top, meta panel at bottom */}
         <div
-          className="relative overflow-hidden rounded-[2rem] border border-white/[0.06] flex flex-col"
+          className="relative overflow-hidden rounded-[2rem] border border-white/[0.13] flex flex-col"
           style={{
-            background: coverBg(project), /* always gradient — shows in meta panel even when image overlays image area */
-            boxShadow: hovered ? `0 40px 120px -20px ${project.accentColor}40` : "none",
+            background: coverBg(project),
+            boxShadow: hovered
+              ? `0 40px 120px -20px ${project.accentColor}50, 0 0 0 1px ${project.accentColor}20`
+              : `0 8px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04)`,
             transition: "box-shadow 0.7s ease",
           }}
         >
@@ -129,10 +131,12 @@ function SplitProjectCard({
       >
         {/* Single unified card */}
         <div
-          className="rounded-[1.75rem] overflow-hidden border border-white/[0.06] flex flex-col h-full"
+          className="rounded-[1.75rem] overflow-hidden border border-white/[0.13] flex flex-col h-full"
           style={{
-            background: coverBg(project), /* always gradient — shows in meta panel even when image overlays image area */
-            boxShadow: hovered ? `0 24px 80px -12px ${project.accentColor}35` : "none",
+            background: coverBg(project),
+            boxShadow: hovered
+              ? `0 24px 80px -12px ${project.accentColor}45, 0 0 0 1px ${project.accentColor}18`
+              : `0 6px 30px -6px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04)`,
             transition: "box-shadow 0.7s ease",
           }}
         >
@@ -206,10 +210,12 @@ function AccentProjectCard({ project, index }: { project: Project; index: number
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.04 }}
-        className="group cursor-pointer relative overflow-hidden rounded-[2rem] border border-white/[0.06] p-12 lg:p-20 flex flex-col lg:flex-row items-center gap-12"
+        className="group cursor-pointer relative overflow-hidden rounded-[2rem] border border-white/[0.13] p-12 lg:p-20 flex flex-col lg:flex-row items-center gap-12"
         style={{
-          background: `linear-gradient(135deg, ${project.accentColorLight.replace(/,[\d.]+\)$/, ",0.18)")}, #060606)`,
-          boxShadow: hovered ? `0 30px 100px -20px ${project.accentColor}40` : "none",
+          background: `linear-gradient(145deg, ${project.accentColorLight.replace(/,[\d.]+\)$/, ",0.32)")} 0%, #111111 55%, #0a0a0a 100%)`,
+          boxShadow: hovered
+            ? `0 30px 100px -20px ${project.accentColor}50, 0 0 0 1px ${project.accentColor}20`
+            : `0 8px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04)`,
           transition: "box-shadow 0.7s ease",
         }}
         onMouseEnter={() => setHovered(true)}
