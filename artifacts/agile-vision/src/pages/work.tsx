@@ -5,11 +5,24 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { projects, projectCategories, type Project } from "@/data/projects";
 import { usePageMeta } from "@/hooks/use-page-meta";
 
-/* Derive a dark gradient from the project's accent color */
+/**
+ * Parse hsl(H S% L%) and return components with lightness floored to 45%
+ * so even inherently dark accent colours (e.g. 22% L) produce a visible tint.
+ */
+function brightHsl(project: Project): [string, string, string] {
+  const m = project.accentColor.match(/hsl\((\d+)\s+([\d.]+)%\s+([\d.]+)%\)/);
+  if (!m) return ["160", "60", "45"];
+  return [m[1], m[2], String(Math.max(45, parseFloat(m[3])))];
+}
+
+function brightHsla(project: Project, alpha: number): string {
+  const [h, s, l] = brightHsl(project);
+  return `hsla(${h},${s}%,${l}%,${alpha})`;
+}
+
+/** Card background — always colour-rich regardless of how dark the base accent is */
 function coverBg(project: Project): string {
-  const hi = project.accentColorLight.replace(/,[\d.]+\)$/, ",0.55)");
-  const mid = project.accentColorLight.replace(/,[\d.]+\)$/, ",0.22)");
-  return `linear-gradient(145deg, ${hi} 0%, ${mid} 40%, #141414 75%, #0a0a0a 100%)`;
+  return `linear-gradient(145deg, ${brightHsla(project, 0.55)} 0%, ${brightHsla(project, 0.22)} 40%, #141414 75%, #0a0a0a 100%)`;
 }
 
 /* ─── HERO CARD (index 0 — full-width) ────────────────────────────────── */
@@ -40,10 +53,15 @@ function HeroProjectCard({ project, index }: { project: Project; index: number }
         >
           {/* ── Image area ── */}
           <div className="relative w-full overflow-hidden" style={{ aspectRatio: "16/7", flexShrink: 0 }}>
+            {/* Colour overlay — compensates for the large canvas diluting the card gradient */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: `radial-gradient(ellipse at 30% 40%, ${brightHsla(project, 0.42)} 0%, transparent 70%)` }}
+            />
             {/* Faint italic name watermark */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
               <span
-                className="font-serif italic text-white/[0.07] select-none"
+                className="font-serif italic text-white/[0.09] select-none"
                 style={{ fontSize: "clamp(3rem,8vw,8rem)" }}
               >
                 {project.name}
@@ -52,7 +70,7 @@ function HeroProjectCard({ project, index }: { project: Project; index: number }
             {/* Hover radial glow */}
             <div
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-20"
-              style={{ background: `radial-gradient(ellipse at 50% 60%, ${project.accentColor}25, transparent 70%)` }}
+              style={{ background: `radial-gradient(ellipse at 50% 60%, ${brightHsla(project, 0.30)}, transparent 70%)` }}
             />
             {/* Hover arrow button */}
             <div
