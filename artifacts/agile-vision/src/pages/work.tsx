@@ -7,8 +7,9 @@ import { usePageMeta } from "@/hooks/use-page-meta";
 
 /* Derive a dark gradient from the project's accent color */
 function coverBg(project: Project): string {
-  const tinted = project.accentColorLight.replace(/,[\d.]+\)$/, ",0.32)");
-  return `linear-gradient(145deg, ${tinted} 0%, #111111 55%, #0a0a0a 100%)`;
+  const hi = project.accentColorLight.replace(/,[\d.]+\)$/, ",0.55)");
+  const mid = project.accentColorLight.replace(/,[\d.]+\)$/, ",0.22)");
+  return `linear-gradient(145deg, ${hi} 0%, ${mid} 40%, #141414 75%, #0a0a0a 100%)`;
 }
 
 /* ─── HERO CARD (index 0 — full-width) ────────────────────────────────── */
@@ -212,7 +213,7 @@ function AccentProjectCard({ project, index }: { project: Project; index: number
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.04 }}
         className="group cursor-pointer relative overflow-hidden rounded-[2rem] border border-white/[0.13] p-12 lg:p-20 flex flex-col lg:flex-row items-center gap-12"
         style={{
-          background: `linear-gradient(145deg, ${project.accentColorLight.replace(/,[\d.]+\)$/, ",0.32)")} 0%, #111111 55%, #0a0a0a 100%)`,
+          background: coverBg(project),
           boxShadow: hovered
             ? `0 30px 100px -20px ${project.accentColor}50, 0 0 0 1px ${project.accentColor}20`
             : `0 8px 40px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04)`,
