@@ -1,2 +1,3 @@
 - [runtimeErrorOverlay blank-preview bug](runtime-error-overlay.md) — plugin was always-on; must stay inside the dev-only guard or Replit preview goes blank on any unhandled error.
 - [localStorage in sandboxed iframes](localstorage-sandbox.md) — always wrap localStorage calls in try/catch; SecurityError in sandboxed contexts propagates to window.onerror.
+- [pnpm audit override safety](pnpm-audit-overrides.md) — replace generated open-ended audit overrides with explicit compatible patches and normalize overlapping selectors.

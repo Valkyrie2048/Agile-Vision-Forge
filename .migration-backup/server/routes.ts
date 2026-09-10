@@ -30,7 +30,7 @@ export async function registerRoutes(
     try {
       const data = insertProjectSchema.parse(req.body);
       const project = await storage.createProject(data);
-      sendProjectEmail(data).catch(console.error);
+      sendProjectEmail({ ...data, features: data.features ?? [] }).catch(console.error);
       res.json({ success: true, id: project.id });
     } catch (error) {
       if (error instanceof ZodError) {
